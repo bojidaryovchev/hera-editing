@@ -1,0 +1,31 @@
+# dependencies
+node_modules/
+
+# next.js build output (incl. per-suite e2e builds)
+.next/
+.next-*/
+out/
+
+# testing
+coverage/
+playwright-report/
+test-results/
+.test-db/
+
+# env files (only .env.example is committed)
+.env
+.env.*
+!.env.example
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+# local data and generated QA output
+.data/
+qa/screenshots/full/
+qa/lighthouse/*.json
+
+# os / editor
+.DS_Store
+Thumbs.db

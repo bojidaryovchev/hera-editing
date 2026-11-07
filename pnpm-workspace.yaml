@@ -1,0 +1,15 @@
+# Supply-chain guard: only resolve package versions published at least 14 days ago
+# (20160 minutes), including transitive dependencies. Fresh releases are where
+# compromised packages usually surface.
+minimumReleaseAge: 20160
+
+# pnpm 10 blocks dependency install scripts by default. Only these may run them
+# (each reviewed: esbuild/unrs-resolver verify their native binaries; the
+# embedded-postgres platform packages re-create library symlinks).
+onlyBuiltDependencies:
+  - esbuild
+  - unrs-resolver
+  - "@embedded-postgres/windows-x64"
+  - "@embedded-postgres/linux-x64"
+  - "@embedded-postgres/darwin-arm64"
+  - "@embedded-postgres/darwin-x64"
