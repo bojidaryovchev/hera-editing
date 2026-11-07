@@ -29,3 +29,6 @@ qa/lighthouse/*.json
 # os / editor
 .DS_Store
 Thumbs.db
+
+# personal Claude Code settings (e.g. the design workspace as an extra directory)
+.claude/settings.local.json
