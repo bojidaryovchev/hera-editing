@@ -21,7 +21,8 @@ const FORBIDDEN = new Set([0x200b, 0x200c, 0x200d, 0x200e, 0x200f, 0x2028, 0x202
 describe("source hygiene", () => {
   it("contains no invisible or bidi-override characters", () => {
     const offenders: string[] = [];
-    for (const file of walk(path.join(root, "src"))) {
+    const files = ["src", "scripts", "tests"].flatMap((d) => walk(path.join(root, d)));
+    for (const file of files) {
       for (const ch of readFileSync(file, "utf8")) {
         if (FORBIDDEN.has(ch.codePointAt(0)!)) {
           offenders.push(`${path.relative(root, file)} U+${ch.codePointAt(0)!.toString(16)}`);
