@@ -2,10 +2,10 @@ import { describe, expect, it } from "vitest";
 import patterns from "../fixtures/copy-patterns.formal.json";
 import { ABOUT } from "../../src/content/about";
 import { BUSINESS } from "../../src/content/business";
-import { CONTACT, SOURCE_PAGE_NAMES, summaryCount } from "../../src/content/contact";
+import { CONTACT, SOURCE_PAGE_NAMES, checkFields, summaryCount } from "../../src/content/contact";
 import { NOT_FOUND, SERVER_ERROR } from "../../src/content/errors";
 import { FAQ, FAQ_HEADING, FAQ_SETS, faqOutsideCity } from "../../src/content/faq";
-import { GOAL_LABELS, LEAD_FIELD_LABELS, LEAD_FORM_STATUS, VOLUME_LABELS, leadErrorMessage } from "../../src/content/forms";
+import { GOAL_LABELS, LEAD_FIELD_LABELS, LEAD_FORM_STATUS, VOLUME_LABELS, leadErrorMessage, leadErrorShort } from "../../src/content/forms";
 import { HOME } from "../../src/content/home";
 import { MEDIA } from "../../src/content/media";
 import { COOKIES_PAGE, CONSENT_BANNER } from "../../src/content/legal/cookies";
@@ -40,6 +40,8 @@ const ALL = collect([
   SEO, NOT_FOUND_TITLE, SERVICE, SHARED, FOOTER, GATES, NAV, QUOTE_CTA, SHELL, SERVICE_TERMS, VIDEO, VIDEO_PLAYER, WORK,
   summaryCount(1), summaryCount(4), copyrightLine("Hera Editing", 2026), faqOutsideCity("Пловдив"),
   (Object.keys(LEAD_FIELD_LABELS) as LeadField[]).flatMap((f) => errorCodes.map((c) => leadErrorMessage(f, c))),
+  (Object.keys(LEAD_FIELD_LABELS) as LeadField[]).flatMap((f) => errorCodes.map((c) => leadErrorShort(f, c))),
+  checkFields(1), checkFields(3),
 ]);
 const COPY = [...new Set(ALL.filter((s) => /[А-Яа-я]/.test(s)))];
 

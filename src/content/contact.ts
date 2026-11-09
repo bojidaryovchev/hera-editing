@@ -23,6 +23,12 @@ export const CONTACT = {
     summaryHeading: "Запитването не е изпратено",
     successHeading: "Благодарим Ви!",
     successBackHome: "Към началната страница",
+    /** Title bar of the form card: starting a project in the editor. */
+    window: "Нов проект · запитване",
+    optionalHint: "По желание.",
+    sentToast: "Запитването е изпратено.",
+    sendAnother: "Изпратете ново запитване",
+    summaryTitle: "Вашето запитване",
   },
   source: {
     fromPage: "Идвате от страницата",
@@ -38,6 +44,11 @@ export const CONTACT = {
 /** "Проверете 1 поле:" / "Проверете 3 полета:" */
 export function summaryCount(n: number): string {
   return n === 1 ? "Проверете 1 поле:" : `Проверете ${n} полета:`;
+}
+
+/** For the toast after an invalid submit: "Проверете 1 поле." / "Проверете 3 полета." */
+export function checkFields(n: number): string {
+  return n === 1 ? "Проверете 1 поле." : `Проверете ${n} полета.`;
 }
 
 /** Page names for the unobtrusive "from" line (only internal, allow-listed paths). */

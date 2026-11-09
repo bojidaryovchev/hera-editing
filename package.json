@@ -23,9 +23,11 @@
     "db:migrate": "tsx scripts/db-migrate.ts",
     "leads:export": "tsx scripts/leads-export.ts",
     "leads:retry": "tsx scripts/leads-retry.ts",
-    "leads:dsar": "tsx scripts/leads-dsar.ts"
+    "leads:dsar": "tsx scripts/leads-dsar.ts",
+    "db:dev": "tsx scripts/dev-db.ts"
   },
   "dependencies": {
+    "@hookform/resolvers": "6.0.0",
     "drizzle-orm": "0.45.4",
     "gsap": "3.15.0",
     "next": "16.4.3",
@@ -33,6 +35,8 @@
     "pg": "8.23.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
+    "react-hook-form": "7.91.0",
+    "react-hot-toast": "2.6.1",
     "server-only": "0.0.1",
     "zod": "4.6.7"
   },

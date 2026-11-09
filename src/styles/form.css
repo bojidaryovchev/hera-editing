@@ -1,0 +1,362 @@
+/*
+ * The quote request form (LeadForm). Owner rules: labels never wrap, errors never move the form (fixed one-line
+ * message slots, short error forms in narrow fields), the submit button keeps its width while sending.
+ */
+
+.lf__card {
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  color-scheme: light;
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 0 0 1px var(--edline), 0 30px 80px rgba(0, 0, 0, 0.45);
+}
+/* The card is a light surface on the dark page: secondary buttons take the paper style. */
+.lf__card .btn--sec {
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--ink);
+}
+.lf__card :focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.lf__bar {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  padding: 12px clamp(20px, 3vw, 36px);
+  background: var(--paper2);
+  border-bottom: 1px solid var(--rule);
+  font: 500 12px/1 var(--fm);
+  color: var(--ink3);
+}
+.lf__bar span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.lf__bar .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rec);
+  flex: none;
+}
+.lf {
+  padding: clamp(20px, 3vw, 36px);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.lf__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 20px;
+}
+.lf__span {
+  grid-column: 1 / -1;
+}
+.lf__field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  min-width: 0;
+  container-type: inline-size;
+}
+.lf__group {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+  container-type: inline-size;
+}
+.lf__label,
+.lf__legend {
+  padding: 0;
+  font: 600 15px/1.3 var(--fu);
+  color: var(--ink);
+  white-space: nowrap;
+}
+.lf__legend {
+  margin-bottom: 8px;
+}
+.lf__pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0 20px;
+}
+.lf__pair .lf__field {
+  gap: 6px;
+}
+.lf__input {
+  width: 100%;
+  height: 50px;
+  padding: 0 14px;
+  border-radius: 10px;
+  border: 1.5px solid #c9c8c0;
+  background: #ffffff;
+  color: var(--ink);
+  font: 500 16px/1.3 var(--fu);
+  transition: border-color 0.15s ease;
+}
+.lf__input::placeholder {
+  color: #7d8386;
+}
+.lf__input:hover {
+  border-color: #a3a29a;
+}
+.lf__input:focus-visible {
+  border-color: var(--ink);
+}
+.lf__input[aria-invalid="true"] {
+  border-color: var(--color-error);
+}
+.lf__area {
+  height: auto;
+  min-height: 132px;
+  padding: 12px 14px;
+  line-height: 1.5;
+  resize: vertical;
+}
+
+/* One fixed line under every field: the hint, or the error in its place. */
+.lf__msg {
+  margin: 0;
+  height: 20px;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  font: 500 14px/20px var(--fu);
+  color: var(--ink3);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.lf__msg[data-error] {
+  color: var(--color-error);
+}
+.lf__msgtext {
+  min-width: 0;
+  overflow: hidden;
+}
+.lf__msg .m-short {
+  display: none;
+}
+@container (max-width: 479px) {
+  .lf__msg .m-long {
+    display: none;
+  }
+  .lf__msg .m-short {
+    display: inline;
+  }
+}
+.lf__count {
+  flex: none;
+  font: 500 12px/20px var(--fm);
+  color: var(--ink3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* Choices as chips (radio buttons). */
+.lf__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.lf__chip {
+  position: relative;
+  display: inline-flex;
+}
+.lf__chip input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+.lf__chip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 42px;
+  padding: 0 16px;
+  border-radius: 999px;
+  border: 1.5px solid #c9c8c0;
+  background: #ffffff;
+  font: 600 15px/1 var(--fu);
+  color: var(--ink);
+  white-space: nowrap;
+  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+}
+.lf__chip:hover span {
+  border-color: #a3a29a;
+}
+.lf__chip input:checked + span {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #ffffff;
+}
+.lf__chip input:checked + span::before {
+  content: "";
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--lime);
+}
+.lf__chip input:focus-visible + span {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+.lf__group[data-invalid] .lf__chip span {
+  border-color: var(--color-error);
+}
+
+/* Shown only when the page was posted without script (no toasts then). */
+.lf__status {
+  margin: 0 0 6px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fbe9e7;
+  border-left: 4px solid var(--color-error);
+  color: var(--ink);
+  font: 600 15px/1.45 var(--fu);
+}
+
+.lf__hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+.lf__foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 24px;
+  margin-top: 4px;
+  padding-top: 20px;
+  border-top: 1px solid var(--rule);
+}
+.lf__privacy {
+  margin: 0;
+  flex: 1 1 280px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--ink2);
+  max-width: 46ch;
+}
+.lf__privacy a {
+  color: var(--ink);
+  font-weight: 700;
+}
+/* Both labels share one cell, so the button never changes width while sending. */
+.lf__submit {
+  display: grid;
+}
+.lf__submit > span {
+  grid-area: 1 / 1;
+}
+.lf__submit[data-busy="true"] .is-idle,
+.lf__submit[data-busy="false"] .is-busy {
+  visibility: hidden;
+}
+.lf__submit:disabled {
+  cursor: progress;
+  transform: none;
+}
+
+/* Sent: the thank-you, then what was sent; the view moves to the heading. */
+.lf__done {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 18px;
+  padding: clamp(28px, 4vw, 56px);
+}
+.lf__done h2 {
+  margin: 0;
+  font: 800 clamp(40px, 4.4vw, 64px)/0.95 var(--fd);
+  color: var(--ink);
+}
+.lf__done h2:focus {
+  outline: none;
+}
+.lf__done p {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.55;
+  color: var(--ink2);
+  max-width: 48ch;
+}
+.lf__sum {
+  align-self: stretch;
+  border-top: 1px solid var(--rule);
+  padding-top: 18px;
+}
+.lf__sum h3 {
+  margin: 0 0 10px;
+  font: 600 12px/1.2 var(--fm);
+  color: var(--ink3);
+}
+.lf__sum dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 24px;
+}
+.lf__sum dt {
+  font: 500 13px/1.3 var(--fu);
+  color: var(--ink3);
+}
+.lf__sum dd {
+  margin: 2px 0 0;
+  font: 600 16px/1.35 var(--fu);
+  color: var(--ink);
+  overflow-wrap: anywhere;
+}
+@media (max-width: 599px) {
+  .lf__sum dl {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.lf__tick {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: var(--lime);
+  color: var(--ink);
+  display: grid;
+  place-items: center;
+}
+.lf__tick svg {
+  width: 26px;
+  height: 26px;
+}
+
+@media (max-width: 699px) {
+  .lf__grid,
+  .lf__pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lf__foot {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .lf__privacy {
+    flex: none;
+  }
+  .lf__submit {
+    width: 100%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lf__input,
+  .lf__chip span {
+    transition: none;
+  }
+}

@@ -1,0 +1,119 @@
+/* Internal pages: shared frame and breadcrumbs (decisions L8, L16), then the contact page. */
+
+.page {
+  background: radial-gradient(110% 60% at 50% 0%, #151a1e 0%, var(--ed) 55%);
+  padding-top: calc(var(--top) + env(safe-area-inset-top, 0px));
+}
+.crumbs ol {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font: 500 12px/1.4 var(--fm);
+  color: var(--tx3);
+}
+.crumbs li + li::before {
+  content: "/";
+  margin-right: 6px;
+  color: var(--tx3);
+}
+.crumbs a {
+  color: var(--tx2);
+  text-decoration: none;
+}
+.crumbs a:hover {
+  color: var(--tx);
+  text-decoration: underline;
+}
+.crumbs [aria-current="page"] {
+  color: var(--tx);
+}
+
+/* ---------- Contact: one centred column, the form as a "new project" dialog on the editor ground ---------- */
+.contact {
+  padding-top: clamp(28px, 4vw, 64px);
+  padding-bottom: var(--sec);
+}
+.contact__col {
+  max-width: 880px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: clamp(24px, 3vw, 40px);
+}
+.contact__head {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.contact__h1 {
+  margin: 0;
+  font: 800 clamp(44px, 6.2vw, 96px)/0.92 var(--fd);
+  letter-spacing: -0.01em;
+  text-wrap: balance;
+  color: #fff;
+}
+.contact__lead {
+  margin: 0;
+  font-size: clamp(17px, 1.2vw, 20px);
+  line-height: 1.55;
+  color: var(--tx2);
+  max-width: 62ch;
+}
+.contact__src {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0;
+}
+.contact__src span {
+  font: 500 12px/1.2 var(--fm);
+  color: var(--tx2);
+  background: var(--ed3);
+  border: 1px solid var(--edline);
+  border-radius: 999px;
+  padding: 8px 12px;
+}
+.contact__direct {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px 24px;
+  padding: 20px 24px;
+  border: 1px solid var(--edline);
+  border-radius: 14px;
+  background: var(--ed2);
+}
+.contact__direct h2 {
+  margin: 0;
+  font: 600 16px/1.3 var(--fu);
+  color: var(--tx);
+}
+.contact__direct ul {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 28px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.contact__direct li {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.contact__direct li span {
+  font: 500 12px/1 var(--fm);
+  color: var(--tx3);
+}
+.contact__direct a {
+  color: var(--lime);
+  font-weight: 700;
+  text-decoration: none;
+}
+.contact__direct a:hover {
+  text-decoration: underline;
+}

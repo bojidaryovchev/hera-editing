@@ -6,7 +6,13 @@ import { z } from "zod";
  * copy (src/content/forms.ts). Nothing here may import server-only modules.
  */
 
-export const GOALS = ["awareness", "consistency", "enquiries", "other", "unsure"] as const;
+export const GOALS = [
+  "awareness",
+  "consistency",
+  "enquiries",
+  "other",
+  "unsure",
+] as const;
 export type LeadGoal = (typeof GOALS)[number];
 
 export const VOLUMES = ["unsure", "4", "8", "12plus"] as const;
@@ -76,7 +82,8 @@ const INVISIBLE_RANGES: ReadonlyArray<readonly [number, number]> = [
   [0x2066, 0x2069],
   [0xfeff, 0xfeff],
 ];
-const hex = (n: number) => String.fromCharCode(92) + "u" + n.toString(16).padStart(4, "0");
+const hex = (n: number) =>
+  String.fromCharCode(92) + "u" + n.toString(16).padStart(4, "0");
 const STRIP = new RegExp(
   `[${INVISIBLE_RANGES.map(([a, b]) => (a === b ? hex(a) : `${hex(a)}-${hex(b)}`)).join("")}]`,
   "g",
@@ -108,10 +115,13 @@ export function isValidPhone(value: string): boolean {
 
 const EMAIL = z.email();
 export function isValidEmail(value: string): boolean {
-  return value.length <= LEAD_LIMITS.email.max && EMAIL.safeParse(value).success;
+  return (
+    value.length <= LEAD_LIMITS.email.max && EMAIL.safeParse(value).success
+  );
 }
 
-const DANGEROUS_SCHEME = /^\s*(javascript|data|vbscript|file|blob|about|chrome|ms-[a-z-]+)\s*:/i;
+const DANGEROUS_SCHEME =
+  /^\s*(javascript|data|vbscript|file|blob|about|chrome|ms-[a-z-]+)\s*:/i;
 const ANY_URL_SCHEME = /^[a-z][a-z0-9+.-]*:\/\//i;
 
 /**
@@ -167,7 +177,8 @@ const toOptionalText = (v: unknown) => {
   const s = normalizeMultiline(v);
   return s === "" ? null : s;
 };
-const emptyToUndefined = (v: unknown) => (v === "" || v === null ? undefined : v);
+const emptyToUndefined = (v: unknown) =>
+  v === "" || v === null ? undefined : v;
 
 const requiredLine = (min: number, max: number) =>
   z.preprocess(
@@ -180,36 +191,91 @@ const requiredLine = (min: number, max: number) =>
   );
 
 const optionalLine = (max: number) =>
-  z.preprocess(toOptionalLine, z.string({ error: "invalid_request" }).max(max, { error: "too_long" }).nullable());
+  z.preprocess(
+    toOptionalLine,
+    z
+      .string({ error: "invalid_request" })
+      .max(max, { error: "too_long" })
+      .nullable(),
+  );
 
-export const leadSubmissionSchema = z
-  .object({
-    name: requiredLine(LEAD_LIMITS.name.min, LEAD_LIMITS.name.max),
-    businessName: requiredLine(LEAD_LIMITS.businessName.min, LEAD_LIMITS.businessName.max),
-    city: requiredLine(LEAD_LIMITS.city.min, LEAD_LIMITS.city.max),
-    email: optionalLine(LEAD_LIMITS.email.max).refine((v) => v === null || isValidEmail(v), {
+/** The fields a person fills in. The browser form validates exactly these rules (React Hook Form + zodResolver). */
+const formFields = {
+  name: requiredLine(LEAD_LIMITS.name.min, LEAD_LIMITS.name.max),
+  businessName: requiredLine(
+    LEAD_LIMITS.businessName.min,
+    LEAD_LIMITS.businessName.max,
+  ),
+  city: requiredLine(LEAD_LIMITS.city.min, LEAD_LIMITS.city.max),
+  email: optionalLine(LEAD_LIMITS.email.max).refine(
+    (v) => v === null || isValidEmail(v),
+    {
       error: "invalid_email",
-    }),
-    phone: optionalLine(LEAD_LIMITS.phone.max).refine((v) => v === null || isValidPhone(v), {
+    },
+  ),
+  phone: optionalLine(LEAD_LIMITS.phone.max).refine(
+    (v) => v === null || isValidPhone(v),
+    {
       error: "invalid_phone",
-    }),
-    profileUrl: optionalLine(LEAD_LIMITS.profileUrl.max).refine((v) => v === null || isValidProfile(v), {
+    },
+  ),
+  profileUrl: optionalLine(LEAD_LIMITS.profileUrl.max).refine(
+    (v) => v === null || isValidProfile(v),
+    {
       error: "invalid_profile",
+    },
+  ),
+  goal: z.preprocess(
+    emptyToUndefined,
+    z.enum(GOALS, {
+      error: (issue) =>
+        issue.input === undefined ? "required" : "invalid_choice",
     }),
-    goal: z.preprocess(
-      emptyToUndefined,
-      z.enum(GOALS, {
-        error: (issue) => (issue.input === undefined ? "required" : "invalid_choice"),
-      }),
-    ),
-    volume: z.preprocess(
-      (v) => (v === "" || v === undefined ? null : v),
-      z.enum(VOLUMES, { error: "invalid_choice" }).nullable(),
-    ),
-    message: z.preprocess(
-      toOptionalText,
-      z.string({ error: "invalid_request" }).max(LEAD_LIMITS.message.max, { error: "too_long" }).nullable(),
-    ),
+  ),
+  volume: z.preprocess(
+    (v) => (v === "" || v === undefined ? null : v),
+    z.enum(VOLUMES, { error: "invalid_choice" }).nullable(),
+  ),
+  message: z.preprocess(
+    toOptionalText,
+    z
+      .string({ error: "invalid_request" })
+      .max(LEAD_LIMITS.message.max, { error: "too_long" })
+      .nullable(),
+  ),
+};
+
+/**
+ * At least one way to reach the person, reported on both fields. It runs even when other fields are invalid
+ * (`when`), so a visitor sees every problem in one go: Zod otherwise skips refinements after other issues.
+ */
+const hasContact = (lead: { email?: unknown; phone?: unknown }) =>
+  Boolean(lead.email) || Boolean(lead.phone);
+const always = () => true;
+
+function requireContact<
+  T extends z.ZodType<{ email: string | null; phone: string | null }>,
+>(schema: T): T {
+  return schema
+    .refine(hasContact, {
+      path: ["email"],
+      error: "contact_required",
+      when: always,
+    })
+    .refine(hasContact, {
+      path: ["phone"],
+      error: "contact_required",
+      when: always,
+    }) as T;
+}
+
+/** What the visitor types, as validated in the browser. Same field rules as the server. */
+export const leadFormSchema = requireContact(z.object(formFields));
+
+/** The full submission the server accepts: the form fields plus consent, source, idempotency and locale. */
+export const leadSubmissionSchema = requireContact(
+  z.object({
+    ...formFields,
     privacyNoticeAcknowledged: z.preprocess(
       (v) => v === true || v === "true" || v === "on",
       z.literal(true, { error: "privacy_required" }),
@@ -217,7 +283,8 @@ export const leadSubmissionSchema = z
     sourcePath: z.preprocess(normalizeSourcePath, z.string().nullable()),
     utm: z.preprocess(
       (v) => {
-        const o = v && typeof v === "object" ? (v as Record<string, unknown>) : {};
+        const o =
+          v && typeof v === "object" ? (v as Record<string, unknown>) : {};
         return {
           source: normalizeUtmValue(o.source),
           medium: normalizeUtmValue(o.medium),
@@ -238,19 +305,13 @@ export const leadSubmissionSchema = z
       (v) => (v === "" || v === undefined ? null : v),
       z.literal("bg", { error: "unsupported_locale" }).nullable(),
     ),
-  })
-  .superRefine((lead, ctx) => {
-    if (!lead.email && !lead.phone) {
-      ctx.addIssue({ code: "custom", path: ["email"], message: "contact_required" });
-      ctx.addIssue({ code: "custom", path: ["phone"], message: "contact_required" });
-    }
-  });
+  }),
+);
 
 export type LeadInput = z.output<typeof leadSubmissionSchema>;
 
 export type LeadValidation =
-  | { ok: true; data: LeadInput }
-  | { ok: false; errors: LeadFieldErrors };
+  { ok: true; data: LeadInput } | { ok: false; errors: LeadFieldErrors };
 
 /** Validate a raw submission (JSON body or form values). First error per field wins. */
 export function validateLead(raw: unknown): LeadValidation {
@@ -279,5 +340,7 @@ const CODES = new Set<LeadErrorCode>([
 ]);
 
 function toCode(message: string): LeadErrorCode {
-  return CODES.has(message as LeadErrorCode) ? (message as LeadErrorCode) : "invalid_request";
+  return CODES.has(message as LeadErrorCode)
+    ? (message as LeadErrorCode)
+    : "invalid_request";
 }

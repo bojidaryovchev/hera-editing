@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "../styles/shell.css";
 @import "../styles/home.css";
+@import "../styles/pages.css";
+@import "../styles/form.css";
 
 /* Design tokens (direction A, decisions 1 and 12). Tailwind utilities read these; component CSS uses the aliases below. */
 @theme {
@@ -24,6 +26,7 @@
   --color-rec: #ff5a47;
   --color-focus: #2055d6;
   --color-warn: #f2c14e;
+  --color-error: #b3261e;
   --font-sans: var(--ff-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-display: var(--ff-display), "Arial Narrow", sans-serif;
   --font-mono: var(--ff-mono), ui-monospace, Consolas, monospace;

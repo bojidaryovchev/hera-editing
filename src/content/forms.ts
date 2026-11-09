@@ -69,3 +69,24 @@ export function leadErrorMessage(field: LeadField, code: LeadErrorCode): string 
       return LEAD_FORM_STATUS.invalidRequest;
   }
 }
+
+/**
+ * One-line versions for narrow fields (no examples), so an error never wraps and moves the form (owner rule: no
+ * layout shift). Wide fields show the full message above.
+ */
+export function leadErrorShort(field: LeadField, code: LeadErrorCode): string {
+  switch (code) {
+    case "invalid_email":
+      return "Въведете валиден имейл адрес.";
+    case "invalid_phone":
+      return "Въведете валиден телефонен номер.";
+    case "contact_required":
+      return "Посочете имейл или телефон.";
+    case "invalid_profile":
+      return "Въведете адрес на сайт или профил.";
+    case "too_long":
+      return "Текстът е твърде дълъг.";
+    default:
+      return leadErrorMessage(field, code);
+  }
+}

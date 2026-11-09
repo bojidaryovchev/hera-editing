@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Sofia_Sans, Sofia_Sans_Extra_Condensed } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { AppToaster } from "@/components/site/AppToaster";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { StagingBadge, showStagingBar } from "@/components/site/StagingBadge";
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <SiteHeader />
         {children}
         <SiteFooter />
+        <AppToaster />
       </body>
     </html>
   );
