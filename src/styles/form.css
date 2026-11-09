@@ -85,7 +85,8 @@
 .lf__pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 0 20px;
+  gap: 16px 20px;
+  margin-bottom: 8px;
 }
 .lf__pair .lf__field {
   gap: 6px;
@@ -197,13 +198,6 @@
   background: var(--ink);
   border-color: var(--ink);
   color: #ffffff;
-}
-.lf__chip input:checked + span::before {
-  content: "";
-  width: 8px;
-  height: 8px;
-  border-radius: 50%;
-  background: var(--lime);
 }
 .lf__chip input:focus-visible + span {
   outline: 2px solid var(--color-focus);

@@ -206,10 +206,19 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
 
   const field = (
     name: Exclude<LeadFormField, "goal" | "volume" | "message">,
-    opts: { type?: string; autoComplete?: string; inputMode?: "email" | "tel" | "url" | "text"; optional?: boolean; max: number; describedBy?: string },
+    opts: {
+      type?: string;
+      autoComplete?: string;
+      inputMode?: "email" | "tel" | "url" | "text";
+      optional?: boolean;
+      max: number;
+      /** Fields in a group share the group's one message line instead of their own. */
+      inGroup?: string;
+    },
   ) => {
     const id = `lf-${name}`;
     const code = name === "email" || name === "phone" ? (contactMissing ? undefined : err(name)) : err(name);
+    const msgId = opts.inGroup ?? `${id}-msg`;
     return (
       <div className="lf__field">
         <label className="lf__label" htmlFor={id}>
@@ -225,14 +234,17 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
           spellCheck={name === "profileUrl" ? false : undefined}
           autoCapitalize={name === "profileUrl" || name === "email" ? "none" : undefined}
           aria-invalid={code || (contactMissing && (name === "email" || name === "phone")) ? true : undefined}
-          aria-describedby={[`${id}-msg`, opts.describedBy].filter(Boolean).join(" ")}
+          aria-describedby={msgId}
           defaultValue={initial[name]}
           {...register(name, name === "email" ? { deps: ["phone"] } : name === "phone" ? { deps: ["email"] } : undefined)}
         />
-        <Slot id={`${id}-msg`} field={name} code={code} hint={opts.optional ? CONTACT.form.optionalHint : undefined} />
+        {!opts.inGroup && <Slot id={msgId} field={name} code={code} hint={opts.optional ? CONTACT.form.optionalHint : undefined} />}
       </div>
     );
   };
+  // The contact pair has one message line: "reach us somehow" first, then a bad email, then a bad phone.
+  const contactField: LeadFormField = contactMissing || err("email") ? "email" : "phone";
+  const contactCode = contactMissing ? "contact_required" : (err("email") ?? err("phone"));
 
   const chips = (name: "goal" | "volume", values: readonly string[], labels: Record<string, string>, hint?: string) => {
     const id = `lf-${name}`;
@@ -276,10 +288,10 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
           <fieldset className="lf__group lf__span" aria-describedby="lf-contact-msg">
             <legend className="lf__legend">{CONTACT.form.contactLegend}</legend>
             <div className="lf__pair">
-              {field("email", { type: "email", autoComplete: "email", inputMode: "email", max: LEAD_LIMITS.email.max, describedBy: "lf-contact-msg" })}
-              {field("phone", { type: "tel", autoComplete: "tel", inputMode: "tel", max: LEAD_LIMITS.phone.max, describedBy: "lf-contact-msg" })}
+              {field("email", { type: "email", autoComplete: "email", inputMode: "email", max: LEAD_LIMITS.email.max, inGroup: "lf-contact-msg" })}
+              {field("phone", { type: "tel", autoComplete: "tel", inputMode: "tel", max: LEAD_LIMITS.phone.max, inGroup: "lf-contact-msg" })}
             </div>
-            <Slot id="lf-contact-msg" field="email" code={contactMissing ? "contact_required" : undefined} hint={CONTACT.form.contactHint} />
+            <Slot id="lf-contact-msg" field={contactField} code={contactCode} hint={CONTACT.form.contactHint} />
           </fieldset>
 
           {chips("goal", GOALS, GOAL_LABELS)}
