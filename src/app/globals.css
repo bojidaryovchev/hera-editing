@@ -1,1 +1,129 @@
 @import "tailwindcss";
+@import "../styles/shell.css";
+@import "../styles/home.css";
+
+/* Design tokens (direction A, decisions 1 and 12). Tailwind utilities read these; component CSS uses the aliases below. */
+@theme {
+  --color-ed: #0c0e10;
+  --color-ed-2: #13161a;
+  --color-ed-3: #1a1e22;
+  --color-ed-4: #23292e;
+  --color-ed-line: #2b3137;
+  --color-tx: #edede7;
+  --color-tx-2: #a6acb0;
+  --color-tx-3: #80878b;
+  --color-paper: #f2f1ec;
+  --color-paper-2: #e6e5de;
+  --color-ink: #101315;
+  --color-ink-2: #41484c;
+  --color-ink-3: #5c6366;
+  --color-rule: #d3d2ca;
+  --color-lime: #d9f568;
+  --color-lime-hover: #e6fb86;
+  --color-teal: #5cc8be;
+  --color-rec: #ff5a47;
+  --color-focus: #2055d6;
+  --color-warn: #f2c14e;
+  --font-sans: var(--ff-sans), system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-display: var(--ff-display), "Arial Narrow", sans-serif;
+  --font-mono: var(--ff-mono), ui-monospace, Consolas, monospace;
+}
+
+:root {
+  --ed: var(--color-ed);
+  --ed2: var(--color-ed-2);
+  --ed3: var(--color-ed-3);
+  --ed4: var(--color-ed-4);
+  --edline: var(--color-ed-line);
+  --tx: var(--color-tx);
+  --tx2: var(--color-tx-2);
+  --tx3: var(--color-tx-3);
+  --paper: var(--color-paper);
+  --paper2: var(--color-paper-2);
+  --ink: var(--color-ink);
+  --ink2: var(--color-ink-2);
+  --ink3: var(--color-ink-3);
+  --rule: var(--color-rule);
+  --lime: var(--color-lime);
+  --teal: var(--color-teal);
+  --rec: var(--color-rec);
+  --fd: var(--font-display);
+  --fu: var(--font-sans);
+  --fm: var(--font-mono);
+  --g: clamp(16px, 3.4vw, 56px);
+  --max: 1840px;
+  --hdr: 64px;
+  /* Height of the staging bar above the header (0 in production); offsets use --top. */
+  --bar: 0px;
+  --top: calc(var(--hdr) + var(--bar));
+  --sec: clamp(80px, 9vw, 160px);
+  --tlh: 183px;
+  color-scheme: dark;
+}
+
+html.has-bar {
+  --bar: 26px;
+}
+
+/* Never a sideways scrollbar (decision 8); the layout itself must not overflow either, this is only a net. */
+html,
+body {
+  overflow-x: clip;
+}
+body {
+  margin: 0;
+  background: var(--ed);
+  color: var(--tx);
+  font-family: var(--fu);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0 0 auto;
+  height: env(safe-area-inset-top, 0px);
+  z-index: 60;
+  background: var(--ed);
+}
+a {
+  color: inherit;
+}
+:focus-visible {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+.paper :focus-visible {
+  outline-color: var(--color-focus);
+}
+/* Content column: side gutters, never wider than --max, centred. Percentages, not vw, so a scrollbar never adds width. */
+.wrap {
+  padding-left: max(var(--g), env(safe-area-inset-left, 0px), calc((100% - var(--max)) / 2));
+  padding-right: max(var(--g), env(safe-area-inset-right, 0px), calc((100% - var(--max)) / 2));
+}
+.sr-only-x {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.skip {
+  position: fixed;
+  left: 12px;
+  top: 12px;
+  z-index: 100;
+  transform: translateY(-200%);
+  background: var(--lime);
+  color: var(--ink);
+  font: 700 15px/1 var(--fu);
+  padding: 12px 16px;
+  border-radius: 8px;
+  text-decoration: none;
+}
+.skip:focus {
+  transform: none;
+}
+

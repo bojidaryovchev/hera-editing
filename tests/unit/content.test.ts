@@ -7,6 +7,7 @@ import { NOT_FOUND, SERVER_ERROR } from "../../src/content/errors";
 import { FAQ, FAQ_HEADING, FAQ_SETS, faqOutsideCity } from "../../src/content/faq";
 import { GOAL_LABELS, LEAD_FIELD_LABELS, LEAD_FORM_STATUS, VOLUME_LABELS, leadErrorMessage } from "../../src/content/forms";
 import { HOME } from "../../src/content/home";
+import { MEDIA } from "../../src/content/media";
 import { COOKIES_PAGE, CONSENT_BANNER } from "../../src/content/legal/cookies";
 import { PRIVACY_PAGE } from "../../src/content/legal/privacy";
 import { PACKAGES } from "../../src/content/packages";
@@ -34,7 +35,7 @@ const errorCodes: LeadErrorCode[] = [
 ];
 
 const ALL = collect([
-  ABOUT, CONTACT, SOURCE_PAGE_NAMES, NOT_FOUND, SERVER_ERROR, FAQ, FAQ_HEADING, GOAL_LABELS, LEAD_FIELD_LABELS,
+  ABOUT, CONTACT, SOURCE_PAGE_NAMES, MEDIA, NOT_FOUND, SERVER_ERROR, FAQ, FAQ_HEADING, GOAL_LABELS, LEAD_FIELD_LABELS,
   LEAD_FORM_STATUS, VOLUME_LABELS, HOME, COOKIES_PAGE, CONSENT_BANNER, PRIVACY_PAGE, PACKAGES, FIXTURE_PROJECTS,
   SEO, NOT_FOUND_TITLE, SERVICE, SHARED, FOOTER, GATES, NAV, QUOTE_CTA, SHELL, SERVICE_TERMS, VIDEO, VIDEO_PLAYER, WORK,
   summaryCount(1), summaryCount(4), copyrightLine("Hera Editing", 2026), faqOutsideCity("Пловдив"),

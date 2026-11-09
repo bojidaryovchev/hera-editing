@@ -8,10 +8,49 @@ export const HOME = {
     subtitle:
       "Измисляме съдържанието, идваме да снимаме, монтираме видеата и управляваме публикациите Ви във Facebook, Instagram и TikTok. Всичко по ясен план и с Вашето одобрение.",
     secondaryCta: "Вижте как работим",
-    /** Truthful service statements instead of client logos or numbers (CPY:20). */
+    /** Truthful service statements instead of client logos or numbers (CPY:20). Not shown on the A homepage (L23). */
     proof: ["Стратегия", "Заснемане", "Монтаж", "Публикуване", "Отчет"],
     proofLabel: "Какво включва услугата",
     visualLabel: "Видове кратки вертикални видеа",
+    /** Direction A (decision 1): one video passes through six stages as the visitor scrolls. Lead copy. */
+    stages: [
+      { name: "Суров материал", note: "Снимаме при Вас: продуктите, процеса и хората." },
+      { name: "Монтаж", note: "Режем материала на кратки кадри и подреждаме историята." },
+      { name: "Цветове", note: "Изравняваме светлината и цветовете на кадрите." },
+      { name: "Субтитри", note: "Добавяме надписи, за да се разбира и без звук." },
+      { name: "Формат 9:16", note: "Кадрираме видеото вертикално за Reels и TikTok." },
+      { name: "Одобрение и публикуване", note: "Публикуваме след Вашето одобрение, в платформите, избрани заедно." },
+    ],
+    editor: {
+      monitorLabel: "Пример как едно видео минава през снимане, монтаж, надписи и публикуване",
+      inspectorLabel: "Етапи на видеото",
+      statusLabel: "Статус",
+      statusWorking: "В работа",
+      statusApproved: "Одобрено от Вас",
+      chipPending: "Чака одобрение",
+      chipApproved: "Одобрено",
+      chipPublished: "Публикувано",
+      sequence: "Последователност 01 · Вашият бизнес",
+      export: "Експорт",
+      rawClip: "Суров материал · кадри 1–6",
+      clip: "Кадър",
+      titleClip: "Надпис",
+      titleClipShort: "Н",
+      safeArea: "Безопасна зона за надписи",
+      before: "Преди",
+      after: "След",
+      wide: "16:9 · 1920×1080",
+      tall: "9:16 · 1080×1920",
+    },
+    /** Shown beside the vertical frame on wide screens. */
+    panes: {
+      formatLead: "Един материал.",
+      formatRest: "Всеки формат.",
+      platformsLabel: "Платформи и формати",
+      formatNote: "Платформите избираме заедно според това къде са клиентите Ви.",
+      publishLead: "Одобрено.",
+      publishRest: "Публикувано.",
+    },
   },
   problem: {
     heading: "Добрата работа не винаги се вижда онлайн.",
@@ -21,6 +60,8 @@ export const HOME = {
   process: {
     id: "kak-rabotim",
     heading: "Един екип. Целият процес.",
+    note: "Шест етапа, като клипове на една обща линия. Ние и Вие знаем кой какво прави.",
+    stepLabel: "Етап",
     we: "Ние",
     you: "Вие",
     steps: [
@@ -41,6 +82,10 @@ export const HOME = {
   formats: {
     heading: "Какво може да снимаме при Вас",
     lead: "Кратки вертикални видеа, заснети във Вашия обект. Всяко започва с идея от месечния план и стига до публикуване само след Вашето одобрение.",
+    /** Length from the service model (product/01 SVC:7, "typically 15–60 seconds"). */
+    tag: "9:16 · 0:15–0:60",
+    /** Sixth tile (decision L23): formats follow the client's own ideas too. */
+    idea: { name: "Вашата идея", text: "Имате идея за видео? Обсъждаме я при планирането на месеца.", tag: "9:16 · по Ваша идея" },
   },
   platforms: {
     heading: "Платформите, които имат смисъл за Вас",
@@ -49,6 +94,9 @@ export const HOME = {
   packages: {
     heading: "Колко съдържание Ви е нужно?",
     link: "Сравнете пакетите",
+  },
+  faq: {
+    more: "Повече за услугата",
   },
   why: {
     heading: "Защо този подход работи",
@@ -59,5 +107,12 @@ export const HOME = {
       { title: "Нищо без Вашето одобрение", text: "Одобрявате плана, сценариите и готовите видеа, преди да бъдат публикувани." },
       { title: "Ясен месечен отчет", text: "Всеки месец получавате данните от платформите и предложения за следващия месец." },
     ],
+  },
+  /** The final call to action closes the film: the edit renders, then plays. */
+  final: {
+    ready: "Готово за експорт",
+    exporting: "Експорт",
+    done: "Готово",
+    caption: "Вашият бизнес · 9:16 · 1080×1920",
   },
 } as const;
