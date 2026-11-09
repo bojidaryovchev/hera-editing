@@ -32,7 +32,7 @@ const all = <T extends Element = HTMLElement>(root: ParentNode, sel: string) => 
 /** Stage texts and marks for the inspector (wide) and the stage label and note (narrow). */
 function stageView(main: HTMLElement) {
   const lis = all(main, ".insp li");
-  const progs = all(main, "[data-mprog] i");
+  const progs = all(main, "[data-mlist] li");
   const set = (sel: string, text: string) => all(main, sel).forEach((el) => (el.textContent = text));
   return (st: number, finished: boolean) => {
     const stage = STAGES[st];
@@ -182,6 +182,9 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
   const panePub = one(main, "[data-pane='pub']");
   const mStage = one(main, ".m-stage");
   const mNote = one(main, "[data-mnote]");
+  const mList = one(main, "[data-mlist]");
+  const hdr = document.querySelector<HTMLElement>(".hdr");
+  const headerBottom = () => hdr?.getBoundingClientRect().bottom ?? 0;
   const tlEl = one(main, ".tl");
   const pinwrap = one(main, "[data-pinwrap]");
   const fmt = one(main, "[data-format]");
@@ -305,7 +308,8 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
         defaults: { ease: "none" },
         scrollTrigger: {
           trigger: desk ? hero : pinwrap,
-          start: "top top",
+          // Narrow screens pin the edit block just under the fixed header, so no empty band is reserved above it.
+          start: desk ? "top top" : () => `top top+=${headerBottom()}`,
           end: `+=${desk ? 320 : 260}%`,
           pin: true,
           scrub: 0.6,
@@ -355,13 +359,14 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
           0.7,
         )
         .to(mon, { borderRadius: 26, duration: 0.12 }, 0.7)
+        .to(mList, desk ? { duration: 0.12 } : { height: 0, marginTop: 0, autoAlpha: 0, duration: 0.12, ease: "power2.inOut" }, 0.7)
         .to(".safe", { opacity: 0, duration: 0.03 }, 0.86);
       if (desk) {
         tl.fromTo(paneFmt, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.04 }, 0.76)
           .to(paneFmt, { autoAlpha: 0, x: -12, duration: 0.025 }, 0.855)
           .fromTo(panePub, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.04 }, 0.875);
       }
-      return () => gsap.set([viewer, mon, video, card, paneFmt, panePub], { clearProps: "all" });
+      return () => gsap.set([viewer, mon, video, card, paneFmt, panePub, mList], { clearProps: "all" });
     });
 
     // Problem: words take colour as the visitor reads.
@@ -372,35 +377,69 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
       scrollTrigger: { trigger: ".problem__h", start: "top 80%", end: "bottom 45%", scrub: true },
     });
 
-    // Process: the clips slide under a fixed playhead (wide); cards light up in turn (narrow).
+    // Problem: a playhead sweeps the twelve weeks and the planned posts appear behind it, one a week.
+    const rClips = all(main, "[data-rclip]");
+    const rt = gsap.timeline({
+      defaults: { ease: "none" },
+      scrollTrigger: { trigger: "[data-problem]", start: "top 70%", end: "bottom 75%", scrub: 0.4 },
+    });
+    rt.to("[data-rph]", { left: "100%", duration: 1 }, 0);
+    rClips.forEach((c2, i) => rt.to(c2, { opacity: 1, scaleY: 1, duration: 0.05, ease: "power2.out" }, (i + 0.5) / 12 - 0.03));
+
+    // Process (wide): a playhead travels from the start of the first clip to the end of the last. Like an editor
+    // timeline, the view follows once the playhead reaches the middle, so the story starts at clip 1 and ends at clip 6.
     const clips = all(main, ".pclip");
     const thumb = (c2: HTMLElement) => one(c2, ".pclip__thumb i");
     m.add("(min-width: 900px)", () => {
       const track = one(main, "[data-track]");
-      const dist = () => {
+      const vp = track.parentElement ?? main;
+      const ph = one(main, ".proc__ph");
+      const geo = { p0: 0, p1: 0, max: 0, mid: 0 };
+      const measure = () => {
+        const first = clips[0];
         const last = clips[clips.length - 1];
-        return last ? last.offsetLeft + last.offsetWidth / 2 - (track.parentElement?.clientWidth ?? window.innerWidth) / 2 : 0;
+        if (!first || !last) return;
+        geo.p0 = first.offsetLeft;
+        geo.p1 = last.offsetLeft + last.offsetWidth;
+        geo.max = Math.max(0, geo.p1 + parseFloat(getComputedStyle(track).paddingRight) - vp.clientWidth);
+        geo.mid = vp.clientWidth / 2;
       };
-      gsap.to(track, {
-        x: () => -dist(),
+      const state = { p: 0 };
+      const apply = () => {
+        const P = geo.p0 + (geo.p1 - geo.p0) * state.p;
+        const shift = gsap.utils.clamp(0, geo.max, P - geo.mid);
+        gsap.set(track, { x: -shift });
+        ph.style.left = `${P - shift}px`;
+        clips.forEach((c2) => {
+          const l = c2.offsetLeft;
+          const r = l + c2.offsetWidth;
+          c2.classList.toggle("on", P >= l && P <= r);
+          thumb(c2).style.width = `${gsap.utils.clamp(0, 1, (P - l) / (r - l)) * 100}%`;
+        });
+      };
+      measure();
+      apply();
+      gsap.to(state, {
+        p: 1,
         ease: "none",
+        onUpdate: apply,
         scrollTrigger: {
           trigger: "[data-proc]",
           start: "top top",
-          end: () => `+=${dist()}`,
+          end: () => {
+            measure();
+            return `+=${geo.p1 - geo.p0}`;
+          },
           pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
-          onUpdate: () => {
-            const mid = window.innerWidth / 2;
-            clips.forEach((c2) => {
-              const r = c2.getBoundingClientRect();
-              c2.classList.toggle("on", r.left <= mid && r.right >= mid);
-              thumb(c2).style.width = `${gsap.utils.clamp(0, 1, (mid - r.left) / r.width) * 100}%`;
-            });
-          },
+          onRefresh: apply,
         },
       });
+      return () => {
+        gsap.set(track, { clearProps: "x" });
+        ph.style.left = "";
+      };
     });
     m.add("(max-width: 899px)", () => {
       clips.forEach((c2) =>

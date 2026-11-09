@@ -12,21 +12,64 @@ import { quoteHref, route } from "@/lib/site/nav";
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
-/** Problem (IA:27). The headline's words take colour as the visitor reads (HomeMotion). */
+const WEEKS = Array.from({ length: 12 }, (_, i) => i + 1);
+/** Week positions (0–12) of the irregular posts in the "without a plan" lane: clusters and long gaps. */
+const IRREGULAR = [0.3, 0.75, 1.55, 5.35, 6.5, 10.25, 10.7];
+const pct = (week: number) => `${((week / 12) * 100).toFixed(3)}%`;
+
+/**
+ * Problem (IA:27). Headline left; beside it an example of posting without and with a monthly plan, then the text
+ * (decision L24: balanced columns). The headline's words take colour and the plan's clips appear as you read.
+ */
 export function Problem() {
   const words = HOME.problem.heading.split(" ");
+  const r = HOME.problem.rhythm;
   return (
-    <section className="paper problem wrap" aria-labelledby="problem-h">
-      <h2 className="problem__h" id="problem-h">
-        {words.map((w, i) => (
-          <Fragment key={i}>
-            <span className="w">{w}</span>
-            {i < words.length - 1 ? " " : ""}
-          </Fragment>
-        ))}
-      </h2>
-      <div className="problem__body">
-        <p>{HOME.problem.body}</p>
+    <section className="paper problem wrap" aria-labelledby="problem-h" data-problem>
+      <div className="problem__grid">
+        <h2 className="problem__h" id="problem-h">
+          {words.map((w, i) => (
+            <Fragment key={i}>
+              <span className="w">{w}</span>
+              {i < words.length - 1 ? " " : ""}
+            </Fragment>
+          ))}
+        </h2>
+        <figure className="rhythm" role="img" aria-label={r.label}>
+          <figcaption className="rhythm__top" aria-hidden="true">
+            {r.title}
+          </figcaption>
+          <div className="rhythm__body" aria-hidden="true">
+            <div className="rhythm__labels">
+              <span />
+              <span>{r.without}</span>
+              <span>{r.with}</span>
+            </div>
+            <div className="rhythm__lanes">
+              <div className="rhythm__ruler">
+                {WEEKS.map((w) => (
+                  <span key={w} style={{ left: pct(w - 0.5) }}>
+                    {w}
+                  </span>
+                ))}
+              </div>
+              <div className="rhythm__lane">
+                {IRREGULAR.map((x) => (
+                  <i key={x} style={{ ["--x" as string]: pct(x) }} />
+                ))}
+              </div>
+              <div className="rhythm__lane rhythm__lane--plan">
+                {WEEKS.map((w) => (
+                  <i key={w} data-rclip style={{ ["--x" as string]: pct(w - 0.5) }} />
+                ))}
+              </div>
+              <div className="rhythm__ph" data-rph>
+                <b />
+              </div>
+            </div>
+          </div>
+        </figure>
+        <p className="problem__p">{HOME.problem.body}</p>
       </div>
     </section>
   );
@@ -175,36 +218,40 @@ export function Packages() {
   );
 }
 
-/** FAQ (IA:35): the home set (L3), native details/summary, several may be open (L12). */
+/**
+ * FAQ (IA:35): the home set (L3), native details/summary, several may be open (L12). Heading row like the other
+ * sections, questions in two independent columns (opening one never moves the other column).
+ */
 export function HomeFaq() {
+  const items = FAQ_SETS.home.map((id) => FAQ[id]).filter((x): x is NonNullable<typeof x> => Boolean(x));
+  const half = Math.ceil(items.length / 2);
+  const columns = [items.slice(0, half), items.slice(half)];
   return (
     <section className="paper faq wrap" aria-labelledby="faq-h">
-      <div className="faq__grid">
-        <div className="faq__head">
-          <h2 className="h2" id="faq-h">
-            {FAQ_HEADING}
-          </h2>
-          <Link className="link" href={route("/upravlenie-na-sotsialni-mrezhi")}>
-            {HOME.faq.more}
-            <ArrowRight />
-          </Link>
-        </div>
-        <div className="faq__list">
-          {FAQ_SETS.home.map((id, i) => {
-            const item = FAQ[id];
-            if (!item) return null;
-            return (
-              <details key={id}>
+      <div className="faq__head">
+        <h2 className="h2" id="faq-h">
+          {FAQ_HEADING}
+        </h2>
+        <Link className="link" href={route("/upravlenie-na-sotsialni-mrezhi")}>
+          {HOME.faq.more}
+          <ArrowRight />
+        </Link>
+      </div>
+      <div className="faq__cols">
+        {columns.map((col, c) => (
+          <div key={c} className="faq__list">
+            {col.map((item, i) => (
+              <details key={item.id}>
                 <summary>
-                  <b aria-hidden="true">{pad2(i + 1)}</b>
+                  <b aria-hidden="true">{pad2(c * half + i + 1)}</b>
                   {item.q}
                   <i aria-hidden="true" />
                 </summary>
                 <p className="faq__a">{item.a}</p>
               </details>
-            );
-          })}
-        </div>
+            ))}
+          </div>
+        ))}
       </div>
     </section>
   );

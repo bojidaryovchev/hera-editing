@@ -48,11 +48,6 @@ export function Hero() {
               <span data-mstage>{s[0].name}</span>
               <small data-mstep>01 / 06</small>
             </div>
-            <div className="m-prog" data-mprog>
-              {s.map((st, i) => (
-                <i key={st.name} className={i === 0 ? "on" : undefined} />
-              ))}
-            </div>
           </div>
 
           <div className="viewer" data-viewer>
@@ -91,9 +86,21 @@ export function Hero() {
             </figure>
           </div>
 
-          <p className="m-note" data-mnote>
-            {s[0].note}
-          </p>
+          {/* Narrow screens: the note, then the six stages (the inspector of wide screens); the list folds away when the frame turns vertical. */}
+          <div className="m-info">
+            <p className="m-note" data-mnote>
+              {s[0].note}
+            </p>
+            <ol className="m-list" data-mlist aria-label={e.inspectorLabel}>
+              {s.map((st, i) => (
+                <li key={st.name} className={i === 0 ? "on" : undefined}>
+                  <b aria-hidden="true">{pad2(i + 1)}</b>
+                  <span>{st.name}</span>
+                  <i aria-hidden="true" />
+                </li>
+              ))}
+            </ol>
+          </div>
 
           <div className="side" data-side>
             <div className="side__pane" data-pane="fmt">
