@@ -4,6 +4,7 @@
 @import "../styles/pages.css";
 @import "../styles/form.css";
 @import "../styles/content-pages.css";
+@import "../styles/service-pages.css";
 
 /* Design tokens (direction A, decisions 1 and 12). Tailwind utilities read these; component CSS uses the aliases below. */
 @theme {

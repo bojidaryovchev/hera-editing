@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { PageCta } from "@/components/site/PageCta";
 import { PageHero } from "@/components/site/PageHero";
 import { ABOUT } from "@/content/about";
 import { BUSINESS } from "@/content/business";
@@ -71,19 +72,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="ab-cta wrap" aria-labelledby="ab-cta-h">
-        <div className="ab-cta__in">
-          <h2 className="h2" id="ab-cta-h">
-            {a.contact.heading}
-          </h2>
-          <p>{a.contact.text}</p>
-          <div className="actions">
-            <Link className="btn btn--pri" href={quoteHref("/za-nas")}>
-              {QUOTE_CTA}
-            </Link>
-          </div>
-        </div>
-      </section>
+      <PageCta id="ab-cta-h" heading={a.contact.heading} body={a.contact.text} action={{ href: quoteHref("/za-nas"), label: QUOTE_CTA }} />
     </main>
   );
 }

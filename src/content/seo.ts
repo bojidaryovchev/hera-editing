@@ -1,7 +1,8 @@
 /**
- * Page titles and descriptions. Titles for the six main pages are the spec's
- * (CPY:61-68, rendered as "<title> | {Brand}"); the rest and every description are
- * lead copy (G12), 130–160 characters, no guarantees and no invented geography.
+ * Page titles and descriptions, rendered as "<title> | {Brand}". Titles for the six main pages are the spec's
+ * (CPY:61-68), except home, service and packages, which follow the measured searches (research/05) and were
+ * approved by the owner on 2026-11-16 (decision L26). Descriptions are lead copy (G12): 120–165 characters, no
+ * guarantees and no invented geography.
  */
 export type PageSeo = { title: string; description: string };
 
@@ -10,14 +11,14 @@ export const SEO: Record<
   PageSeo
 > = {
   home: {
-    title: "Управление на социални мрежи и видеосъдържание",
+    title: "Поддръжка на социални мрежи и видео за бизнеса",
     description:
-      "Измисляме, снимаме, монтираме и публикуваме кратки видеа за бизнеса Ви във Facebook, Instagram и TikTok – по ясен месечен план и с Вашето одобрение.",
+      "Поддръжка на социални мрежи с оригинални видеа: измисляме, снимаме, монтираме и публикуваме за бизнеса Ви по месечен план и с Вашето одобрение.",
   },
   service: {
-    title: "Цялостно управление на социални мрежи за бизнеси",
+    title: "Поддръжка на фейсбук страница и социални мрежи за бизнеса",
     description:
-      "Цялостно управление на социални мрежи: стратегия, месечен календар, заснемане на място, монтаж, публикуване след Вашето одобрение и месечен отчет.",
+      "Поддръжка на фейсбук страница, Instagram и TikTok: месечен план, заснемане на място, монтаж, публикуване след Вашето одобрение и месечен отчет.",
   },
   video: {
     title: "Видеозаснемане и съдържание за социални мрежи",
@@ -25,9 +26,9 @@ export const SEO: Record<
       "Посещаваме обекта Ви и превръщаме един снимачен ден в поредица от кратки вертикални видеа за социалните мрежи на бизнеса. Част от месечната услуга.",
   },
   packages: {
-    title: "Пакети за управление на социални мрежи",
+    title: "Пакети за поддръжка на социални мрежи: от какво зависи цената",
     description:
-      "Три примерни нива на сътрудничество: Старт, Растеж и Индивидуално. Вижте какво включва всяко и от какво зависи цената. Цената е по индивидуална оферта.",
+      "Колко струва поддръжката на социални мрежи? Вижте трите примерни нива – Старт, Растеж и Индивидуално – и от какво зависи цената на офертата.",
   },
   about: {
     title: "За нас",

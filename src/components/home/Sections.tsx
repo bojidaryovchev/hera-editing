@@ -2,7 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { Fragment } from "react";
 import { ArrowRight, Check, PauseIcon, PlayIcon, Plus } from "@/components/icons";
-import { FAQ, FAQ_HEADING, FAQ_SETS } from "@/content/faq";
+import { FaqSection } from "@/components/site/FaqSection";
+import { FAQ_SETS } from "@/content/faq";
 import { HOME } from "@/content/home";
 import { MEDIA } from "@/content/media";
 import { FINAL_CTA, FORMATS, PRICE_LABEL, TIERS, TIER_COMMON_INCLUSIONS, VOLUME_NOTE } from "@/content/shared";
@@ -218,43 +219,9 @@ export function Packages() {
   );
 }
 
-/**
- * FAQ (IA:35): the home set (L3), native details/summary, several may be open (L12). Heading row like the other
- * sections, questions in two independent columns (opening one never moves the other column).
- */
+/** FAQ (IA:35): the home set (L3), with a link on to the service page. */
 export function HomeFaq() {
-  const items = FAQ_SETS.home.map((id) => FAQ[id]).filter((x): x is NonNullable<typeof x> => Boolean(x));
-  const half = Math.ceil(items.length / 2);
-  const columns = [items.slice(0, half), items.slice(half)];
-  return (
-    <section className="paper faq wrap" aria-labelledby="faq-h">
-      <div className="faq__head">
-        <h2 className="h2" id="faq-h">
-          {FAQ_HEADING}
-        </h2>
-        <Link className="link" href={route("/upravlenie-na-sotsialni-mrezhi")}>
-          {HOME.faq.more}
-          <ArrowRight />
-        </Link>
-      </div>
-      <div className="faq__cols">
-        {columns.map((col, c) => (
-          <div key={c} className="faq__list">
-            {col.map((item, i) => (
-              <details key={item.id}>
-                <summary>
-                  <b aria-hidden="true">{pad2(c * half + i + 1)}</b>
-                  {item.q}
-                  <i aria-hidden="true" />
-                </summary>
-                <p className="faq__a">{item.a}</p>
-              </details>
-            ))}
-          </div>
-        ))}
-      </div>
-    </section>
-  );
+  return <FaqSection ids={FAQ_SETS.home} more={{ href: route("/upravlenie-na-sotsialni-mrezhi"), label: HOME.faq.more }} />;
 }
 
 /** Final CTA (IA:36). The edit from the hero renders as the section arrives, then plays. */

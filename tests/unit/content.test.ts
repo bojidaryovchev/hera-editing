@@ -103,13 +103,25 @@ describe("page metadata", () => {
     }
   });
 
-  it("keeps the spec's own titles for the six main pages (CPY:62-67)", () => {
-    expect(SEO.home.title).toBe("Управление на социални мрежи и видеосъдържание");
-    expect(SEO.service.title).toBe("Цялостно управление на социални мрежи за бизнеси");
+  it("keeps the approved titles: the spec's (CPY:62-67), home, service and packages as the owner approved (L26)", () => {
+    expect(SEO.home.title).toBe("Поддръжка на социални мрежи и видео за бизнеса");
+    expect(SEO.service.title).toBe("Поддръжка на фейсбук страница и социални мрежи за бизнеса");
     expect(SEO.video.title).toBe("Видеозаснемане и съдържание за социални мрежи");
-    expect(SEO.packages.title).toBe("Пакети за управление на социални мрежи");
+    expect(SEO.packages.title).toBe("Пакети за поддръжка на социални мрежи: от какво зависи цената");
     expect(SEO.about.title).toBe("За нас");
     expect(SEO.contact.title).toBe("Поискайте оферта за социални мрежи");
+  });
+});
+
+describe("search phrases (research/05)", () => {
+  it("puts the measured service phrase in the service title, description and one heading, in Cyrillic", () => {
+    for (const t of [SEO.service.title, SEO.service.description, SERVICE.included.heading]) expect(t.toLowerCase()).toContain("фейсбук страница");
+    expect(SERVICE.included.answer.toLowerCase()).toContain("поддръжката на фейсбук страница");
+  });
+
+  it("answers the price question up front on the packages page", () => {
+    expect(SEO.packages.title).toContain("цената");
+    expect(PACKAGES.price.answer).toContain("поддръжката на социални мрежи");
   });
 });
 

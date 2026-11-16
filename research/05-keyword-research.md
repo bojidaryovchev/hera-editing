@@ -2,8 +2,8 @@
 
 This file closes the open research item from `handoff/02` §B and §C.2: "Actual Bulgarian SEO monthly volumes/CPC/keyword
 difficulty; no measured data obtained." It replaces the qualitative intent map in `research/02` §"SEO: intent map"
-with measured demand. Nothing in the frozen v1.0 scope changes. The page-title changes proposed at the end need the
-owner's approval, because the titles of the six main pages are spec copy (CPY:61-68, locked by a test).
+with measured demand. Nothing in the frozen v1.0 scope changes. The page-title changes proposed at the end replace
+spec copy (CPY:61-68); the owner approved them on 2026-11-16 and they are applied (decision L26, locked by a test).
 
 ## Method
 
@@ -123,7 +123,7 @@ why") are the ones it quotes.
 
 Keep the spec's URLs. A slug carries little ranking weight, and changing routes is a v1.1 decision (handoff/02 §E).
 
-### Proposed titles (need the owner's approval: they replace spec copy)
+### Titles (approved by the owner on 2026-11-16, applied)
 
 | Page | Spec title (current) | Proposed title |
 |---|---|---|

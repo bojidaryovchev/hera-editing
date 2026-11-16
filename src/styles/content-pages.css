@@ -406,27 +406,6 @@ body::after {
     grid-template-columns: minmax(0, 1fr);
   }
 }
-.ab-cta {
-  padding-top: var(--sec);
-  padding-bottom: var(--sec);
-  border-top: 1px solid var(--edline);
-}
-.ab-cta__in {
-  max-width: 760px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 20px;
-}
-.ab-cta__in p {
-  margin: 0;
-  font-size: clamp(18px, 1.4vw, 22px);
-  color: var(--tx2);
-  max-width: 46ch;
-}
-
 /* ---------- 404 and errors: a timeline with one clip missing ---------- */
 .nf {
   max-width: 880px;
