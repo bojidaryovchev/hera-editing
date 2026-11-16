@@ -2,13 +2,13 @@
 
 import { Toaster } from "react-hot-toast";
 
-/** Notifications (react-hot-toast), styled as editor panels. Bottom centre, clear of the iPhone home indicator. */
+/** Notifications (react-hot-toast), styled as editor panels. Bottom centre, clear of the iPhone home indicator and above the cookie banner while it is open (--cb-h). */
 export function AppToaster() {
   return (
     <Toaster
       position="bottom-center"
       gutter={10}
-      containerStyle={{ bottom: "max(20px, env(safe-area-inset-bottom))", left: 16, right: 16 }}
+      containerStyle={{ bottom: "calc(max(20px, env(safe-area-inset-bottom)) + var(--cb-h, 0px))", left: 16, right: 16 }}
       toastOptions={{
         duration: 6000,
         className: "toast",

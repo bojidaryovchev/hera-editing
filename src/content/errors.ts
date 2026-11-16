@@ -4,6 +4,8 @@ export const NOT_FOUND = {
   text: "Възможно е адресът да е сгрешен или страницата да е преместена.",
   homeLink: "Към началната страница",
   linksHeading: "Може да Ви е полезно",
+  /** The missing clip on the timeline (decorative). */
+  visualLabel: "Липсващ кадър",
   links: [
     { label: "Управление на социални мрежи", href: "/upravlenie-na-sotsialni-mrezhi" },
     { label: "Пакети", href: "/paketi" },

@@ -3,6 +3,7 @@
 @import "../styles/home.css";
 @import "../styles/pages.css";
 @import "../styles/form.css";
+@import "../styles/content-pages.css";
 
 /* Design tokens (direction A, decisions 1 and 12). Tailwind utilities read these; component CSS uses the aliases below. */
 @theme {
@@ -72,6 +73,11 @@ html.has-bar {
 html,
 body {
   overflow-x: clip;
+}
+/* Focus and anchor jumps stop below the fixed header and above the cookie banner while it is open (WCAG 2.4.11). */
+html {
+  scroll-padding-top: calc(var(--top) + 12px);
+  scroll-padding-bottom: var(--cb-h, 0px);
 }
 body {
   margin: 0;

@@ -71,4 +71,5 @@ export const PRIVACY_PAGE = {
     },
   ],
   cookiesLink: "Бисквитки и настройки",
+  versionLabel: "Версия",
 } as const;

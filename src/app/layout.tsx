@@ -2,12 +2,15 @@ import type { Metadata, Viewport } from "next";
 import { IBM_Plex_Mono, Sofia_Sans, Sofia_Sans_Extra_Condensed } from "next/font/google";
 import type { ReactNode } from "react";
 import "./globals.css";
+import { ConsentBanner } from "@/components/consent/ConsentBanner";
+import { ConsentProvider } from "@/components/consent/ConsentProvider";
 import { AppToaster } from "@/components/site/AppToaster";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { StagingBadge, showStagingBar } from "@/components/site/StagingBadge";
 import { SEO } from "@/content/seo";
 import { SHELL } from "@/content/site";
+import { getServerEnv } from "@/lib/config/env";
 import { brandName } from "@/lib/site/brand";
 
 // Self-hosted at build time by next/font (DS:22); Sofia Sans has Bulgarian letterforms by default.
@@ -26,6 +29,15 @@ export const viewport: Viewport = {
   viewportFit: "cover",
 };
 
+/** Analytics exists only when configured AND approved (env); otherwise there is nothing to consent to. */
+function analyticsId(): string | null {
+  try {
+    return getServerEnv().analytics?.measurementId ?? null;
+  } catch {
+    return null;
+  }
+}
+
 /** Before the first paint: may the page move? Decides between the raw edit (motion) and the finished one. */
 const MOTION_FLAG = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("motion")}catch(e){}`;
 
@@ -36,14 +48,17 @@ export default function RootLayout({ children }: { children: ReactNode }) {
         <script dangerouslySetInnerHTML={{ __html: MOTION_FLAG }} />
       </head>
       <body>
-        <a className="skip" href="#main">
-          {SHELL.skipLink}
-        </a>
-        <StagingBadge />
-        <SiteHeader />
-        {children}
-        <SiteFooter />
-        <AppToaster />
+        <ConsentProvider analyticsId={analyticsId()}>
+          <a className="skip" href="#main">
+            {SHELL.skipLink}
+          </a>
+          <ConsentBanner />
+          <StagingBadge />
+          <SiteHeader />
+          {children}
+          <SiteFooter />
+          <AppToaster />
+        </ConsentProvider>
       </body>
     </html>
   );
