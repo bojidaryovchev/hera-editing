@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from "@/lib/validation/zod";
 
 /**
  * The quote-request contract, shared by the browser form and the server so both

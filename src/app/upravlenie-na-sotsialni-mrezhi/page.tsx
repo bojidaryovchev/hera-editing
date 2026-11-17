@@ -5,15 +5,15 @@ import { FaqSection } from "@/components/site/FaqSection";
 import { PageCta } from "@/components/site/PageCta";
 import { PageHero } from "@/components/site/PageHero";
 import { FAQ_SETS } from "@/content/faq";
-import { SEO } from "@/content/seo";
 import { SERVICE } from "@/content/service";
 import { FINAL_CTA, FORMATS, PLATFORMS, QUOTE_DRIVERS, TIERS, VOLUME_NOTE } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";
 import { quoteHref, route } from "@/lib/site/nav";
+import { pageMetadata } from "@/lib/site/metadata";
 
 const PATH = "/upravlenie-na-sotsialni-mrezhi";
 
-export const metadata: Metadata = { title: SEO.service.title, description: SEO.service.description };
+export const metadata: Metadata = pageMetadata("service");
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
@@ -26,7 +26,7 @@ export default function ServicePage() {
   return (
     <main id="main" className="page" data-page="service">
       <div className="wrap">
-        <PageHero crumb={s.breadcrumb} eyebrow={s.hero.eyebrow} title={s.hero.title} lead={s.hero.lead} aside={<Inclusions />}>
+        <PageHero crumb={s.breadcrumb} path={PATH} eyebrow={s.hero.eyebrow} title={s.hero.title} lead={s.hero.lead} aside={<Inclusions />}>
           <Link className="btn btn--pri" href={quoteHref(PATH)}>
             {QUOTE_CTA}
           </Link>

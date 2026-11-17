@@ -2,29 +2,28 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { HomeMotion } from "@/components/home/HomeMotion";
 import { FinalCta, Formats, HomeFaq, Packages, Problem, Process } from "@/components/home/Sections";
-import { assertMediaAllowed } from "@/content/media";
-import { SEO } from "@/content/seo";
+import { JsonLd } from "@/components/site/JsonLd";
+import { footage } from "@/content/media";
 import { resolveAppEnv } from "@/lib/config/env";
-import { brandName } from "@/lib/site/brand";
+import { pageMetadata } from "@/lib/site/metadata";
+import { homeGraph } from "@/lib/site/structured-data";
 
-export const metadata: Metadata = {
-  title: { absolute: `${SEO.home.title} | ${brandName()}` },
-  description: SEO.home.description,
-};
+export const metadata: Metadata = pageMetadata("home");
 
 /** Homepage, direction A "Таймлайн" (decision 1, composition L23). */
 export default function HomePage() {
-  // Stock placeholder footage never reaches production (L22).
-  assertMediaAllowed(resolveAppEnv(process.env));
+  // Stock placeholder footage never reaches production (L22): there the pages draw designed frames instead.
+  const media = footage(resolveAppEnv(process.env));
   return (
     <main id="main" data-page="home">
-      <Hero />
+      <JsonLd data={homeGraph()} />
+      <Hero media={media} />
       <Problem />
       <Process />
-      <Formats />
+      <Formats media={media} />
       <Packages />
       <HomeFaq />
-      <FinalCta />
+      <FinalCta media={media} />
       <HomeMotion />
     </main>
   );

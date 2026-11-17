@@ -226,6 +226,10 @@
   overflow: hidden;
 }
 
+/* Cloudflare Turnstile (only when configured): invisible unless Cloudflare asks for an interaction. */
+.lf__human iframe {
+  margin-top: 18px;
+}
 .lf__foot {
   display: flex;
   flex-wrap: wrap;

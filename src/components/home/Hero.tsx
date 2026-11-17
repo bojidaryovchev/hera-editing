@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { HOME } from "@/content/home";
-import { MEDIA } from "@/content/media";
+import { Scene } from "@/components/home/Scene";
+import type { SiteMedia } from "@/content/media";
 import { PLATFORMS } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";
 import { quoteHref } from "@/lib/site/nav";
@@ -16,8 +17,10 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
 /**
  * The hero is the editing workspace (direction A): a monitor, an inspector with the six stages, and a timeline.
  * Rendered complete on the server; HomeMotion lets the scroll drive the playhead when motion is allowed.
+ * Without footage (production until the agency's own exists) the monitor shows the designed frame; the grade wipe
+ * then reveals the same frame in colour.
  */
-export function Hero() {
+export function Hero({ media }: { media: SiteMedia | null }) {
   const h = HOME.hero;
   const e = h.editor;
   const s = h.stages;
@@ -52,10 +55,21 @@ export function Hero() {
 
           <div className="viewer" data-viewer>
             <figure className="mon" aria-label={e.monitorLabel}>
-              <video data-scrub muted playsInline preload="metadata" poster={MEDIA.hero.wide.poster} aria-hidden="true" tabIndex={-1}>
-                <source src={MEDIA.hero.wide.video} type="video/mp4" />
-              </video>
-              <canvas className="mon__grade" aria-hidden="true" data-grade />
+              {media ? (
+                <>
+                  <video data-scrub muted playsInline preload="metadata" poster={media.hero.wide.poster} aria-hidden="true" tabIndex={-1}>
+                    <source src={media.hero.wide.video} type="video/mp4" />
+                  </video>
+                  <canvas className="mon__grade" aria-hidden="true" data-grade />
+                </>
+              ) : (
+                <>
+                  <Scene className="mon__scene" />
+                  <div className="mon__grade" aria-hidden="true">
+                    <Scene />
+                  </div>
+                </>
+              )}
               <i className="mon__split" aria-hidden="true" data-split>
                 <span>{e.before}</span>
                 <span>{e.after}</span>
@@ -76,10 +90,10 @@ export function Hero() {
                 <span aria-hidden="true" data-format>
                   {e.wide}
                 </span>
-                {MEDIA.label && (
+                {media?.label && (
                   <>
                     <i className="mon__brk" aria-hidden="true" />
-                    <span className="stock">{MEDIA.label}</span>
+                    <span className="stock">{media.label}</span>
                   </>
                 )}
               </p>

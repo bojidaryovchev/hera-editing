@@ -5,15 +5,15 @@ import { OneVideo } from "@/components/site/OneVideo";
 import { PageCta } from "@/components/site/PageCta";
 import { PageHero } from "@/components/site/PageHero";
 import { HOME } from "@/content/home";
-import { SEO } from "@/content/seo";
 import { FORMATS } from "@/content/shared";
 import { VIDEO } from "@/content/video";
 import { quoteHref, route } from "@/lib/site/nav";
+import { pageMetadata } from "@/lib/site/metadata";
 
 const PATH = "/video-sadarzhanie-za-biznes";
 const SERVICE_PATH = route("/upravlenie-na-sotsialni-mrezhi");
 
-export const metadata: Metadata = { title: SEO.video.title, description: SEO.video.description };
+export const metadata: Metadata = pageMetadata("video");
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
@@ -27,7 +27,7 @@ export default function VideoPage() {
   return (
     <main id="main" className="page" data-page="video">
       <div className="wrap">
-        <PageHero crumb={v.breadcrumb} eyebrow={v.hero.eyebrow} title={v.hero.title} lead={v.hero.lead} aside={<Viewfinder />} media>
+        <PageHero crumb={v.breadcrumb} path={PATH} eyebrow={v.hero.eyebrow} title={v.hero.title} lead={v.hero.lead} aside={<Viewfinder />} media>
           <Link className="btn btn--pri" href={quoteHref(PATH)}>
             {v.hero.cta}
           </Link>

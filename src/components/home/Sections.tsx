@@ -5,7 +5,8 @@ import { ArrowRight, Check, PauseIcon, PlayIcon, Plus } from "@/components/icons
 import { FaqSection } from "@/components/site/FaqSection";
 import { FAQ_SETS } from "@/content/faq";
 import { HOME } from "@/content/home";
-import { MEDIA } from "@/content/media";
+import { Scene, type SceneTone } from "@/components/home/Scene";
+import type { SiteMedia } from "@/content/media";
 import { FINAL_CTA, FORMATS, PRICE_LABEL, TIERS, TIER_COMMON_INCLUSIONS, VOLUME_NOTE } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";
 import { VIDEO_PLAYER } from "@/content/work";
@@ -36,10 +37,11 @@ export function Problem() {
             </Fragment>
           ))}
         </h2>
-        <figure className="rhythm" role="img" aria-label={r.label}>
-          <figcaption className="rhythm__top" aria-hidden="true">
+        {/* One image to assistive technology (role="img" with its label); a figure may not take that role. */}
+        <div className="rhythm" role="img" aria-label={r.label}>
+          <p className="rhythm__top" aria-hidden="true">
             {r.title}
-          </figcaption>
+          </p>
           <div className="rhythm__body" aria-hidden="true">
             <div className="rhythm__labels">
               <span />
@@ -69,7 +71,7 @@ export function Problem() {
               </div>
             </div>
           </div>
-        </figure>
+        </div>
         <p className="problem__p">{HOME.problem.body}</p>
       </div>
     </section>
@@ -127,8 +129,14 @@ function PlayButton({ name, attr }: { name: string; attr: string }) {
   );
 }
 
-/** Formats (IA:31): the media bin. One clip plays at a time, always with a play/pause control (DS:33). */
-export function Formats() {
+/** A different light for each format's frame when there is no footage. */
+const TONES: readonly SceneTone[] = ["a", "b", "c", "d", "e"];
+
+/**
+ * Formats (IA:31): the media bin. One clip plays at a time, always with a play/pause control (DS:33). Without
+ * footage each format gets a designed frame and there is nothing to play.
+ */
+export function Formats({ media }: { media: SiteMedia | null }) {
   const f = HOME.formats;
   return (
     <section className="bin wrap" aria-labelledby="bin-h">
@@ -139,15 +147,21 @@ export function Formats() {
         <p>{f.lead}</p>
       </div>
       <ul className="bin__grid">
-        {FORMATS.map((fm) => (
-          <li key={fm.id} className="bin__item" data-bin data-name={fm.name}>
+        {FORMATS.map((fm, i) => (
+          <li key={fm.id} className="bin__item" data-bin={media ? "" : undefined} data-name={fm.name}>
             <div className="bin__media">
-              <Image src={MEDIA.formats[fm.id].poster} alt="" fill sizes="(max-width: 599px) 50vw, (max-width: 1099px) 33vw, 300px" />
-              <video muted loop playsInline preload="none" data-src={MEDIA.formats[fm.id].video} aria-hidden="true" tabIndex={-1} />
+              {media ? (
+                <>
+                  <Image src={media.formats[fm.id].poster} alt="" fill sizes="(max-width: 599px) 50vw, (max-width: 1099px) 33vw, 300px" />
+                  <video muted loop playsInline preload="none" data-src={media.formats[fm.id].video} aria-hidden="true" tabIndex={-1} />
+                </>
+              ) : (
+                <Scene tone={TONES[i % TONES.length]} focus={false} />
+              )}
               <span className="bin__tag" aria-hidden="true">
                 {f.tag}
               </span>
-              <PlayButton name={fm.name} attr="data-vbtn" />
+              {media && <PlayButton name={fm.name} attr="data-vbtn" />}
             </div>
             <h3>{fm.name}</h3>
             <p>{fm.text}</p>
@@ -164,7 +178,7 @@ export function Formats() {
           <p>{f.idea.text}</p>
         </li>
       </ul>
-      {MEDIA.note && <p className="bin__stock">{MEDIA.note}</p>}
+      {media?.note && <p className="bin__stock">{media.note}</p>}
     </section>
   );
 }
@@ -224,8 +238,8 @@ export function HomeFaq() {
   return <FaqSection ids={FAQ_SETS.home} more={{ href: route("/upravlenie-na-sotsialni-mrezhi"), label: HOME.faq.more }} />;
 }
 
-/** Final CTA (IA:36). The edit from the hero renders as the section arrives, then plays. */
-export function FinalCta() {
+/** Final CTA (IA:36). The edit from the hero renders as the section arrives, then plays (when there is footage). */
+export function FinalCta({ media }: { media: SiteMedia | null }) {
   const f = HOME.final;
   return (
     <section className="final" id="oferta" aria-labelledby="final-h">
@@ -247,9 +261,18 @@ export function FinalCta() {
         </div>
         <figure className="final__pv">
           <div className="pv" data-pv>
-            <Image className="pv__grey" src={MEDIA.hero.tall.poster} alt="" fill sizes="(max-width: 1520px) 25vw, 380px" />
-            <Image className="pv__done" src={MEDIA.hero.tall.poster} alt="" fill sizes="(max-width: 1520px) 25vw, 380px" />
-            <video muted loop playsInline preload="none" data-src={MEDIA.hero.tall.video} aria-hidden="true" tabIndex={-1} />
+            {media ? (
+              <>
+                <Image className="pv__grey" src={media.hero.tall.poster} alt="" fill sizes="(max-width: 1520px) 25vw, 380px" />
+                <Image className="pv__done" src={media.hero.tall.poster} alt="" fill sizes="(max-width: 1520px) 25vw, 380px" />
+                <video muted loop playsInline preload="none" data-src={media.hero.tall.video} aria-hidden="true" tabIndex={-1} />
+              </>
+            ) : (
+              <>
+                <Scene className="pv__grey" />
+                <Scene className="pv__done" />
+              </>
+            )}
             <i className="pv__line" aria-hidden="true" />
             <p className="pv__hud" aria-hidden="true">
               <span>
@@ -258,8 +281,8 @@ export function FinalCta() {
               </span>
               <span data-pct>100%</span>
             </p>
-            {MEDIA.label && <p className="stock">{MEDIA.label}</p>}
-            <PlayButton name={f.caption} attr="data-pvbtn" />
+            {media?.label && <p className="stock">{media.label}</p>}
+            {media && <PlayButton name={f.caption} attr="data-pvbtn" />}
           </div>
           <figcaption>{f.caption}</figcaption>
         </figure>

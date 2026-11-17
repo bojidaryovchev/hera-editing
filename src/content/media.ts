@@ -2,9 +2,9 @@ import type { AppEnv } from "@/lib/config/env";
 
 /**
  * Footage for the motion pages. Until the agency supplies its own footage (owner launch input, decision L22),
- * the site runs on labelled stock from Mixkit (Stock Video Free License, every clip checked; credits in
- * public/placeholder-media/README.md). Stock is never shown in production: `assertMediaAllowed` fails the
- * production build while any set is still a placeholder.
+ * development and previews run on labelled stock from Mixkit (Stock Video Free License, every clip checked; credits
+ * in public/placeholder-media/README.md). Stock is never shown in production: there `footage()` answers null and
+ * the pages draw a designed camera frame instead (acceptance D: an honest designed poster, never fake footage).
  */
 export type MediaKind = "placeholder" | "owner";
 export type FormatId = "process" | "bts" | "product" | "tips" | "team";
@@ -39,14 +39,18 @@ export const MEDIA: SiteMedia = {
   },
 };
 
-export class PlaceholderMediaError extends Error {
-  constructor() {
-    super("Placeholder stock footage cannot be used in production. Add the agency's own footage to MEDIA (src/content/media.ts).");
-    this.name = "PlaceholderMediaError";
-  }
+/** Every footage and poster URL, so the security policy can allow a CDN host the moment footage moves to one. */
+export function mediaUrls(media: SiteMedia = MEDIA): string[] {
+  const clips = [media.hero.wide, media.hero.tall, ...Object.values(media.formats)];
+  return clips.flatMap((c) => [c.video, c.poster]);
 }
 
-/** Throws in production while the footage is still the labelled stock placeholder. */
-export function assertMediaAllowed(appEnv: AppEnv, media: SiteMedia = MEDIA): void {
-  if (appEnv === "production" && media.kind === "placeholder") throw new PlaceholderMediaError();
+/**
+ * The footage the pages may show: the agency's own footage always; the labelled stock only outside production, and
+ * not even there with PLACEHOLDER_MEDIA=off (to preview the production look). null means the designed frames.
+ */
+export function footage(appEnv: AppEnv, media: SiteMedia = MEDIA, src: Record<string, string | undefined> = process.env): SiteMedia | null {
+  if (media.kind === "owner") return media;
+  if (appEnv === "production") return null;
+  return src.PLACEHOLDER_MEDIA?.trim() === "off" ? null : media;
 }

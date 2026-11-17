@@ -1,6 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from "react";
+import type { Gtag } from "@/lib/analytics";
 import {
   ANALYTICS_COOKIE_SECONDS,
   CONSENT_COOKIE,
@@ -51,16 +52,14 @@ function removeAnalyticsCookies() {
   }
 }
 
-type Gtag = (...args: unknown[]) => void;
-declare global {
-  interface Window {
-    dataLayer?: unknown[];
-    gtag?: Gtag;
-  }
+/** Google's documented opt-out switch: while true, gtag sends nothing at all (not even consent-mode pings). */
+function setOptOut(id: string, off: boolean) {
+  (window as unknown as Record<string, unknown>)[`ga-disable-${id}`] = off;
 }
 
 /** Loads GA4 once, with ads storage denied; only ever called after consent. */
 function loadAnalytics(id: string) {
+  setOptOut(id, false);
   if (window.gtag) {
     window.gtag("consent", "update", { analytics_storage: "granted" });
     return;
@@ -88,15 +87,20 @@ export function ConsentProvider({ analyticsId, children }: { analyticsId: string
   const enabled = Boolean(analyticsId);
   const granted = enabled && choice?.analytics === true;
 
-  const choose = useCallback((analytics: boolean) => {
-    const secure = location.protocol === "https:" ? "; Secure" : "";
-    document.cookie = `${CONSENT_COOKIE}=${serializeConsent(analytics)}; Max-Age=${CONSENT_MAX_AGE_SECONDS}; Path=/; SameSite=Lax${secure}`;
-    if (!analytics) {
-      window.gtag?.("consent", "update", { analytics_storage: "denied" });
-      removeAnalyticsCookies();
-    }
-    listeners.forEach((l) => l());
-  }, []);
+  const choose = useCallback(
+    (analytics: boolean) => {
+      const secure = location.protocol === "https:" ? "; Secure" : "";
+      document.cookie = `${CONSENT_COOKIE}=${serializeConsent(analytics)}; Max-Age=${CONSENT_MAX_AGE_SECONDS}; Path=/; SameSite=Lax${secure}`;
+      if (!analytics) {
+        // Withdrawal stops everything at once: no further hits for the rest of the visit, and the cookies go.
+        if (analyticsId) setOptOut(analyticsId, true);
+        window.gtag?.("consent", "update", { analytics_storage: "denied" });
+        removeAnalyticsCookies();
+      }
+      listeners.forEach((l) => l());
+    },
+    [analyticsId],
+  );
 
   // Loading a third-party script is a side effect of the stored choice, so it lives in an effect.
   useEffect(() => {

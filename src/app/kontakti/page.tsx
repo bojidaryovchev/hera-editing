@@ -3,17 +3,23 @@ import { randomUUID } from "node:crypto";
 import { LeadForm } from "@/components/contact/LeadForm";
 import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 import { CONTACT, SOURCE_PAGE_NAMES } from "@/content/contact";
-import { SEO } from "@/content/seo";
 import { TIERS } from "@/content/shared";
 import { GATES } from "@/content/site";
-import { resolveAppEnv } from "@/lib/config/env";
+import { getServerEnv, resolveAppEnv } from "@/lib/config/env";
 import { publicContacts } from "@/lib/site/brand";
 import { VOLUMES, normalizeSourcePath } from "@/lib/validation/lead";
+import { pageMetadata } from "@/lib/site/metadata";
 
-export const metadata: Metadata = {
-  title: SEO.contact.title,
-  description: SEO.contact.description,
-};
+export const metadata: Metadata = pageMetadata("contact");
+
+/** Turnstile's public key when both keys are configured; the server then requires its token. */
+function turnstileSiteKey(): string | null {
+  try {
+    return getServerEnv().turnstile?.siteKey ?? null;
+  } catch {
+    return null;
+  }
+}
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
 
@@ -36,7 +42,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
     <main id="main" className="page" data-page="contact">
       <div className="contact wrap">
         <div className="contact__col">
-          <Breadcrumbs current={CONTACT.breadcrumb} />
+          <Breadcrumbs current={CONTACT.breadcrumb} path="/kontakti" />
           <header className="contact__head">
             <h1 className="contact__h1">{CONTACT.hero.title}</h1>
             <p className="contact__lead">{CONTACT.hero.lead}</p>
@@ -56,7 +62,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
             )}
           </header>
 
-          <LeadForm requestId={randomUUID()} sourcePath={sourcePath} utm={utm} defaultVolume={volume} />
+          <LeadForm requestId={randomUUID()} sourcePath={sourcePath} utm={utm} defaultVolume={volume} turnstileSiteKey={turnstileSiteKey()} />
 
           {(email || phone || showGates) && (
             <section className="contact__direct" aria-labelledby="direct-h">

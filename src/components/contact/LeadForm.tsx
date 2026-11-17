@@ -6,6 +6,7 @@ import { useActionState, useEffect, useRef, useState, useSyncExternalStore, type
 import { useForm, useWatch, type FieldErrors, type Resolver } from "react-hook-form";
 import toast from "react-hot-toast";
 import { submitLeadAction } from "@/app/kontakti/actions";
+import { TurnstileField } from "@/components/contact/TurnstileField";
 import { Check } from "@/components/icons";
 import { CONTACT, checkFields, summaryCount } from "@/content/contact";
 import { GOAL_LABELS, LEAD_FIELD_LABELS, LEAD_FORM_STATUS, VOLUME_LABELS, leadErrorMessage, leadErrorShort } from "@/content/forms";
@@ -19,6 +20,7 @@ import {
   type LeadFormField,
   type LeadFormValues,
 } from "@/lib/leads/form";
+import { track } from "@/lib/analytics";
 import { route } from "@/lib/site/nav";
 import { GOALS, LEAD_LIMITS, VOLUMES, leadFormSchema, type LeadErrorCode } from "@/lib/validation/lead";
 
@@ -35,6 +37,8 @@ type Props = {
   sourcePath: string;
   utm: { source: string; medium: string; campaign: string };
   defaultVolume: string;
+  /** Cloudflare Turnstile's public key, only when Turnstile is configured. */
+  turnstileSiteKey?: string | null;
 };
 
 const resolver = zodResolver(leadFormSchema) as unknown as Resolver<LeadFormValues>;
@@ -95,7 +99,7 @@ function Summary({ values }: { values: LeadFormValues }) {
   );
 }
 
-export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
+export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileSiteKey = null }: Props) {
   // Without script the form posts to formAction and the server renders `serverState`; with script the action is
   // called directly (so a network failure can be handled) and the result kept in `state`.
   const [serverState, formAction] = useActionState(submitLeadAction, INITIAL_LEAD_STATE);
@@ -117,10 +121,15 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
   // False in the server render and while hydrating, true once the form runs in the browser.
   const hydrated = useSyncExternalStore(subscribeNever, () => true, () => false);
 
+  // Analytics (only with consent): the form was shown. Codes only, never what was typed.
+  useEffect(() => track({ name: "lead_form_view" }), []);
+
   // React to a server result once: field errors into the form, everything else as a notification.
   useEffect(() => {
     if (state.seq === 0 || state.seq === handled.current) return;
     handled.current = state.seq;
+    if (state.status !== "idle")
+      track(state.status === "success" ? { name: "lead_form_success" } : { name: "lead_form_error", params: { code: state.status } });
     if (state.status === "success") {
       toast.success(CONTACT.form.sentToast, { id: TOAST_ID });
       requestAnimationFrame(() => doneRef.current?.focus());
@@ -143,6 +152,7 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
     const form = formRef.current;
     if (!form) return;
     const fd = new FormData(form);
+    track({ name: "lead_form_attempt" });
     try {
       const result = await submitLeadAction(state, fd);
       setState(result);
@@ -154,6 +164,7 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
   const onInvalid = (errs: FieldErrors<LeadFormValues>) => {
     const codes = Object.fromEntries(LEAD_FORM_FIELDS.map((f) => [f, codeOf(errs[f]?.message)])) as Partial<Record<LeadFormField, LeadErrorCode | undefined>>;
     const n = problemCount(codes);
+    track({ name: "lead_form_error", params: { code: "invalid_client" } });
     toast.error(`${CONTACT.form.summaryHeading}. ${checkFields(n)}`, { id: TOAST_ID });
   };
 
@@ -337,6 +348,8 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume }: Props) {
           <label htmlFor="lf-hp">{CONTACT.form.honeypotLabel}</label>
           <input id="lf-hp" name={HIDDEN.honeypot} type="text" tabIndex={-1} autoComplete="off" defaultValue="" />
         </div>
+
+        {turnstileSiteKey && <TurnstileField siteKey={turnstileSiteKey} resetKey={state.seq} />}
 
         <div className="lf__foot">
           <p className="lf__privacy">

@@ -8,6 +8,7 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
  */
 export function PageHero({
   crumb,
+  path,
   eyebrow,
   title,
   lead,
@@ -16,6 +17,8 @@ export function PageHero({
   media = false,
 }: {
   crumb: string;
+  /** The page's own path, for the breadcrumb's structured data. */
+  path: string;
   eyebrow?: string;
   title: string;
   lead?: string;
@@ -25,7 +28,7 @@ export function PageHero({
 }) {
   const main = (
     <>
-      <Breadcrumbs current={crumb} />
+      <Breadcrumbs current={crumb} path={path} />
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h1 className="phero__h1">{title}</h1>
       {lead && <p className="phero__lead">{lead}</p>}

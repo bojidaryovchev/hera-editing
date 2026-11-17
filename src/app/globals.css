@@ -107,7 +107,9 @@ a {
 .paper :focus-visible {
   outline-color: var(--color-focus);
 }
-/* Content column: side gutters, never wider than --max, centred. Percentages, not vw, so a scrollbar never adds width. */
+/* Content column: side gutters, never wider than --max, centred. Percentages, not vw, so a scrollbar never adds width.
+   Only on full-width boxes: the percentage is of the containing block, so on a narrower or absolutely positioned box
+   the centring term eats its content on wide screens (the hero card, the 404 page). */
 .wrap {
   padding-left: max(var(--g), env(safe-area-inset-left, 0px), calc((100% - var(--max)) / 2));
   padding-right: max(var(--g), env(safe-area-inset-right, 0px), calc((100% - var(--max)) / 2));

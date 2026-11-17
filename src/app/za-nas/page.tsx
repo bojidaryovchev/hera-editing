@@ -4,15 +4,14 @@ import { PageCta } from "@/components/site/PageCta";
 import { PageHero } from "@/components/site/PageHero";
 import { ABOUT } from "@/content/about";
 import { BUSINESS } from "@/content/business";
-import { SEO } from "@/content/seo";
 import { GATES, QUOTE_CTA } from "@/content/site";
 import { resolveAppEnv } from "@/lib/config/env";
 import { quoteHref } from "@/lib/site/nav";
+import { pageMetadata } from "@/lib/site/metadata";
 
-export const metadata: Metadata = {
-  title: SEO.about.title,
-  description: SEO.about.description,
-};
+const PATH = "/za-nas";
+
+export const metadata: Metadata = pageMetadata("about");
 
 /**
  * /za-nas (IA:61-62): honest copy, no invented people, headshots or numbers. The team section and the base city appear
@@ -26,11 +25,12 @@ export default function AboutPage() {
       <div className="ab wrap">
         <PageHero
           crumb={a.breadcrumb}
+          path={PATH}
           eyebrow={a.hero.eyebrow}
           title={a.hero.title}
           lead={a.hero.lead}
         >
-          <Link className="btn btn--pri" href={quoteHref("/za-nas")}>
+          <Link className="btn btn--pri" href={quoteHref(PATH)}>
             {QUOTE_CTA}
           </Link>
         </PageHero>

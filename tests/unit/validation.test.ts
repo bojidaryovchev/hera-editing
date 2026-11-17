@@ -162,3 +162,10 @@ describe("normalisation", () => {
     expect(normalizeSourcePath("/paketi?x=1")).toBeNull();
   });
 });
+
+describe("validation under the site's CSP", () => {
+  it("never probes for eval (Zod runs jitless)", async () => {
+    const { z } = await import("../../src/lib/validation/zod");
+    expect(z.config().jitless).toBe(true);
+  });
+});

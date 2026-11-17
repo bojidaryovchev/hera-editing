@@ -8,17 +8,14 @@ import { PageHero } from "@/components/site/PageHero";
 import { FAQ_SETS } from "@/content/faq";
 import { HOME } from "@/content/home";
 import { PACKAGES } from "@/content/packages";
-import { SEO } from "@/content/seo";
 import { FINAL_CTA, QUOTE_DRIVERS, TIERS, VOLUME_NOTE } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";
 import { quoteHref, route } from "@/lib/site/nav";
+import { pageMetadata } from "@/lib/site/metadata";
 
 const PATH = "/paketi";
 
-export const metadata: Metadata = {
-  title: SEO.packages.title,
-  description: SEO.packages.description,
-};
+export const metadata: Metadata = pageMetadata("packages");
 
 const pad2 = (n: number) => String(n).padStart(2, "0");
 const SEQ: Record<(typeof TIERS)[number]["id"], number> = {
@@ -52,6 +49,7 @@ export default function PackagesPage() {
       <div className="wrap">
         <PageHero
           crumb={p.breadcrumb}
+          path={PATH}
           eyebrow={p.hero.eyebrow}
           title={p.hero.title}
           lead={p.hero.lead}

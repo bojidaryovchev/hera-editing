@@ -146,10 +146,10 @@ function setupFormats(main: HTMLElement, auto: boolean): () => void {
   };
 }
 
-/** The final preview's play/pause, shared by both modes. */
+/** The final preview's play/pause, shared by both modes; none when the preview is the designed frame. */
 function previewPlayer(main: HTMLElement) {
   const pv = one(main, "[data-pv]");
-  return { pv, player: makePlayer(pv, "[data-pvbtn]", HOME.final.caption) };
+  return { pv, player: pv.querySelector("video") ? makePlayer(pv, "[data-pvbtn]", HOME.final.caption) : null };
 }
 
 /** Reduced motion or no GSAP: the finished edit, nothing autoplays. */
@@ -159,12 +159,12 @@ function setupStatic(main: HTMLElement): () => void {
   setStatus(main, "published");
   all(document, "[data-tc]").forEach((el) => (el.textContent = timecode(REEL)));
   const { player } = previewPlayer(main);
-  const toggle = () => (isPlaying(player) ? stop(player) : play(player));
-  player.btn.addEventListener("click", toggle);
+  const toggle = () => player && (isPlaying(player) ? stop(player) : play(player));
+  player?.btn.addEventListener("click", toggle);
   const offFormats = setupFormats(main, false);
   return () => {
-    player.btn.removeEventListener("click", toggle);
-    player.video.pause();
+    player?.btn.removeEventListener("click", toggle);
+    player?.video.pause();
     offFormats();
   };
 }
@@ -176,7 +176,9 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
   const viewer = one(main, "[data-viewer]");
   const mon = one(main, ".mon");
   const card = one(main, "[data-card]");
-  const video = one<HTMLVideoElement>(main, "[data-scrub]");
+  // The footage, or (in production until the agency's own exists) the designed frame in its place.
+  const video = main.querySelector<HTMLVideoElement>("video[data-scrub]");
+  const picture = video ?? one(main, ".mon__scene");
   const side = one(main, "[data-side]");
   const paneFmt = one(main, "[data-pane='fmt']");
   const panePub = one(main, "[data-pane='pub']");
@@ -200,13 +202,14 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
   };
 
   // The scrub needs the whole clip; fetch it now that motion runs.
-  video.preload = "auto";
+  if (video) video.preload = "auto";
 
-  // Grade: a canvas copy of the frame with the finished grade, revealed by the before/after wipe.
-  const gradeCv = one<HTMLCanvasElement>(main, "[data-grade]");
-  const gctx = gradeCv.getContext("2d");
+  // Grade: a canvas copy of the frame with the finished grade, revealed by the before/after wipe. The designed
+  // frame needs no canvas: its graded copy is in the markup.
+  const gradeCv = main.querySelector<HTMLCanvasElement>("canvas[data-grade]");
+  const gctx = gradeCv?.getContext("2d") ?? null;
   const drawGrade = () => {
-    if (!gctx || video.readyState < 2) return;
+    if (!video || !gradeCv || !gctx || video.readyState < 2) return;
     const w = gradeCv.clientWidth;
     const h = gradeCv.clientHeight;
     if (!w || !h) return;
@@ -221,8 +224,10 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     gctx.filter = "saturate(1.12) contrast(1.06) brightness(1.03)";
     gctx.drawImage(video, (gradeCv.width - vw * sc) / 2, (gradeCv.height - vh * sc) / 2, vw * sc, vh * sc);
   };
-  on(video, "seeked", drawGrade);
-  on(video, "loadeddata", drawGrade);
+  if (video) {
+    on(video, "seeked", drawGrade);
+    on(video, "loadeddata", drawGrade);
+  }
 
   // Wide 9:16 stage: the text and the vertical frame form one pair, centred in the monitor column (decision 8).
   const pairLayout = () => {
@@ -282,7 +287,7 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     vPending = true;
     requestAnimationFrame(() => {
       vPending = false;
-      if (video.readyState >= 1 && Math.abs(video.currentTime - vTarget) > 0.02) video.currentTime = vTarget;
+      if (video && video.readyState >= 1 && Math.abs(video.currentTime - vTarget) > 0.02) video.currentTime = vTarget;
     });
   };
   let lastKey = "";
@@ -340,7 +345,7 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
         .to(".mon__grade", { clipPath: "inset(0 0% 0 0)", duration: 0.12 }, 0.36)
         .to("[data-split]", { left: "100%", duration: 0.12 }, 0.36)
         .set("[data-split]", { opacity: 0 }, 0.48)
-        .fromTo(video, { filter: "saturate(0.32) contrast(0.86) brightness(0.96)" }, { filter: "saturate(1.12) contrast(1.06) brightness(1.03)", duration: 0.01, immediateRender: false }, 0.48)
+        .fromTo(picture, { filter: "saturate(0.32) contrast(0.86) brightness(0.96)" }, { filter: "saturate(1.12) contrast(1.06) brightness(1.03)", duration: 0.01, immediateRender: false }, 0.48)
         .set(".mon__grade", { autoAlpha: 0 }, 0.49);
       // Subtitles: the headline is burned into the video.
       tl.to("[data-title='1']", { opacity: 1, duration: 0.02 }, 0.52)
@@ -366,7 +371,7 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
           .to(paneFmt, { autoAlpha: 0, x: -12, duration: 0.025 }, 0.855)
           .fromTo(panePub, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.04 }, 0.875);
       }
-      return () => gsap.set([viewer, mon, video, card, paneFmt, panePub, mList], { clearProps: "all" });
+      return () => gsap.set([viewer, mon, picture, card, paneFmt, panePub, mList], { clearProps: "all" });
     });
 
     // Problem: words take colour as the visitor reads.
@@ -475,21 +480,23 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
       if (yes === pv.classList.contains("done")) return;
       pv.classList.toggle("done", yes);
       state.textContent = yes ? HOME.final.done : HOME.final.exporting;
+      if (!player) return;
       if (yes && !player.userPaused) play(player);
       if (!yes) {
         stop(player);
         player.userPaused = false;
       }
     };
-    on(player.btn, "click", () => {
-      if (isPlaying(player)) {
-        stop(player);
-        player.userPaused = true;
-      } else {
-        player.userPaused = false;
-        play(player);
-      }
-    });
+    if (player)
+      on(player.btn, "click", () => {
+        if (isPlaying(player)) {
+          stop(player);
+          player.userPaused = true;
+        } else {
+          player.userPaused = false;
+          play(player);
+        }
+      });
     gsap.to([pv, "[data-render]"], {
       "--r": "100%",
       ease: "none",
@@ -508,7 +515,7 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
 
   const offFormats = setupFormats(main, true);
   const refresh = () => ScrollTrigger.refresh();
-  on(video, "loadedmetadata", refresh);
+  if (video) on(video, "loadedmetadata", refresh);
   on(window, "load", refresh);
   void document.fonts?.ready.then(refresh);
 
@@ -517,7 +524,7 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     offFormats();
     mm?.revert();
     ctx.revert();
-    video.pause();
+    video?.pause();
   };
 }
 
