@@ -159,10 +159,33 @@ Leads are never deleted automatically: the retention period is an owner and lega
 
 ## Performance
 
-Lighthouse, mobile preset, local production build (simulated throttling, 2026-11-17): service 92, packages 93,
-about 90, contact 87, home 85; accessibility 100; best practices 100; SEO 100 in production (previews are noindex
-by design). Home and contact sit below the 90 target. Home carries the scroll-driven motion script and contact the
-form libraries. Core Web Vitals can only be confirmed with real-user data after launch.
+Lighthouse, mobile preset (simulated slow 4G, 4× slower CPU), local production build without stock footage, 2026-11-17.
+Medians of five runs; each before/after pair was measured back to back:
+
+| Page    | HTTP/1.1 (`next start`) | HTTP/2 (local TLS proxy, as a production host serves) |
+| ------- | ----------------------- | ----------------------------------------------------- |
+| Home    | 82 → 89                 | 88 → 94                                               |
+| Contact | 85 → 89                 | 87 → 95                                               |
+
+Service, packages, video and about score 86–93 depending on the machine's load; their code did not change.
+Accessibility 100, best practices 100, SEO 100 with production settings (previews are noindex by design).
+
+What moved the two pages (`tests/unit/bundle-boundaries.test.ts` keeps Zod, the schema and GSAP out of the first
+load):
+
+- The Zod wrapper (`src/lib/validation/zod.ts`) exports named builders only. Re-exporting Zod's namespace kept all 64
+  of its interface translations (341 KB unminified) in the contact page's script.
+- The quote form loads Zod and the schema on the visitor's first focus or touch of the form, not with the page. The
+  choices and limits it draws come from `lead-fields.ts`, which has no Zod. The server validates every request
+  regardless, and if the rules fail to download the request goes through to that check.
+- The form's "running in the browser" switch re-renders as a transition a frame after hydration, not synchronously
+  inside it.
+- The homepage loads GSAP after the first frame is painted and builds its timelines in a separate task. Before, on a
+  fast connection, the library loaded and ran before the first paint, and Lighthouse charged it to the headline.
+
+Local numbers are a proxy. They move several points with whatever else the machine is running, and the local server
+speaks HTTP/1.1, which Lighthouse's simulation penalises (a new connection and slow start for each file). The deciding
+check is PageSpeed Insights on the staging address; Core Web Vitals come from real visitors after launch.
 
 ## Trade-offs
 

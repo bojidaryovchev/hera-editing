@@ -567,15 +567,26 @@ export function HomeMotion() {
       cleanup = setupStatic(main);
       return () => cleanup?.();
     }
-    Promise.all([import("gsap"), import("gsap/ScrollTrigger")])
-      .then(([g, st]) => {
-        if (!cancelled) cleanup = setupMotion(g.gsap, st.ScrollTrigger, main);
-      })
-      .catch(() => {
-        if (!cancelled) cleanup = setupStatic(main);
+    // Load GSAP only once the first frame is on screen (the second animation frame runs after the first has been
+    // painted). The opening state is CSS, so nothing changes visually; on a fast connection the library and its
+    // setup would otherwise run before the first paint and hold back the headline.
+    let frame = requestAnimationFrame(() => {
+      frame = requestAnimationFrame(() => {
+        Promise.all([import("gsap"), import("gsap/ScrollTrigger")])
+          .then(async ([g, st]) => {
+            // The setup in a task of its own: evaluating the library and building the timelines in one go would
+            // block input for longer than either does alone.
+            await new Promise((done) => setTimeout(done, 0));
+            if (!cancelled) cleanup = setupMotion(g.gsap, st.ScrollTrigger, main);
+          })
+          .catch(() => {
+            if (!cancelled) cleanup = setupStatic(main);
+          });
       });
+    });
     return () => {
       cancelled = true;
+      cancelAnimationFrame(frame);
       cleanup?.();
     };
   }, []);

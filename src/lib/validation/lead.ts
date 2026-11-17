@@ -1,4 +1,5 @@
-import { z } from "@/lib/validation/zod";
+import { GOALS, LEAD_LIMITS, VOLUMES } from "@/lib/validation/lead-fields";
+import { z, type ZodOutput, type ZodType } from "@/lib/validation/zod";
 
 /**
  * The quote-request contract, shared by the browser form and the server so both
@@ -6,22 +7,8 @@ import { z } from "@/lib/validation/zod";
  * copy (src/content/forms.ts). Nothing here may import server-only modules.
  */
 
-export const GOALS = ["awareness", "consistency", "enquiries", "other", "unsure"] as const;
-export type LeadGoal = (typeof GOALS)[number];
-
-export const VOLUMES = ["unsure", "4", "8", "12plus"] as const;
-export type LeadVolume = (typeof VOLUMES)[number];
-
-export const LEAD_LIMITS = {
-  name: { min: 2, max: 100 },
-  businessName: { min: 2, max: 120 },
-  city: { min: 2, max: 100 },
-  email: { max: 254 },
-  phone: { max: 40 },
-  profileUrl: { max: 250 },
-  message: { max: 2000 },
-  utm: { max: 100 },
-} as const;
+export { GOALS, LEAD_LIMITS, VOLUMES };
+export type { LeadGoal, LeadVolume } from "@/lib/validation/lead-fields";
 
 /** Internal pages a quote request may say it came from (`from` / sourcePath). */
 export const SOURCE_PATH_PREFIXES = [
@@ -217,7 +204,7 @@ const formFields = {
 const hasContact = (lead: { email?: unknown; phone?: unknown }) => Boolean(lead.email) || Boolean(lead.phone);
 const always = () => true;
 
-function requireContact<T extends z.ZodType<{ email: string | null; phone: string | null }>>(schema: T): T {
+function requireContact<T extends ZodType<{ email: string | null; phone: string | null }>>(schema: T): T {
   return schema
     .refine(hasContact, {
       path: ["email"],
@@ -269,7 +256,7 @@ export const leadSubmissionSchema = requireContact(
   }),
 );
 
-export type LeadInput = z.output<typeof leadSubmissionSchema>;
+export type LeadInput = ZodOutput<typeof leadSubmissionSchema>;
 
 export type LeadValidation = { ok: true; data: LeadInput } | { ok: false; errors: LeadFieldErrors };
 

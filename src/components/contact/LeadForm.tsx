@@ -1,8 +1,7 @@
 "use client";
 
-import { zodResolver } from "@hookform/resolvers/zod";
 import Link from "next/link";
-import { useActionState, useEffect, useRef, useState, useSyncExternalStore, type ReactNode } from "react";
+import { startTransition, useActionState, useEffect, useRef, useState, type ReactNode } from "react";
 import { useForm, useWatch, type FieldErrors, type Resolver } from "react-hook-form";
 import toast from "react-hot-toast";
 import { submitLeadAction } from "@/app/kontakti/actions";
@@ -29,12 +28,14 @@ import {
 } from "@/lib/leads/form";
 import { track } from "@/lib/analytics";
 import { route } from "@/lib/site/nav";
-import { GOALS, LEAD_LIMITS, VOLUMES, leadFormSchema, type LeadErrorCode } from "@/lib/validation/lead";
+import type { LeadErrorCode } from "@/lib/validation/lead";
+import { GOALS, LEAD_LIMITS, VOLUMES } from "@/lib/validation/lead-fields";
 
 /*
  * The quote request (website/03, decisions L5, L6, L13). React Hook Form validates in the browser with the same Zod
- * rules the server uses (leadFormSchema); the server action runs the durable pipeline. Without script the same form
- * posts to the same server action and the page renders the result.
+ * rules the server uses (leadFormSchema), loaded on the visitor's first touch of the form rather than with the page;
+ * the server action runs the durable pipeline. Without script the same form posts to the same server action and the
+ * page renders the result.
  * No layout shift: every field has a fixed one-line message slot (hint or error), errors have one-line short forms
  * for narrow fields, the submit button keeps its width, the success panel keeps the form's height.
  */
@@ -48,7 +49,25 @@ type Props = {
   turnstileSiteKey?: string | null;
 };
 
-const resolver = zodResolver(leadFormSchema) as unknown as Resolver<LeadFormValues>;
+// Zod and the schema load when the visitor first focuses or touches the form (or, at the latest, when it first
+// validates), so they are not part of the page's first load. Should the download fail, the browser lets the request
+// through and the server, which always validates, answers with the same codes.
+let rules: Promise<Resolver<LeadFormValues>> | undefined;
+const loadRules = () =>
+  (rules ??= Promise.all([import("@hookform/resolvers/zod"), import("@/lib/validation/lead")]).then(
+    ([{ zodResolver }, { leadFormSchema }]) => zodResolver(leadFormSchema) as unknown as Resolver<LeadFormValues>,
+  ));
+const warmRules = () => void loadRules().catch(() => (rules = undefined));
+const resolver: Resolver<LeadFormValues> = async (values, context, options) => {
+  try {
+    return await (
+      await loadRules()
+    )(values, context, options);
+  } catch {
+    rules = undefined;
+    return { values, errors: {} };
+  }
+};
 const TOAST_ID = "lead-form";
 /** How many things to fix: email and phone missing together is one problem (reach us somehow), not two. */
 function problemCount(codes: Partial<Record<LeadFormField, LeadErrorCode | undefined>>): number {
@@ -56,7 +75,6 @@ function problemCount(codes: Partial<Record<LeadFormField, LeadErrorCode | undef
   const pair = codes.email === "contact_required" && codes.phone === "contact_required" ? 1 : 0;
   return names.length - pair;
 }
-const subscribeNever = () => () => {};
 const codeOf = (message: unknown): LeadErrorCode | undefined =>
   typeof message === "string" && message ? (message as LeadErrorCode) : undefined;
 
@@ -145,12 +163,14 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
     shouldFocusError: true,
   });
 
-  // False in the server render and while hydrating, true once the form runs in the browser.
-  const hydrated = useSyncExternalStore(
-    subscribeNever,
-    () => true,
-    () => false,
-  );
+  // False in the server render and while hydrating, true once the form runs in the browser. Set as a transition a
+  // frame after hydration: for a fresh form the re-render changes nothing visible, so it should not block input
+  // (useSyncExternalStore forced it synchronously, in the same long task as hydration).
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    const frame = requestAnimationFrame(() => startTransition(() => setHydrated(true)));
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
   // Analytics (only with consent): the form was shown. Codes only, never what was typed.
   useEffect(() => track({ name: "lead_form_view" }), []);
@@ -338,6 +358,8 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
         className="lf"
         action={formAction}
         onSubmit={(e) => handleSubmit(onValid, onInvalid)(e)}
+        onFocus={warmRules}
+        onPointerDown={warmRules}
         noValidate
         aria-label={CONTACT.form.label}
         aria-busy={busy || undefined}
