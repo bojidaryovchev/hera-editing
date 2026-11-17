@@ -21,7 +21,17 @@ export function ProjectMedia({
   tone?: SceneTone;
 }) {
   if (video) return <ProjectVideo video={video} poster={poster} project={project} />;
-  if (poster) return <Image className="pmedia" src={poster.src} alt={poster.alt} width={poster.width} height={poster.height} sizes={sizes} />;
+  if (poster)
+    return (
+      <Image
+        className="pmedia"
+        src={poster.src}
+        alt={poster.alt}
+        width={poster.width}
+        height={poster.height}
+        sizes={sizes}
+      />
+    );
   return (
     <div className="pmedia pmedia--empty">
       <Scene tone={tone} focus={false} />

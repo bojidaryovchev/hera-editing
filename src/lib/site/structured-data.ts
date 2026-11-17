@@ -19,7 +19,9 @@ export type OrganizationInput = {
 
 const orgId = () => absoluteUrl("/#organization");
 
-export function organizationLd(input: OrganizationInput = { brand: brandName(), contacts: publicContacts(), business: BUSINESS }): Thing {
+export function organizationLd(
+  input: OrganizationInput = { brand: brandName(), contacts: publicContacts(), business: BUSINESS },
+): Thing {
   const { brand, contacts, business } = input;
   const org: Thing = {
     "@type": "Organization",
@@ -40,7 +42,14 @@ export function organizationLd(input: OrganizationInput = { brand: brandName(), 
 
 /** WebSite: the site name search engines show next to results. */
 export function websiteLd(brand: string = brandName()): Thing {
-  return { "@type": "WebSite", "@id": absoluteUrl("/#website"), name: brand, url: absoluteUrl("/"), inLanguage: "bg", publisher: { "@id": orgId() } };
+  return {
+    "@type": "WebSite",
+    "@id": absoluteUrl("/#website"),
+    name: brand,
+    url: absoluteUrl("/"),
+    inLanguage: "bg",
+    publisher: { "@id": orgId() },
+  };
 }
 
 /** The homepage graph: the site and the organisation behind it. */
@@ -53,7 +62,12 @@ export function breadcrumbLd(items: readonly { name: string; path: string }[]): 
   return {
     "@context": CONTEXT,
     "@type": "BreadcrumbList",
-    itemListElement: items.map((it, i) => ({ "@type": "ListItem", position: i + 1, name: it.name, item: absoluteUrl(it.path) })),
+    itemListElement: items.map((it, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      name: it.name,
+      item: absoluteUrl(it.path),
+    })),
   };
 }
 

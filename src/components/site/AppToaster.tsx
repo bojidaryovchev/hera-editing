@@ -8,7 +8,11 @@ export function AppToaster() {
     <Toaster
       position="bottom-center"
       gutter={10}
-      containerStyle={{ bottom: "calc(max(20px, env(safe-area-inset-bottom)) + var(--cb-h, 0px))", left: 16, right: 16 }}
+      containerStyle={{
+        bottom: "calc(max(20px, env(safe-area-inset-bottom)) + var(--cb-h, 0px))",
+        left: 16,
+        right: 16,
+      }}
       toastOptions={{
         duration: 6000,
         className: "toast",
@@ -23,7 +27,10 @@ export function AppToaster() {
           font: "500 15px/1.45 var(--font-sans)",
         },
         success: { iconTheme: { primary: "#d9f568", secondary: "#101315" } },
-        error: { iconTheme: { primary: "#ff5a47", secondary: "#101315" }, ariaProps: { role: "alert", "aria-live": "assertive" } },
+        error: {
+          iconTheme: { primary: "#ff5a47", secondary: "#101315" },
+          ariaProps: { role: "alert", "aria-live": "assertive" },
+        },
       }}
     />
   );

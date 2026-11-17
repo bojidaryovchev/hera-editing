@@ -16,7 +16,9 @@ function walk(dir: string, out: string[] = []): string[] {
 }
 
 // Invisible and direction-override characters that can hide or reorder text.
-const FORBIDDEN = new Set([0x200b, 0x200c, 0x200d, 0x200e, 0x200f, 0x2028, 0x2029, 0x202a, 0x202b, 0x202c, 0x202d, 0x202e, 0xfeff]);
+const FORBIDDEN = new Set([
+  0x200b, 0x200c, 0x200d, 0x200e, 0x200f, 0x2028, 0x2029, 0x202a, 0x202b, 0x202c, 0x202d, 0x202e, 0xfeff,
+]);
 
 describe("source hygiene", () => {
   it("contains no invisible or bidi-override characters", () => {

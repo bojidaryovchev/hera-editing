@@ -27,7 +27,8 @@ function one<T extends Element = HTMLElement>(root: ParentNode, sel: string): T 
   if (!el) throw new Error(`HomeMotion: missing ${sel}`);
   return el;
 }
-const all = <T extends Element = HTMLElement>(root: ParentNode, sel: string) => Array.from(root.querySelectorAll<T>(sel));
+const all = <T extends Element = HTMLElement>(root: ParentNode, sel: string) =>
+  Array.from(root.querySelectorAll<T>(sel));
 
 /** Stage texts and marks for the inspector (wide) and the stage label and note (narrow). */
 function stageView(main: HTMLElement) {
@@ -55,13 +56,20 @@ function setStatus(main: HTMLElement, state: "working" | "approved" | "published
   const status = one(main, "[data-statustext]");
   chip.className = state === "working" ? "chip" : state === "approved" ? "chip ok" : "chip pub";
   chip.textContent = state === "working" ? E.chipPending : state === "approved" ? E.chipApproved : E.chipPublished;
-  status.textContent = state === "working" ? E.statusWorking : state === "approved" ? E.statusApproved : "Instagram · TikTok · Facebook";
+  status.textContent =
+    state === "working" ? E.statusWorking : state === "approved" ? E.statusApproved : "Instagram · TikTok · Facebook";
 }
 
 /** One video with its play/pause button. A pause the visitor chose is respected until the clip leaves the screen. */
 type Player = { item: HTMLElement; video: HTMLVideoElement; btn: HTMLButtonElement; name: string; userPaused: boolean };
 function makePlayer(item: HTMLElement, btnSel: string, name: string): Player {
-  return { item, video: one<HTMLVideoElement>(item, "video"), btn: one<HTMLButtonElement>(item, btnSel), name, userPaused: false };
+  return {
+    item,
+    video: one<HTMLVideoElement>(item, "video"),
+    btn: one<HTMLButtonElement>(item, btnSel),
+    name,
+    userPaused: false,
+  };
 }
 function setButton(p: Player, playing: boolean) {
   p.btn.dataset.playing = String(playing);
@@ -261,8 +269,16 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     const gap = parseFloat(cs.rowGap) || 12;
     const innerW = stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
     const avail =
-      pinwrap.clientHeight - parseFloat(pcs.paddingTop) - parseFloat(pcs.paddingBottom) - tlEl.offsetHeight -
-      parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom) - mStage.offsetHeight - mNote.offsetHeight - gap * 2 - 8;
+      pinwrap.clientHeight -
+      parseFloat(pcs.paddingTop) -
+      parseFloat(pcs.paddingBottom) -
+      tlEl.offsetHeight -
+      parseFloat(cs.paddingTop) -
+      parseFloat(cs.paddingBottom) -
+      mStage.offsetHeight -
+      mNote.offsetHeight -
+      gap * 2 -
+      8;
     return Math.max(160, Math.min(innerW, (avail * 9) / 16));
   };
   placeSide();
@@ -345,7 +361,12 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
         .to(".mon__grade", { clipPath: "inset(0 0% 0 0)", duration: 0.12 }, 0.36)
         .to("[data-split]", { left: "100%", duration: 0.12 }, 0.36)
         .set("[data-split]", { opacity: 0 }, 0.48)
-        .fromTo(picture, { filter: "saturate(0.32) contrast(0.86) brightness(0.96)" }, { filter: "saturate(1.12) contrast(1.06) brightness(1.03)", duration: 0.01, immediateRender: false }, 0.48)
+        .fromTo(
+          picture,
+          { filter: "saturate(0.32) contrast(0.86) brightness(0.96)" },
+          { filter: "saturate(1.12) contrast(1.06) brightness(1.03)", duration: 0.01, immediateRender: false },
+          0.48,
+        )
         .set(".mon__grade", { autoAlpha: 0 }, 0.49);
       // Subtitles: the headline is burned into the video.
       tl.to("[data-title='1']", { opacity: 1, duration: 0.02 }, 0.52)
@@ -364,7 +385,11 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
           0.7,
         )
         .to(mon, { borderRadius: 26, duration: 0.12 }, 0.7)
-        .to(mList, desk ? { duration: 0.12 } : { height: 0, marginTop: 0, autoAlpha: 0, duration: 0.12, ease: "power2.inOut" }, 0.7)
+        .to(
+          mList,
+          desk ? { duration: 0.12 } : { height: 0, marginTop: 0, autoAlpha: 0, duration: 0.12, ease: "power2.inOut" },
+          0.7,
+        )
         .to(".safe", { opacity: 0, duration: 0.03 }, 0.86);
       if (desk) {
         tl.fromTo(paneFmt, { autoAlpha: 0, x: -20 }, { autoAlpha: 1, x: 0, duration: 0.04 }, 0.76)
@@ -389,7 +414,9 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
       scrollTrigger: { trigger: "[data-problem]", start: "top 70%", end: "bottom 75%", scrub: 0.4 },
     });
     rt.to("[data-rph]", { left: "100%", duration: 1 }, 0);
-    rClips.forEach((c2, i) => rt.to(c2, { opacity: 1, scaleY: 1, duration: 0.05, ease: "power2.out" }, (i + 0.5) / 12 - 0.03));
+    rClips.forEach((c2, i) =>
+      rt.to(c2, { opacity: 1, scaleY: 1, duration: 0.05, ease: "power2.out" }, (i + 0.5) / 12 - 0.03),
+    );
 
     // Process (wide): a playhead travels from the start of the first clip to the end of the last. Like an editor
     // timeline, the view follows once the playhead reaches the middle, so the story starts at clip 1 and ends at clip 6.

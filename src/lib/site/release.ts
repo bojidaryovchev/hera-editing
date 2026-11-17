@@ -13,7 +13,9 @@ export class ReleaseGateError extends Error {
 /** The privacy notice must be lawyer-approved before production collects enquiries (acceptance F). */
 export function assertPrivacyReady(appEnv: AppEnv, notice: { status: string } = PRIVACY_NOTICE): void {
   if (appEnv === "production" && notice.status !== "approved")
-    throw new ReleaseGateError("The privacy notice is still a draft. Have it approved and set PRIVACY_NOTICE.status to 'approved'.");
+    throw new ReleaseGateError(
+      "The privacy notice is still a draft. Have it approved and set PRIVACY_NOTICE.status to 'approved'.",
+    );
 }
 
 /**
@@ -22,5 +24,7 @@ export function assertPrivacyReady(appEnv: AppEnv, notice: { status: string } = 
  */
 export function assertTermsSignedOff(appEnv: AppEnv, terms: { signedOff: boolean } = SERVICE_TERMS): void {
   if (appEnv === "production" && !terms.signedOff)
-    throw new ReleaseGateError("The service terms are not signed off. Have the owner confirm them and set SERVICE_TERMS.signedOff to true.");
+    throw new ReleaseGateError(
+      "The service terms are not signed off. Have the owner confirm them and set SERVICE_TERMS.signedOff to true.",
+    );
 }

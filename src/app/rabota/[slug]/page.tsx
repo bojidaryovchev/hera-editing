@@ -128,7 +128,12 @@ export default async function CasePage({ params }: { params: Params }) {
           <ul className="wsamples">
             {p.samples.map((s) => (
               <li key={s.title}>
-                <ProjectMedia video={s.video} poster={s.poster} project={p.slug} sizes="(max-width: 699px) 100vw, 33vw" />
+                <ProjectMedia
+                  video={s.video}
+                  poster={s.poster}
+                  project={p.slug}
+                  sizes="(max-width: 699px) 100vw, 33vw"
+                />
                 {!s.video && <p className="wsamples__t">{s.title}</p>}
               </li>
             ))}
@@ -137,7 +142,10 @@ export default async function CasePage({ params }: { params: Params }) {
       )}
 
       {p.outcomes && (
-        <section className={`paper sv-sec wrap${p.samples.length === 0 ? " sv-sec--rule" : ""}`} aria-labelledby="case-out">
+        <section
+          className={`paper sv-sec wrap${p.samples.length === 0 ? " sv-sec--rule" : ""}`}
+          aria-labelledby="case-out"
+        >
           <h2 className="h2 h2--md sv-h-solo" id="case-out">
             {c.outcomes}
           </h2>
@@ -166,7 +174,12 @@ export default async function CasePage({ params }: { params: Params }) {
         </section>
       )}
 
-      <PageCta id="case-cta-h" heading={FINAL_CTA.heading} body={FINAL_CTA.body} action={{ href: quoteHref(path), label: QUOTE_CTA }} />
+      <PageCta
+        id="case-cta-h"
+        heading={FINAL_CTA.heading}
+        body={FINAL_CTA.body}
+        action={{ href: quoteHref(path), label: QUOTE_CTA }}
+      />
     </main>
   );
 }

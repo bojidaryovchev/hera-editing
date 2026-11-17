@@ -43,10 +43,7 @@ async function useEnv(env: Record<string, string>) {
 }
 
 let ip = 0;
-const post = (
-  body: unknown,
-  init: { headers?: Record<string, string>; raw?: string; ip?: string } = {},
-) =>
+const post = (body: unknown, init: { headers?: Record<string, string>; raw?: string; ip?: string } = {}) =>
   route.POST(
     new Request("http://localhost:3000/api/leads", {
       method: "POST",
@@ -112,7 +109,7 @@ describe("POST /api/leads", () => {
   });
 
   it("answers 400 with field errors and never echoes submitted values", async () => {
-    const res = await post(validLead({ email: "not-an-email", phone: "" , name: "Секретно Име" }));
+    const res = await post(validLead({ email: "not-an-email", phone: "", name: "Секретно Име" }));
     expect(res.status).toBe(400);
     const text = await res.text();
     expect(JSON.parse(text)).toEqual({ ok: false, error: "validation", fieldErrors: { email: "invalid_email" } });

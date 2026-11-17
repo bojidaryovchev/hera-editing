@@ -34,7 +34,8 @@ const deps = (): NotificationDeps => ({
   brandName: null,
 });
 
-const countLeads = async () => Number((await handle.db.execute<{ n: string }>(sql`select count(*)::int as n from leads`)).rows[0]!.n);
+const countLeads = async () =>
+  Number((await handle.db.execute<{ n: string }>(sql`select count(*)::int as n from leads`)).rows[0]!.n);
 const getLead = async (id: string) => (await handle.db.select().from(leads).where(eq(leads.id, id)))[0]!;
 
 beforeAll(() => {
@@ -59,7 +60,8 @@ describe("schema", () => {
 
   it("refuses a lead without any contact at the database level too", async () => {
     await expect(
-      handle.db.execute(sql`insert into leads (request_id, name, business_name, city, goal, privacy_notice_version, dedupe_key)
+      handle.db
+        .execute(sql`insert into leads (request_id, name, business_name, city, goal, privacy_notice_version, dedupe_key)
         values (gen_random_uuid(), 'Ab', 'Ab', 'Ab', 'other', 'v', 'k')`),
     ).rejects.toThrow();
   });

@@ -39,9 +39,7 @@ export async function GET(request: Request): Promise<Response> {
     const backlog = await db
       .select({ count: sql<number>`count(*)::int` })
       .from(leads)
-      .where(
-        and(eq(leads.notificationStatus, "pending"), lt(leads.createdAt, sql`now() - interval '30 minutes'`)),
-      );
+      .where(and(eq(leads.notificationStatus, "pending"), lt(leads.createdAt, sql`now() - interval '30 minutes'`)));
     const failed = await db
       .select({ count: sql<number>`count(*)::int` })
       .from(leads)

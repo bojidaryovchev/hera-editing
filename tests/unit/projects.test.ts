@@ -33,7 +33,9 @@ describe("portfolio publication rules (IA:21, acceptance B, E and F)", () => {
   });
 
   it("shows the fictional fixtures only in tests with CONTENT_FIXTURES=1, and never their drafts", () => {
-    expect(publishedProjects({ APP_ENV: "test", CONTENT_FIXTURES: "1" }).map((p) => p.slug)).toEqual(["testova-pekarna"]);
+    expect(publishedProjects({ APP_ENV: "test", CONTENT_FIXTURES: "1" }).map((p) => p.slug)).toEqual([
+      "testova-pekarna",
+    ]);
     expect(publishedProjects({ APP_ENV: "test" })).toEqual([]);
     expect(publishedProjects({ APP_ENV: "staging", CONTENT_FIXTURES: "1" })).toEqual([]);
     expect(publishedProjects({ APP_ENV: "production", CONTENT_FIXTURES: "1" })).toEqual([]);
@@ -42,7 +44,8 @@ describe("portfolio publication rules (IA:21, acceptance B, E and F)", () => {
 
   it("never publishes a fixture from the real list, and publishes real approved work everywhere", () => {
     const list = [real(), real({ slug: "fixture-by-mistake", fixture: true })];
-    for (const env of ["staging", "production"]) expect(publishedProjects({ APP_ENV: env }, list).map((p) => p.slug)).toEqual(["realen-proekt"]);
+    for (const env of ["staging", "production"])
+      expect(publishedProjects({ APP_ENV: env }, list).map((p) => p.slug)).toEqual(["realen-proekt"]);
   });
 
   it("lists /rabota and each published case in the sitemap, and nothing else", () => {

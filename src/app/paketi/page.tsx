@@ -23,19 +23,14 @@ const SEQ: Record<(typeof TIERS)[number]["id"], number> = {
   rastezh: 8,
   individualno: 12,
 };
-const tierHref = (volume: string) =>
-  route(`${quoteHref(PATH)}&volume=${volume}`);
+const tierHref = (volume: string) => route(`${quoteHref(PATH)}&volume=${volume}`);
 
 type Row = (typeof PACKAGES.rows)[number];
 const isKey = (r: Row) => "key" in r && r.key === true;
 const isPrice = (r: Row) => "price" in r && r.price === true;
 /** Rows with the same value in every tier (the price stays in each card: it answers the question asked there). */
-const COMMON: readonly Row[] = PACKAGES.rows.filter(
-  (r) => !isPrice(r) && r.values.every((v) => v === r.values[0]),
-);
-const PER_TIER: readonly Row[] = PACKAGES.rows.filter(
-  (r) => !COMMON.includes(r),
-);
+const COMMON: readonly Row[] = PACKAGES.rows.filter((r) => !isPrice(r) && r.values.every((v) => v === r.values[0]));
+const PER_TIER: readonly Row[] = PACKAGES.rows.filter((r) => !COMMON.includes(r));
 
 /**
  * /paketi (IA:55-56). The price question comes first (research/05: "колко струва…" searches), answered without a
@@ -165,12 +160,7 @@ function TierTable() {
         </thead>
         <tbody>
           {p.rows.map((r) => (
-            <tr
-              key={r.label}
-              className={
-                isKey(r) ? "is-key" : isPrice(r) ? "is-price" : undefined
-              }
-            >
+            <tr key={r.label} className={isKey(r) ? "is-key" : isPrice(r) ? "is-price" : undefined}>
               <th scope="row">{r.label}</th>
               {r.values.map((v, i) => (
                 <td key={i}>
@@ -229,12 +219,7 @@ function TierCards() {
             </div>
             <dl className="tcard__rows">
               {PER_TIER.map((r) => (
-                <div
-                  key={r.label}
-                  className={
-                    isKey(r) ? "is-key" : isPrice(r) ? "is-price" : undefined
-                  }
-                >
+                <div key={r.label} className={isKey(r) ? "is-key" : isPrice(r) ? "is-price" : undefined}>
                   <dt>{r.label}</dt>
                   <dd>
                     <Value v={r.values[ti] ?? ""} />

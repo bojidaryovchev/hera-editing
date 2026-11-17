@@ -1,26 +1,8 @@
 import { sql } from "drizzle-orm";
-import {
-  bigserial,
-  check,
-  index,
-  integer,
-  jsonb,
-  pgEnum,
-  pgTable,
-  text,
-  timestamp,
-  uuid,
-} from "drizzle-orm/pg-core";
+import { bigserial, check, index, integer, jsonb, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
 /** Sales pipeline stage, updated by the operator CLI (no admin UI in v1). */
-export const leadStatus = pgEnum("lead_status", [
-  "new",
-  "contacted",
-  "qualified",
-  "proposal",
-  "won",
-  "lost",
-]);
+export const leadStatus = pgEnum("lead_status", ["new", "contacted", "qualified", "proposal", "won", "lost"]);
 
 /**
  * Owner-alert delivery state. The lead row itself is the outbox: a valid lead is
@@ -28,20 +10,9 @@ export const leadStatus = pgEnum("lead_status", [
  * `suppressed` = stored but deliberately not alerted (honeypot hit), so a real
  * person who tripped the honeypot is never silently lost.
  */
-export const notificationStatus = pgEnum("notification_status", [
-  "pending",
-  "sent",
-  "failed",
-  "suppressed",
-]);
+export const notificationStatus = pgEnum("notification_status", ["pending", "sent", "failed", "suppressed"]);
 
-export const leadGoal = pgEnum("lead_goal", [
-  "awareness",
-  "consistency",
-  "enquiries",
-  "other",
-  "unsure",
-]);
+export const leadGoal = pgEnum("lead_goal", ["awareness", "consistency", "enquiries", "other", "unsure"]);
 
 export const leadVolume = pgEnum("lead_volume", ["unsure", "4", "8", "12plus"]);
 
@@ -78,9 +49,7 @@ export const leads = pgTable(
     notificationStatus: notificationStatus("notification_status").notNull().default("pending"),
     notificationAttempts: integer("notification_attempts").notNull().default(0),
     lastNotificationAt: timestamp("last_notification_at", { withTimezone: true }),
-    notificationNextAttemptAt: timestamp("notification_next_attempt_at", { withTimezone: true })
-      .notNull()
-      .defaultNow(),
+    notificationNextAttemptAt: timestamp("notification_next_attempt_at", { withTimezone: true }).notNull().defaultNow(),
     notificationLockedUntil: timestamp("notification_locked_until", { withTimezone: true }),
     /** Short error code from the last failed attempt; never provider payloads or PII. */
     notificationLastError: text("notification_last_error"),

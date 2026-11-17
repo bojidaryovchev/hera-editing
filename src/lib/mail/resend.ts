@@ -1,11 +1,7 @@
 import { MailDeliveryError, type Mailer } from "./types";
 
 /** Resend over its REST API (no SDK needed for one endpoint). */
-export function createResendMailer(options: {
-  apiKey: string;
-  fetchImpl?: typeof fetch;
-  timeoutMs?: number;
-}): Mailer {
+export function createResendMailer(options: { apiKey: string; fetchImpl?: typeof fetch; timeoutMs?: number }): Mailer {
   const fetchImpl = options.fetchImpl ?? fetch;
   const timeoutMs = options.timeoutMs ?? 10_000;
   return {

@@ -6,7 +6,17 @@ import type { LeadErrorCode, LeadFieldErrors } from "@/lib/validation/lead";
  */
 
 /** Fields the visitor fills in, as strings (the shape React Hook Form holds and the no-script fallback re-renders). */
-export const LEAD_FORM_FIELDS = ["name", "businessName", "city", "email", "phone", "profileUrl", "goal", "volume", "message"] as const;
+export const LEAD_FORM_FIELDS = [
+  "name",
+  "businessName",
+  "city",
+  "email",
+  "phone",
+  "profileUrl",
+  "goal",
+  "volume",
+  "message",
+] as const;
 export type LeadFormField = (typeof LEAD_FORM_FIELDS)[number];
 export type LeadFormValues = Record<LeadFormField, string>;
 
@@ -61,14 +71,21 @@ export function leadFromForm(fd: FormData): Record<string, unknown> {
     ...formValues(fd),
     privacyNoticeAcknowledged: text(fd, HIDDEN.privacy),
     sourcePath: text(fd, HIDDEN.sourcePath),
-    utm: { source: text(fd, HIDDEN.utmSource), medium: text(fd, HIDDEN.utmMedium), campaign: text(fd, HIDDEN.utmCampaign) },
+    utm: {
+      source: text(fd, HIDDEN.utmSource),
+      medium: text(fd, HIDDEN.utmMedium),
+      campaign: text(fd, HIDDEN.utmCampaign),
+    },
     requestId: text(fd, HIDDEN.requestId),
     locale: text(fd, HIDDEN.locale),
   };
 }
 
 /** Field errors that belong to the visible form; anything else (consent, request id, locale) is a request problem. */
-export function splitErrors(errors: LeadFieldErrors): { fields: Partial<Record<LeadFormField, LeadErrorCode>>; request: boolean } {
+export function splitErrors(errors: LeadFieldErrors): {
+  fields: Partial<Record<LeadFormField, LeadErrorCode>>;
+  request: boolean;
+} {
   const fields: Partial<Record<LeadFormField, LeadErrorCode>> = {};
   let request = false;
   for (const [k, code] of Object.entries(errors) as Array<[string, LeadErrorCode]>) {

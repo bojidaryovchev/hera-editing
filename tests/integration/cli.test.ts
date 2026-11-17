@@ -62,7 +62,10 @@ describe("operator CLI", () => {
     const id = await createLead();
     const stub = createStubMailer();
     stub.failWith("mail_http_503");
-    await deliverLeadNotification({ db: handle.db, mailer: stub.mailer, to: "o@example.com", from: "s@example.com", brandName: null }, id);
+    await deliverLeadNotification(
+      { db: handle.db, mailer: stub.mailer, to: "o@example.com", from: "s@example.com", brandName: null },
+      id,
+    );
     await handle.db.execute(sql`update leads set notification_next_attempt_at = now() - interval '1 second'`);
 
     const first = await cli("leads-retry.ts", []);
@@ -79,7 +82,7 @@ describe("operator CLI", () => {
   }, 120_000);
 
   it("leads:export writes a CSV that neutralises spreadsheet formulas, and audits without PII", async () => {
-    await createLead({ name: "=HYPERLINK(\"http://evil\")", message: "+SUM(A1)" });
+    await createLead({ name: '=HYPERLINK("http://evil")', message: "+SUM(A1)" });
     const out = path.join(work, "export.csv");
     const res = await cli("leads-export.ts", ["--out", out]);
     expect(res.stdout).toContain("Exported 1 lead(s)");

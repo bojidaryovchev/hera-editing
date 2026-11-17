@@ -22,7 +22,9 @@ export function createDevMailer(options: { outboxDir: string | null; revealConte
       if (options.revealContent) {
         console.info(`[mail:dev] To: ${message.to}\n[mail:dev] Subject: ${message.subject}\n\n${message.text}\n`);
       } else {
-        console.info(`[mail:dev] notification prepared (${message.idempotencyKey ?? "no key"}); content hidden outside local development`);
+        console.info(
+          `[mail:dev] notification prepared (${message.idempotencyKey ?? "no key"}); content hidden outside local development`,
+        );
       }
     },
   };

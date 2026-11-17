@@ -107,7 +107,9 @@ export function parseServerEnv(src: Source): ServerEnv {
     problems.push("NEXT_PUBLIC_CONTACT_EMAIL is not a valid email address");
   const contactPhone = val(src, "NEXT_PUBLIC_CONTACT_PHONE") ?? null;
   if (isProd && !contactEmail && !contactPhone)
-    problems.push("NEXT_PUBLIC_CONTACT_EMAIL or NEXT_PUBLIC_CONTACT_PHONE is required in production (owner launch input)");
+    problems.push(
+      "NEXT_PUBLIC_CONTACT_EMAIL or NEXT_PUBLIC_CONTACT_PHONE is required in production (owner launch input)",
+    );
 
   // --- Database -------------------------------------------------------------------
   const databaseUrl = val(src, "DATABASE_URL") ?? null;
@@ -177,7 +179,9 @@ export function parseServerEnv(src: Source): ServerEnv {
   if (measurementId && !/^G-[A-Z0-9]{4,20}$/.test(measurementId))
     problems.push("ANALYTICS_MEASUREMENT_ID must look like G-XXXXXXX");
   if (measurementId && !analyticsApproved && isProd)
-    problems.push("ANALYTICS_MEASUREMENT_ID is set but ANALYTICS_CONSENT_APPROVED is not true; analytics needs an approved consent setup");
+    problems.push(
+      "ANALYTICS_MEASUREMENT_ID is set but ANALYTICS_CONSENT_APPROVED is not true; analytics needs an approved consent setup",
+    );
 
   const contentFixtures = val(src, "CONTENT_FIXTURES") === "1";
   if (contentFixtures && appEnv !== "test") problems.push("CONTENT_FIXTURES is only allowed when APP_ENV=test");

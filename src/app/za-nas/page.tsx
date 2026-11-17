@@ -73,7 +73,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <PageCta id="ab-cta-h" heading={a.contact.heading} body={a.contact.text} action={{ href: quoteHref("/za-nas"), label: QUOTE_CTA }} />
+      <PageCta
+        id="ab-cta-h"
+        heading={a.contact.heading}
+        body={a.contact.text}
+        action={{ href: quoteHref("/za-nas"), label: QUOTE_CTA }}
+      />
     </main>
   );
 }

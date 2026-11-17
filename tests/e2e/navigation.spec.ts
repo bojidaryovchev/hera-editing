@@ -18,7 +18,8 @@ test("the skip link comes first and moves focus to the content", async ({ page }
 test("desktop: the header links every main page, and its quote button records the page", async ({ page }) => {
   await page.goto("/");
   const nav = page.getByRole("navigation", { name: "Основна навигация" });
-  for (const name of ["Услуга", "Как работим", "Пакети", "Проекти", "За нас", "Контакти"]) await expect(nav.getByRole("link", { name })).toBeVisible();
+  for (const name of ["Услуга", "Как работим", "Пакети", "Проекти", "За нас", "Контакти"])
+    await expect(nav.getByRole("link", { name })).toBeVisible();
   // The header's own button comes first (the closed phone menu holds the other).
   const quote = page.locator("header").getByRole("link", { name: "Поискайте оферта" }).first();
   await expect(quote).toHaveAttribute("href", "/kontakti?from=%2F");
@@ -37,24 +38,36 @@ async function openMenu(page: import("@playwright/test").Page) {
   return { open, dialog };
 }
 
-test("phone menu: opens as a dialog, traps focus, closes on Escape and returns focus (acceptance B) @phone-only", async ({ page }) => {
+test("phone menu: opens as a dialog, traps focus, closes on Escape and returns focus (acceptance B) @phone-only", async ({
+  page,
+}) => {
   await page.goto("/");
   const { open, dialog } = await openMenu(page);
   // The page behind is inert: focus stays in the dialog (or passes to the browser's own controls, as a native modal allows).
   for (let i = 0; i < 12; i++) {
     await page.keyboard.press("Tab");
-    expect(await page.evaluate(() => document.activeElement === document.body || Boolean(document.activeElement?.closest("dialog")))).toBe(true);
+    expect(
+      await page.evaluate(
+        () => document.activeElement === document.body || Boolean(document.activeElement?.closest("dialog")),
+      ),
+    ).toBe(true);
   }
   await page.keyboard.press("Escape");
   await expect(dialog).toBeHidden();
   await expect(open).toBeFocused();
 });
 
-test("phone menu: lists every page, its quote records the page, a link navigates and closes it @phone-only", async ({ page }) => {
+test("phone menu: lists every page, its quote records the page, a link navigates and closes it @phone-only", async ({
+  page,
+}) => {
   await page.goto("/za-nas");
   const { dialog } = await openMenu(page);
-  for (const name of ["Услуга", "Как работим", "Пакети", "Проекти", "За нас", "Контакти"]) await expect(dialog.getByRole("link", { name })).toBeVisible();
-  await expect(dialog.getByRole("link", { name: "Поискайте оферта" })).toHaveAttribute("href", "/kontakti?from=%2Fza-nas");
+  for (const name of ["Услуга", "Как работим", "Пакети", "Проекти", "За нас", "Контакти"])
+    await expect(dialog.getByRole("link", { name })).toBeVisible();
+  await expect(dialog.getByRole("link", { name: "Поискайте оферта" })).toHaveAttribute(
+    "href",
+    "/kontakti?from=%2Fza-nas",
+  );
   await dialog.getByRole("link", { name: "Пакети" }).click();
   await expect(page).toHaveURL(/\/paketi$/);
   await expect(page.getByRole("dialog", { name: "Меню" })).toBeHidden();

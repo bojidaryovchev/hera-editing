@@ -4,12 +4,7 @@ import Link from "next/link";
 import { SERVER_ERROR } from "@/content/errors";
 
 /** Errors inside a page: the site's frame stays, a short message and a retry (L14). No error details are shown. */
-export default function PageError({
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function PageError({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
   const e = SERVER_ERROR;
   return (
     <main id="main" className="page" data-page="error">

@@ -73,7 +73,7 @@ describe("owner alert email", () => {
     profileUrl: "javascript-free.example",
     goal: "enquiries",
     volume: "12plus",
-    message: "Ред 1\nРед 2 \"кавички\"",
+    message: 'Ред 1\nРед 2 "кавички"',
     sourcePath: "/paketi",
     utmSource: "fb",
     utmMedium: null,

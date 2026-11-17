@@ -10,7 +10,12 @@ export function fontMeasure(buf: Uint8Array): Measure {
   const count = view.getUint16(4);
   for (let i = 0; i < count; i++) {
     const rec = 12 + i * 16;
-    const tag = String.fromCharCode(view.getUint8(rec), view.getUint8(rec + 1), view.getUint8(rec + 2), view.getUint8(rec + 3));
+    const tag = String.fromCharCode(
+      view.getUint8(rec),
+      view.getUint8(rec + 1),
+      view.getUint8(rec + 2),
+      view.getUint8(rec + 3),
+    );
     tables.set(tag, view.getUint32(rec + 8));
   }
   const at = (tag: string) => {

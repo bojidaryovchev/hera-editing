@@ -30,7 +30,14 @@ export default function ServicePage() {
   return (
     <main id="main" className="page" data-page="service">
       <div className="wrap">
-        <PageHero crumb={s.breadcrumb} path={PATH} eyebrow={s.hero.eyebrow} title={s.hero.title} lead={s.hero.lead} aside={<Inclusions />}>
+        <PageHero
+          crumb={s.breadcrumb}
+          path={PATH}
+          eyebrow={s.hero.eyebrow}
+          title={s.hero.title}
+          lead={s.hero.lead}
+          aside={<Inclusions />}
+        >
           <Link className="btn btn--pri" href={quoteHref(PATH)}>
             {QUOTE_CTA}
           </Link>
@@ -47,7 +54,12 @@ export default function ServicePage() {
       <Channels />
       <Price />
       <FaqSection ids={FAQ_SETS.service} />
-      <PageCta id="svc-cta-h" heading={FINAL_CTA.heading} body={FINAL_CTA.body} action={{ href: quoteHref(PATH), label: QUOTE_CTA }} />
+      <PageCta
+        id="svc-cta-h"
+        heading={FINAL_CTA.heading}
+        body={FINAL_CTA.body}
+        action={{ href: quoteHref(PATH), label: QUOTE_CTA }}
+      />
     </main>
   );
 }
@@ -189,7 +201,11 @@ const EXAMPLE_MONTH: readonly (readonly { day: number; format: (typeof FORMATS)[
 
 function Approval() {
   const a = SERVICE.approval;
-  const label: Record<Status, string> = { published: a.statusPublished, approved: a.statusApproved, waiting: a.statusWaiting };
+  const label: Record<Status, string> = {
+    published: a.statusPublished,
+    approved: a.statusApproved,
+    waiting: a.statusWaiting,
+  };
   const formatName = (id: string) => FORMATS.find((f) => f.id === id)?.name ?? "";
   return (
     <section className="sv-sec sv-dark sv-sec--rule-dark wrap" aria-labelledby="appr-h">

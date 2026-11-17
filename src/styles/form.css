@@ -11,7 +11,9 @@
   color-scheme: light;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 0 0 1px var(--edline), 0 30px 80px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    0 0 0 1px var(--edline),
+    0 30px 80px rgba(0, 0, 0, 0.45);
 }
 /* The card is a light surface on the dark page: secondary buttons take the paper style. */
 .lf__card .btn--sec {
@@ -189,7 +191,10 @@
   font: 600 15px/1 var(--fu);
   color: var(--ink);
   white-space: nowrap;
-  transition: background 0.15s ease, border-color 0.15s ease, color 0.15s ease;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease;
 }
 .lf__chip:hover span {
   border-color: #a3a29a;

@@ -46,7 +46,12 @@ export function TurnstileField({ siteKey, resetKey }: { siteKey: string; resetKe
     loadTurnstile()
       .then((t) => {
         if (cancelled || !box.current || widget.current) return;
-        widget.current = t.render(box.current, { sitekey: siteKey, language: "bg", appearance: "interaction-only", action: "lead" });
+        widget.current = t.render(box.current, {
+          sitekey: siteKey,
+          language: "bg",
+          appearance: "interaction-only",
+          action: "lead",
+        });
       })
       .catch(() => {
         // Without a token the server refuses the request, and the form shows its request error.

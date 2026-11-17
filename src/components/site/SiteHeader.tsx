@@ -33,7 +33,13 @@ export function SiteHeader() {
           brand={brand}
           items={items}
           quoteLabel={QUOTE_CTA}
-          labels={{ open: SHELL.menuOpen, close: SHELL.menuClose, title: SHELL.menuTitle, nav: SHELL.mainNavLabel, home: SHELL.homeLinkSuffix }}
+          labels={{
+            open: SHELL.menuOpen,
+            close: SHELL.menuClose,
+            title: SHELL.menuTitle,
+            nav: SHELL.mainNavLabel,
+            home: SHELL.homeLinkSuffix,
+          }}
         />
       </div>
     </header>

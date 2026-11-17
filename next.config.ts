@@ -9,7 +9,8 @@ export default function config(phase: string): NextConfig {
   const appEnv = resolveAppEnv(env);
   // Production refuses to build or start with a missing or invalid launch input (the error names variables, never
   // values), so canonical links, contacts and mail can never go live as placeholders.
-  if (appEnv === "production" && (phase === PHASE_PRODUCTION_BUILD || phase === PHASE_PRODUCTION_SERVER)) parseServerEnv(env);
+  if (appEnv === "production" && (phase === PHASE_PRODUCTION_BUILD || phase === PHASE_PRODUCTION_SERVER))
+    parseServerEnv(env);
 
   const headers = securityHeaders({
     dev: phase === PHASE_DEVELOPMENT_SERVER,
@@ -38,7 +39,10 @@ export default function config(phase: string): NextConfig {
     // direct URL (decision L22): the request is rewritten to a path that does not exist, so it answers 404.
     async rewrites() {
       return {
-        beforeFiles: appEnv === "production" ? [{ source: "/placeholder-media/:path*", destination: "/__placeholder-media-not-served" }] : [],
+        beforeFiles:
+          appEnv === "production"
+            ? [{ source: "/placeholder-media/:path*", destination: "/__placeholder-media-not-served" }]
+            : [],
         afterFiles: [],
         fallback: [],
       };

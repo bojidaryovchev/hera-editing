@@ -111,7 +111,9 @@ test.describe("crawling and structured data (acceptance E)", () => {
 
   test("home describes the site and the brand; internal pages their breadcrumbs", async ({ page }) => {
     const ld = async () =>
-      page.$$eval('script[type="application/ld+json"]', (ss) => ss.map((s) => JSON.parse(s.textContent ?? "{}") as Record<string, unknown>));
+      page.$$eval('script[type="application/ld+json"]', (ss) =>
+        ss.map((s) => JSON.parse(s.textContent ?? "{}") as Record<string, unknown>),
+      );
     await page.goto("/");
     const home = JSON.stringify(await ld());
     expect(home).toContain('"@type":"WebSite"');
@@ -120,7 +122,11 @@ test.describe("crawling and structured data (acceptance E)", () => {
 
     await page.goto(FIXTURE_CASE);
     const crumbs = (await ld()).find((d) => d["@type"] === "BreadcrumbList") as { itemListElement: { name: string }[] };
-    expect(crumbs.itemListElement.map((i) => i.name)).toEqual(["Начало", "Проекти", "Тестова пекарна (фиктивни данни)"]);
+    expect(crumbs.itemListElement.map((i) => i.name)).toEqual([
+      "Начало",
+      "Проекти",
+      "Тестова пекарна (фиктивни данни)",
+    ]);
   });
 
   test("security headers on every response", async ({ request }) => {

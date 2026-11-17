@@ -75,10 +75,18 @@ export async function deliverLeadNotification(
         updatedAt: sql`now()`,
       })
       .where(eq(leads.id, lead.id));
-    logEvent("info", "lead_notification_sent", { leadId: lead.id, attempts: lead.notificationAttempts, provider: deps.mailer.provider });
+    logEvent("info", "lead_notification_sent", {
+      leadId: lead.id,
+      attempts: lead.notificationAttempts,
+      provider: deps.mailer.provider,
+    });
     return "sent";
   } catch (error) {
-    return recordFailure(deps.db, lead, error instanceof MailDeliveryError ? error.code : errorCode(error, "mail_error"));
+    return recordFailure(
+      deps.db,
+      lead,
+      error instanceof MailDeliveryError ? error.code : errorCode(error, "mail_error"),
+    );
   }
 }
 

@@ -21,7 +21,11 @@ export default defineConfig({
   },
   // Every test runs on desktop; tests tagged @phone also run on a phone, @phone-only only there.
   projects: [
-    { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } }, grepInvert: /@phone-only/ },
+    {
+      name: "desktop",
+      use: { ...devices["Desktop Chrome"], viewport: { width: 1440, height: 900 } },
+      grepInvert: /@phone-only/,
+    },
     { name: "phone", use: { ...devices["Pixel 7"] }, grep: /@phone/ },
   ],
   webServer: {

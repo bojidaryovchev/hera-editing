@@ -46,7 +46,16 @@ export function MenuDialog({ brand, items, quoteLabel, labels }: Props) {
 
   return (
     <>
-      <button ref={button} className="hdr__menu" type="button" aria-label={labels.open} aria-haspopup="dialog" aria-controls="menu" aria-expanded={open} onClick={show}>
+      <button
+        ref={button}
+        className="hdr__menu"
+        type="button"
+        aria-label={labels.open}
+        aria-haspopup="dialog"
+        aria-controls="menu"
+        aria-expanded={open}
+        onClick={show}
+      >
         <MenuIcon />
       </button>
       <dialog ref={dialog} id="menu" className="menu" aria-labelledby="menu-title">

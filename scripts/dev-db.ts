@@ -17,7 +17,14 @@ const url = `postgres://postgres:postgres@127.0.0.1:${port}/hera_dev`;
 async function main() {
   const { default: EmbeddedPostgres } = await import("embedded-postgres");
   const fresh = !existsSync(path.join(dir, "PG_VERSION"));
-  const pg = new EmbeddedPostgres({ databaseDir: dir, port, user: "postgres", password: "postgres", persistent: true, onLog: () => {} });
+  const pg = new EmbeddedPostgres({
+    databaseDir: dir,
+    port,
+    user: "postgres",
+    password: "postgres",
+    persistent: true,
+    onLog: () => {},
+  });
   if (fresh) await pg.initialise();
   await pg.start();
   if (fresh) await pg.createDatabase("hera_dev");

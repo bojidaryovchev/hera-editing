@@ -30,7 +30,11 @@ export const COOKIES_PAGE = {
     nothingStored: "Към момента сайтът не съхранява нищо в браузъра Ви.",
     columns: ["Име", "За какво е", "Срок"],
     consent: { name: "hera_consent", purpose: "Запомня избора Ви за бисквитките.", duration: "6 месеца" },
-    analytics: { name: "_ga, _ga_*", purpose: "Google Analytics: различава посещенията, без данни от формуляра.", duration: "13 месеца" },
+    analytics: {
+      name: "_ga, _ga_*",
+      purpose: "Google Analytics: различава посещенията, без данни от формуляра.",
+      duration: "13 месеца",
+    },
   },
   toggleLabel: "Аналитични бисквитки",
   rejectOptional: "Само необходимите",

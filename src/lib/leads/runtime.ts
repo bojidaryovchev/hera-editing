@@ -48,9 +48,7 @@ export async function submitLeadFromRequest(
     rateLimitSalt: env.rateLimitSalt,
     privacyNoticeVersion: PRIVACY_NOTICE.version,
     honeypot: extras.honeypot,
-    verifyHuman: turnstile
-      ? () => verifyTurnstile(turnstile.secretKey, extras.turnstileToken ?? null, address)
-      : null,
+    verifyHuman: turnstile ? () => verifyTurnstile(turnstile.secretKey, extras.turnstileToken ?? null, address) : null,
     scheduleNotification: (leadId) => {
       after(async () => {
         try {

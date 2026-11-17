@@ -18,9 +18,25 @@ import { isIndexable, siteOrigin } from "@/lib/site/url";
 // Self-hosted at build time by next/font (DS:22); Sofia Sans has Bulgarian letterforms by default. Only the weights
 // the stylesheets use. The mono face sets small labels, never a headline, so it is not preloaded: it would only
 // compete with the headline fonts for bandwidth on a slow connection.
-const sans = Sofia_Sans({ subsets: ["cyrillic", "latin"], weight: ["400", "500", "600", "700"], variable: "--ff-sans", display: "swap" });
-const display = Sofia_Sans_Extra_Condensed({ subsets: ["cyrillic", "latin"], weight: ["800"], variable: "--ff-display", display: "swap" });
-const mono = IBM_Plex_Mono({ subsets: ["cyrillic", "latin"], weight: ["500", "600"], variable: "--ff-mono", display: "swap", preload: false });
+const sans = Sofia_Sans({
+  subsets: ["cyrillic", "latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--ff-sans",
+  display: "swap",
+});
+const display = Sofia_Sans_Extra_Condensed({
+  subsets: ["cyrillic", "latin"],
+  weight: ["800"],
+  variable: "--ff-display",
+  display: "swap",
+});
+const mono = IBM_Plex_Mono({
+  subsets: ["cyrillic", "latin"],
+  weight: ["500", "600"],
+  variable: "--ff-mono",
+  display: "swap",
+  preload: false,
+});
 
 const verification = process.env.GOOGLE_SITE_VERIFICATION?.trim();
 
@@ -57,7 +73,11 @@ const MOTION_FLAG = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matc
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="bg" className={`${sans.variable} ${display.variable} ${mono.variable}${showStagingBar() ? " has-bar" : ""}`} suppressHydrationWarning>
+    <html
+      lang="bg"
+      className={`${sans.variable} ${display.variable} ${mono.variable}${showStagingBar() ? " has-bar" : ""}`}
+      suppressHydrationWarning
+    >
       <head>
         <script dangerouslySetInnerHTML={{ __html: MOTION_FLAG }} />
       </head>

@@ -31,7 +31,9 @@ test.describe("no horizontal overflow at any width or scroll position (acceptanc
         for (let y = 0; y <= total; y += Math.round(h * 0.8)) {
           await page.evaluate((top) => window.scrollTo(0, top), y);
           await page.waitForTimeout(60);
-          const over = await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth);
+          const over = await page.evaluate(
+            () => document.documentElement.scrollWidth - document.documentElement.clientWidth,
+          );
           if (over > 0) {
             failures.push(`${p} at y=${y}: ${over}px`);
             break;
@@ -62,7 +64,12 @@ test.describe("hero on wide and tall screens (owner report 2026-11-17)", () => {
         const mon = r(".mon");
         const card = r(".card");
         const hdr = r(".hdr");
-        return { ratio: mon.width / mon.height, cardW: card.width, inside: card.left >= mon.left && card.right <= mon.right, belowHeader: card.top >= hdr.bottom };
+        return {
+          ratio: mon.width / mon.height,
+          cardW: card.width,
+          inside: card.left >= mon.left && card.right <= mon.right,
+          belowHeader: card.top >= hdr.bottom,
+        };
       });
       expect(m.ratio).toBeGreaterThan(1.72);
       expect(m.ratio).toBeLessThan(1.84);

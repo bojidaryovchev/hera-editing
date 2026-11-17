@@ -21,11 +21,15 @@ describe("placeholder footage never reaches production (L22, acceptance D)", () 
 
   it("shows the agency's own footage everywhere, production included", () => {
     const own: SiteMedia = { ...MEDIA, kind: "owner", label: null, note: null };
-    for (const env of ["development", "staging", "production"] as const) expect(footage(env, own, { PLACEHOLDER_MEDIA: "off" })).toBe(own);
+    for (const env of ["development", "staging", "production"] as const)
+      expect(footage(env, own, { PLACEHOLDER_MEDIA: "off" })).toBe(own);
   });
 
   it("serves every placeholder from the placeholder folder only", () => {
-    const paths = [MEDIA.hero.wide, MEDIA.hero.tall, ...Object.values(MEDIA.formats)].flatMap((c) => [c.video, c.poster]);
+    const paths = [MEDIA.hero.wide, MEDIA.hero.tall, ...Object.values(MEDIA.formats)].flatMap((c) => [
+      c.video,
+      c.poster,
+    ]);
     for (const p of paths) expect(p.startsWith("/placeholder-media/")).toBe(true);
   });
 });

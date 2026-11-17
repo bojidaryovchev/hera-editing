@@ -12,7 +12,9 @@ import { audit, csvCell, parseArgs, requireDatabaseUrl } from "./lib/cli";
 const { flags } = parseArgs(process.argv.slice(2));
 const out = typeof flags.out === "string" ? flags.out : null;
 if (!out) {
-  console.error("Pass --out <file>. Exports are written to a file, never to the terminal (they contain personal data).");
+  console.error(
+    "Pass --out <file>. Exports are written to a file, never to the terminal (they contain personal data).",
+  );
   process.exit(2);
 }
 const format = flags.format === "json" ? "json" : "csv";

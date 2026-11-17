@@ -49,7 +49,12 @@ describe("validateLead", () => {
       message: "too_long",
     });
     const atLimit = validateLead(
-      validLead({ name: "a".repeat(100), businessName: "b".repeat(120), city: "c".repeat(100), message: "e".repeat(2000) }),
+      validLead({
+        name: "a".repeat(100),
+        businessName: "b".repeat(120),
+        city: "c".repeat(100),
+        message: "e".repeat(2000),
+      }),
     );
     expect(atLimit.ok).toBe(true);
   });
@@ -89,7 +94,10 @@ describe("validateLead", () => {
 
   it("keeps only safe UTM values and known source paths", () => {
     const r = validateLead(
-      validLead({ utm: { source: "facebook", medium: "<script>", campaign: "x".repeat(200) }, sourcePath: "https://evil" }),
+      validLead({
+        utm: { source: "facebook", medium: "<script>", campaign: "x".repeat(200) },
+        sourcePath: "https://evil",
+      }),
     );
     expect(r.ok && r.data.utm).toEqual({ source: "facebook", medium: null, campaign: null });
     expect(r.ok && r.data.sourcePath).toBeNull();

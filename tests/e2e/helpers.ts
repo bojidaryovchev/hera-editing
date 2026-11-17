@@ -40,10 +40,13 @@ export async function closeDb() {
 /** Answers every Google Analytics request locally and records it, so nothing leaves the machine. */
 export async function stubGoogle(context: BrowserContext): Promise<string[]> {
   const hits: string[] = [];
-  await context.route(/googletagmanager\.com|google-analytics\.com|analytics\.google\.com|doubleclick\.net/, (route) => {
-    hits.push(route.request().url());
-    return route.fulfill({ status: 200, contentType: "application/javascript", body: "/* stub */" });
-  });
+  await context.route(
+    /googletagmanager\.com|google-analytics\.com|analytics\.google\.com|doubleclick\.net/,
+    (route) => {
+      hits.push(route.request().url());
+      return route.fulfill({ status: 200, contentType: "application/javascript", body: "/* stub */" });
+    },
+  );
   return hits;
 }
 
@@ -64,7 +67,9 @@ export function watchConsole(page: Page): string[] {
   return errors;
 }
 
-export type LeadFields = Partial<Record<"name" | "businessName" | "city" | "email" | "phone" | "profileUrl" | "message", string>> & {
+export type LeadFields = Partial<
+  Record<"name" | "businessName" | "city" | "email" | "phone" | "profileUrl" | "message", string>
+> & {
   goal?: string;
 };
 
@@ -75,7 +80,10 @@ export async function fillLead(page: Page, fields: LeadFields) {
     await page.locator(`#lf-${key}`).fill(value);
   }
   if (fields.goal)
-    await page.getByRole("radiogroup", { name: "Какво искате да постигнете?" }).getByRole("radio", { name: fields.goal, exact: true }).check();
+    await page
+      .getByRole("radiogroup", { name: "Какво искате да постигнете?" })
+      .getByRole("radio", { name: fields.goal, exact: true })
+      .check();
 }
 
 /** A unique, clearly fictional address per test. */

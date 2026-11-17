@@ -39,7 +39,12 @@ const children: ChildProcess[] = [];
 let stopDatabase: (() => Promise<void>) | null = null;
 
 function run(cmd: string, args: string[], env: Record<string, string>) {
-  return spawnSync(cmd, args, { cwd: ROOT, env: { ...process.env, ...env }, stdio: "inherit", shell: process.platform === "win32" });
+  return spawnSync(cmd, args, {
+    cwd: ROOT,
+    env: { ...process.env, ...env },
+    stdio: "inherit",
+    shell: process.platform === "win32",
+  });
 }
 
 function build() {
@@ -78,7 +83,8 @@ async function waitFor(port: number, timeoutMs = 120_000) {
 async function shutdown(code = 0) {
   for (const child of children) {
     if (child.pid && !child.killed) {
-      if (process.platform === "win32") spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore" });
+      if (process.platform === "win32")
+        spawnSync("taskkill", ["/pid", String(child.pid), "/T", "/F"], { stdio: "ignore" });
       else child.kill("SIGTERM");
     }
   }
@@ -98,8 +104,19 @@ async function main() {
 
   const common = { DATABASE_URL: database.url, NOTIFICATION_EMAIL_TO: "owner@example.com" };
   serve(E2E_PORTS.main, { ...common, MAIL_PROVIDER: "dev", MAIL_DEV_OUTBOX_DIR: OUTBOX });
-  serve(E2E_PORTS.mailDown, { ...common, MAIL_PROVIDER: "smtp", SMTP_HOST: "127.0.0.1", SMTP_PORT: "9", MAIL_FROM: "site@example.com" });
-  serve(E2E_PORTS.dbDown, { ...common, DATABASE_URL: "postgres://postgres:postgres@127.0.0.1:9/unreachable", MAIL_PROVIDER: "dev", MAIL_DEV_OUTBOX_DIR: OUTBOX });
+  serve(E2E_PORTS.mailDown, {
+    ...common,
+    MAIL_PROVIDER: "smtp",
+    SMTP_HOST: "127.0.0.1",
+    SMTP_PORT: "9",
+    MAIL_FROM: "site@example.com",
+  });
+  serve(E2E_PORTS.dbDown, {
+    ...common,
+    DATABASE_URL: "postgres://postgres:postgres@127.0.0.1:9/unreachable",
+    MAIL_PROVIDER: "dev",
+    MAIL_DEV_OUTBOX_DIR: OUTBOX,
+  });
   await Promise.all([waitFor(E2E_PORTS.main), waitFor(E2E_PORTS.mailDown), waitFor(E2E_PORTS.dbDown)]);
 
   createServer((_req, res) => res.end("ready")).listen(E2E_PORTS.ready, "127.0.0.1");

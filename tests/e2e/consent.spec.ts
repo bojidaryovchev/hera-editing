@@ -4,7 +4,10 @@ import { ALL_PAGES, fillLead, stubGoogle, testEmail } from "./helpers";
 const REJECT = "Само необходимите";
 const ACCEPT = "Приемете всички";
 
-test("refusing analytics: browsing every page and sending a lead makes no tracking request (TS:Suggested 7, acceptance F)", async ({ page, context }) => {
+test("refusing analytics: browsing every page and sending a lead makes no tracking request (TS:Suggested 7, acceptance F)", async ({
+  page,
+  context,
+}) => {
   const hits = await stubGoogle(context);
   await page.goto("/");
   const banner = page.getByRole("region", { name: "Бисквитки" }).or(page.locator(".cb"));
@@ -18,7 +21,13 @@ test("refusing analytics: browsing every page and sending a lead makes no tracki
     await page.waitForTimeout(200);
   }
   await page.goto("/kontakti");
-  await fillLead(page, { name: "Без проследяване", businessName: "Фирма Р", city: "Ловеч", email: testEmail("reject"), goal: "Друго" });
+  await fillLead(page, {
+    name: "Без проследяване",
+    businessName: "Фирма Р",
+    city: "Ловеч",
+    email: testEmail("reject"),
+    goal: "Друго",
+  });
   await page.getByRole("button", { name: "Изпратете запитването" }).click();
   await expect(page.getByRole("heading", { name: "Благодарим Ви!" })).toBeVisible();
 
@@ -28,7 +37,10 @@ test("refusing analytics: browsing every page and sending a lead makes no tracki
   expect(cookies.filter((n) => n.startsWith("_ga"))).toEqual([]);
 });
 
-test("accepting loads analytics; withdrawing on /biskvitki stops it and removes its cookies", async ({ page, context }) => {
+test("accepting loads analytics; withdrawing on /biskvitki stops it and removes its cookies", async ({
+  page,
+  context,
+}) => {
   const hits = await stubGoogle(context);
   await page.goto("/");
   await page.getByRole("button", { name: ACCEPT }).click();
@@ -41,7 +53,10 @@ test("accepting loads analytics; withdrawing on /biskvitki stops it and removes 
   expect(await page.evaluate(() => (window as unknown as Record<string, unknown>)["ga-disable-G-TEST1234"])).toBe(true);
 });
 
-test("with consent, events carry pages, tiers and codes only, never what was typed (TS:Analytics)", async ({ page, context }) => {
+test("with consent, events carry pages, tiers and codes only, never what was typed (TS:Analytics)", async ({
+  page,
+  context,
+}) => {
   await stubGoogle(context);
   await page.goto("/");
   await page.getByRole("button", { name: ACCEPT }).click();
@@ -61,7 +76,9 @@ test("with consent, events carry pages, tiers and codes only, never what was typ
   expect(ev.find((e) => e.name === "package_interest")?.params).toEqual({ tier: "rastezh", source_page: "/" });
 
   await page.getByRole("button", { name: "Изпратете запитването" }).click();
-  await expect.poll(async () => (await events()).find((e) => e.name === "lead_form_error")?.params).toEqual({ code: "invalid_client" });
+  await expect
+    .poll(async () => (await events()).find((e) => e.name === "lead_form_error")?.params)
+    .toEqual({ code: "invalid_client" });
 
   const email = testEmail("events");
   await fillLead(page, { name: "Събитие Тестово", businessName: "Фирма Е", city: "Добрич", email, goal: "Друго" });
@@ -77,7 +94,13 @@ test("the form works whatever the visitor chose", async ({ page, context }) => {
   await stubGoogle(context);
   await page.goto("/kontakti");
   // No choice made at all: the banner is open, the form still sends.
-  await fillLead(page, { name: "Без избор", businessName: "Фирма Ж", city: "Видин", email: testEmail("nochoice"), goal: "Друго" });
+  await fillLead(page, {
+    name: "Без избор",
+    businessName: "Фирма Ж",
+    city: "Видин",
+    email: testEmail("nochoice"),
+    goal: "Друго",
+  });
   await page.getByRole("button", { name: "Изпратете запитването" }).click();
   await expect(page.getByRole("heading", { name: "Благодарим Ви!" })).toBeVisible();
 });

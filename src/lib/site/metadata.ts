@@ -59,7 +59,14 @@ export function caseMetadata(p: Project): Metadata {
     title: p.businessName,
     description: p.summary,
     alternates: { canonical: path },
-    openGraph: { type: "article", locale: "bg_BG", siteName: brandName(), url: path, title: p.businessName, description: p.summary },
+    openGraph: {
+      type: "article",
+      locale: "bg_BG",
+      siteName: brandName(),
+      url: path,
+      title: p.businessName,
+      description: p.summary,
+    },
     twitter: { card: "summary_large_image", title: p.businessName, description: p.summary },
   };
 }

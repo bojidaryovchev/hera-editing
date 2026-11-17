@@ -42,10 +42,7 @@ export function buildLeadAlert(lead: Lead, options: { brandName: string | null }
   const meta: Array<[string, string]> = [
     ["Получено", formatSofiaDateTime(lead.createdAt)],
     ["Страница", lead.sourcePath ?? "—"],
-    [
-      "Кампания (UTM)",
-      [lead.utmSource, lead.utmMedium, lead.utmCampaign].filter(Boolean).join(" / ") || "—",
-    ],
+    ["Кампания (UTM)", [lead.utmSource, lead.utmMedium, lead.utmCampaign].filter(Boolean).join(" / ") || "—"],
     ["Номер на запитването", lead.id],
     ["Версия на информацията за поверителност", lead.privacyNoticeVersion],
   ];

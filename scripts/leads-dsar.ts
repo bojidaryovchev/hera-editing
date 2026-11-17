@@ -27,7 +27,8 @@ function matchPerson() {
   if (!email && !phoneDigits) fail("Pass --email or --phone.");
   const conditions = [];
   if (email) conditions.push(sql`lower(${leads.email}) = ${email}`);
-  if (phoneDigits) conditions.push(sql`regexp_replace(coalesce(${leads.phone}, ''), '[^0-9]', '', 'g') = ${phoneDigits}`);
+  if (phoneDigits)
+    conditions.push(sql`regexp_replace(coalesce(${leads.phone}, ''), '[^0-9]', '', 'g') = ${phoneDigits}`);
   return or(...conditions);
 }
 

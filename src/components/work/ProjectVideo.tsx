@@ -11,7 +11,15 @@ import { track } from "@/lib/analytics";
  * Bulgarian captions when supplied. The poster's size reserves the space, so nothing shifts. The first play is
  * counted (portfolio_video_play, the project's slug only) when the visitor allowed analytics.
  */
-export function ProjectVideo({ video, poster, project }: { video: MediaVideo; poster: MediaPoster | null; project: string }) {
+export function ProjectVideo({
+  video,
+  poster,
+  project,
+}: {
+  video: MediaVideo;
+  poster: MediaPoster | null;
+  project: string;
+}) {
   const counted = useRef(false);
   const [failed, setFailed] = useState(false);
   const onPlay = () => {
@@ -35,7 +43,9 @@ export function ProjectVideo({ video, poster, project }: { video: MediaVideo; po
         {video.webm && <source src={video.webm} type="video/webm" />}
         {/* The last source reports the failure when no source could be played. */}
         <source src={video.mp4} type="video/mp4" onError={() => setFailed(true)} />
-        {video.captions && <track kind="captions" src={video.captions} srcLang="bg" label={VIDEO_PLAYER.captions} default />}
+        {video.captions && (
+          <track kind="captions" src={video.captions} srcLang="bg" label={VIDEO_PLAYER.captions} default />
+        )}
       </video>
       <figcaption className="pvid__cap">{video.title}</figcaption>
       {failed && (

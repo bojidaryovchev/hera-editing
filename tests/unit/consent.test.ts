@@ -46,10 +46,8 @@ describe("the stored cookie choice (acceptance F)", () => {
   });
 
   it("removes exactly the Google Analytics cookies on withdrawal", () => {
-    for (const name of ["_ga", "_ga_ABC123", "_gid"])
-      expect(isAnalyticsCookie(name)).toBe(true);
-    for (const name of [CONSENT_COOKIE, "_gat_x", "ga", "__ga", "_gaz"])
-      expect(isAnalyticsCookie(name)).toBe(false);
+    for (const name of ["_ga", "_ga_ABC123", "_gid"]) expect(isAnalyticsCookie(name)).toBe(true);
+    for (const name of [CONSENT_COOKIE, "_gat_x", "ga", "__ga", "_gaz"]) expect(isAnalyticsCookie(name)).toBe(false);
   });
 
   it("asks again after about six months and keeps GA cookies 13 months at most", () => {

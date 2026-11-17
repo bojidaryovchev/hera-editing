@@ -21,7 +21,11 @@ export type SecurityInput = {
 };
 
 const GA_SCRIPT = ["https://*.googletagmanager.com"];
-const GA_CONNECT = ["https://*.google-analytics.com", "https://*.analytics.google.com", "https://*.googletagmanager.com"];
+const GA_CONNECT = [
+  "https://*.google-analytics.com",
+  "https://*.analytics.google.com",
+  "https://*.googletagmanager.com",
+];
 const GA_IMG = ["https://*.google-analytics.com", "https://*.googletagmanager.com"];
 const TURNSTILE = ["https://challenges.cloudflare.com"];
 
@@ -30,7 +34,15 @@ const list = (...parts: (readonly string[] | false)[]) => parts.flatMap((p) => (
 export function contentSecurityPolicy(i: SecurityInput): string {
   const directives: [string, string[]][] = [
     ["default-src", ["'self'"]],
-    ["script-src", list(["'self'", "'unsafe-inline'"], i.dev && ["'unsafe-eval'"], i.analytics && GA_SCRIPT, i.turnstile && TURNSTILE)],
+    [
+      "script-src",
+      list(
+        ["'self'", "'unsafe-inline'"],
+        i.dev && ["'unsafe-eval'"],
+        i.analytics && GA_SCRIPT,
+        i.turnstile && TURNSTILE,
+      ),
+    ],
     // Inline style attributes and the toast library's injected styles.
     ["style-src", ["'self'", "'unsafe-inline'"]],
     ["img-src", list(["'self'", "data:", "blob:"], i.analytics && GA_IMG, i.mediaOrigins)],
@@ -57,7 +69,10 @@ export function securityHeaders(i: SecurityInput): { key: string; value: string 
     { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
     { key: "X-Frame-Options", value: "DENY" },
     { key: "Cross-Origin-Opener-Policy", value: "same-origin" },
-    { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()" },
+    {
+      key: "Permissions-Policy",
+      value: "camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()",
+    },
   ];
   if (i.https) headers.push({ key: "Strict-Transport-Security", value: "max-age=63072000; includeSubDomains" });
   if (!i.indexable) headers.push({ key: "X-Robots-Tag", value: "noindex, nofollow" });

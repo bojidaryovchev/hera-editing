@@ -11,7 +11,11 @@ export type Crumb = { name: string; path: string };
  * `parent` adds a middle level (a case study sits under "Проекти").
  */
 export function Breadcrumbs({ current, path, parent }: { current: string; path: string; parent?: Crumb }) {
-  const trail: Crumb[] = [{ name: SHELL.breadcrumbHome, path: "/" }, ...(parent ? [parent] : []), { name: current, path }];
+  const trail: Crumb[] = [
+    { name: SHELL.breadcrumbHome, path: "/" },
+    ...(parent ? [parent] : []),
+    { name: current, path },
+  ];
   return (
     <nav className="crumbs" aria-label={SHELL.breadcrumbLabel}>
       <ol>

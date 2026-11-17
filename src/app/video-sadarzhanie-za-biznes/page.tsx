@@ -27,7 +27,15 @@ export default function VideoPage() {
   return (
     <main id="main" className="page" data-page="video">
       <div className="wrap">
-        <PageHero crumb={v.breadcrumb} path={PATH} eyebrow={v.hero.eyebrow} title={v.hero.title} lead={v.hero.lead} aside={<Viewfinder />} media>
+        <PageHero
+          crumb={v.breadcrumb}
+          path={PATH}
+          eyebrow={v.hero.eyebrow}
+          title={v.hero.title}
+          lead={v.hero.lead}
+          aside={<Viewfinder />}
+          media
+        >
           <Link className="btn btn--pri" href={quoteHref(PATH)}>
             {v.hero.cta}
           </Link>

@@ -32,7 +32,9 @@ describe("site URL and indexing (TS:SEO)", () => {
     expect(siteOrigin({ NEXT_PUBLIC_SITE_URL: "https://www.example.bg/some/path?x=1" })).toBe("https://www.example.bg");
     expect(siteOrigin({ NEXT_PUBLIC_SITE_URL: "not a url" })).toBe("http://localhost:3000");
     expect(siteOrigin({})).toBe("http://localhost:3000");
-    expect(absoluteUrl("/paketi", { NEXT_PUBLIC_SITE_URL: "https://www.example.bg" })).toBe("https://www.example.bg/paketi");
+    expect(absoluteUrl("/paketi", { NEXT_PUBLIC_SITE_URL: "https://www.example.bg" })).toBe(
+      "https://www.example.bg/paketi",
+    );
   });
 
   it("indexes production only", () => {
@@ -56,7 +58,13 @@ describe("page metadata (acceptance E)", () => {
     for (const { key, path: p } of INDEXABLE_PAGES) {
       const m = pageMetadata(key);
       expect(m.alternates?.canonical).toBe(p);
-      expect(m.openGraph).toMatchObject({ url: p, locale: "bg_BG", type: "website", title: SEO[key].title, description: SEO[key].description });
+      expect(m.openGraph).toMatchObject({
+        url: p,
+        locale: "bg_BG",
+        type: "website",
+        title: SEO[key].title,
+        description: SEO[key].description,
+      });
       expect(m.twitter).toMatchObject({ card: "summary_large_image" });
       titles.add(SEO[key].title);
       descriptions.add(SEO[key].description);
@@ -90,7 +98,9 @@ describe("sitemap and robots", () => {
   it("lists exactly the indexable pages, as absolute URLs", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.example.bg");
     const urls = sitemap().map((e) => e.url);
-    expect(urls).toEqual(INDEXABLE_PAGES.map((p) => (p.path === "/" ? "https://www.example.bg/" : `https://www.example.bg${p.path}`)));
+    expect(urls).toEqual(
+      INDEXABLE_PAGES.map((p) => (p.path === "/" ? "https://www.example.bg/" : `https://www.example.bg${p.path}`)),
+    );
     expect(urls.some((u) => /\/(rabota|api)\b/.test(u))).toBe(false);
   });
 
@@ -102,7 +112,10 @@ describe("sitemap and robots", () => {
   it("invites crawling in production and points to the sitemap", () => {
     vi.stubEnv("APP_ENV", "production");
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.example.bg");
-    expect(robots()).toEqual({ rules: { userAgent: "*", allow: "/", disallow: "/api/" }, sitemap: "https://www.example.bg/sitemap.xml" });
+    expect(robots()).toEqual({
+      rules: { userAgent: "*", allow: "/", disallow: "/api/" },
+      sitemap: "https://www.example.bg/sitemap.xml",
+    });
   });
 });
 
@@ -123,25 +136,37 @@ describe("structured data claims only verified facts (acceptance E)", () => {
 
   it("adds contacts only when configured, and company facts only once verified", () => {
     const socials = { facebook: "https://facebook.com/x", instagram: null, tiktok: null, youtube: null };
-    const withContacts = organizationLd({ ...base, contacts: { email: "office@example.bg", phone: "+359 2 000 0000" } });
+    const withContacts = organizationLd({
+      ...base,
+      contacts: { email: "office@example.bg", phone: "+359 2 000 0000" },
+    });
     expect(withContacts).toMatchObject({ email: "office@example.bg", telephone: "+359 2 000 0000" });
 
     const unverified = organizationLd({ ...base, business: { ...BUSINESS, legalName: "Хера ЕООД", socials } });
     expect(unverified).not.toHaveProperty("legalName");
     expect(unverified).not.toHaveProperty("sameAs");
 
-    const verified = organizationLd({ ...base, business: { ...BUSINESS, legalName: "Хера ЕООД", socials, verified: true } });
+    const verified = organizationLd({
+      ...base,
+      business: { ...BUSINESS, legalName: "Хера ЕООД", socials, verified: true },
+    });
     expect(verified).toMatchObject({ legalName: "Хера ЕООД", sameAs: ["https://facebook.com/x"] });
   });
 
   it("never claims ratings, reviews, FAQ answers or a local business", () => {
     const text = JSON.stringify(homeGraph());
-    for (const word of ["aggregateRating", "review", "FAQPage", "LocalBusiness", "address"]) expect(text).not.toContain(word);
+    for (const word of ["aggregateRating", "review", "FAQPage", "LocalBusiness", "address"])
+      expect(text).not.toContain(word);
   });
 
   it("builds breadcrumbs that match the visible trail", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.example.bg");
-    expect(breadcrumbLd([{ name: "Начало", path: "/" }, { name: "Пакети", path: "/paketi" }])).toEqual({
+    expect(
+      breadcrumbLd([
+        { name: "Начало", path: "/" },
+        { name: "Пакети", path: "/paketi" },
+      ]),
+    ).toEqual({
       "@context": "https://schema.org",
       "@type": "BreadcrumbList",
       itemListElement: [
@@ -157,7 +182,9 @@ describe("structured data claims only verified facts (acceptance E)", () => {
 });
 
 describe("share image headlines fit (font metrics)", () => {
-  const display = fontMeasure(readFileSync(path.resolve(import.meta.dirname, "../../src/assets/fonts/SofiaSansExtraCondensed-ExtraBold.ttf")));
+  const display = fontMeasure(
+    readFileSync(path.resolve(import.meta.dirname, "../../src/assets/fonts/SofiaSansExtraCondensed-ExtraBold.ttf")),
+  );
 
   it("measures Cyrillic text in proportion to its size", () => {
     const w = display("Пакети", 100);
@@ -172,7 +199,12 @@ describe("share image headlines fit (font metrics)", () => {
     const box = { width: 1072, height: 262, lineHeight: 0.92, maxLines: 3 };
     const sizes = [136, 120, 104, 88, 72];
     const short = fitSize(display, ["За", "нас"], box, sizes);
-    const long = fitSize(display, "Вашият бизнес има какво да покаже. Ние се грижим хората да го видят.".split(" "), box, sizes);
+    const long = fitSize(
+      display,
+      "Вашият бизнес има какво да покаже. Ние се грижим хората да го видят.".split(" "),
+      box,
+      sizes,
+    );
     expect(short).toBe(136);
     expect(long).toBeLessThan(short);
   });

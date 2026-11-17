@@ -34,7 +34,11 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
   const volume = (VOLUMES as readonly string[]).includes(one("volume")) ? one("volume") : "";
   const tier = TIERS.find((t) => t.volume === volume);
   const fromName = sourcePath && sourcePath !== "/kontakti" ? (SOURCE_PAGE_NAMES[sourcePath] ?? null) : null;
-  const utm = { source: one("utm_source").slice(0, 100), medium: one("utm_medium").slice(0, 100), campaign: one("utm_campaign").slice(0, 100) };
+  const utm = {
+    source: one("utm_source").slice(0, 100),
+    medium: one("utm_medium").slice(0, 100),
+    campaign: one("utm_campaign").slice(0, 100),
+  };
   const { email, phone } = publicContacts();
   const showGates = resolveAppEnv(process.env) !== "production";
 
@@ -62,7 +66,13 @@ export default async function ContactPage({ searchParams }: { searchParams: Sear
             )}
           </header>
 
-          <LeadForm requestId={randomUUID()} sourcePath={sourcePath} utm={utm} defaultVolume={volume} turnstileSiteKey={turnstileSiteKey()} />
+          <LeadForm
+            requestId={randomUUID()}
+            sourcePath={sourcePath}
+            utm={utm}
+            defaultVolume={volume}
+            turnstileSiteKey={turnstileSiteKey()}
+          />
 
           {(email || phone || showGates) && (
             <section className="contact__direct" aria-labelledby="direct-h">

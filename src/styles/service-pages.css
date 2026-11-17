@@ -390,7 +390,11 @@
   color: var(--tx);
   border-color: var(--edline);
   background:
-    repeating-linear-gradient(90deg, rgba(237, 237, 231, 0.1) 0 calc(33.333% - 3px), transparent calc(33.333% - 3px) 33.333%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(237, 237, 231, 0.1) 0 calc(33.333% - 3px),
+      transparent calc(33.333% - 3px) 33.333%
+    ),
     var(--ed2);
 }
 .mtrack__clip--loop .mtrack__bar b {
@@ -1075,8 +1079,22 @@
   inset: 0;
   pointer-events: none;
   background-image:
-    linear-gradient(90deg, transparent calc(33.333% - 0.5px), rgba(237, 237, 231, 0.07) 0 calc(33.333% + 0.5px), transparent 0 calc(66.666% - 0.5px), rgba(237, 237, 231, 0.07) 0 calc(66.666% + 0.5px), transparent 0),
-    linear-gradient(180deg, transparent calc(33.333% - 0.5px), rgba(237, 237, 231, 0.07) 0 calc(33.333% + 0.5px), transparent 0 calc(66.666% - 0.5px), rgba(237, 237, 231, 0.07) 0 calc(66.666% + 0.5px), transparent 0);
+    linear-gradient(
+      90deg,
+      transparent calc(33.333% - 0.5px),
+      rgba(237, 237, 231, 0.07) 0 calc(33.333% + 0.5px),
+      transparent 0 calc(66.666% - 0.5px),
+      rgba(237, 237, 231, 0.07) 0 calc(66.666% + 0.5px),
+      transparent 0
+    ),
+    linear-gradient(
+      180deg,
+      transparent calc(33.333% - 0.5px),
+      rgba(237, 237, 231, 0.07) 0 calc(33.333% + 0.5px),
+      transparent 0 calc(66.666% - 0.5px),
+      rgba(237, 237, 231, 0.07) 0 calc(66.666% + 0.5px),
+      transparent 0
+    );
 }
 .vfmt__frame b {
   font: 800 clamp(44px, 4vw, 72px)/1 var(--fd);

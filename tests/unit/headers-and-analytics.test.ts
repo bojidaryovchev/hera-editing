@@ -2,9 +2,21 @@ import { describe, expect, it } from "vitest";
 import { MEDIA, mediaUrls } from "../../src/content/media";
 import { analyticsAllowed, track } from "../../src/lib/analytics";
 import { CONSENT_COOKIE, serializeConsent } from "../../src/lib/consent";
-import { contentSecurityPolicy, mediaOrigins, securityHeaders, type SecurityInput } from "../../src/lib/security/headers";
+import {
+  contentSecurityPolicy,
+  mediaOrigins,
+  securityHeaders,
+  type SecurityInput,
+} from "../../src/lib/security/headers";
 
-const BASE: SecurityInput = { dev: false, https: true, indexable: true, analytics: false, turnstile: false, mediaOrigins: [] };
+const BASE: SecurityInput = {
+  dev: false,
+  https: true,
+  indexable: true,
+  analytics: false,
+  turnstile: false,
+  mediaOrigins: [],
+};
 const directive = (csp: string, name: string) => csp.split("; ").find((d) => d.startsWith(`${name} `)) ?? "";
 
 describe("content security policy", () => {
@@ -74,9 +86,14 @@ describe("security headers", () => {
   });
 
   it("finds footage hosts from absolute https URLs only", () => {
-    expect(mediaOrigins(["/placeholder-media/a.mp4", "https://cdn.example.bg/a.mp4", "https://cdn.example.bg/b.jpg", "http://plain.example.bg/c.mp4"])).toEqual([
-      "https://cdn.example.bg",
-    ]);
+    expect(
+      mediaOrigins([
+        "/placeholder-media/a.mp4",
+        "https://cdn.example.bg/a.mp4",
+        "https://cdn.example.bg/b.jpg",
+        "http://plain.example.bg/c.mp4",
+      ]),
+    ).toEqual(["https://cdn.example.bg"]);
     expect(mediaOrigins(mediaUrls())).toEqual([]);
     expect(mediaUrls()).toContain(MEDIA.hero.wide.video);
   });

@@ -39,7 +39,13 @@ export default function WorkPage() {
           {projects.map((p, i) => (
             <li key={p.slug} className="wcard">
               <div className="wcard__media">
-                <ProjectMedia video={p.video} poster={p.poster} project={p.slug} tone={TONES[i % TONES.length]} sizes="(max-width: 699px) 100vw, (max-width: 1099px) 50vw, 33vw" />
+                <ProjectMedia
+                  video={p.video}
+                  poster={p.poster}
+                  project={p.slug}
+                  tone={TONES[i % TONES.length]}
+                  sizes="(max-width: 699px) 100vw, (max-width: 1099px) 50vw, 33vw"
+                />
               </div>
               {p.fixture && <p className="gate">{WORK.fixtureLabel}</p>}
               <p className="wcard__cat">
@@ -56,7 +62,12 @@ export default function WorkPage() {
           ))}
         </ul>
       </section>
-      <PageCta id="work-cta-h" heading={FINAL_CTA.heading} body={FINAL_CTA.body} action={{ href: quoteHref(PATH), label: QUOTE_CTA }} />
+      <PageCta
+        id="work-cta-h"
+        heading={FINAL_CTA.heading}
+        body={FINAL_CTA.body}
+        action={{ href: quoteHref(PATH), label: QUOTE_CTA }}
+      />
     </main>
   );
 }

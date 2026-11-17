@@ -1,5 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
-import { EMPTY_LEAD_FORM, HIDDEN, INITIAL_LEAD_STATE, formValues, leadFromForm, splitErrors } from "../../src/lib/leads/form";
+import {
+  EMPTY_LEAD_FORM,
+  HIDDEN,
+  INITIAL_LEAD_STATE,
+  formValues,
+  leadFromForm,
+  splitErrors,
+} from "../../src/lib/leads/form";
 import { leadFormSchema, validateLead } from "../../src/lib/validation/lead";
 
 const submitLeadFromRequest = vi.fn();
@@ -45,9 +52,33 @@ describe("the browser form validates exactly like the server", () => {
     { ...EMPTY_LEAD_FORM },
     { ...EMPTY_LEAD_FORM, name: "М", businessName: "Пекарна", city: "Варна", email: "not-an-email" },
     { ...EMPTY_LEAD_FORM, name: "Мария", businessName: "Пекарна", city: "Варна", phone: "12" },
-    { ...EMPTY_LEAD_FORM, name: "Мария", businessName: "Пекарна", city: "Варна", phone: "0888 123 456", profileUrl: "javascript:alert(1)", goal: "x" },
-    { ...EMPTY_LEAD_FORM, name: "Мария", businessName: "Пекарна", city: "Варна", email: "m@example.com", goal: "enquiries", message: "x".repeat(2001) },
-    { ...EMPTY_LEAD_FORM, name: "Мария", businessName: "Пекарна", city: "Варна", email: "m@example.com", goal: "enquiries", volume: "12plus" },
+    {
+      ...EMPTY_LEAD_FORM,
+      name: "Мария",
+      businessName: "Пекарна",
+      city: "Варна",
+      phone: "0888 123 456",
+      profileUrl: "javascript:alert(1)",
+      goal: "x",
+    },
+    {
+      ...EMPTY_LEAD_FORM,
+      name: "Мария",
+      businessName: "Пекарна",
+      city: "Варна",
+      email: "m@example.com",
+      goal: "enquiries",
+      message: "x".repeat(2001),
+    },
+    {
+      ...EMPTY_LEAD_FORM,
+      name: "Мария",
+      businessName: "Пекарна",
+      city: "Варна",
+      email: "m@example.com",
+      goal: "enquiries",
+      volume: "12plus",
+    },
   ];
   it.each(cases.map((c, i) => [i, c] as const))("case %i gives the same field errors", (_i, values) => {
     const server = validateLead({ ...values, privacyNoticeAcknowledged: "true", locale: "bg" });
@@ -59,7 +90,12 @@ describe("the browser form validates exactly like the server", () => {
 describe("posted form → submission", () => {
   it("maps every field and hidden input, and the result validates", () => {
     const raw = leadFromForm(postedForm());
-    expect(raw).toMatchObject({ name: "Мария Иванова", sourcePath: "/paketi", utm: { source: "instagram" }, locale: "bg" });
+    expect(raw).toMatchObject({
+      name: "Мария Иванова",
+      sourcePath: "/paketi",
+      utm: { source: "instagram" },
+      locale: "bg",
+    });
     const v = validateLead(raw);
     expect(v.ok).toBe(true);
   });
@@ -71,7 +107,10 @@ describe("posted form → submission", () => {
   });
 
   it("separates field errors from request problems", () => {
-    expect(splitErrors({ email: "invalid_email", requestId: "invalid_request" })).toEqual({ fields: { email: "invalid_email" }, request: true });
+    expect(splitErrors({ email: "invalid_email", requestId: "invalid_request" })).toEqual({
+      fields: { email: "invalid_email" },
+      request: true,
+    });
   });
 });
 
@@ -92,15 +131,29 @@ describe("submitLeadAction", () => {
     const { submitLeadAction } = await import("../../src/app/kontakti/actions");
     submitLeadFromRequest.mockResolvedValueOnce({ status: "invalid", errors: { email: "invalid_email" } });
     const invalid = await submitLeadAction({ status: "idle", seq: 4 }, postedForm({ email: "nope" }));
-    expect(invalid).toMatchObject({ status: "invalid", seq: 5, errors: { email: "invalid_email" }, values: { email: "nope" } });
+    expect(invalid).toMatchObject({
+      status: "invalid",
+      seq: 5,
+      errors: { email: "invalid_email" },
+      values: { email: "nope" },
+    });
 
     submitLeadFromRequest.mockResolvedValueOnce({ status: "rate_limited", retryAfterSeconds: 60 });
-    expect(await submitLeadAction(INITIAL_LEAD_STATE, postedForm())).toMatchObject({ status: "rate_limited", retryAfterSeconds: 60 });
+    expect(await submitLeadAction(INITIAL_LEAD_STATE, postedForm())).toMatchObject({
+      status: "rate_limited",
+      retryAfterSeconds: 60,
+    });
 
     submitLeadFromRequest.mockResolvedValueOnce({ status: "unavailable" });
-    expect(await submitLeadAction(INITIAL_LEAD_STATE, postedForm())).toMatchObject({ status: "unavailable", values: { name: "Мария Иванова" } });
+    expect(await submitLeadAction(INITIAL_LEAD_STATE, postedForm())).toMatchObject({
+      status: "unavailable",
+      values: { name: "Мария Иванова" },
+    });
 
     submitLeadFromRequest.mockResolvedValueOnce({ status: "verification_failed" });
-    expect(await submitLeadAction(INITIAL_LEAD_STATE, postedForm())).toMatchObject({ status: "invalid", errors: { requestId: "invalid_request" } });
+    expect(await submitLeadAction(INITIAL_LEAD_STATE, postedForm())).toMatchObject({
+      status: "invalid",
+      errors: { requestId: "invalid_request" },
+    });
   });
 });

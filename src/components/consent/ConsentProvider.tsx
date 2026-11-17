@@ -1,6 +1,14 @@
 "use client";
 
-import { createContext, useCallback, useContext, useEffect, useMemo, useSyncExternalStore, type ReactNode } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useSyncExternalStore,
+  type ReactNode,
+} from "react";
 import type { Gtag } from "@/lib/analytics";
 import {
   ANALYTICS_COOKIE_SECONDS,
@@ -44,7 +52,14 @@ const serverSnapshot = () => null;
 
 function removeAnalyticsCookies() {
   const host = location.hostname;
-  const domains = ["", host, ...host.split(".").map((_, i, parts) => `.${parts.slice(i).join(".")}`).slice(0, -1)];
+  const domains = [
+    "",
+    host,
+    ...host
+      .split(".")
+      .map((_, i, parts) => `.${parts.slice(i).join(".")}`)
+      .slice(0, -1),
+  ];
   for (const part of document.cookie.split(";")) {
     const name = part.split("=")[0]?.trim() ?? "";
     if (!isAnalyticsCookie(name)) continue;
@@ -71,7 +86,12 @@ function loadAnalytics(id: string) {
     window.dataLayer?.push(arguments);
   };
   window.gtag = gtag;
-  gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+  gtag("consent", "default", {
+    analytics_storage: "granted",
+    ad_storage: "denied",
+    ad_user_data: "denied",
+    ad_personalization: "denied",
+  });
   gtag("js", new Date());
   gtag("config", id, { cookie_expires: ANALYTICS_COOKIE_SECONDS });
   const s = document.createElement("script");

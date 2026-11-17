@@ -11,7 +11,9 @@ const TICKS = [0, 2, 4, 6, 8, 10, 12];
 const SEGMENTS = [0, 1, 2, 3, 4, 5];
 const CUTS = [1, 2, 3, 4, 5];
 /** Decorative, deterministic audio waveform. */
-const BARS = Array.from({ length: 140 }, (_, i) => (18 + 70 * Math.abs(Math.sin(i * 0.37) * Math.cos(i * 0.11 + 1.3))).toFixed(1));
+const BARS = Array.from({ length: 140 }, (_, i) =>
+  (18 + 70 * Math.abs(Math.sin(i * 0.37) * Math.cos(i * 0.11 + 1.3))).toFixed(1),
+);
 const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /**
@@ -57,7 +59,15 @@ export function Hero({ media }: { media: SiteMedia | null }) {
             <figure className="mon" aria-label={e.monitorLabel}>
               {media ? (
                 <>
-                  <video data-scrub muted playsInline preload="metadata" poster={media.hero.wide.poster} aria-hidden="true" tabIndex={-1}>
+                  <video
+                    data-scrub
+                    muted
+                    playsInline
+                    preload="metadata"
+                    poster={media.hero.wide.poster}
+                    aria-hidden="true"
+                    tabIndex={-1}
+                  >
                     <source src={media.hero.wide.video} type="video/mp4" />
                   </video>
                   <canvas className="mon__grade" aria-hidden="true" data-grade />
@@ -199,7 +209,12 @@ export function Hero({ media }: { media: SiteMedia | null }) {
               </div>
               <div className="lane">
                 {[1, 2].map((n) => (
-                  <i key={n} className="clip clip--title" data-title={n} style={{ left: n === 1 ? "58%" : "68.5%", width: "10%" }}>
+                  <i
+                    key={n}
+                    className="clip clip--title"
+                    data-title={n}
+                    style={{ left: n === 1 ? "58%" : "68.5%", width: "10%" }}
+                  >
                     <span className="l">
                       {e.titleClip} {n}
                     </span>
@@ -215,7 +230,12 @@ export function Hero({ media }: { media: SiteMedia | null }) {
                   <span className="l">{e.rawClip}</span>
                 </i>
                 {SEGMENTS.map((k) => (
-                  <i key={k} className="clip clip--seg" data-seg style={{ left: `${(k * 100) / 6 + 0.25}%`, width: `${100 / 6 - 0.5}%` }}>
+                  <i
+                    key={k}
+                    className="clip clip--seg"
+                    data-seg
+                    style={{ left: `${(k * 100) / 6 + 0.25}%`, width: `${100 / 6 - 0.5}%` }}
+                  >
                     <span className="l">
                       {e.clip} {k + 1}
                     </span>

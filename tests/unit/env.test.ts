@@ -58,7 +58,9 @@ describe("production launch gates", () => {
       "NEXT_PUBLIC_SITE_URL must use https in production",
     ]);
     expect(problemsOf({ ...production, NEXT_PUBLIC_SITE_URL: "https://localhost" })).toHaveLength(1);
-    expect(problemsOf({ ...production, MAIL_PROVIDER: "dev" })).toEqual(["MAIL_PROVIDER=dev is not allowed in production"]);
+    expect(problemsOf({ ...production, MAIL_PROVIDER: "dev" })).toEqual([
+      "MAIL_PROVIDER=dev is not allowed in production",
+    ]);
     expect(problemsOf({ ...production, CONTENT_FIXTURES: "1" })).toEqual([
       "CONTENT_FIXTURES is only allowed when APP_ENV=test",
     ]);
@@ -66,7 +68,11 @@ describe("production launch gates", () => {
 
   it("never loads analytics without an approved consent setup", () => {
     expect(problemsOf({ ...production, ANALYTICS_MEASUREMENT_ID: "G-ABC123" })).toHaveLength(1);
-    const approved = parseServerEnv({ ...production, ANALYTICS_MEASUREMENT_ID: "G-ABC123", ANALYTICS_CONSENT_APPROVED: "true" });
+    const approved = parseServerEnv({
+      ...production,
+      ANALYTICS_MEASUREMENT_ID: "G-ABC123",
+      ANALYTICS_CONSENT_APPROVED: "true",
+    });
     expect(approved.analytics).toEqual({ measurementId: "G-ABC123", approved: true });
     const staging = parseServerEnv({
       ...production,
@@ -79,7 +85,13 @@ describe("production launch gates", () => {
   it("validates mail provider credentials", () => {
     expect(problemsOf({ ...production, RESEND_API_KEY: "" }).join()).toMatch(/RESEND_API_KEY/);
     expect(
-      problemsOf({ ...production, MAIL_PROVIDER: "smtp", SMTP_HOST: "smtp.example", SMTP_PORT: "587", SMTP_FROM: "a@agency.example" }),
+      problemsOf({
+        ...production,
+        MAIL_PROVIDER: "smtp",
+        SMTP_HOST: "smtp.example",
+        SMTP_PORT: "587",
+        SMTP_FROM: "a@agency.example",
+      }),
     ).toEqual([]);
     expect(problemsOf({ ...production, MAIL_PROVIDER: "smtp" }).join()).toMatch(/SMTP_HOST/);
   });
@@ -105,7 +117,9 @@ describe("development defaults", () => {
   });
 
   it("allows the test outbox only outside deployed environments", () => {
-    expect(parseServerEnv({ APP_ENV: "test", MAIL_DEV_OUTBOX_DIR: "/tmp/x" }).mail).toMatchObject({ outboxDir: "/tmp/x" });
+    expect(parseServerEnv({ APP_ENV: "test", MAIL_DEV_OUTBOX_DIR: "/tmp/x" }).mail).toMatchObject({
+      outboxDir: "/tmp/x",
+    });
     const staging = {
       ...production,
       APP_ENV: "staging",

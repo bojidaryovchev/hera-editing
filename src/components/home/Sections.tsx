@@ -122,7 +122,13 @@ export function Process() {
 
 function PlayButton({ name, attr }: { name: string; attr: string }) {
   return (
-    <button type="button" className="vbtn" {...{ [attr]: "" }} data-playing="false" aria-label={`${VIDEO_PLAYER.play}: ${name}`}>
+    <button
+      type="button"
+      className="vbtn"
+      {...{ [attr]: "" }}
+      data-playing="false"
+      aria-label={`${VIDEO_PLAYER.play}: ${name}`}
+    >
       <PlayIcon className="i-play" />
       <PauseIcon className="i-pause" />
     </button>
@@ -152,8 +158,21 @@ export function Formats({ media }: { media: SiteMedia | null }) {
             <div className="bin__media">
               {media ? (
                 <>
-                  <Image src={media.formats[fm.id].poster} alt="" fill sizes="(max-width: 599px) 50vw, (max-width: 1099px) 33vw, 300px" />
-                  <video muted loop playsInline preload="none" data-src={media.formats[fm.id].video} aria-hidden="true" tabIndex={-1} />
+                  <Image
+                    src={media.formats[fm.id].poster}
+                    alt=""
+                    fill
+                    sizes="(max-width: 599px) 50vw, (max-width: 1099px) 33vw, 300px"
+                  />
+                  <video
+                    muted
+                    loop
+                    playsInline
+                    preload="none"
+                    data-src={media.formats[fm.id].video}
+                    aria-hidden="true"
+                    tabIndex={-1}
+                  />
                 </>
               ) : (
                 <Scene tone={TONES[i % TONES.length]} focus={false} />
@@ -235,7 +254,9 @@ export function Packages() {
 
 /** FAQ (IA:35): the home set (L3), with a link on to the service page. */
 export function HomeFaq() {
-  return <FaqSection ids={FAQ_SETS.home} more={{ href: route("/upravlenie-na-sotsialni-mrezhi"), label: HOME.faq.more }} />;
+  return (
+    <FaqSection ids={FAQ_SETS.home} more={{ href: route("/upravlenie-na-sotsialni-mrezhi"), label: HOME.faq.more }} />
+  );
 }
 
 /** Final CTA (IA:36). The edit from the hero renders as the section arrives, then plays (when there is footage). */
@@ -263,9 +284,29 @@ export function FinalCta({ media }: { media: SiteMedia | null }) {
           <div className="pv" data-pv>
             {media ? (
               <>
-                <Image className="pv__grey" src={media.hero.tall.poster} alt="" fill sizes="(max-width: 1520px) 25vw, 380px" />
-                <Image className="pv__done" src={media.hero.tall.poster} alt="" fill sizes="(max-width: 1520px) 25vw, 380px" />
-                <video muted loop playsInline preload="none" data-src={media.hero.tall.video} aria-hidden="true" tabIndex={-1} />
+                <Image
+                  className="pv__grey"
+                  src={media.hero.tall.poster}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1520px) 25vw, 380px"
+                />
+                <Image
+                  className="pv__done"
+                  src={media.hero.tall.poster}
+                  alt=""
+                  fill
+                  sizes="(max-width: 1520px) 25vw, 380px"
+                />
+                <video
+                  muted
+                  loop
+                  playsInline
+                  preload="none"
+                  data-src={media.hero.tall.video}
+                  aria-hidden="true"
+                  tabIndex={-1}
+                />
               </>
             ) : (
               <>

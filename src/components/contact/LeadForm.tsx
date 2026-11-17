@@ -9,7 +9,14 @@ import { submitLeadAction } from "@/app/kontakti/actions";
 import { TurnstileField } from "@/components/contact/TurnstileField";
 import { Check } from "@/components/icons";
 import { CONTACT, checkFields, summaryCount } from "@/content/contact";
-import { GOAL_LABELS, LEAD_FIELD_LABELS, LEAD_FORM_STATUS, VOLUME_LABELS, leadErrorMessage, leadErrorShort } from "@/content/forms";
+import {
+  GOAL_LABELS,
+  LEAD_FIELD_LABELS,
+  LEAD_FORM_STATUS,
+  VOLUME_LABELS,
+  leadErrorMessage,
+  leadErrorShort,
+} from "@/content/forms";
 import {
   EMPTY_LEAD_FORM,
   HIDDEN,
@@ -50,10 +57,23 @@ function problemCount(codes: Partial<Record<LeadFormField, LeadErrorCode | undef
   return names.length - pair;
 }
 const subscribeNever = () => () => {};
-const codeOf = (message: unknown): LeadErrorCode | undefined => (typeof message === "string" && message ? (message as LeadErrorCode) : undefined);
+const codeOf = (message: unknown): LeadErrorCode | undefined =>
+  typeof message === "string" && message ? (message as LeadErrorCode) : undefined;
 
 /** The message slot under a field: the hint, or the error in place of the hint (one line, never wraps). */
-function Slot({ id, field, code, hint, aside }: { id: string; field: LeadFormField; code?: LeadErrorCode; hint?: ReactNode; aside?: ReactNode }) {
+function Slot({
+  id,
+  field,
+  code,
+  hint,
+  aside,
+}: {
+  id: string;
+  field: LeadFormField;
+  code?: LeadErrorCode;
+  hint?: ReactNode;
+  aside?: ReactNode;
+}) {
   return (
     <p id={id} className="lf__msg" data-error={code ? "" : undefined}>
       <span className="lf__msgtext">
@@ -108,7 +128,8 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
   const doneRef = useRef<HTMLHeadingElement>(null);
   const handled = useRef(0);
 
-  const initial: LeadFormValues = "values" in serverState ? serverState.values : { ...EMPTY_LEAD_FORM, volume: defaultVolume };
+  const initial: LeadFormValues =
+    "values" in serverState ? serverState.values : { ...EMPTY_LEAD_FORM, volume: defaultVolume };
   const {
     register,
     handleSubmit,
@@ -116,10 +137,20 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
     control,
     getValues,
     formState: { errors, isSubmitting },
-  } = useForm<LeadFormValues>({ resolver, defaultValues: initial, mode: "onTouched", reValidateMode: "onChange", shouldFocusError: true });
+  } = useForm<LeadFormValues>({
+    resolver,
+    defaultValues: initial,
+    mode: "onTouched",
+    reValidateMode: "onChange",
+    shouldFocusError: true,
+  });
 
   // False in the server render and while hydrating, true once the form runs in the browser.
-  const hydrated = useSyncExternalStore(subscribeNever, () => true, () => false);
+  const hydrated = useSyncExternalStore(
+    subscribeNever,
+    () => true,
+    () => false,
+  );
 
   // Analytics (only with consent): the form was shown. Codes only, never what was typed.
   useEffect(() => track({ name: "lead_form_view" }), []);
@@ -129,7 +160,11 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
     if (state.seq === 0 || state.seq === handled.current) return;
     handled.current = state.seq;
     if (state.status !== "idle")
-      track(state.status === "success" ? { name: "lead_form_success" } : { name: "lead_form_error", params: { code: state.status } });
+      track(
+        state.status === "success"
+          ? { name: "lead_form_success" }
+          : { name: "lead_form_error", params: { code: state.status } },
+      );
     if (state.status === "success") {
       toast.success(CONTACT.form.sentToast, { id: TOAST_ID });
       requestAnimationFrame(() => doneRef.current?.focus());
@@ -162,7 +197,9 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
     }
   };
   const onInvalid = (errs: FieldErrors<LeadFormValues>) => {
-    const codes = Object.fromEntries(LEAD_FORM_FIELDS.map((f) => [f, codeOf(errs[f]?.message)])) as Partial<Record<LeadFormField, LeadErrorCode | undefined>>;
+    const codes = Object.fromEntries(LEAD_FORM_FIELDS.map((f) => [f, codeOf(errs[f]?.message)])) as Partial<
+      Record<LeadFormField, LeadErrorCode | undefined>
+    >;
     const n = problemCount(codes);
     track({ name: "lead_form_error", params: { code: "invalid_client" } });
     toast.error(`${CONTACT.form.summaryHeading}. ${checkFields(n)}`, { id: TOAST_ID });
@@ -170,7 +207,8 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
 
   // Errors: from the form once it runs; before that (no script) from the server's answer.
   const serverErrors = state.status === "invalid" ? splitErrors(state.errors).fields : {};
-  const err = (f: LeadFormField): LeadErrorCode | undefined => codeOf(errors[f]?.message) ?? (hydrated ? undefined : serverErrors[f]);
+  const err = (f: LeadFormField): LeadErrorCode | undefined =>
+    codeOf(errors[f]?.message) ?? (hydrated ? undefined : serverErrors[f]);
   const contactMissing = err("email") === "contact_required" || err("phone") === "contact_required";
   const message = useWatch({ control, name: "message" }) ?? "";
 
@@ -247,9 +285,14 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
           aria-invalid={code || (contactMissing && (name === "email" || name === "phone")) ? true : undefined}
           aria-describedby={msgId}
           defaultValue={initial[name]}
-          {...register(name, name === "email" ? { deps: ["phone"] } : name === "phone" ? { deps: ["email"] } : undefined)}
+          {...register(
+            name,
+            name === "email" ? { deps: ["phone"] } : name === "phone" ? { deps: ["email"] } : undefined,
+          )}
         />
-        {!opts.inGroup && <Slot id={msgId} field={name} code={code} hint={opts.optional ? CONTACT.form.optionalHint : undefined} />}
+        {!opts.inGroup && (
+          <Slot id={msgId} field={name} code={code} hint={opts.optional ? CONTACT.form.optionalHint : undefined} />
+        )}
       </div>
     );
   };
@@ -261,7 +304,13 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
     const id = `lf-${name}`;
     const code = err(name);
     return (
-      <fieldset className="lf__group lf__span" role="radiogroup" data-invalid={code ? "" : undefined} aria-invalid={code ? true : undefined} aria-describedby={`${id}-msg`}>
+      <fieldset
+        className="lf__group lf__span"
+        role="radiogroup"
+        data-invalid={code ? "" : undefined}
+        aria-invalid={code ? true : undefined}
+        aria-describedby={`${id}-msg`}
+      >
         <legend className="lf__legend">{LEAD_FIELD_LABELS[name]}</legend>
         <div className="lf__chips">
           {values.map((v) => (
@@ -284,7 +333,15 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
           {CONTACT.form.window}
         </span>
       </p>
-      <form ref={formRef} className="lf" action={formAction} onSubmit={(e) => handleSubmit(onValid, onInvalid)(e)} noValidate aria-label={CONTACT.form.label} aria-busy={busy || undefined}>
+      <form
+        ref={formRef}
+        className="lf"
+        action={formAction}
+        onSubmit={(e) => handleSubmit(onValid, onInvalid)(e)}
+        noValidate
+        aria-label={CONTACT.form.label}
+        aria-busy={busy || undefined}
+      >
         {staticNotice && (
           <p className="lf__status" role="alert">
             {staticNotice}
@@ -294,13 +351,30 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
           {field("name", { autoComplete: "name", max: LEAD_LIMITS.name.max })}
           {field("businessName", { autoComplete: "organization", max: LEAD_LIMITS.businessName.max })}
           {field("city", { autoComplete: "address-level2", max: LEAD_LIMITS.city.max })}
-          {field("profileUrl", { autoComplete: "url", inputMode: "url", optional: true, max: LEAD_LIMITS.profileUrl.max })}
+          {field("profileUrl", {
+            autoComplete: "url",
+            inputMode: "url",
+            optional: true,
+            max: LEAD_LIMITS.profileUrl.max,
+          })}
 
           <fieldset className="lf__group lf__span" aria-describedby="lf-contact-msg">
             <legend className="lf__legend">{CONTACT.form.contactLegend}</legend>
             <div className="lf__pair">
-              {field("email", { type: "email", autoComplete: "email", inputMode: "email", max: LEAD_LIMITS.email.max, inGroup: "lf-contact-msg" })}
-              {field("phone", { type: "tel", autoComplete: "tel", inputMode: "tel", max: LEAD_LIMITS.phone.max, inGroup: "lf-contact-msg" })}
+              {field("email", {
+                type: "email",
+                autoComplete: "email",
+                inputMode: "email",
+                max: LEAD_LIMITS.email.max,
+                inGroup: "lf-contact-msg",
+              })}
+              {field("phone", {
+                type: "tel",
+                autoComplete: "tel",
+                inputMode: "tel",
+                max: LEAD_LIMITS.phone.max,
+                inGroup: "lf-contact-msg",
+              })}
             </div>
             <Slot id="lf-contact-msg" field={contactField} code={contactCode} hint={CONTACT.form.contactHint} />
           </fieldset>
@@ -353,8 +427,7 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
 
         <div className="lf__foot">
           <p className="lf__privacy">
-            {CONTACT.form.privacyBefore}{" "}
-            <Link href={route("/poveritelnost")}>{CONTACT.form.privacyLink}</Link>.
+            {CONTACT.form.privacyBefore} <Link href={route("/poveritelnost")}>{CONTACT.form.privacyLink}</Link>.
           </p>
           <button type="submit" className="btn btn--pri lf__submit" disabled={busy} data-busy={busy ? "true" : "false"}>
             <span className="is-idle" aria-hidden={busy}>

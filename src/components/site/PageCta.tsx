@@ -5,7 +5,19 @@ import { ArrowRight } from "@/components/icons";
 type Action = { href: Route; label: string };
 
 /** The closing band of an internal page: one heading, one sentence, the quote action (IA: CTA from every page). */
-export function PageCta({ id, heading, body, action, secondary }: { id: string; heading: string; body: string; action: Action; secondary?: Action }) {
+export function PageCta({
+  id,
+  heading,
+  body,
+  action,
+  secondary,
+}: {
+  id: string;
+  heading: string;
+  body: string;
+  action: Action;
+  secondary?: Action;
+}) {
   return (
     <section className="pcta wrap" aria-labelledby={id}>
       <div className="pcta__in">

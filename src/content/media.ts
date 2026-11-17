@@ -49,7 +49,11 @@ export function mediaUrls(media: SiteMedia = MEDIA): string[] {
  * The footage the pages may show: the agency's own footage always; the labelled stock only outside production, and
  * not even there with PLACEHOLDER_MEDIA=off (to preview the production look). null means the designed frames.
  */
-export function footage(appEnv: AppEnv, media: SiteMedia = MEDIA, src: Record<string, string | undefined> = process.env): SiteMedia | null {
+export function footage(
+  appEnv: AppEnv,
+  media: SiteMedia = MEDIA,
+  src: Record<string, string | undefined> = process.env,
+): SiteMedia | null {
   if (media.kind === "owner") return media;
   if (appEnv === "production") return null;
   return src.PLACEHOLDER_MEDIA?.trim() === "off" ? null : media;

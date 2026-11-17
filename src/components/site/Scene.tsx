@@ -5,7 +5,15 @@
  */
 export type SceneTone = "a" | "b" | "c" | "d" | "e";
 
-export function Scene({ tone = "a", focus = true, className }: { tone?: SceneTone; focus?: boolean; className?: string }) {
+export function Scene({
+  tone = "a",
+  focus = true,
+  className,
+}: {
+  tone?: SceneTone;
+  focus?: boolean;
+  className?: string;
+}) {
   return (
     <div className={`scene scene--${tone}${className ? ` ${className}` : ""}`} aria-hidden="true">
       <i className="scene__grid" />

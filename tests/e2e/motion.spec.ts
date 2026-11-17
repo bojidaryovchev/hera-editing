@@ -15,13 +15,21 @@ test("reduced motion: the finished edit, nothing moving or playing (acceptance D
   await context.close();
 });
 
-test("videos never play with sound, and every clip can be started and paused from the keyboard", async ({ page, context }) => {
+test("videos never play with sound, and every clip can be started and paused from the keyboard", async ({
+  page,
+  context,
+}) => {
   await stubGoogle(context);
   await presetConsent(context, false);
   // Decoding is not under test (test browsers may lack the codec): play() and pause() only record their state.
   await page.addInitScript(() => {
     const state = new WeakMap<HTMLMediaElement, boolean>();
-    Object.defineProperty(HTMLMediaElement.prototype, "paused", { configurable: true, get() { return !state.get(this); } });
+    Object.defineProperty(HTMLMediaElement.prototype, "paused", {
+      configurable: true,
+      get() {
+        return !state.get(this);
+      },
+    });
     HTMLMediaElement.prototype.play = function () {
       state.set(this, true);
       return Promise.resolve();
@@ -31,7 +39,11 @@ test("videos never play with sound, and every clip can be started and paused fro
     };
   });
   await page.goto("/");
-  expect(await page.$$eval("video", (vs) => vs.every((v) => (v as HTMLVideoElement).muted && !(v as HTMLVideoElement).autoplay))).toBe(true);
+  expect(
+    await page.$$eval("video", (vs) =>
+      vs.every((v) => (v as HTMLVideoElement).muted && !(v as HTMLVideoElement).autoplay),
+    ),
+  ).toBe(true);
 
   const first = page.locator("[data-bin]").first();
   const button = first.locator("[data-vbtn]");
