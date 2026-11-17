@@ -94,12 +94,12 @@
   height: 24px;
   width: auto;
 }
-.hdr nav {
+.hdr__nav {
   display: flex;
   gap: 4px;
   flex: 1;
 }
-.hdr nav a {
+.hdr__nav a {
   font: 600 15px/1 var(--fu);
   color: var(--tx2);
   text-decoration: none;
@@ -107,11 +107,11 @@
   border-radius: 8px;
   white-space: nowrap;
 }
-.hdr nav a:hover {
+.hdr__nav a:hover {
   color: var(--tx);
   background: var(--ed3);
 }
-.hdr nav a[aria-current="page"] {
+.hdr__nav a[aria-current="page"] {
   color: var(--tx);
   text-decoration: underline;
   text-underline-offset: 6px;
@@ -160,7 +160,7 @@
   height: 22px;
 }
 @media (max-width: 1023px) {
-  .hdr nav {
+  .hdr__nav {
     display: none;
   }
   .hdr__menu {

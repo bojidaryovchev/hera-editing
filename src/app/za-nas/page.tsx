@@ -26,6 +26,7 @@ export default function AboutPage() {
         <PageHero
           crumb={a.breadcrumb}
           path={PATH}
+          pair
           eyebrow={a.hero.eyebrow}
           title={a.hero.title}
           lead={a.hero.lead}

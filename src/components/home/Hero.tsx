@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { HOME } from "@/content/home";
-import { Scene } from "@/components/home/Scene";
+import { Scene } from "@/components/site/Scene";
 import type { SiteMedia } from "@/content/media";
 import { PLATFORMS } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";

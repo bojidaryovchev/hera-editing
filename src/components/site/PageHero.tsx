@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Breadcrumbs } from "@/components/site/Breadcrumbs";
+import { Breadcrumbs, type Crumb } from "@/components/site/Breadcrumbs";
 
 /**
  * The internal-page hero (decision L8): breadcrumbs, eyebrow, H1, lead, one action. Typographic, no stock imagery.
@@ -9,33 +9,39 @@ import { Breadcrumbs } from "@/components/site/Breadcrumbs";
 export function PageHero({
   crumb,
   path,
+  parent,
   eyebrow,
   title,
   lead,
   children,
   aside,
   media = false,
+  pair = false,
 }: {
   crumb: string;
   /** The page's own path, for the breadcrumb's structured data. */
   path: string;
+  /** A middle breadcrumb level, e.g. "Проекти" above a case study. */
+  parent?: Crumb;
   eyebrow?: string;
   title: string;
   lead?: string;
   children?: ReactNode;
   aside?: ReactNode;
   media?: boolean;
+  /** A short hero without an aside: from 1024 px the heading left, the lead and the action right. */
+  pair?: boolean;
 }) {
   const main = (
     <>
-      <Breadcrumbs current={crumb} path={path} />
+      <Breadcrumbs current={crumb} path={path} parent={parent} />
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h1 className="phero__h1">{title}</h1>
       {lead && <p className="phero__lead">{lead}</p>}
       {children && <div className="actions">{children}</div>}
     </>
   );
-  if (!aside) return <header className="phero">{main}</header>;
+  if (!aside) return <header className={`phero${pair ? " phero--pair" : ""}`}>{main}</header>;
   return (
     <header className={`phero phero--split${media ? " phero--media" : ""}`}>
       <div className="phero__main">{main}</div>

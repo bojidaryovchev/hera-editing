@@ -1,8 +1,8 @@
 /**
  * Service terms recommended from Bulgarian competitor evidence
  * (design workspace data/competitor-terms.md, decision L21) and NOT yet signed off
- * by the business owner. Every text here is listed in RELEASE_CHECKLIST.md; the
- * release gate refuses production while `signedOff` is false.
+ * by the business owner (RELEASE_CHECKLIST.md, owner inputs). The release gate
+ * (assertTermsSignedOff, on the service page) refuses production while `signedOff` is false.
  */
 export const SERVICE_TERMS = {
   signedOff: false,

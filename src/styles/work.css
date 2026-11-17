@@ -1,0 +1,211 @@
+/*
+ * Portfolio (/rabota) and case studies (IA:58-59). Published only with approved, rights-cleared work; the fictional
+ * test fixtures render here only in automated tests. Built from the service pages' sections (sv-sec, sv-split, sv-box).
+ */
+
+/* Cards keep a fixed maximum width and centre, so one or two projects never leave an empty half (decision 8a). */
+.wgrid {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 420px));
+  justify-content: center;
+  gap: clamp(32px, 3.4vw, 56px) clamp(16px, 2vw, 32px);
+}
+.wcard {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+}
+.wcard__media {
+  position: relative;
+  align-self: stretch;
+  aspect-ratio: 4 / 5;
+  margin-bottom: 6px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ed);
+  box-shadow: 0 0 0 1px #dad9d1;
+}
+.wcard__media > .pmedia,
+.wcard__media .pvid,
+.wcard__media .pvid__v {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  border-radius: 0;
+  object-fit: cover;
+}
+/* The card's heading names the video; the caption would repeat it. */
+.wcard__media .pvid__cap {
+  display: none;
+}
+.wcard__cat {
+  margin: 0;
+  font: 500 12px/1.3 var(--fm);
+  color: var(--ink);
+}
+.wcard__cat span {
+  color: var(--faint);
+}
+.wcard__h {
+  margin: 0;
+  font: 800 clamp(28px, 2.2vw, 36px)/1 var(--fd);
+  color: var(--ink);
+}
+.wcard__p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+
+/* The native player: its own accessible controls; the poster's size reserves the space. */
+.pvid {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.pvid__v {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  background: #000;
+}
+.pvid__cap {
+  font: 500 12px/1.4 var(--fm);
+  color: var(--tx3);
+}
+.paper .pvid__cap {
+  color: var(--faint);
+}
+.pvid__err {
+  margin: 0;
+  font: 500 13px/1.4 var(--fm);
+  color: var(--color-warn);
+}
+.paper .pvid__err {
+  color: var(--color-error);
+}
+.phero__aside .pvid {
+  width: clamp(220px, 24vw, 360px);
+}
+.pmedia {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+}
+.pmedia--empty {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+}
+
+/* Case study */
+.wfix {
+  margin: 4px 0 clamp(28px, 3vw, 48px);
+}
+.wcase__still {
+  position: relative;
+  align-self: stretch;
+  aspect-ratio: 16 / 10;
+  margin-top: clamp(20px, 2vw, 32px);
+  border-radius: 14px;
+  overflow: hidden;
+  background: var(--ed);
+}
+.wcase__still > .pmedia {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: auto;
+  border-radius: 0;
+  object-fit: cover;
+}
+.wattr {
+  margin: clamp(20px, 2vw, 28px) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+.wattr b {
+  font: 600 12px/1.3 var(--fm);
+  color: var(--ink);
+}
+.wsamples {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 300px));
+  justify-content: center;
+  gap: clamp(16px, 2vw, 28px);
+}
+.wsamples li {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.wsamples__t {
+  margin: 0;
+  font: 500 13px/1.4 var(--fm);
+  color: var(--tx2);
+}
+.wout {
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+  gap: clamp(12px, 1.6vw, 24px);
+}
+.wout div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: clamp(18px, 2vw, 28px);
+  background: #ffffff;
+  border: 1px solid #dad9d1;
+  border-radius: 16px;
+}
+.wout dt {
+  font: 600 13px/1.35 var(--fm);
+  color: var(--ink2);
+}
+.wout dd {
+  margin: 0;
+  font: 800 clamp(44px, 4vw, 72px)/0.95 var(--fd);
+  color: var(--ink);
+}
+.wmeta {
+  margin: clamp(20px, 2vw, 32px) 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px 28px;
+}
+.wmeta div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.wmeta dt {
+  font: 600 12px/1.3 var(--fm);
+  color: var(--faint);
+}
+.wmeta dd {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink2);
+}

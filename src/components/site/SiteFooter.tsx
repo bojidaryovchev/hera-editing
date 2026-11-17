@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/Wordmark";
-import { PROJECTS } from "@/content/projects";
+import { publishedProjects } from "@/content/projects";
 import { FOOTER, GATES, QUOTE_CTA, SHELL, copyrightLine } from "@/content/site";
 import { resolveAppEnv } from "@/lib/config/env";
 import { brandName, publicContacts } from "@/lib/site/brand";
@@ -11,9 +11,10 @@ export function SiteFooter() {
   const brand = brandName();
   const { email, phone } = publicContacts();
   const showGates = resolveAppEnv(process.env) !== "production";
+  const hasProjects = publishedProjects().length > 0;
   const columns = FOOTER.columns.map((c) => ({
     ...c,
-    links: c.links.filter((l) => !("requiresPublishedProjects" in l && l.requiresPublishedProjects) || PROJECTS.length > 0),
+    links: c.links.filter((l) => !("requiresPublishedProjects" in l && l.requiresPublishedProjects) || hasProjects),
   }));
   return (
     <footer className="ftr">

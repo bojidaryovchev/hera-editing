@@ -4,17 +4,18 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { CloseIcon, MenuIcon } from "@/components/icons";
+import { QuoteLink } from "@/components/site/QuoteLink";
 import { route } from "@/lib/site/nav";
 
 type Props = {
   brand: string;
   items: { label: string; href: string }[];
-  quote: { label: string; href: string };
+  quoteLabel: string;
   labels: { open: string; close: string; title: string; nav: string; home: string };
 };
 
 /** Below 1024 px: a full-screen modal dialog (native <dialog>: focus trap, Escape, inert page behind). */
-export function MenuDialog({ brand, items, quote, labels }: Props) {
+export function MenuDialog({ brand, items, quoteLabel, labels }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
@@ -69,9 +70,9 @@ export function MenuDialog({ brand, items, quote, labels }: Props) {
           ))}
         </nav>
         <div className="menu__cta wrap" style={{ ["--i" as string]: items.length }}>
-          <Link className="btn btn--pri" href={route(quote.href)} onClick={hide}>
-            {quote.label}
-          </Link>
+          <QuoteLink className="btn btn--pri" onClick={hide}>
+            {quoteLabel}
+          </QuoteLink>
         </div>
       </dialog>
     </>

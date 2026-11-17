@@ -1,0 +1,21 @@
+# The frozen specification (checksummed in SHA256SUMS.txt): never reformatted.
+README.md
+FROZEN_SPEC_all_in_one.md
+SHA256SUMS.txt
+research/
+product/
+website/
+handoff/
+
+# Generated or third-party
+pnpm-lock.yaml
+src/db/migrations/
+src/assets/fonts/
+public/
+.next/
+.next-*/
+.data/
+coverage/
+playwright-report/
+test-results/
+qa/screenshots/

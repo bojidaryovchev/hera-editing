@@ -4,7 +4,7 @@ import { ImageResponse } from "next/og";
 import { HOME } from "@/content/home";
 import { fitSize, fontMeasure, type Measure } from "@/lib/site/font-metrics";
 import type { PageKey } from "@/lib/site/metadata";
-import { SHARE, shareAlt } from "@/lib/site/share";
+import { SHARE, shareAlt, type ShareCard } from "@/lib/site/share";
 
 /** Share images (og:image, inherited by the Twitter card): 1200×630, drawn at build time from the page's copy. */
 export const OG_SIZE = { width: 1200, height: 630 } as const;
@@ -140,10 +140,10 @@ function Timeline({ width }: { width: number }) {
   );
 }
 
-/** Renders one page's share image. */
-export async function renderOgImage(key: PageKey): Promise<ImageResponse> {
+/** Renders one page's share image (a page's key, or a card such as a case study's). */
+export async function renderOgImage(key: PageKey | ShareCard): Promise<ImageResponse> {
   const { fonts, display, wordmark } = await load();
-  const card = SHARE[key];
+  const card = typeof key === "string" ? SHARE[key] : key;
   const words = [
     ...card.title.split(/\s+/).map((w) => ({ w, accent: false })),
     ...(card.accent ? card.accent.split(/\s+/).map((w) => ({ w, accent: true })) : []),

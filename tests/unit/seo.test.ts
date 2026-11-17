@@ -44,10 +44,10 @@ describe("site URL and indexing (TS:SEO)", () => {
 });
 
 describe("page metadata (acceptance E)", () => {
-  it("lists every page route except the 404, once", () => {
+  it("lists every page route once; only the portfolio is conditional", () => {
     const listed = INDEXABLE_PAGES.map((p) => p.path).filter((p) => p !== "/");
     expect(new Set(INDEXABLE_PAGES.map((p) => p.path)).size).toBe(INDEXABLE_PAGES.length);
-    expect(pageRoutes().sort()).toEqual([...listed].sort());
+    expect(pageRoutes().sort()).toEqual([...listed, "/rabota", "/rabota/[slug]"].sort());
   });
 
   it("gives each page a unique title, description, canonical and share card", () => {
@@ -81,7 +81,8 @@ describe("page metadata (acceptance E)", () => {
   });
 
   it("rejects an unknown page key", () => {
-    expect(() => pagePath("work" as never)).toThrow();
+    expect(() => pagePath("nope" as never)).toThrow();
+    expect(pagePath("work")).toBe("/rabota");
   });
 });
 

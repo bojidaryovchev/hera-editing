@@ -5,7 +5,7 @@ import { ArrowRight, Check, PauseIcon, PlayIcon, Plus } from "@/components/icons
 import { FaqSection } from "@/components/site/FaqSection";
 import { FAQ_SETS } from "@/content/faq";
 import { HOME } from "@/content/home";
-import { Scene, type SceneTone } from "@/components/home/Scene";
+import { Scene, type SceneTone } from "@/components/site/Scene";
 import type { SiteMedia } from "@/content/media";
 import { FINAL_CTA, FORMATS, PRICE_LABEL, TIERS, TIER_COMMON_INCLUSIONS, VOLUME_NOTE } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";

@@ -8,7 +8,9 @@ import { FAQ_SETS } from "@/content/faq";
 import { SERVICE } from "@/content/service";
 import { FINAL_CTA, FORMATS, PLATFORMS, QUOTE_DRIVERS, TIERS, VOLUME_NOTE } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";
+import { resolveAppEnv } from "@/lib/config/env";
 import { quoteHref, route } from "@/lib/site/nav";
+import { assertTermsSignedOff } from "@/lib/site/release";
 import { pageMetadata } from "@/lib/site/metadata";
 
 const PATH = "/upravlenie-na-sotsialni-mrezhi";
@@ -22,6 +24,8 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
  * „поддръжка на фейсбук страница“ (research/05), heads the "included" section, answered in its first paragraph.
  */
 export default function ServicePage() {
+  // The terms on this page (and in the FAQ) need the owner's sign-off before production (RELEASE_CHECKLIST).
+  assertTermsSignedOff(resolveAppEnv(process.env));
   const s = SERVICE;
   return (
     <main id="main" className="page" data-page="service">

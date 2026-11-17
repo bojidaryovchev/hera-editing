@@ -302,10 +302,11 @@ body::after {
   }
 }
 
-/* ---------- About ---------- */
-/* Hero in two columns on wide screens: the heading left, the lead and the action right, both filled. */
+/* ---------- Paired hero (About, portfolio) ---------- */
+/* A short hero in two columns on wide screens: the heading left, the lead and the action right, both filled
+   (decision 8a: no half left empty). PageHero's `pair`. */
 @media (min-width: 1024px) {
-  .ab .phero {
+  .phero--pair {
     display: grid;
     grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
     grid-template-areas: "crumbs crumbs" "eyebrow ." "h1 lead" "h1 actions";
@@ -313,24 +314,26 @@ body::after {
     row-gap: 18px;
     align-items: end;
   }
-  .ab .phero .crumbs {
+  .phero--pair .crumbs {
     grid-area: crumbs;
   }
-  .ab .phero .eyebrow {
+  .phero--pair .eyebrow {
     grid-area: eyebrow;
   }
-  .ab .phero .phero__h1 {
+  .phero--pair .phero__h1 {
     grid-area: h1;
     align-self: start;
   }
-  .ab .phero .phero__lead {
+  .phero--pair .phero__lead {
     grid-area: lead;
   }
-  .ab .phero .actions {
+  .phero--pair .actions {
     grid-area: actions;
     align-self: start;
   }
 }
+
+/* ---------- About ---------- */
 .ab-how {
   padding-top: var(--sec);
   padding-bottom: clamp(48px, 6vw, 96px);

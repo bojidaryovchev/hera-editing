@@ -6,6 +6,7 @@ import { PRIVACY_PAGE } from "@/content/legal/privacy";
 import { PACKAGES } from "@/content/packages";
 import { SERVICE } from "@/content/service";
 import { VIDEO } from "@/content/video";
+import { WORK } from "@/content/work";
 import { brandName } from "@/lib/site/brand";
 import type { PageKey } from "@/lib/site/metadata";
 
@@ -22,12 +23,13 @@ export const SHARE: Record<PageKey, ShareCard> = {
   packages: { label: PACKAGES.hero.eyebrow, title: PACKAGES.hero.title },
   about: { label: ABOUT.hero.eyebrow, title: ABOUT.hero.title },
   contact: { label: CONTACT.breadcrumb, title: CONTACT.hero.title },
+  work: { label: WORK.title, title: WORK.lead },
   privacy: { title: PRIVACY_PAGE.title },
   cookies: { title: COOKIES_PAGE.title },
 };
 
 /** The image's alt text (og:image:alt): the brand and the headline the image shows. */
-export function shareAlt(key: PageKey): string {
-  const c = SHARE[key];
+export function shareAlt(key: PageKey | ShareCard): string {
+  const c = typeof key === "string" ? SHARE[key] : key;
   return `${brandName()}: ${c.accent ? `${c.title} ${c.accent}` : c.title}`;
 }
