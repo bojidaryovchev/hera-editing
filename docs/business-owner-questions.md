@@ -1,6 +1,6 @@
 # Questions for the business owner
 
-- **Date:** 2026-11-18.
+- **Date:** 2026-11-18, updated 2026-11-19.
 - **What is left.** Everything that could be researched, written or built without the business owner's answers is
   done, except a few items that the spec review of 2026-11-18 found, mostly work for Claude
   ([spec-coverage.md](spec-coverage.md)). What remains for the business owner is below.
@@ -72,14 +72,17 @@ From [release-checklist.md](release-checklist.md).
    - travel included within the radius.
 
    *Recommended: ok, and add the notice period to the site's wording.*
-6. **The privacy notice.** Six of its nine sections are not written yet: the controller, the legal basis, the
-   retention period, the processors, the visitors' rights and the privacy contact
-   ([spec-coverage.md](spec-coverage.md) §1.1). Claude can draft all of it now, except the company details. Then:
-   do you approve it yourself, or does a lawyer review it? The spec asked for a lawyer; decision L37 made a lawyer
-   optional for the contract drafts only, so the notice needs its own answer. Also: how long do we keep enquiries
-   that never became clients?
-   *Recommended: let Claude draft it now, and decide about the lawyer once you have read it; keep such enquiries
-   12 months.*
+6. **The privacy notice** is drafted in Bulgarian (`/poveritelnost`) and in English (`/en/privacy`), decision L40.
+   It covers the legal basis, the processors (Vercel, Neon, Resend, and Cloudflare only if Turnstile is switched
+   on) and their safeguards for transfers outside the EU, the contact@ mailbox, the visitors' rights and the
+   complaint route to the КЗЛД. The controller and the privacy contact fill in from questions 1 and 3. Two answers
+   are needed:
+   - Do you approve it yourself, or does a lawyer review it? The spec asked for a lawyer; decision L37 made a lawyer
+     optional for the contract drafts only, so the notice needs its own answer.
+   - How long do we keep enquiries that never became clients? The draft proposes 12 months. Once you approve a
+     period, Claude makes the site delete such enquiries automatically when it ends.
+
+   *Recommended: read it on staging, then decide about the lawyer; keep such enquiries 12 months.*
 7. **Your own footage** for the home page, with releases and music rights: about 12 seconds horizontal and five short
    vertical clips. Until then the site shows designed frames, never stock footage.
 8. **The team:** names, roles and photos for `/za-nas`.
@@ -110,7 +113,8 @@ From [strategy.md](strategy.md) §13.
    *Recommended: ok.*
 4. **A free first consultation** as the main call to action, instead of „Поискайте оферта“.
    *Recommended: yes.*
-5. **The 11 new FAQ answers** in strategy.md §4.3. They need your native proofread before they go on the site.
+5. **The 11 new FAQ answers** (strategy.md §4.3) are on the service and packages pages on staging (decision L40).
+   Please proofread them as a native speaker before launch, and say which to change or drop.
 6. **When to publish "from" prices** on `/paketi`.
    *Recommended: after the first 3 pilots.*
 7. **Your real costs.** How many hours does a shoot day take you, travel included, and how many does one edited video

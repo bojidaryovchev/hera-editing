@@ -120,9 +120,33 @@ All variables are validated by `src/lib/config/env.ts`; errors name the variable
   requests without its secret, processes with it) and `/api/health`. Lighthouse, mobile, from this machine
   (medians): home 93, contact 96, service 96, video 97, packages 94, about 97.
 
-**Backups and recovery:** rely on the database provider's automated daily backups and point-in-time recovery
-(enable them; restore into a new database, then point `DATABASE_URL` at it and redeploy). For an extra copy,
-`pg_dump --format=custom "$DATABASE_URL" > leads.dump` and `pg_restore --clean -d "$DATABASE_URL" leads.dump`.
+**Backups and recovery.** Neon keeps each branch's history for the project's restore window. For
+`hera-editing-nonprod` that is 24 hours (the project's setting); choose production's window when that project is
+created. Any moment inside the window can be restored into a new branch, without touching the live one.
+
+- **Rehearsed on staging on 2026-11-18 at 22:37 UTC; it took under 20 seconds:**
+  1. a snapshot of `staging` as it was at 12:00 UTC (in the console: Backup & restore; through the API, a snapshot
+     with a `timestamp`), set to delete itself on 2026-11-21;
+  2. the snapshot restored into a new branch, `restore-rehearsal`, without finalizing;
+  3. read-only queries on the new branch showed the database as it was at 12:00. The same single lead was there
+     (same id, same time), with 2 migrations instead of 3 and no `leads.locale` column, because migration 0002 was
+     applied at about 21:30 UTC. `staging` was unchanged.
+
+  The `restore-rehearsal` branch can be deleted in the console.
+
+- **In an incident:**
+  1. Find the last good moment, from the logs, `/api/health` and the leads' times.
+  2. Restore that moment into a new branch as above, and check it with read-only queries.
+  3. Then do one of two things:
+     - copy the lost rows from it back into `staging`;
+     - roll the whole database back by finalizing the restore (in the console, or `finalize_branch_restore`). The
+       new branch takes over `staging`'s name and computes, so `DATABASE_URL` stays the same. The old branch is
+       kept under a new name, and anything written after the restore point exists only there, so copy it over
+       before deleting that branch.
+  4. Once the window has passed, only the extra copy below can bring data back.
+- **Extra copy:** `pg_dump --format=custom "$DATABASE_URL" > leads.dump`, restored with
+  `pg_restore --clean -d "$DATABASE_URL" leads.dump`.
+
 Leads are never deleted automatically: the retention period is an owner and legal decision.
 
 ## Leads: how an enquiry travels
