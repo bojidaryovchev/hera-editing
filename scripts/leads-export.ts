@@ -1,7 +1,8 @@
 /**
  * Export leads to a file for follow-up in the owner's own tools.
  *   pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv|json]
- * The file contains personal data: store it safely and delete it when done.
+ * The file contains personal data: store it safely and delete it when done. English orders (decision L38) are
+ * leads with locale "en"; their brief is the `details` column (JSON, and its JSON text in a CSV cell).
  */
 import { writeFileSync } from "node:fs";
 import { asc, gte } from "drizzle-orm";
@@ -44,6 +45,8 @@ const COLUMNS = [
   "notificationStatus",
   "spamReason",
   "privacyNoticeVersion",
+  "locale",
+  "details",
 ] as const;
 
 const { db, pool } = createDb(requireDatabaseUrl(), { max: 1 });
@@ -54,10 +57,13 @@ try {
     .where(since ? gte(leads.createdAt, since) : undefined)
     .orderBy(asc(leads.createdAt));
   const picked = rows.map((r) => Object.fromEntries(COLUMNS.map((c) => [c, r[c]])));
+  // In a CSV cell the brief is its JSON text, still neutralised by csvCell like every other cell.
+  const cell = (r: Record<string, unknown>, c: (typeof COLUMNS)[number]) =>
+    csvCell(c === "details" && r[c] ? JSON.stringify(r[c]) : r[c]);
   const body =
     format === "json"
       ? JSON.stringify(picked, null, 2)
-      : [COLUMNS.join(","), ...picked.map((r) => COLUMNS.map((c) => csvCell(r[c])).join(","))].join("\r\n");
+      : [COLUMNS.join(","), ...picked.map((r) => COLUMNS.map((c) => cell(r, c)).join(","))].join("\r\n");
   writeFileSync(out, format === "csv" ? String.fromCharCode(0xfeff) + body : body, { encoding: "utf8", mode: 0o600 });
   await audit(db, "export", null, { count: rows.length, format, since: since ? since.toISOString() : null });
   console.info(`Exported ${rows.length} lead(s) to ${out}. It contains personal data: keep it private.`);

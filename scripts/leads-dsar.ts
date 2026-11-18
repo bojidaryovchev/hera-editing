@@ -1,6 +1,6 @@
 /**
  * Data-subject requests and pipeline status, by a documented operator procedure.
- *   pnpm leads:dsar find   --email a@b.bg | --phone "0888 123 456"
+ *   pnpm leads:dsar find   --email a@b.bg | --phone "0888 123 456" | --text "Jane Doe"
  *   pnpm leads:dsar export --email a@b.bg --out person.json
  *   pnpm leads:dsar delete --id <lead uuid> --confirm
  *   pnpm leads:dsar delete-mail --email a@b.bg --confirm   (their contact@ conversations, decision L32)
@@ -8,6 +8,10 @@
  * Every action is written to lead_audit_log (without personal data). `find` and `export` cover the person's
  * conversations in the contact@ mailbox too (matched on the address they wrote from); deleting a lead leaves those to
  * `delete-mail`, which the operator runs for the same address.
+ *
+ * English orders (decision L38) are leads with locale "en": the same commands find, export and delete them, and an
+ * export includes their whole brief (`details`). A brief can name other people (a couple, an agent, a listing's
+ * address), so `--text` also searches the names, the message and every field of the brief, case-insensitively.
  */
 import { writeFileSync } from "node:fs";
 import { asc, eq, or, sql } from "drizzle-orm";
@@ -27,11 +31,20 @@ const { db, pool } = createDb(requireDatabaseUrl(), { max: 1 });
 function matchPerson() {
   const email = typeof flags.email === "string" ? flags.email.trim().toLowerCase() : null;
   const phoneDigits = typeof flags.phone === "string" ? flags.phone.replace(/\D/g, "") : null;
-  if (!email && !phoneDigits) fail("Pass --email or --phone.");
+  const text = typeof flags.text === "string" ? flags.text.trim() : null;
+  if (!email && !phoneDigits && !text) fail("Pass --email, --phone or --text.");
+  if (text !== null && text.length < 3) fail("--text needs at least 3 characters.");
   const conditions = [];
   if (email) conditions.push(sql`lower(${leads.email}) = ${email}`);
   if (phoneDigits)
     conditions.push(sql`regexp_replace(coalesce(${leads.phone}, ''), '[^0-9]', '', 'g') = ${phoneDigits}`);
+  if (text) {
+    // A literal substring: LIKE's own wildcards in what the operator typed are escaped.
+    const like = `%${text.replace(/[\\%_]/g, (c) => `\\${c}`)}%`;
+    conditions.push(
+      sql`(${leads.name} ilike ${like} or ${leads.businessName} ilike ${like} or coalesce(${leads.message}, '') ilike ${like} or coalesce(${leads.details}::text, '') ilike ${like})`,
+    );
+  }
   return or(...conditions);
 }
 
@@ -63,10 +76,10 @@ try {
   switch (command) {
     case "find": {
       const rows = await db
-        .select({ id: leads.id, createdAt: leads.createdAt, status: leads.status })
+        .select({ id: leads.id, createdAt: leads.createdAt, status: leads.status, locale: leads.locale })
         .from(leads)
         .where(matchPerson());
-      for (const r of rows) console.info(`${r.id}  ${r.createdAt.toISOString()}  ${r.status}`);
+      for (const r of rows) console.info(`${r.id}  ${r.createdAt.toISOString()}  ${r.status}  ${r.locale}`);
       console.info(`${rows.length} lead(s) found.`);
       const conversations = await conversationsOf(emailFlag());
       for (const c of conversations)
