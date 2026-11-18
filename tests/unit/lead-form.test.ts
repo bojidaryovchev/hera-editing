@@ -118,7 +118,7 @@ describe("submitLeadAction", () => {
   beforeEach(() => submitLeadFromRequest.mockReset());
 
   it("reports success only for a stored lead and passes the honeypot and headers through", async () => {
-    const { submitLeadAction } = await import("../../src/app/kontakti/actions");
+    const { submitLeadAction } = await import("../../src/app/(site)/kontakti/actions");
     submitLeadFromRequest.mockResolvedValue({ status: "created", id: "lead-1", suppressed: false });
     const state = await submitLeadAction(INITIAL_LEAD_STATE, postedForm({ [HIDDEN.honeypot]: "bot" }));
     expect(state).toMatchObject({ status: "success", seq: 1, id: "lead-1", values: { city: "Пловдив" } });
@@ -128,7 +128,7 @@ describe("submitLeadAction", () => {
   });
 
   it("returns field errors with the typed values, and failures without losing them", async () => {
-    const { submitLeadAction } = await import("../../src/app/kontakti/actions");
+    const { submitLeadAction } = await import("../../src/app/(site)/kontakti/actions");
     submitLeadFromRequest.mockResolvedValueOnce({ status: "invalid", errors: { email: "invalid_email" } });
     const invalid = await submitLeadAction({ status: "idle", seq: 4 }, postedForm({ email: "nope" }));
     expect(invalid).toMatchObject({

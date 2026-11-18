@@ -1,16 +1,13 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { NOT_FOUND } from "@/content/errors";
-import { NOT_FOUND_TITLE } from "@/content/seo";
 import { route } from "@/lib/site/nav";
 
-export const metadata: Metadata = {
-  title: NOT_FOUND_TITLE,
-  robots: { index: false },
-};
-
-/** 404 (IA:19, L14): a timeline with one clip missing, then the way back. Next.js answers with status 404. */
-export default function NotFound() {
+/**
+ * 404 (IA:19, L14): a timeline with one clip missing, then the way back. One body for both 404s: a page that calls
+ * notFound() inside the site (app/(site)/not-found.tsx) and an address that matches no route at all
+ * (app/global-not-found.tsx).
+ */
+export function NotFoundView() {
   const n = NOT_FOUND;
   return (
     <main id="main" className="page" data-page="404">

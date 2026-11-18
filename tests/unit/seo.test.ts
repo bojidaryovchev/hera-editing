@@ -11,16 +11,18 @@ import { SHARE, shareAlt } from "../../src/lib/site/share";
 import { breadcrumbLd, homeGraph, jsonLdString, organizationLd } from "../../src/lib/site/structured-data";
 import { absoluteUrl, isIndexable, siteOrigin } from "../../src/lib/site/url";
 
-const APP = path.resolve(import.meta.dirname, "../../src/app");
+/** The public site's routes; the admin panel is its own route group (src/app/(admin)) and never public. */
+const APP = path.resolve(import.meta.dirname, "../../src/app/(site)");
 
-/** Every page route under src/app (folders with a page.tsx), as URL paths. */
+/** Every page route of the public site (folders with a page.tsx), as URL paths; a (group) adds no segment. */
 function pageRoutes(dir = APP, prefix = ""): string[] {
   const out: string[] = [];
   for (const name of readdirSync(dir)) {
     const full = path.join(dir, name);
     if (!statSync(full).isDirectory() || name === "api") continue;
-    if (existsSync(path.join(full, "page.tsx"))) out.push(`${prefix}/${name}`);
-    out.push(...pageRoutes(full, `${prefix}/${name}`));
+    const at = /^\(.+\)$/.test(name) ? prefix : `${prefix}/${name}`;
+    if (existsSync(path.join(full, "page.tsx")) && at !== prefix) out.push(at);
+    out.push(...pageRoutes(full, at));
   }
   return out;
 }

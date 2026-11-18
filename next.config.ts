@@ -31,6 +31,9 @@ export default function config(phase: string): NextConfig {
     experimental: {
       // The quote request is the only server action; like POST /api/leads it stays small (the longest valid one is ~6 KB).
       serverActions: { bodySizeLimit: "16kb" },
+      // Two root layouts (the site and the admin panel) leave no layout for a 404 at an unknown address;
+      // app/global-not-found.tsx is the documented answer for exactly that case.
+      globalNotFound: true,
     },
     async headers() {
       return [{ source: "/:path*", headers }];

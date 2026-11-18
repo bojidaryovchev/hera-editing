@@ -4,7 +4,7 @@ import Link from "next/link";
 import { startTransition, useActionState, useEffect, useRef, useState, type ReactNode } from "react";
 import { useForm, useWatch, type FieldErrors, type Resolver } from "react-hook-form";
 import toast from "react-hot-toast";
-import { submitLeadAction } from "@/app/kontakti/actions";
+import { submitLeadAction } from "@/app/(site)/kontakti/actions";
 import { TurnstileField } from "@/components/contact/TurnstileField";
 import { Check } from "@/components/icons";
 import { CONTACT, checkFields, summaryCount } from "@/content/contact";
