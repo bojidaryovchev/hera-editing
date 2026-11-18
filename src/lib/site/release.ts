@@ -2,7 +2,7 @@ import { PRIVACY_NOTICE } from "@/content/legal/privacy";
 import { SERVICE_TERMS } from "@/content/terms";
 import type { AppEnv } from "@/lib/config/env";
 
-/** Release gates that fail the production build instead of publishing something unfinished (handoff/02 §A). */
+/** Release gates that fail the production build instead of publishing something unfinished (spec/handoff/02 §A). */
 export class ReleaseGateError extends Error {
   constructor(message: string) {
     super(message);

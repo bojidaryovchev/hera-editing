@@ -1,6 +1,6 @@
 /**
  * /video-sadarzhanie-za-biznes. H1, lead and CTA are spec (CPY:36-38); the rest is
- * lead copy built on product/01 SVC:7-10 and research/03 R3:31. The page explains
+ * lead copy built on spec/product/01 SVC:7-10 and spec/research/03 R3:31. The page explains
  * filming as part of the recurring service, never as a standalone editing offer.
  */
 export const VIDEO = {

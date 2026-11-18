@@ -1,6 +1,6 @@
 /**
  * Site-wide copy: navigation, shell labels, footer, gates. Spec strings are verbatim
- * (website/01 IA:24, product/02); the rest is lead copy (design decisions L2, L7).
+ * (spec/website/01 IA:24, spec/product/02); the rest is lead copy (design decisions L2, L7).
  * The brand name is configuration (NEXT_PUBLIC_BRAND_NAME), never hard-coded copy.
  */
 

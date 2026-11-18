@@ -2,7 +2,7 @@ import type { LeadErrorCode, LeadField, LeadGoal, LeadVolume } from "@/lib/valid
 
 /**
  * Quote-request form copy. Field labels, choices, confirmation and error texts are
- * the spec's own words (product/02, website/01); everything else follows the
+ * the spec's own words (spec/product/02, spec/website/01); everything else follows the
  * owner's register decision (formal address).
  */
 

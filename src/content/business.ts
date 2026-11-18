@@ -1,7 +1,7 @@
 /**
- * Facts about the business. These are owner launch inputs (handoff/02 §A), never
+ * Facts about the business. These are owner launch inputs (spec/handoff/02 §A), never
  * creative copy: every field stays null until the owner supplies and verifies it.
- * Contacts and the brand name come from environment variables (website/03 TS:92-95).
+ * Contacts and the brand name come from environment variables (spec/website/03 TS:92-95).
  */
 export type Business = {
   legalName: string | null;

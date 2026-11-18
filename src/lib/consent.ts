@@ -1,5 +1,5 @@
 /**
- * The visitor's cookie choice (website/03 Analytics; acceptance F). Stored only once a choice is made, and only while
+ * The visitor's cookie choice (spec/website/03 Analytics; acceptance F). Stored only once a choice is made, and only while
  * an optional service exists to choose about. One first-party cookie, no server state.
  */
 export const CONSENT_COOKIE = "hera_consent";

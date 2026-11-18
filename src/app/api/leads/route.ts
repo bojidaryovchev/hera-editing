@@ -13,7 +13,7 @@ const json = (body: unknown, status: number, headers: Record<string, string> = {
   Response.json(body, { status, headers: { "Cache-Control": "no-store", ...headers } });
 
 /**
- * POST /api/leads — the quote-request contract (website/03). Only POST is exported,
+ * POST /api/leads — the quote-request contract (spec/website/03). Only POST is exported,
  * so every other method is answered 405; there is no way to list or read leads here.
  */
 export async function POST(request: Request): Promise<Response> {

@@ -21,10 +21,10 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /**
  * /upravlenie-na-sotsialni-mrezhi (IA:39-46) in the order of decision L4. The search phrase people actually use,
- * „поддръжка на фейсбук страница“ (research/05), heads the "included" section, answered in its first paragraph.
+ * „поддръжка на фейсбук страница“ (docs/research/05), heads the "included" section, answered in its first paragraph.
  */
 export default function ServicePage() {
-  // The terms on this page (and in the FAQ) need the owner's sign-off before production (RELEASE_CHECKLIST).
+  // The terms on this page (and in the FAQ) need the owner's sign-off before production (docs/release-checklist.md).
   assertTermsSignedOff(resolveAppEnv(process.env));
   const s = SERVICE;
   return (

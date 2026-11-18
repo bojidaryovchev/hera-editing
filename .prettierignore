@@ -1,11 +1,11 @@
-# The frozen specification (checksummed in SHA256SUMS.txt): never reformatted.
-README.md
-FROZEN_SPEC_all_in_one.md
-SHA256SUMS.txt
-research/
-product/
-website/
-handoff/
+# The frozen specification (checksummed in spec/SHA256SUMS.txt): never reformatted.
+spec/
+
+# Long-form records and research, kept as written: Prettier pads every table column to its widest cell,
+# which would triple their size.
+docs/decisions.md
+docs/strategy.md
+docs/research/
 
 # Generated or third-party
 pnpm-lock.yaml

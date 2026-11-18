@@ -1,6 +1,6 @@
 /**
  * Page titles and descriptions, rendered as "<title> | {Brand}". Titles for the six main pages are the spec's
- * (CPY:61-68), except home, service and packages, which follow the measured searches (research/05) and were
+ * (CPY:61-68), except home, service and packages, which follow the measured searches (docs/research/05) and were
  * approved by the owner on 2026-11-16 (decision L26). Descriptions are lead copy (G12): 120–165 characters, no
  * guarantees and no invented geography.
  */

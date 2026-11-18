@@ -3,7 +3,7 @@ import { SERVICE_TERMS } from "./terms";
 export type FaqItem = { id: string; q: string; a: string };
 
 /**
- * FAQ. q1–q8 are the spec's own questions and answers, verbatim (product/02 CPY:52-59).
+ * FAQ. q1–q8 are the spec's own questions and answers, verbatim (spec/product/02 CPY:52-59).
  * q3 is reworded only while the base city is unknown (CPY:54 forbids a literal
  * "[град]"); q9–q12 are lead copy built on the service terms awaiting sign-off.
  */

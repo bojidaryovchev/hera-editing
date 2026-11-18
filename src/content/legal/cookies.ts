@@ -1,6 +1,6 @@
 /**
  * /biskvitki and the consent banner. States only what the site actually stores
- * (research/03 R3:45: "no false cookie declaration"). The banner appears only when an
+ * (spec/research/03 R3:45: "no false cookie declaration"). The banner appears only when an
  * optional service is configured and approved; otherwise there is nothing to consent to.
  */
 export const COOKIES_PAGE = {

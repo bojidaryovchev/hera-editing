@@ -32,7 +32,7 @@ import type { LeadErrorCode } from "@/lib/validation/lead";
 import { GOALS, LEAD_LIMITS, VOLUMES } from "@/lib/validation/lead-fields";
 
 /*
- * The quote request (website/03, decisions L5, L6, L13). React Hook Form validates in the browser with the same Zod
+ * The quote request (spec/website/03, decisions L5, L6, L13). React Hook Form validates in the browser with the same Zod
  * rules the server uses (leadFormSchema), loaded on the visitor's first touch of the form rather than with the page;
  * the server action runs the durable pipeline. Without script the same form posts to the same server action and the
  * page renders the result.

@@ -162,7 +162,7 @@ describe("page metadata", () => {
   });
 });
 
-describe("search phrases (research/05)", () => {
+describe("search phrases (docs/research/05)", () => {
   it("puts the measured service phrase in the service title, description and one heading, in Cyrillic", () => {
     for (const t of [SEO.service.title, SEO.service.description, SERVICE.included.heading])
       expect(t.toLowerCase()).toContain("фейсбук страница");

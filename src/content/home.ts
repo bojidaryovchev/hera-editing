@@ -1,4 +1,4 @@
-/** Homepage (website/01 IA:26-37, in section order). Spec copy verbatim; marked lead copy otherwise. */
+/** Homepage (spec/website/01 IA:26-37, in section order). Spec copy verbatim; marked lead copy otherwise. */
 
 export const HOME = {
   hero: {
@@ -113,7 +113,7 @@ export const HOME = {
   formats: {
     heading: "Какво може да снимаме при Вас",
     lead: "Кратки вертикални видеа, заснети във Вашия обект. Всяко започва с идея от месечния план и стига до публикуване само след Вашето одобрение.",
-    /** Length from the service model (product/01 SVC:7, "typically 15–60 seconds"). */
+    /** Length from the service model (spec/product/01 SVC:7, "typically 15–60 seconds"). */
     tag: "9:16 · 0:15–0:60",
     /** Sixth tile (decision L23): formats follow the client's own ideas too. */
     idea: {

@@ -19,7 +19,7 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
 
 /**
  * /video-sadarzhanie-za-biznes (IA:48-53): filming inside the recurring service, never a standalone editing offer.
- * A supporting page (research/05: the head video searches are weddings), so it links on to the service page. No
+ * A supporting page (docs/research/05: the head video searches are weddings), so it links on to the service page. No
  * footage until the agency's own exists: the formats are shown as empty 9:16 frames, honestly labelled.
  */
 export default function VideoPage() {

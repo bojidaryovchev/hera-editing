@@ -1,9 +1,9 @@
 # Hera Editing website: implementation guide
 
-The Bulgarian-language marketing site specified in [`../README.md`](../README.md) (the frozen v1.0 specification;
-do not edit it or the files listed in `SHA256SUMS.txt`). This guide covers how the site is built, configured,
+The Bulgarian-language marketing site specified in [`../spec/README.md`](../spec/README.md) (the frozen v1.0
+specification; do not edit it or the files listed in `spec/SHA256SUMS.txt`). This guide covers how the site is built, configured,
 deployed and operated. What still blocks a production launch is listed in
-[`../RELEASE_CHECKLIST.md`](../RELEASE_CHECKLIST.md).
+[`release-checklist.md`](release-checklist.md).
 
 **Status:** deployable as a **staging** site. Production builds refuse to run until the owner supplies the launch
 inputs (domain, contacts, mail, secrets) and the lawyer-approved privacy notice.
@@ -51,17 +51,17 @@ development default) owner alerts are written to the console or `MAIL_DEV_OUTBOX
 
 ## Commands
 
-| Command | What it does |
-|---|---|
-| `pnpm lint` / `pnpm typecheck` / `pnpm format:check` | ESLint, TypeScript, Prettier |
-| `pnpm test` | Unit and integration tests (integration starts a disposable Postgres) |
-| `pnpm test:e2e` | Builds a test variant, starts a disposable Postgres and three servers, runs Playwright (desktop and phone) and axe |
-| `SCREENSHOTS=1 pnpm test:e2e responsive` | Also saves full-page screenshots of every page at 7 widths to `qa/screenshots/full/` |
-| `pnpm build` / `pnpm start` | Production build and server |
-| `pnpm db:migrate` | Applies pending migrations to `DATABASE_URL` |
-| `pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv\|json]` | Exports leads for follow-up (personal data: store safely, delete when done) |
-| `pnpm leads:retry [--include-failed] [--limit 50]` | Delivers owner alerts that are due (or all undelivered); idempotent |
-| `pnpm leads:dsar find\|export\|delete\|status …` | Data-subject requests and pipeline status (see below) |
+| Command                                                                       | What it does                                                                                                       |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
+| `pnpm lint` / `pnpm typecheck` / `pnpm format:check`                          | ESLint, TypeScript, Prettier                                                                                       |
+| `pnpm test`                                                                   | Unit and integration tests (integration starts a disposable Postgres)                                              |
+| `pnpm test:e2e`                                                               | Builds a test variant, starts a disposable Postgres and three servers, runs Playwright (desktop and phone) and axe |
+| `SCREENSHOTS=1 pnpm test:e2e responsive`                                      | Also saves full-page screenshots of every page at 7 widths to `qa/screenshots/full/`                               |
+| `pnpm build` / `pnpm start`                                                   | Production build and server                                                                                        |
+| `pnpm db:migrate`                                                             | Applies pending migrations to `DATABASE_URL`                                                                       |
+| `pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv\|json]` | Exports leads for follow-up (personal data: store safely, delete when done)                                        |
+| `pnpm leads:retry [--include-failed] [--limit 50]`                            | Delivers owner alerts that are due (or all undelivered); idempotent                                                |
+| `pnpm leads:dsar find\|export\|delete\|status …`                              | Data-subject requests and pipeline status (see below)                                                              |
 
 In CI the integration and e2e suites use `TEST_DATABASE_URL` (a database whose name contains `test`; it is wiped).
 

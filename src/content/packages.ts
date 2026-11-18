@@ -8,7 +8,7 @@ export const PACKAGES = {
     title: "Пакети според нуждите на Вашия бизнес",
     lead: "Няма две еднакви фирми. Можем да започнем с няколко видеа месечно или да изградим по-активен календар. Всяка оферта уточнява посещенията, броя оригинални видеа, платформите, корекциите и публикуването.",
   },
-  /** Price intent up front (research/05): what drives the quote, answered plainly. */
+  /** Price intent up front (docs/research/05): what drives the quote, answered plainly. */
   price: {
     heading: "От какво зависи цената",
     answer:
@@ -16,7 +16,7 @@ export const PACKAGES = {
   },
   tiersHeading: "Три примерни нива",
   tableCaption: "Сравнение на пакетите Старт, Растеж и Индивидуално",
-  /** product/01 SVC:18-30, row by row; the "Intended for" row is shown in each tier's header. */
+  /** spec/product/01 SVC:18-30, row by row; the "Intended for" row is shown in each tier's header. */
   rows: [
     { label: "Оригинални кратки видеа месечно", values: ["4", "8", "По договаряне, често 12+"], key: true },
     { label: "Снимачни посещения", values: ["1 месечно, с уговорена продължителност", "1–2 месечно", "По договаряне"] },

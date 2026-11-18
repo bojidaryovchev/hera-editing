@@ -1,5 +1,5 @@
 /**
- * The brand name is configuration (NEXT_PUBLIC_BRAND_NAME, website/03 TS:92), required in production by
+ * The brand name is configuration (NEXT_PUBLIC_BRAND_NAME, spec/website/03 TS:92), required in production by
  * parseServerEnv. Outside production the owner's chosen name (decision 5) stands in, so previews read correctly.
  */
 export const DEFAULT_BRAND_NAME = "Hera Editing";

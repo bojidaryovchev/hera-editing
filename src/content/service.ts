@@ -2,7 +2,7 @@ import { SERVICE_TERMS } from "./terms";
 
 /**
  * /upravlenie-na-sotsialni-mrezhi. H1 and lead are spec (CPY:31-32); the section
- * order is decision L4; everything else is lead copy built on product/01 and research/03.
+ * order is decision L4; everything else is lead copy built on spec/product/01 and spec/research/03.
  */
 export const SERVICE = {
   breadcrumb: "Управление на социални мрежи",
@@ -21,7 +21,7 @@ export const SERVICE = {
     ],
   },
   included: {
-    /** The measured search phrase (research/05), in Cyrillic as people type it. */
+    /** The measured search phrase (docs/research/05), in Cyrillic as people type it. */
     heading: "Какво включва поддръжката на фейсбук страница и Instagram",
     /** Answer first: the plain paragraph that search answers quote. */
     answer:

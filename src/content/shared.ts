@@ -58,7 +58,7 @@ export const PLATFORMS = [
 
 export const SHORTS_NOTE = "YouTube Shorts – по договаряне в офертата.";
 
-/** Package tiers (product/01 SVC:18-30). Quantities are a product hypothesis: always shown as illustrative. */
+/** Package tiers (spec/product/01 SVC:18-30). Quantities are a product hypothesis: always shown as illustrative. */
 export const TIERS = [
   {
     id: "start",

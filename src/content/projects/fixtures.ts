@@ -1,7 +1,7 @@
 import type { Project } from "./types";
 
 /**
- * Clearly fictional projects for automated tests only (website/03 TS:117). Loaded
+ * Clearly fictional projects for automated tests only (spec/website/03 TS:117). Loaded
  * only when APP_ENV=test and CONTENT_FIXTURES=1; production configuration refuses it.
  */
 export const FIXTURE_PROJECTS: readonly Project[] = [

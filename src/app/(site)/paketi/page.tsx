@@ -33,7 +33,7 @@ const COMMON: readonly Row[] = PACKAGES.rows.filter((r) => !isPrice(r) && r.valu
 const PER_TIER: readonly Row[] = PACKAGES.rows.filter((r) => !COMMON.includes(r));
 
 /**
- * /paketi (IA:55-56). The price question comes first (research/05: "колко струва…" searches), answered without a
+ * /paketi (IA:55-56). The price question comes first (docs/research/05: "колко струва…" searches), answered without a
  * tariff. Then the three illustrative tiers: a comparison table on wide screens, one card per tier on narrow ones
  * (never a sideways scroll, decision 8b), how videos are counted, the packages FAQ and the quote action.
  */
