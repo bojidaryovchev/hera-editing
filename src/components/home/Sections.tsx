@@ -78,11 +78,20 @@ export function Problem() {
   );
 }
 
-/** Process (IA:28): six clips on one line, each saying who does what. */
+/**
+ * Process (IA:28): six clips on one line, each saying who does what. With motion on wide screens the section holds
+ * still while the playhead crosses the clips; home.css reserves that room from the number of steps.
+ */
 export function Process() {
   const p = HOME.process;
   return (
-    <section className="proc" id={p.id} aria-labelledby="proc-h" data-proc>
+    <section
+      className="proc"
+      id={p.id}
+      aria-labelledby="proc-h"
+      data-proc
+      style={{ ["--steps" as string]: p.steps.length }}
+    >
       <div className="proc__in">
         <div className="proc__head wrap">
           <h2 className="h2" id="proc-h">

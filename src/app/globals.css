@@ -76,9 +76,11 @@ html,
 body {
   overflow-x: clip;
 }
-/* Focus and anchor jumps stop below the fixed header and above the cookie banner while it is open (WCAG 2.4.11). */
+/* Focus and anchor jumps stop below the fixed header and above the cookie banner while it is open (WCAG 2.4.11).
+   --jump-top is that stop; a section that clears the header itself cancels it (the homepage's process). */
 html {
-  scroll-padding-top: calc(var(--top) + 12px);
+  --jump-top: calc(var(--top) + 12px);
+  scroll-padding-top: var(--jump-top);
   scroll-padding-bottom: var(--cb-h, 0px);
 }
 body {

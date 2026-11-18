@@ -76,6 +76,86 @@ test("phone menu: lists every page, its quote records the page, a link navigates
   await expect(page.getByRole("dialog", { name: "Меню" })).toBeHidden();
 });
 
+/*
+ * The homepage's motion (owner report 2026-11-18): GSAP arrives after the browser or the router has already scrolled
+ * to a #link or restored a position, so the page must not change length when it does. With script-added pins it grew
+ * by several screens and "Как работим" ended up in the middle of the hero.
+ */
+test.describe("homepage links and history with motion", () => {
+  /** Motion is set up once HomeMotion has reset the final render's counter (the server renders it finished). */
+  async function motionReady(page: import("@playwright/test").Page) {
+    await expect(page.locator("[data-pct]")).toHaveText("0%", { timeout: 20_000 });
+  }
+  const processTop = (page: import("@playwright/test").Page) =>
+    page.locator("#kak-rabotim").evaluate((el) => el.getBoundingClientRect().top);
+
+  test("«Как работим» from another page lands on the process and stays there once motion is set up @phone", async ({
+    page,
+  }, testInfo) => {
+    await page.goto("/paketi");
+    if (testInfo.project.name === "phone") {
+      const { dialog } = await openMenu(page);
+      await dialog.getByRole("link", { name: "Как работим" }).click();
+    } else {
+      await page
+        .getByRole("navigation", { name: "Основна навигация" })
+        .getByRole("link", { name: "Как работим" })
+        .click();
+    }
+    await expect(page).toHaveURL(/\/#kak-rabotim$/);
+    await motionReady(page);
+    await page.waitForTimeout(500);
+    // Wide screens land where the section's hold starts (its top); narrow ones just below the fixed header.
+    expect(await processTop(page)).toBeGreaterThanOrEqual(0);
+    expect(await processTop(page)).toBeLessThan(120);
+  });
+
+  test("from further down, «Как работим» lands at the start of the process, not at its end", async ({ page }) => {
+    await page.goto("/");
+    await motionReady(page);
+    await page.locator("#paketi").evaluate((el) => el.scrollIntoView());
+    await page
+      .getByRole("navigation", { name: "Основна навигация" })
+      .getByRole("link", { name: "Как работим" })
+      .click();
+    await expect(page.locator(".pclip").first()).toHaveClass(/\bon\b/);
+    await expect(page.locator(".pclip").last()).not.toHaveClass(/\bon\b/);
+    expect(Math.abs(await processTop(page))).toBeLessThan(1);
+  });
+
+  test("Back returns to where the visitor left the homepage @phone", async ({ page }) => {
+    await page.goto("/");
+    await motionReady(page);
+    await page.locator("#paketi").evaluate((el) => el.scrollIntoView());
+    await page.waitForTimeout(300);
+    const left = await page.evaluate(() => window.scrollY);
+    await page.locator("#paketi .pk__head").getByRole("link").click();
+    await expect(page).toHaveURL(/\/paketi$/);
+    await page.goBack();
+    await motionReady(page);
+    await page.waitForTimeout(500);
+    expect(Math.abs((await page.evaluate(() => window.scrollY)) - left)).toBeLessThanOrEqual(2);
+  });
+
+  test("opening answers in the FAQ keeps the final render in step with the scroll @phone", async ({ page }) => {
+    await page.goto("/");
+    await motionReady(page);
+    // The final section's top at 45% of the screen: half way between the render's start (75%) and end (15%).
+    const renderHalfWay = async () => {
+      await page.evaluate(() => {
+        const top = document.querySelector("#oferta")!.getBoundingClientRect().top + window.scrollY;
+        window.scrollTo(0, top - window.innerHeight * 0.45);
+      });
+      await page.waitForTimeout(500);
+      return parseInt((await page.locator("[data-pct]").textContent()) ?? "", 10);
+    };
+    expect(Math.abs((await renderHalfWay()) - 50)).toBeLessThanOrEqual(10);
+    for (const question of await page.locator(".faq summary").all()) await question.click();
+    await page.waitForTimeout(400);
+    expect(Math.abs((await renderHalfWay()) - 50)).toBeLessThanOrEqual(10);
+  });
+});
+
 test("breadcrumbs lead back up, and the case study back to the portfolio", async ({ page }) => {
   await page.goto("/rabota/testova-pekarna");
   const crumbs = page.getByRole("navigation", { name: "Навигационна пътека" });

@@ -17,6 +17,36 @@
   grid-template-rows: minmax(0, 1fr) auto;
   padding-top: calc(var(--top) + env(safe-area-inset-top, 0px));
 }
+/*
+ * Motion holds the edit still while the scroll plays it: the whole hero on wide screens, the edit block under the
+ * fixed header on narrow ones. The hold is position: sticky over room reserved here (the ::after boxes), never a pin
+ * that a script adds later, so the page has its final length from the first paint and a link to #kak-rabotim, a
+ * reload or Back lands where it should, whenever GSAP arrives. HomeMotion spreads the timeline over exactly this room.
+ */
+@media (min-width: 900px) {
+  html.motion .hero {
+    position: sticky;
+    top: 0;
+  }
+  html.motion .hero-track::after {
+    content: "";
+    display: block;
+    height: 320vh;
+    height: 320svh;
+  }
+}
+@media (max-width: 899px) {
+  html.motion .pinwrap {
+    position: sticky;
+    top: calc(var(--top) + env(safe-area-inset-top, 0px));
+  }
+  html.motion .hero::after {
+    content: "";
+    display: block;
+    height: 260vh;
+    height: 260svh;
+  }
+}
 .stage {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 300px;
@@ -1067,8 +1097,10 @@ html:not(.motion) .rhythm__ph {
 /* ---------- Process: clips on a timeline ---------- */
 .proc {
   position: relative;
-  overflow: hidden;
   background: var(--ed);
+  /* A clip's width and the gap between clips: the wide track's geometry and the length of its hold (below). */
+  --pclip-w: clamp(280px, 30vw, 440px);
+  --pclip-gap: 16px;
 }
 .proc__in {
   min-height: 100vh;
@@ -1079,6 +1111,9 @@ html:not(.motion) .rhythm__ph {
   gap: clamp(28px, 4vw, 56px);
   padding-top: calc(var(--top) + 32px);
   padding-bottom: 48px;
+  /* The wide track runs off the side. Clipped here: a clipping .proc would stop the hold below from sticking. */
+  overflow: hidden;
+  overflow: clip;
 }
 .proc__head {
   display: flex;
@@ -1104,13 +1139,13 @@ html:not(.motion) .rhythm__ph {
 }
 .proc__track {
   display: flex;
-  gap: 16px;
+  gap: var(--pclip-gap);
   width: max-content;
   padding-left: max(var(--g), env(safe-area-inset-left, 0px), calc((100% - var(--max)) / 2));
   padding-right: max(var(--g), env(safe-area-inset-right, 0px), calc((100% - var(--max)) / 2));
 }
 .pclip {
-  width: clamp(280px, 30vw, 440px);
+  width: var(--pclip-w);
   flex: none;
   background: var(--ed2);
   border: 1px solid var(--edline);
@@ -1191,6 +1226,23 @@ html.motion .pclip__thumb i {
   height: 12px;
   background: var(--lime);
   clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+}
+/* Wide screens with motion: the section holds still (sticky, as the hero) while the playhead travels from the first
+   clip's left edge to the last one's right edge, over room exactly that long. A link to the section lands where the
+   hold starts: the section's own padding already clears the fixed header, so the usual stop below it is cancelled. */
+@media (min-width: 900px) {
+  html.motion .proc {
+    scroll-margin-top: calc(-1 * var(--jump-top));
+  }
+  html.motion .proc__in {
+    position: sticky;
+    top: 0;
+  }
+  html.motion .proc::after {
+    content: "";
+    display: block;
+    height: calc(var(--steps, 6) * var(--pclip-w) + (var(--steps, 6) - 1) * var(--pclip-gap));
+  }
 }
 /* Without motion the track is a plain grid, as on tablets. */
 html:not(.motion) .proc__in {

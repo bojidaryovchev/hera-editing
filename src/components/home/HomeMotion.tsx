@@ -9,6 +9,11 @@ import { VIDEO_PLAYER } from "@/content/work";
  * process clips slide under a playhead, the final edit renders and plays. The markup is server-rendered and complete;
  * this component only adds behaviour. GSAP loads after the page is interactive. Without motion (reduced motion, or
  * if GSAP fails to load) the page shows the finished edit and videos play only on request.
+ *
+ * Nothing here pins or changes the page's length: the hero and the process hold still with CSS (position: sticky
+ * over room home.css reserves), and each timeline spans its room. A script-added pin would add that room only once
+ * GSAP has loaded, after the browser or the router had already scrolled to a #link, restored a position on Back or
+ * on reload, so the page would end up somewhere in the middle of the hero.
  */
 
 type Gsap = typeof import("gsap").gsap;
@@ -179,7 +184,9 @@ function setupStatic(main: HTMLElement): () => void {
 
 function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElement): () => void {
   gsap.registerPlugin(ScrollTrigger);
+  const heroTrack = one(main, "[data-hero-track]");
   const hero = one(main, "[data-hero]");
+  const intro = one(main, ".intro");
   const stage = one(main, "[data-stage-el]");
   const viewer = one(main, "[data-viewer]");
   const mon = one(main, ".mon");
@@ -325,16 +332,21 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     const m = mm;
     m.add({ desk: "(min-width: 900px)", phone: "(max-width: 899px)" }, (c) => {
       const desk = Boolean(c.conditions?.desk);
+      // The held element's room in home.css: after the hero inside its track (wide), after the edit block inside the
+      // hero (narrow). The triggers are boxes that never stick, so their positions measure true at any scroll.
+      const room = () =>
+        desk
+          ? heroTrack.offsetHeight - hero.offsetHeight
+          : hero.offsetHeight - intro.offsetHeight - pinwrap.offsetHeight;
       const tl = gsap.timeline({
         defaults: { ease: "none" },
         scrollTrigger: {
-          trigger: desk ? hero : pinwrap,
-          // Narrow screens pin the edit block just under the fixed header, so no empty band is reserved above it.
-          start: desk ? "top top" : () => `top top+=${headerBottom()}`,
-          end: `+=${desk ? 320 : 260}%`,
-          pin: true,
+          trigger: desk ? heroTrack : intro,
+          // Narrow screens hold the edit block just under the fixed header, from the moment the title card has passed
+          // under it, so no empty band is reserved above it.
+          start: desk ? "top top" : () => `bottom top+=${headerBottom()}`,
+          end: () => `+=${room()}`,
           scrub: 0.6,
-          anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             const p = self.progress;
@@ -423,6 +435,8 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     const clips = all(main, ".pclip");
     const thumb = (c2: HTMLElement) => one(c2, ".pclip__thumb i");
     m.add("(min-width: 900px)", () => {
+      const proc = one(main, "[data-proc]");
+      const procIn = one(main, ".proc__in");
       const track = one(main, "[data-track]");
       const vp = track.parentElement ?? main;
       const ph = one(main, ".proc__ph");
@@ -456,13 +470,13 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
         ease: "none",
         onUpdate: apply,
         scrollTrigger: {
-          trigger: "[data-proc]",
+          trigger: proc,
           start: "top top",
+          // The section holds still by CSS over room as long as the playhead's travel (home.css).
           end: () => {
             measure();
-            return `+=${geo.p1 - geo.p0}`;
+            return `+=${proc.offsetHeight - procIn.offsetHeight}`;
           },
-          pin: true,
           scrub: 0.5,
           invalidateOnRefresh: true,
           onRefresh: apply,
@@ -545,6 +559,21 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
   if (video) on(video, "loadedmetadata", refresh);
   on(window, "load", refresh);
   void document.fonts?.ready.then(refresh);
+  // Every start and end is measured from the layout. When the page's length changes later (an answer opened in the
+  // FAQ, a late image), measure again. Nothing the timelines animate changes that length.
+  let mainH = main.offsetHeight;
+  let soon = 0;
+  const ro = new ResizeObserver(() => {
+    if (main.offsetHeight === mainH) return;
+    mainH = main.offsetHeight;
+    clearTimeout(soon);
+    soon = window.setTimeout(refresh, 100);
+  });
+  ro.observe(main);
+  offs.push(() => {
+    ro.disconnect();
+    clearTimeout(soon);
+  });
 
   return () => {
     offs.forEach((f) => f());
