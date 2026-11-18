@@ -6,6 +6,7 @@ spec/
 docs/decisions.md
 docs/strategy*.md
 docs/sales-kit*.md
+docs/contracts/
 docs/research/
 
 # Generated or third-party
