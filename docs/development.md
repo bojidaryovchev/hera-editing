@@ -51,17 +51,17 @@ development default) owner alerts are written to the console or `MAIL_DEV_OUTBOX
 
 ## Commands
 
-| Command                                                                       | What it does                                                                                                       |
-| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| `pnpm lint` / `pnpm typecheck` / `pnpm format:check`                          | ESLint, TypeScript, Prettier                                                                                       |
-| `pnpm test`                                                                   | Unit and integration tests (integration starts a disposable Postgres)                                              |
-| `pnpm test:e2e`                                                               | Builds a test variant, starts a disposable Postgres and three servers, runs Playwright (desktop and phone) and axe |
-| `SCREENSHOTS=1 pnpm test:e2e responsive`                                      | Also saves full-page screenshots of every page at 7 widths to `qa/screenshots/full/`                               |
-| `pnpm build` / `pnpm start`                                                   | Production build and server                                                                                        |
-| `pnpm db:migrate`                                                             | Applies pending migrations to `DATABASE_URL`                                                                       |
-| `pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv\|json]` | Exports leads for follow-up (personal data: store safely, delete when done)                                        |
-| `pnpm leads:retry [--include-failed] [--limit 50]`                            | Delivers owner alerts that are due (or all undelivered); idempotent                                                |
-| `pnpm leads:dsar find\|export\|delete\|status …`                              | Data-subject requests and pipeline status (see below)                                                              |
+| Command                                                                       | What it does                                                                                                      |
+| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| `pnpm lint` / `pnpm typecheck` / `pnpm format:check`                          | ESLint, TypeScript, Prettier                                                                                      |
+| `pnpm test`                                                                   | Unit and integration tests (integration starts a disposable Postgres)                                             |
+| `pnpm test:e2e`                                                               | Builds two test variants, starts a disposable Postgres and four servers, runs Playwright (desktop, phone) and axe |
+| `SCREENSHOTS=1 pnpm test:e2e responsive`                                      | Also saves full-page screenshots of every page at 7 widths to `qa/screenshots/full/`                              |
+| `pnpm build` / `pnpm start`                                                   | Production build and server                                                                                       |
+| `pnpm db:migrate`                                                             | Applies pending migrations to `DATABASE_URL`                                                                      |
+| `pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv\|json]` | Exports leads for follow-up (personal data: store safely, delete when done)                                       |
+| `pnpm leads:retry [--include-failed] [--limit 50]`                            | Delivers owner alerts that are due (or all undelivered); idempotent                                               |
+| `pnpm leads:dsar find\|export\|delete\|status …`                              | Data-subject requests and pipeline status (see below; `--text` also searches English orders' briefs)              |
 
 In CI the integration and e2e suites use `TEST_DATABASE_URL` (a database whose name contains `test`; it is wiped).
 
@@ -160,6 +160,45 @@ Bulgarian, phone-first, never indexed (meta, `X-Robots-Tag`, robots.txt), with n
   production, the panel records mail but refuses to send answers rather than pretend they left.
 - **Data requests:** `pnpm leads:dsar find|export --email …` include the person's conversations;
   `pnpm leads:dsar delete-mail --email … --confirm` deletes them (deleting a lead leaves its conversations to this).
+
+## English section (/en)
+
+Remote video editing for business clients abroad (decisions L35–L38; plan in
+[`strategy-remote-editing.md`](strategy-remote-editing.md)). Its own route group with its own root layout
+(`src/app/(en)`, `lang="en"`), through the shared `SiteDocument` with `locale="en"`: the same fonts, stylesheet,
+staging bar and consent, with the section's own header, footer and words. The pages are not translations of the
+Bulgarian ones, so there is no hreflang. The Bulgarian pages change only by one footer link to `/en`.
+
+- **Routes:** `/en` (offer home), `/en/wedding-editing`, `/en/youtube-editing`, `/en/real-estate-editing`,
+  `/en/pricing`, `/en/how-it-works`, `/en/order` (the brief form, per request), `/en/work` (a 404 until samples are
+  published), `/en/terms`, `/en/privacy`, `/en/cookies`, and an English 404 for any other `/en` address.
+- **Content:** `src/content/en/`. Every number comes from `packages.ts` (strategy §5's packages, both waves; the add-ons,
+  custom quotes, founding offer and payment), and `tests/unit/en-pricing.test.ts` holds it to the strategy.
+  `terms.ts` is the client-facing part of [`contracts/terms-of-service.md`](contracts/terms-of-service.md) word for
+  word (`tests/unit/en-terms.test.ts` compares them): change the document first, then the content file. Company facts
+  in the terms, footer and privacy notice come from `src/content/business.ts` once `verified` (decision 10).
+- **Samples:** add entries to `SAMPLES` in `src/content/en/samples.ts`: an unlisted YouTube or Vimeo link (the page
+  links to it; nothing is embedded), a poster under `public/`, and every rights field (footage source, footage
+  licence, music licence, permissions). Only `published: true` entries with all of them show; `kind: "demo"` is
+  labelled "Demo edit". Then `/en/work`, the home and niche samples bands and the sitemap entry appear.
+- **Orders:** the form validates with the same Zod rules as the server (`src/lib/validation/order.ts`, loaded on
+  first touch); a server action and `POST /api/orders` share the leads pipeline with the Bulgarian form
+  (`submitOrder` in `src/lib/leads/service.ts`): the same rate limits, idempotency, owner alert and retry. An order is
+  a `leads` row with `locale = 'en'` and its brief in `details` (jsonb; migration `0002_en_orders`). Fields that do
+  not belong to the chosen package are ignored. No card payment: the reply states the price and the start date.
+- **Admin:** English orders appear in "Запитвания" with an EN badge; the enquiry shows the brief in Bulgarian labels
+  (`src/content/admin-orders.ts`), and an answer goes out with an English subject.
+- **Switches:** `EN_SECTION_ENABLED` (build time; off in production unless `true`, on elsewhere unless `false`): while
+  off, `next.config.ts` rewrites every `/en` address to the site's 404, the sitemap and the Bulgarian footer leave it
+  out, and `POST /api/orders` answers 404. `EN_EU_ORDERS` (per request, default `false`): orders from businesses in
+  other EU states are refused with "We can't take orders from businesses in the EU yet."
+- **Production gates:** with the section on, production refuses to build or start until `EN_TERMS.signedOff` and
+  `EN_PRIVACY_NOTICE.status === "approved"` (`src/lib/en/release.ts`), and `/en/order` stays closed (404) while the
+  terms are unsigned. The launch inputs are listed in [`release-checklist.md`](release-checklist.md).
+- **Data requests:** `pnpm leads:dsar find|export --text "Jane Doe"` also searches the names, the message and every
+  field of a brief (a couple's names, a listing address), case-insensitively; exports include the brief.
+- **Tests:** `en-*.test.ts` in `tests/unit`, `tests/integration/orders.test.ts`, and `tests/e2e/en.spec.ts`, which also
+  runs against a second e2e build with the section switched off (`.next-e2e-off`, served on :3203).
 
 ## Privacy, cookies and analytics
 
