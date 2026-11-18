@@ -5,6 +5,7 @@ spec/
 # which would triple their size.
 docs/decisions.md
 docs/strategy*.md
+docs/sales-kit*.md
 docs/research/
 
 # Generated or third-party

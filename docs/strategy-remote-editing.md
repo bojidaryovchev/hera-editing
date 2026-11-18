@@ -30,10 +30,10 @@
 | **Which customers first?** | Three tests in parallel for 6–8 weeks, chosen for low spoken-English load (section 3):<br>• **wedding editing for US and UK filmmakers**;<br>• **scripted or documentary YouTube for US channels**;<br>• **real-estate listing videos for US photographers**.<br>Podcasts, talking-head and commentary videos, streams and agency overflow come second, once a transcript-and-translation workflow is proven. |
 | **Twitch streamers?** | **Only as a YouTube highlights service:** one 10–15-minute highlight video per stream or week, plus clips from it. It suits English-language streamers who average about 300+ viewers and already post on YouTube; the monthly plan suits 500+. **Not** per-clip "viral clips" for small streamers: AI tools do that for $15–40 a month. **Not** per-view clipping either: the median is about $1 per 1,000 views. |
 | **What packages and prices?** | Fixed-price packages for every repeatable job, with limits on footage, length, revisions and turnaround, paid in advance. Custom quotes for corporate, motion-graphics and oversize work. First-wave examples (Part 2 §6):<br>• YouTube Story edit $520.<br>• Wedding full film $390, highlight from the filmmaker's selects $380, teaser $160.<br>• Listing video $120.<br>The target is about $40–45 per editing hour (section 5). |
-| **Where will clients come from?** | **Fiverr and YTJobs from week one,** with direct written outreach to wedding filmmakers. Then Reddit hiring threads and Contra. **Upwork after 5–10 reviews,** because its identity check can be a live video call. Search is small: even optimistically, with all eleven of the study's pages ranking, 50–200 visits a month after 6–12 months; the seven pages planned would bring less. |
-| **Do we build English pages?** | **Yes, a small sales section** at `/en` on this site (or a separate domain, decision 9), for conversion rather than traffic. Build it once real samples exist:<br>• the core: an offer page, pricing, ordering, a portfolio, and how it works with an FAQ;<br>• then the three test niches: weddings for filmmakers, YouTube, real estate.<br>Skip city, country, German, Twitch, UGC and corporate pages, and a big blog. |
+| **Where will clients come from?** | **Fiverr and YTJobs from the start of selling,** with direct written outreach to wedding filmmakers. Then Reddit hiring threads and Contra. **Upwork after 5–10 reviews,** because its identity check can be a live video call. Search is small: even optimistically, with all eleven of the study's pages ranking, 50–200 visits a month after 6–12 months; the seven pages planned would bring less. |
+| **Do we build English pages?** | **Yes, a small sales section** at `/en` on this site, for conversion rather than traffic. Build it once real samples exist:<br>• the core: an offer page, pricing, ordering, a portfolio, and how it works with an FAQ;<br>• then the three test niches: weddings for filmmakers, YouTube, real estate.<br>Skip city, country, German, Twitch, UGC and corporate pages, and a big blog. |
 | **"He can edit anything": how to present it?** | Offer the full menu, but **sell each niche with samples from that niche**. Clients hire specialists: YTJobs posts are tagged by style. Say "AI-assisted, human-edited, written-only". Never send AI-written proposals, and honour a client's no-AI request. |
-| **What has to happen first?** | Register the company. Ask the accountant questions A1–A3 before the first foreign purchase, gig or invoice. Get the lawyer's contract templates (L1, L2) before the first contract. Make real samples. |
+| **What has to happen first?** | Register the company. Find an accountant: once VAT-registered, the company files monthly VAT returns and VIES declarations, and every year it files annual accounts and a tax return. Make real samples. The contract drafts (terms, rights grant, data processing) can be written now; a lawyer's review is optional. |
 
 ## 2. Positioning
 
@@ -81,7 +81,7 @@ This departs from Part 1's ranking in two places:
 | Second wave | **Streamers**, as in the short answers | 1,441 English-language Twitch channels average 500+ viewers while streaming 30+ hours a month (SullyGnome; Part 1) | High: humour, slang, chat culture | AI tools and unpaid community clippers; budgets of tens to a few hundred dollars a month below 500 viewers | Highlight video $270; clip pack $170; monthly $1,390 for streamers with 500+ viewers |
 | Second wave | **Overflow work for UK agencies; ad creative** | B2B with written briefs; prepaid hours | Varies | Fast chat replies and occasional calls expected | White-label hours $450–1,560; ad pack $420; ad monthly $1,150 |
 
-**Pass mark for each test** (Part 1): by week 8, at least 2 repeat-paying clients and at least $1,000 of revenue.
+**Pass mark for each test** (Part 1): after 8 weeks of selling, at least 2 repeat-paying clients and at least $1,000 of revenue.
 Keep the segments that pass, and drop the rest.
 
 **What to avoid** (Part 1):
@@ -94,7 +94,7 @@ Keep the segments that pass, and drop the rest.
 - **Daily-turnaround promises.**
 - **A Fiverr-first strategy.** Part 1 advises against it: about 27.7% of each order's value goes to Fiverr in fees from
   both sides, and its buyer numbers are falling. Part 3 nevertheless puts Fiverr first, because only the seller can
-  start a call there. This plan follows Part 3, but runs YTJobs and direct outreach from week one, so Fiverr is never
+  start a call there. This plan follows Part 3, but runs YTJobs and direct outreach from the start, so Fiverr is never
   the only channel.
 
 ## 4. Countries
@@ -180,16 +180,16 @@ after the first 10 jobs.
 
 The channel order is from Part 3 §7.1, adjusted as described in section 3.
 
-1. **Fiverr, from week one.**
+1. **Fiverr, from the start.**
    - Gigs for the three test niches. The wedding gig is worded for filmmakers and studios, because Fiverr's weddings
      category also draws couples.
    - Founding prices as the Basic tiers. Level 1 needs 5 orders, 3 clients and $400.
    - Answer fast, and keep every message on Fiverr.
-2. **YTJobs, from week one.**
+2. **YTJobs, from the start.**
    - Applications are free, as far as Part 3 found.
    - Apply to 5–10 documentary, scripted or faceless posts a week, with short, personal messages in the editor's own
      words.
-3. **Direct written outreach to wedding filmmakers and studios** in the US and UK, from week one.
+3. **Direct written outreach to wedding filmmakers and studios** in the US and UK, from the start.
    - One personal email at a time, with an opt-out, under each country's rules (section 9).
    - Never through the site's mail service: Resend bans cold outreach (research 07, Part 5 §1.6).
 4. **Reddit hiring subs,** and the weekly hiring threads in creator subs. Text-native and free. Read each sub's rules
@@ -204,7 +204,8 @@ The channel order is from Part 3 §7.1, adjusted as described in section 3.
 **Marketplace rule.** Fiverr and Upwork forbid moving their clients off the platform: Upwork for 24 months, Fiverr
 with no time limit. So the site serves clients found elsewhere, never marketplace clients.
 
-**Writing in English.** A small set of English message templates, reviewed once by the owner, covers most needs:
+**Writing in English.** The business owner writes every message himself, using a translator. Ready-made English
+templates in the [sales kit](sales-kit-remote-editing.md) cover most needs:
 - the first reply;
 - questions about the brief;
 - the delivery note;
@@ -225,7 +226,6 @@ site already has for the admin panel.
   hreflang pairs.
 - **What it reuses:** the brand, the hosting, the database, and the contact@ mailbox and admin panel.
 - **What it needs of its own:** an order and brief form, English legal pages, and English cookie consent.
-- **The alternative:** a separate domain gives cleaner positioning, but means a second site to run (decision 9).
 
 **Pages** (Part 3 §7.2):
 
@@ -243,8 +243,8 @@ site already has for the admin panel.
 | Skip | City or country pages, German pages, Twitch, UGC, corporate, comparison pages, a big blog | No buyer demand, or not credible |
 
 **When to build.**
-- **Order of work.** Real samples come first: the portfolio cannot be invented. Build the pages in weeks 4–8, while
-  Fiverr, YTJobs and outreach run.
+- **Order of work.** Build the pages now. They go live once real samples exist, because the portfolio cannot be
+  invented. Fiverr, YTJobs and outreach run alongside.
 - **Payments.** Stripe is available in Bulgaria (international cards 3.15% + €0.25, plus 2% for currency conversion).
   Switch on payment links only after the accountant answers A6 (section 9). Until then, accept bank transfer on
   invoice.
@@ -295,7 +295,7 @@ This is research, not advice; Part 4 §8 has the full list for the lawyer and ac
 - **US forms.** The company gives US payers and platforms a W-8BEN-E; an ЕТ would give a W-8BEN. These forms are given
   to the payer, not filed. Editing done in Bulgaria is not US-source income, so nothing is withheld.
 
-**Before the first contract (lawyer: L1, L2):**
+**Before the first contract (topics L1 and L2; drafts first, a lawyer's review optional):**
 - **Copyright.**
   - Whether an editor is an author of the finished film is unsettled. Art. 62 names a film's director, screenwriter
     and director of photography (L1).
@@ -345,46 +345,47 @@ relevant, identified, with an opt-out.
 | Offshore price floors ($35–80 a video) | Compete on quality and reliability, not price; avoid volume niches without proof |
 | English comprehension in dialogue-heavy footage | Low-language niches first; transcripts plus translation; test on a sample before accepting podcast or stream clients |
 | Written-only communication puts some clients off | Choose segments that brief in writing; a clear FAQ and fixed menu; fast written replies |
-| Marketplace dependence: fees, rule changes, falling buyers | YTJobs and direct outreach from week one; the site from weeks 4–8 |
+| Marketplace dependence: fees, rule changes, falling buyers | YTJobs and direct outreach from the start; the site once the samples exist |
 | Bulgarian shoots collide with deadlines | At most 2 retainers; 2-day standard for listings; publish the next free slot; close the queue in busy weeks |
 | A VAT or e-shop mistake | Accountant questions A1–A3 and A6 first; business clients in the US, UK, Canada and Australia only until settled |
 | Copyright or music claims | Music only from the client's licence or royalty-free libraries; written grants of rights in every contract |
-| The Bulgarian site's positioning blurs | A separate `/en` section with its own navigation, or a separate domain (decision 9) |
+| The Bulgarian site's positioning blurs | A separate `/en` section with its own navigation, linked from the Bulgarian pages only in the footer |
 
 ## 11. Decisions to take
 
-The business owner signs off items 1–3, 6 and 9 (decision 6).
+Settled by the owner on 2026-11-18 (decision L37):
+- the business owner writes his own English, using a translator, with the sales kit's templates;
+- the English pages live at `/en` on this site;
+- a lawyer's review is optional.
+
+Still open. The business owner signs off items 1, 2 and 5 (decision 6).
 
 1. **Go ahead with the side line and the three tests:** weddings for filmmakers, scripted YouTube, real-estate
    listings. Recommended: yes; podcasts, talking heads, streams and agencies in the second wave.
 2. **Prices:** adopt the first-wave packages in section 5 as the test list. Recommended: yes, with the unconditional
    founding price.
-3. **Who writes in English:** the business owner, in his own words, put into English with translation tools, plus
-   templates reviewed once by the owner. Recommended.
-4. **Channels to open now:** Fiverr and YTJobs, and outreach to wedding filmmakers. Recommended: yes, once the
-   accountant has answered A1–A3.
-5. **The English section:** build the Must pages and the three niche pages once the samples exist. Recommended: yes,
-   from about week 4, as a v2 change.
-6. **Business clients only at first;** consumers later, if at all. Recommended.
-7. **The accountant and the lawyer:**
-   - A1–A3 before the first foreign purchase, gig or invoice;
-   - L1 and L2 before the first contract;
-   - A6 before site payments.
-
-   Recommended: book both now.
-8. **The tools budget.** AI first-pass tools cost about $91 a month (Descript, StreamLadder, OpusClip), on top of the
+3. **Channels to open:** Fiverr, YTJobs, and outreach to wedding filmmakers. Recommended: yes, once the accountant has
+   answered A1–A3.
+4. **The English section:** build the Must pages and the three niche pages, as a v2 change. Recommended: yes, now. It
+   goes live once the samples exist.
+5. **Business clients only at first;** consumers later, if at all. Recommended.
+6. **The accountant.**
+   - The questions: A1–A3 before the first foreign purchase, gig or invoice; A6 before site payments.
+   - The filings: the accountant then files the VAT returns, the VIES declarations and the annual accounts.
+   - Recommended: find one now, with the company registration.
+7. **The tools budget.** AI first-pass tools cost about $91 a month (Descript, StreamLadder, OpusClip), on top of the
    editing software he already uses. Recommended: start with Descript only, after A2.
-9. **Where the English pages live:** `/en` on this site, or a separate domain. Recommended: `/en`, with its own
-   navigation, unless the business owner prefers to keep the brands apart.
 
 ## 12. Roadmap
 
-| When | What |
-|---|---|
-| **Week 0–1** | Decisions 1–4, 6, 7 and 9. Carry on with the company registration. Ask the accountant A1–A3. Prepare 3 samples per test niche and label them as demo edits. Write the English message templates and the intake form. List 30 wedding filmmakers (US and UK) and 30 real-estate photographers (US). Start logging hours on every edit. |
-| **Weeks 1–4** | Once A1–A3 are answered: Fiverr gigs for the three niches, at founding prices; YTJobs, 5–10 applications a week; direct outreach under each country's rules. The lawyer's templates (L1, L2) before the first contract. Log every job's hours. |
-| **Weeks 4–8** | Build the English section: the Must pages plus the three niche pages. Turn on payments once A6 is answered. Ask every client for honest feedback. At week 8, check each segment against the pass mark. |
-| **Weeks 8–12** | Double down on the segments that passed. An Upwork profile after 5–10 reviews. Move to list prices after 5 good reviews. Try the second wave (podcasts, talking heads, streams, agencies) if the transcript workflow holds up. EU clients only after the VAT decision. |
+Steps, not weeks. Claude's parts take hours; the business owner's parts take as long as editing and paperwork do.
+
+| Step | Who | What |
+|---|---|---|
+| **1. Now** | Claude | The [sales kit](sales-kit-remote-editing.md) (done). The contract drafts: package terms, the rights grant, the data processing agreement. The English section at `/en`, with the samples' places waiting for real work. |
+| **1. Now** | The business owner | The 9 samples from the kit's briefs. Fiverr and YTJobs accounts: their identity checks need him in person. The company registration, and an accountant with questions A1–A3. Log the hours of every edit. |
+| **2. Selling** | Both | Once A1–A3 are answered and the samples exist: the Fiverr gigs at launch prices, YTJobs applications (5–10 a week), and outreach emails. The English section goes live with the samples, and payments are switched on after A6. Ask every client for honest feedback. |
+| **3. After 8 weeks of selling** | Both | Check each test against the pass mark. Double down on what passed. Upwork after 5–10 reviews, and list prices after 5 good ones. The second wave if the transcript workflow holds up. EU clients only after the VAT decision. |
 
 ## 13. Sources
 
