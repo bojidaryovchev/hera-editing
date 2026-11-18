@@ -9,15 +9,16 @@ the owner's launch inputs: [docs/release-checklist.md](docs/release-checklist.md
 
 ## Where things are
 
-| Path                                                   | What it holds                                                                                                                          |
-| ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
-| [docs/strategy.md](docs/strategy.md)                   | The product as a whole: offer, customers, positioning, how clients find us, which pages to build                                       |
-| [docs/decisions.md](docs/decisions.md)                 | Every decision since the specification: the owner's choices, then the build (decision 1–12, L1–L35)                                    |
-| [docs/development.md](docs/development.md)             | Running, configuring, deploying and operating the site                                                                                 |
-| [docs/release-checklist.md](docs/release-checklist.md) | Each acceptance criterion with its proof, and what the owner still has to supply                                                       |
-| [docs/research/](docs/research/)                       | Research after the freeze: measured keywords (05), competitors' service terms (06), and the business research behind the strategy (07) |
-| [spec/](spec/)                                         | The frozen v1.0 specification (research, product, website, handoff); checksummed, never edited                                         |
-| `src/`, `tests/`, `scripts/`                           | The site, its unit, integration and end-to-end tests, and the operator commands                                                        |
+| Path                                                               | What it holds                                                                                                                                                            |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [docs/strategy.md](docs/strategy.md)                               | The core business, filming in Bulgaria: offer, customers, positioning, how clients find us, which pages to build                                                         |
+| [docs/strategy-remote-editing.md](docs/strategy-remote-editing.md) | The second line, remote editing for clients abroad: segments, countries, packages and prices, channels, the English pages, a 12-week roadmap                             |
+| [docs/decisions.md](docs/decisions.md)                             | Every decision since the specification: the owner's choices, then the build (decision 1–12, L1–L36)                                                                      |
+| [docs/development.md](docs/development.md)                         | Running, configuring, deploying and operating the site                                                                                                                   |
+| [docs/release-checklist.md](docs/release-checklist.md)             | Each acceptance criterion with its proof, and what the owner still has to supply                                                                                         |
+| [docs/research/](docs/research/)                                   | Research after the freeze: measured keywords (05), competitors' service terms (06), the business research behind the strategy (07), and the remote-editing research (08) |
+| [spec/](spec/)                                                     | The frozen v1.0 specification (research, product, website, handoff); checksummed, never edited                                                                           |
+| `src/`, `tests/`, `scripts/`                                       | The site, its unit, integration and end-to-end tests, and the operator commands                                                                                          |
 
 ## Quick start
 

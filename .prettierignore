@@ -4,7 +4,7 @@ spec/
 # Long-form records and research, kept as written: Prettier pads every table column to its widest cell,
 # which would triple their size.
 docs/decisions.md
-docs/strategy.md
+docs/strategy*.md
 docs/research/
 
 # Generated or third-party
