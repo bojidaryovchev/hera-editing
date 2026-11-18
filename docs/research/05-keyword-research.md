@@ -1,7 +1,7 @@
 # Keyword research and page map (measured, November 2026)
 
-This file closes the open research item from `handoff/02` §B and §C.2: "Actual Bulgarian SEO monthly volumes/CPC/keyword
-difficulty; no measured data obtained." It replaces the qualitative intent map in `research/02` §"SEO: intent map"
+This file closes the open research item from `spec/handoff/02` §B and §C.2: "Actual Bulgarian SEO monthly volumes/CPC/keyword
+difficulty; no measured data obtained." It replaces the qualitative intent map in `spec/research/02` §"SEO: intent map"
 with measured demand. Nothing in the frozen v1.0 scope changes. The page-title changes proposed at the end replace
 spec copy (CPY:61-68); the owner approved them on 2026-11-16 and they are applied (decision L26, locked by a test).
 
@@ -95,7 +95,7 @@ The video page will not be a traffic driver: the head terms belong to weddings a
 
 The "рекламна агенция + city" results are mostly print and signage shops (for Plovdiv: табели, печат), so the intent
 is mixed. Local search is best served by a **Google Business Profile** and the real city on the contact and service
-pages once the owner supplies it (handoff/02 §A). Spec IA:38 already rules out city doorway pages.
+pages once the owner supplies it (spec/handoff/02 §A). The spec's SEO intent map (spec/research/02) already rules out city doorway pages.
 
 ## What the results pages show
 
@@ -121,7 +121,7 @@ why") are the ones it quotes.
 | `/kontakti` | Brand + "оферта" | (base city once known) | NAP and contact once verified |
 | `/za-nas` | Brand | (base city, team) | Entity and trust signals |
 
-Keep the spec's URLs. A slug carries little ranking weight, and changing routes is a v1.1 decision (handoff/02 §E).
+Keep the spec's URLs. A slug carries little ranking weight, and changing routes is a v1.1 decision (spec/handoff/02 §E).
 
 ### Titles (approved by the owner on 2026-11-16, applied)
 
@@ -141,5 +141,5 @@ naturally in the copy. Use the Cyrillic „фейсбук“ in those places, as
 - A practical guide around the informational half of „поддръжка на фейсбук страница“: the tip articles that rank
   today show the demand.
 - „идеи за сторита в инстаграм“ (1,000 a month, KD 0) and similar idea searches: top-of-funnel, mixed audience.
-  Worth an article only if the team can publish genuinely useful originals (research/02 §P2).
+  Worth an article only if the team can publish genuinely useful originals (spec/research/02 §P2).
 - Track the core cluster in an OpenSEO rank tracker after launch (costs credits; set up once the domain exists).
