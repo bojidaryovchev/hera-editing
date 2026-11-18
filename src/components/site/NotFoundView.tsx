@@ -2,13 +2,22 @@ import Link from "next/link";
 import { NOT_FOUND } from "@/content/errors";
 import { route } from "@/lib/site/nav";
 
+type NotFoundCopy = {
+  title: string;
+  text: string;
+  homeLink: string;
+  linksHeading: string;
+  visualLabel: string;
+  links: readonly { label: string; href: string }[];
+};
+
 /**
  * 404 (IA:19, L14): a timeline with one clip missing, then the way back. One body for both 404s: a page that calls
  * notFound() inside the site (app/(site)/not-found.tsx) and an address that matches no route at all
- * (app/global-not-found.tsx).
+ * (app/global-not-found.tsx); the English section passes its own words and home (app/(en)/not-found.tsx).
  */
-export function NotFoundView() {
-  const n = NOT_FOUND;
+export function NotFoundView({ copy = NOT_FOUND, home = "/" }: { copy?: NotFoundCopy; home?: "/" | "/en" }) {
+  const n = copy;
   return (
     <main id="main" className="page" data-page="404">
       <div className="wrap">
@@ -26,7 +35,7 @@ export function NotFoundView() {
           <h1 className="nf__h1">{n.title}</h1>
           <p className="nf__text">{n.text}</p>
           <div className="actions">
-            <Link className="btn btn--pri" href="/">
+            <Link className="btn btn--pri" href={home}>
               {n.homeLink}
             </Link>
           </div>

@@ -1,5 +1,5 @@
 import type { ReactNode } from "react";
-import { Breadcrumbs, type Crumb } from "@/components/site/Breadcrumbs";
+import { Breadcrumbs, type Crumb, type CrumbRoot } from "@/components/site/Breadcrumbs";
 
 /**
  * The internal-page hero (decision L8): breadcrumbs, eyebrow, H1, lead, one action. Typographic, no stock imagery.
@@ -17,6 +17,7 @@ export function PageHero({
   aside,
   media = false,
   pair = false,
+  root,
 }: {
   crumb: string;
   /** The page's own path, for the breadcrumb's structured data. */
@@ -31,10 +32,12 @@ export function PageHero({
   media?: boolean;
   /** A short hero without an aside: from 1024 px the heading left, the lead and the action right. */
   pair?: boolean;
+  /** The trail's start and label: the English section passes its own (Home → /en). */
+  root?: CrumbRoot;
 }) {
   const main = (
     <>
-      <Breadcrumbs current={crumb} path={path} parent={parent} />
+      <Breadcrumbs current={crumb} path={path} parent={parent} root={root} />
       {eyebrow && <p className="eyebrow">{eyebrow}</p>}
       <h1 className="phero__h1">{title}</h1>
       {lead && <p className="phero__lead">{lead}</p>}

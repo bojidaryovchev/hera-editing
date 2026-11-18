@@ -8,11 +8,11 @@ export function showStagingBar(): boolean {
 }
 
 /** A thin bar above the header; the layout reserves its height (html.has-bar sets --bar), so it covers nothing. */
-export function StagingBadge() {
+export function StagingBadge({ text = SHELL.stagingBar }: { text?: string }) {
   if (!showStagingBar()) return null;
   return (
     <p className="staging" role="note">
-      {SHELL.stagingBar}
+      {text}
     </p>
   );
 }

@@ -1,0 +1,1375 @@
+/*
+ * The English section /en (decision L38), in direction A's language (decision 1): the same tokens, paper and editor
+ * grounds and timeline motifs as the Bulgarian pages, whose shared classes (phero, sv-sec, ipanel, faq, pcta, doc,
+ * lf) these pages reuse. Loaded by app/(en)/layout.tsx only. Rules: balanced space (8a), never a sideways scroll at
+ * any width (8b), phone and tablet as finished as desktop (8c), motion only with html.motion (decision 7).
+ */
+
+/* ---------- Home hero: the promise left, an example review link right ---------- */
+.en-hero {
+  display: grid;
+  gap: 40px var(--g);
+  align-items: center;
+  padding-top: clamp(32px, 5vw, 80px);
+  padding-bottom: clamp(56px, 7vw, 112px);
+}
+.en-hero__main {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 1.4vw, 22px);
+  min-width: 0;
+}
+.en-hero .h1 {
+  font-size: clamp(44px, 6vw, 112px);
+}
+.en-hero .lead {
+  max-width: 60ch;
+}
+.en-hero__aside {
+  min-width: 0;
+}
+@media (min-width: 1024px) {
+  .en-hero {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+  .en-hero .h1 {
+    font-size: clamp(48px, 5vw, 104px);
+  }
+}
+
+/* ---------- The review link panel (hero) ---------- */
+.en-review {
+  margin: 0;
+  background: var(--ed2);
+  border: 1px solid var(--edline);
+  border-radius: 14px;
+  padding: clamp(14px, 1.6vw, 22px);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+.en-review__top {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font: 600 12px/1.2 var(--fm);
+  color: var(--tx2);
+}
+.en-review__top > span:first-child {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+.en-review__top .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--rec);
+  flex: none;
+}
+.en-review__tag {
+  flex: none;
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px dashed rgba(242, 193, 78, 0.55);
+  color: var(--color-warn);
+}
+.en-review__frame {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ed);
+}
+.en-review__tc {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background: rgba(12, 14, 16, 0.78);
+  font: 600 12px/1 var(--fm);
+  color: var(--tx);
+  font-variant-numeric: tabular-nums;
+}
+.en-review__scrub {
+  position: relative;
+  height: 6px;
+  border-radius: 3px;
+  background: var(--ed4);
+  margin: 4px 0 2px;
+}
+.en-review__mark {
+  position: absolute;
+  top: -5px;
+  left: var(--at);
+  width: 3px;
+  height: 16px;
+  border-radius: 2px;
+  background: var(--color-warn);
+  transform: translateX(-50%);
+}
+.en-review__head {
+  position: absolute;
+  top: -8px;
+  left: 100%;
+  width: 2px;
+  height: 22px;
+  background: var(--lime);
+  transform: translateX(-50%);
+}
+.en-review__notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.en-review__notes li {
+  display: grid;
+  grid-template-columns: 52px minmax(0, 1fr);
+  gap: 10px;
+  align-items: baseline;
+  padding: 9px 10px;
+  border-radius: 8px;
+  background: var(--ed3);
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--tx);
+}
+.en-review__notes b {
+  font: 600 12px/1.4 var(--fm);
+  color: var(--color-warn);
+  font-variant-numeric: tabular-nums;
+}
+.en-review__status {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font: 500 12px/1.3 var(--fm);
+  color: var(--tx3);
+}
+.en-review__ok {
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: var(--lime);
+  color: var(--ink);
+  font-weight: 600;
+}
+/* With motion: the playhead crosses the cut once (about 4 s), the notes appear as it reaches each mark, then the cut
+   is approved. Under five seconds and never repeated, so nothing needs a pause control (WCAG 2.2.2). */
+@keyframes en-scrub {
+  from {
+    left: 0;
+  }
+  to {
+    left: 100%;
+  }
+}
+@keyframes en-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+html.motion .en-review__head {
+  animation: en-scrub 3.6s linear 0.3s both;
+}
+html.motion .en-review__mark {
+  animation: en-in 0.25s ease both;
+  animation-delay: var(--t, 0s);
+}
+html.motion .en-review__notes li {
+  animation: en-in 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  animation-delay: var(--t, 0s);
+}
+html.motion .en-review__ok {
+  animation: en-in 0.45s ease 3.9s both;
+}
+
+/* ---------- Niche cards (home) ---------- */
+.en-niches {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 24px);
+}
+.en-niche {
+  background: #ffffff;
+  border: 1px solid #dad9d1;
+  border-radius: 16px;
+  padding: clamp(20px, 2vw, 28px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.en-niche__frame {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  height: 72px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--ed);
+  margin-bottom: 6px;
+  overflow: hidden;
+}
+.en-niche__frame i {
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  top: 16px;
+  height: 22px;
+  border-radius: 5px;
+  background: repeating-linear-gradient(90deg, var(--lime) 0 calc(25% - 3px), transparent calc(25% - 3px) 25%);
+  opacity: 0.85;
+}
+[data-niche="youtube"] .en-niche__frame i {
+  background: repeating-linear-gradient(90deg, var(--teal) 0 calc(20% - 3px), transparent calc(20% - 3px) 20%);
+}
+[data-niche="real-estate"] .en-niche__frame i {
+  background: repeating-linear-gradient(90deg, #9fb0b8 0 calc(33.333% - 3px), transparent calc(33.333% - 3px) 33.333%);
+}
+.en-niche__frame b {
+  position: relative;
+  margin-left: auto;
+  font: 600 12px/1 var(--fm);
+  color: var(--tx3);
+}
+.en-niche__h {
+  margin: 0;
+  font: 800 clamp(28px, 2.3vw, 38px)/0.98 var(--fd);
+  color: var(--ink);
+}
+.en-niche__p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink2);
+  flex: 1;
+}
+.en-niche__from {
+  margin: 0;
+  font: 500 13px/1.3 var(--fm);
+  color: var(--ink3);
+}
+.en-niche__from b {
+  font: 800 30px/1 var(--fd);
+  color: var(--ink);
+  margin-left: 4px;
+}
+@media (max-width: 899px) {
+  .en-niches {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- How it works: four clips on one timeline ---------- */
+.en-steps {
+  padding-top: var(--sec);
+  padding-bottom: var(--sec);
+}
+.en-steps__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px 40px;
+  margin-bottom: clamp(28px, 4vw, 56px);
+}
+.en-track {
+  position: relative;
+}
+.en-track__clips {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+.en-clip {
+  background: var(--ed2);
+  border: 1px solid var(--edline);
+  border-radius: 12px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-width: 0;
+  transition:
+    border-color 0.3s,
+    background 0.3s;
+}
+.en-clip__top {
+  margin: 0;
+  display: flex;
+  justify-content: space-between;
+  font: 500 12px/1 var(--fm);
+  color: var(--tx3);
+}
+.en-clip__bar {
+  display: block;
+  height: 8px;
+  border-radius: 3px;
+  background: var(--ed4);
+  overflow: hidden;
+}
+.en-clip__bar i {
+  display: block;
+  height: 100%;
+  width: 100%;
+  background: var(--lime);
+  transform-origin: 0 50%;
+}
+.en-clip__h {
+  margin: 0;
+  font: 800 clamp(30px, 2.4vw, 42px)/0.95 var(--fd);
+  color: #fff;
+}
+.en-clip__dl {
+  margin: 0;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 10px 14px;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.en-clip__dl dt {
+  font: 600 12px/1.6 var(--fm);
+  color: var(--lime);
+}
+.en-clip__dl dd {
+  margin: 0;
+  color: var(--tx2);
+}
+.en-clip.on {
+  border-color: var(--lime);
+  background: #171c1f;
+}
+.en-clip.on dd,
+.en-clip.done dd {
+  color: var(--tx);
+}
+.en-track__ph {
+  display: none;
+  position: absolute;
+  left: 0;
+  top: -14px;
+  bottom: -14px;
+  width: 2px;
+  background: var(--lime);
+  pointer-events: none;
+}
+.en-track__ph::before {
+  content: "";
+  position: absolute;
+  left: -7px;
+  top: -2px;
+  width: 16px;
+  height: 12px;
+  background: var(--lime);
+  clip-path: polygon(0 0, 100% 0, 100% 55%, 50% 100%, 0 55%);
+}
+/* Live (GSAP loaded, motion allowed): the playhead shows and the bars fill as it passes. */
+html.motion .en-steps.is-live .en-track__ph {
+  display: block;
+}
+@media (max-width: 1099px) {
+  .en-track__clips {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Two rows: the playhead cannot cross both, so the track is shown complete. */
+  html.motion .en-steps.is-live .en-track__ph {
+    display: none;
+  }
+}
+@media (max-width: 899px) {
+  .en-track {
+    padding-left: 22px;
+  }
+  .en-track::before {
+    content: "";
+    position: absolute;
+    left: 6px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--edline);
+  }
+  .en-track__clips {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  html.motion .en-steps.is-live .en-track__ph {
+    display: block;
+    left: 6px;
+    top: 0;
+    bottom: auto;
+    width: 2px;
+    height: 48px;
+    margin-top: -24px;
+  }
+  .en-track__ph::before {
+    left: -6px;
+    top: 18px;
+    width: 14px;
+    height: 12px;
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .en-clip {
+    transition: none;
+  }
+}
+
+/* ---------- Prices from (home): a short price list beside the text ---------- */
+.en-from {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--edline);
+}
+.en-from li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--edline);
+}
+.en-from span {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font: 600 17px/1.3 var(--fu);
+  color: var(--tx);
+  min-width: 0;
+}
+.en-from small {
+  font: 500 12px/1.2 var(--fm);
+  color: var(--tx3);
+}
+.en-from b {
+  flex: none;
+  font: 800 clamp(30px, 2.6vw, 44px)/1 var(--fd);
+  color: var(--lime);
+}
+
+/* ---------- Written points (home "No calls needed", payment, the delivery clock) ---------- */
+.en-written {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+}
+.en-written--4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.en-written li {
+  background: #ffffff;
+  border: 1px solid #dad9d1;
+  border-radius: 14px;
+  padding: clamp(18px, 1.8vw, 24px);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.en-written b {
+  font: 500 12px/1 var(--fm);
+  color: var(--ink3);
+}
+.en-written h3 {
+  margin: 0;
+  font: 800 clamp(24px, 1.9vw, 30px)/1 var(--fd);
+  color: var(--ink);
+}
+.en-written p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+@media (max-width: 1099px) {
+  .en-written--4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  .en-written,
+  .en-written--4 {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* ---------- Packages: cards in rows that are never half empty (gridColumns in Packages.tsx) ---------- */
+.en-pkgs {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols-lg, 3), minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+}
+@media (max-width: 1199px) {
+  .en-pkgs {
+    grid-template-columns: repeat(var(--cols-md, 2), minmax(0, 1fr));
+  }
+}
+@media (max-width: 899px) {
+  .en-pkgs {
+    grid-template-columns: repeat(var(--cols-sm, 1), minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  .en-pkgs {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.en-pkg {
+  background: #ffffff;
+  border: 1px solid #dad9d1;
+  border-radius: 16px;
+  padding: clamp(18px, 1.8vw, 26px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+  scroll-margin-top: calc(var(--top) + 16px);
+}
+.en-pkg__head {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.en-pkg__name {
+  margin: 0;
+  font: 800 clamp(28px, 2.1vw, 36px)/0.98 var(--fd);
+  color: var(--ink);
+}
+.en-pkg__sum {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink2);
+}
+.en-pkg__price {
+  margin: 0;
+  font: 800 clamp(36px, 3vw, 48px)/1 var(--fd);
+  color: var(--ink);
+  padding-bottom: 14px;
+  border-bottom: 1px solid #e3e2da;
+}
+.en-pkg__facts {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.en-pkg__facts div {
+  display: grid;
+  grid-template-columns: 96px minmax(0, 1fr);
+  gap: 10px;
+}
+.en-pkg__facts dt {
+  font: 600 12px/1.6 var(--fm);
+  color: var(--ink3);
+}
+.en-pkg__facts dd {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--ink);
+}
+.en-pkg__inc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  flex: 1;
+}
+.en-pkg__cta {
+  align-self: flex-start;
+}
+/* Cards in one row share their rows (subgrid): the prices, the facts and the buttons line up across a row whatever
+   a summary's length. Browsers without subgrid keep the flex column above. */
+@supports (grid-template-rows: subgrid) {
+  .en-pkg {
+    display: grid;
+    grid-row: span 5;
+    grid-template-rows: subgrid;
+    row-gap: 16px;
+    align-content: start;
+  }
+  .en-pkg__cta {
+    align-self: end;
+    justify-self: start;
+  }
+}
+.ticks.ticks--sm {
+  gap: 8px;
+}
+.ticks.ticks--sm li {
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 15px;
+  line-height: 1.45;
+}
+.ticks.ticks--sm svg {
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+}
+@media (max-width: 419px) {
+  .en-pkg__facts div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 2px;
+  }
+  .en-pkg__cta,
+  .en-pkg .en-pkg__cta {
+    justify-self: stretch;
+    align-self: stretch;
+  }
+}
+.en-box__cta {
+  align-self: flex-start;
+}
+
+/* ---------- Niche hero panel: the niche's prices at a glance ---------- */
+.en-plist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.en-plist li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr) auto;
+  gap: 10px;
+  align-items: center;
+  padding: 10px;
+  border-radius: 8px;
+}
+.en-plist li:nth-child(odd) {
+  background: var(--ed3);
+}
+.en-plist b {
+  font: 500 12px/1 var(--fm);
+  color: var(--lime);
+}
+.en-plist__name {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+.en-plist__name a {
+  font: 600 16px/1.3 var(--fu);
+  color: var(--tx);
+  text-decoration: none;
+}
+.en-plist__name a:hover {
+  text-decoration: underline;
+}
+.en-plist__name small {
+  font: 500 12px/1.3 var(--fm);
+  color: var(--tx3);
+}
+.en-plist__price {
+  font: 800 24px/1 var(--fd);
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* ---------- Niche pages: needs, extras, notes ---------- */
+.en-box__h {
+  margin: 0;
+  font: 800 clamp(26px, 2vw, 32px)/1 var(--fd);
+  color: var(--ink);
+}
+.en-need {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.en-need li {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 10px;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+.en-need b {
+  font: 500 12px/1.9 var(--fm);
+  color: var(--ink3);
+}
+.en-extras {
+  margin-top: clamp(16px, 2vw, 24px);
+  padding: 16px 18px;
+  border: 1px dashed #bdbcb3;
+  border-radius: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.en-extras ul {
+  margin: 0;
+  padding-left: 18px;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+.en-notes {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 20px);
+}
+.en-notes li {
+  border-top: 2px solid var(--lime);
+  padding-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.en-notes b {
+  font: 500 12px/1 var(--fm);
+  color: var(--tx3);
+}
+.en-notes h3 {
+  margin: 0;
+  font: 800 clamp(26px, 2vw, 32px)/1 var(--fd);
+  color: #fff;
+}
+.en-notes p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.55;
+  color: var(--tx2);
+}
+@media (max-width: 1099px) {
+  .en-notes {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  .en-notes {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* A section heading with a link on the same row. */
+.en-band__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px 40px;
+  margin-bottom: clamp(28px, 3.5vw, 52px);
+}
+
+/* ---------- Samples ---------- */
+.en-samples {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(var(--cols-lg, 3), minmax(0, 1fr));
+  gap: clamp(12px, 1.4vw, 24px);
+}
+@media (max-width: 1199px) {
+  .en-samples {
+    grid-template-columns: repeat(var(--cols-md, 2), minmax(0, 1fr));
+  }
+}
+@media (max-width: 899px) {
+  .en-samples {
+    grid-template-columns: repeat(var(--cols-sm, 1), minmax(0, 1fr));
+  }
+}
+@media (max-width: 599px) {
+  .en-samples {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.en-sample {
+  background: #ffffff;
+  border: 1px solid #dad9d1;
+  border-radius: 16px;
+  padding: clamp(14px, 1.4vw, 18px);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+.en-sample__media {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  border-radius: 10px;
+  overflow: hidden;
+  background: var(--ed);
+}
+.en-sample__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.en-sample__tags {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 12px;
+  font: 500 12px/1.3 var(--fm);
+  color: var(--ink3);
+}
+.en-tag {
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: #e3f3cf;
+  color: #1f4d12;
+  font-weight: 600;
+}
+.en-tag--demo {
+  background: #fbf1d3;
+  color: #6b4e00;
+}
+.en-sample__h {
+  margin: 0;
+  font: 800 clamp(24px, 1.9vw, 30px)/1 var(--fd);
+  color: var(--ink);
+}
+.en-sample__p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+.en-sample__rights {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+  line-height: 1.45;
+}
+.en-sample__rights div {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 8px;
+}
+.en-sample__rights dt {
+  font: 600 12px/1.6 var(--fm);
+  color: var(--ink3);
+}
+.en-sample__rights dd {
+  margin: 0;
+  color: var(--ink2);
+  overflow-wrap: anywhere;
+}
+.en-work + .en-work {
+  border-top: 1px solid var(--rule);
+}
+
+/* ---------- Pricing: jump links, groups, add-ons, founding offer, basics ---------- */
+.en-jump {
+  margin-bottom: clamp(28px, 3.5vw, 48px);
+}
+.en-jump ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.en-jump a {
+  display: inline-flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 14px;
+  border-radius: 999px;
+  border: 1px solid #c9c8c0;
+  background: #ffffff;
+  color: var(--ink);
+  font: 600 14px/1 var(--fu);
+  text-decoration: none;
+}
+.en-jump a:hover {
+  border-color: var(--ink);
+}
+.en-group {
+  scroll-margin-top: calc(var(--top) + 16px);
+  padding-top: clamp(28px, 3vw, 44px);
+  border-top: 1px solid var(--rule);
+}
+.en-group + .en-group {
+  margin-top: clamp(36px, 4vw, 64px);
+}
+.en-group__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) auto;
+  gap: 12px var(--g);
+  align-items: baseline;
+  margin-bottom: clamp(18px, 2vw, 28px);
+}
+.en-group__h {
+  margin: 0;
+  font: 800 clamp(32px, 2.8vw, 48px)/0.95 var(--fd);
+  color: var(--ink);
+}
+.en-group__head p {
+  margin: 0;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+@media (max-width: 899px) {
+  .en-group__head {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.en-addons {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.en-addons th,
+.en-addons td {
+  text-align: left;
+  vertical-align: top;
+  padding: 16px 20px 16px 0;
+  border-bottom: 1px solid var(--edline);
+}
+.en-addons thead th {
+  font: 600 12px/1.2 var(--fm);
+  color: var(--tx3);
+  padding-top: 0;
+}
+.en-addons thead th:first-child {
+  width: 42%;
+}
+.en-addons tbody th {
+  font: 600 17px/1.35 var(--fu);
+  color: var(--tx);
+}
+.en-addons tbody th small {
+  display: block;
+  margin-top: 4px;
+  font: 400 14px/1.45 var(--fu);
+  color: var(--tx3);
+}
+.en-addons td {
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--tx2);
+}
+@media (max-width: 699px) {
+  .en-addons thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .en-addons,
+  .en-addons tbody,
+  .en-addons tr,
+  .en-addons th,
+  .en-addons td {
+    display: block;
+  }
+  .en-addons tr {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--edline);
+  }
+  .en-addons th,
+  .en-addons td {
+    padding: 0;
+    border: 0;
+  }
+  .en-addons td {
+    margin-top: 6px;
+    color: var(--lime);
+  }
+}
+.en-founding__in {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 18px;
+}
+.en-founding__in .sv-lead {
+  max-width: 56ch;
+}
+.en-basics {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.en-basics div {
+  display: grid;
+  grid-template-columns: minmax(96px, 0.6fr) minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 10px;
+  border-radius: 8px;
+}
+.en-basics div:nth-child(odd) {
+  background: var(--ed3);
+}
+.en-basics dt {
+  font: 600 12px/1.6 var(--fm);
+  color: var(--lime);
+}
+.en-basics dd {
+  margin: 0;
+  font: 600 16px/1.4 var(--fu);
+  color: var(--tx);
+}
+
+/* ---------- How it works: time zones ---------- */
+.en-zones {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: clamp(18px, 2vw, 28px);
+  border-radius: 14px;
+  background: var(--ed2);
+  border: 1px solid var(--edline);
+}
+.en-zones__lane {
+  display: grid;
+  grid-template-columns: 92px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+}
+.en-zones__city {
+  font: 600 13px/1.2 var(--fm);
+  color: var(--tx2);
+}
+.en-zones__bar {
+  position: relative;
+  height: 34px;
+  border-radius: 6px;
+  background: var(--ed);
+  overflow: hidden;
+}
+/* The same block of hours on every lane: 09:00–17:00 in Bulgaria, and what that is elsewhere. */
+.en-zones__work {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 22%;
+  width: 56%;
+  border-radius: 4px;
+  background: rgba(217, 245, 104, 0.16);
+  border: 1px solid rgba(217, 245, 104, 0.55);
+}
+.en-zones__from,
+.en-zones__to {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font: 600 12px/1 var(--fm);
+  color: var(--tx);
+  font-variant-numeric: tabular-nums;
+}
+.en-zones__from {
+  left: calc(22% + 8px);
+}
+.en-zones__to {
+  right: calc(22% + 8px);
+}
+.en-zones__note {
+  margin: 0;
+  font: 500 12px/1.4 var(--fm);
+  color: var(--tx3);
+}
+
+/* ---------- Order page ---------- */
+.en-next {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.en-next ol {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+.en-next li {
+  display: grid;
+  grid-template-columns: 26px minmax(0, 1fr);
+  gap: 8px;
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--ed2);
+  border: 1px solid var(--edline);
+  font-size: 15px;
+  line-height: 1.45;
+  color: var(--tx2);
+}
+.en-next b {
+  font: 500 12px/1.9 var(--fm);
+  color: var(--lime);
+}
+@media (max-width: 699px) {
+  .en-next ol {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+.of {
+  gap: 4px;
+}
+.of__part {
+  margin: 0 0 12px;
+  padding: 0;
+  border: 0;
+  min-width: 0;
+}
+.of__h {
+  display: block;
+  width: 100%;
+  padding: 0 0 12px;
+  margin-bottom: 14px;
+  border-bottom: 1px solid var(--rule);
+  font: 800 clamp(26px, 2.2vw, 32px)/1 var(--fd);
+  color: var(--ink);
+}
+.of__select {
+  appearance: auto;
+  padding-right: 10px;
+}
+.of__area {
+  min-height: 104px;
+}
+/* The EU notice: appears when a business in another EU state is chosen (the server refuses it too). */
+.of__eu {
+  margin: 0;
+}
+.of__eu:empty {
+  display: none;
+}
+.of__eu span {
+  display: block;
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 10px;
+  background: #fbf1d3;
+  border-left: 4px solid #b08100;
+  color: var(--ink);
+  font-size: 15px;
+  line-height: 1.45;
+}
+.of__check label {
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr);
+  gap: 12px;
+  align-items: start;
+  cursor: pointer;
+  font: 600 16px/1.4 var(--fu);
+  color: var(--ink);
+}
+.of__check input {
+  width: 22px;
+  height: 22px;
+  margin: 0;
+  accent-color: var(--ink);
+}
+.of__check .lf__msg {
+  margin-top: 6px;
+  margin-left: 36px;
+}
+.of__check[data-invalid] input {
+  outline: 2px solid var(--color-error);
+  outline-offset: 2px;
+}
+/* Long choices as a stacked list (they would not fit a chip on a phone). */
+.of__options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+.of__option {
+  position: relative;
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  align-items: start;
+  padding: 11px 14px;
+  border-radius: 10px;
+  border: 1.5px solid #c9c8c0;
+  background: #ffffff;
+  cursor: pointer;
+  font: 600 15px/1.35 var(--fu);
+  color: var(--ink);
+}
+.of__option input {
+  width: 18px;
+  height: 18px;
+  margin: 1px 0 0;
+  accent-color: var(--ink);
+}
+.of__option:has(input:checked) {
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink);
+}
+.lf__group[data-invalid] .of__option {
+  border-color: var(--color-error);
+}
+/* A niche's questions show only for a package of that niche, the job description only for a custom quote: decided by
+   the chosen option itself, so it works without script. Hidden fields are ignored by the server. */
+.of__niche,
+.of__custom {
+  display: none;
+}
+.of:has(#of-package option[data-niche="wedding"]:checked) .of__niche--wedding,
+.of:has(#of-package option[data-niche="youtube"]:checked) .of__niche--youtube,
+.of:has(#of-package option[data-niche="real-estate"]:checked) .of__niche--real-estate,
+.of:has(#of-package option[value="custom"]:checked) .of__custom {
+  display: block;
+}
+
+/* ---------- Legal documents: lists, the cancellation table, the DPA note ---------- */
+.doc__list {
+  margin: 0;
+  padding-left: 24px;
+  list-style: disc;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink2);
+  max-width: 68ch;
+}
+ol.doc__list {
+  list-style: decimal;
+}
+.doc__list li::marker {
+  color: var(--ink3);
+}
+.doc__list strong,
+.doc__sec p strong {
+  color: var(--ink);
+}
+.doc__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.doc__table th,
+.doc__table td {
+  text-align: left;
+  vertical-align: top;
+  padding: 12px 14px 12px 0;
+  border-bottom: 1px solid var(--rule);
+  color: var(--ink2);
+}
+.doc__table thead th {
+  font: 600 12px/1.3 var(--fm);
+  color: var(--ink3);
+}
+.doc__table tbody th {
+  font-weight: 600;
+  color: var(--ink);
+  width: 40%;
+}
+@media (max-width: 599px) {
+  .doc__table thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+  }
+  .doc__table,
+  .doc__table tbody,
+  .doc__table tr,
+  .doc__table th,
+  .doc__table td {
+    display: block;
+    width: auto;
+  }
+  .doc__table tr {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .doc__table th,
+  .doc__table td {
+    padding: 0;
+    border: 0;
+  }
+  .doc__table td {
+    margin-top: 4px;
+  }
+}
+.doc__note {
+  padding: 14px 16px;
+  border-radius: 12px;
+  background: var(--paper2);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.doc__note h3 {
+  margin: 0;
+  font: 600 15px/1.3 var(--fu);
+  color: var(--ink);
+}
+.doc__note p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+.doc__note a,
+.doc__sec p a {
+  color: var(--ink);
+  font-weight: 600;
+}
+.doc__sec--intro {
+  border-top: 0;
+  padding-top: 0;
+}
+.doc__foot--links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+}

@@ -12,10 +12,14 @@ type Props = {
   items: { label: string; href: string }[];
   quoteLabel: string;
   labels: { open: string; close: string; title: string; nav: string; home: string };
+  /** Where the logo leads: the Bulgarian home by default, /en in the English section. */
+  homeHref?: "/" | "/en";
+  /** The form the quote button opens (QuoteLink): the Bulgarian one by default. */
+  quoteBase?: "/en/order";
 };
 
 /** Below 1024 px: a full-screen modal dialog (native <dialog>: focus trap, Escape, inert page behind). */
-export function MenuDialog({ brand, items, quoteLabel, labels }: Props) {
+export function MenuDialog({ brand, items, quoteLabel, labels, homeHref = "/", quoteBase }: Props) {
   const dialog = useRef<HTMLDialogElement>(null);
   const button = useRef<HTMLButtonElement>(null);
   const [open, setOpen] = useState(false);
@@ -60,7 +64,7 @@ export function MenuDialog({ brand, items, quoteLabel, labels }: Props) {
       </button>
       <dialog ref={dialog} id="menu" className="menu" aria-labelledby="menu-title">
         <div className="menu__top wrap">
-          <Link className="logo" href="/" aria-label={`${brand}, ${labels.home}`} onClick={hide}>
+          <Link className="logo" href={homeHref} aria-label={`${brand}, ${labels.home}`} onClick={hide}>
             <Wordmark title={brand} />
           </Link>
           <button className="hdr__menu" type="button" aria-label={labels.close} onClick={hide}>
@@ -79,7 +83,7 @@ export function MenuDialog({ brand, items, quoteLabel, labels }: Props) {
           ))}
         </nav>
         <div className="menu__cta wrap" style={{ ["--i" as string]: items.length }}>
-          <QuoteLink className="btn btn--pri" onClick={hide}>
+          <QuoteLink className="btn btn--pri" onClick={hide} base={quoteBase}>
             {quoteLabel}
           </QuoteLink>
         </div>

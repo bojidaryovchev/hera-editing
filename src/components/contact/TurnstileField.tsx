@@ -37,7 +37,16 @@ function loadTurnstile(): Promise<Turnstile> {
  * interaction; its token travels with the form as `cf-turnstile-response` and the server verifies it. A token works
  * once, so the widget resets after every answer from the server (`resetKey`).
  */
-export function TurnstileField({ siteKey, resetKey }: { siteKey: string; resetKey: number }) {
+export function TurnstileField({
+  siteKey,
+  resetKey,
+  language = "bg",
+}: {
+  siteKey: string;
+  resetKey: number;
+  /** The widget's language: the Bulgarian form's by default, "en" on the English order form. */
+  language?: "bg" | "en";
+}) {
   const box = useRef<HTMLDivElement>(null);
   const widget = useRef<string | null>(null);
 
@@ -48,7 +57,7 @@ export function TurnstileField({ siteKey, resetKey }: { siteKey: string; resetKe
         if (cancelled || !box.current || widget.current) return;
         widget.current = t.render(box.current, {
           sitekey: siteKey,
-          language: "bg",
+          language,
           appearance: "interaction-only",
           action: "lead",
         });
@@ -61,7 +70,7 @@ export function TurnstileField({ siteKey, resetKey }: { siteKey: string; resetKe
       if (widget.current) window.turnstile?.remove(widget.current);
       widget.current = null;
     };
-  }, [siteKey]);
+  }, [siteKey, language]);
 
   useEffect(() => {
     if (resetKey > 0 && widget.current) window.turnstile?.reset(widget.current);

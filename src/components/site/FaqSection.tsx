@@ -15,13 +15,28 @@ export function FaqSection({ ids, more }: { ids: readonly string[]; more?: { hre
   const items = ids
     .map((id) => (id === "q3" && BUSINESS.baseCity ? faqOutsideCity(BUSINESS.baseCity) : FAQ[id]))
     .filter((x): x is FaqItem => Boolean(x));
+  return <FaqList heading={FAQ_HEADING} items={items} more={more} />;
+}
+
+/** The FAQ's markup for any list of questions (the Bulgarian pages through FaqSection, the English ones directly). */
+export function FaqList({
+  heading,
+  items,
+  more,
+  id = "faq-h",
+}: {
+  heading: string;
+  items: readonly FaqItem[];
+  more?: { href: Route; label: string };
+  id?: string;
+}) {
   const half = Math.ceil(items.length / 2);
   const columns = [items.slice(0, half), items.slice(half)];
   return (
-    <section className="paper faq wrap" aria-labelledby="faq-h">
+    <section className="paper faq wrap" aria-labelledby={id}>
       <div className="faq__head">
-        <h2 className="h2" id="faq-h">
-          {FAQ_HEADING}
+        <h2 className="h2" id={id}>
+          {heading}
         </h2>
         {more && (
           <Link className="link" href={more.href}>

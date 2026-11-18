@@ -1,7 +1,8 @@
 import type { NextConfig } from "next";
 import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD, PHASE_PRODUCTION_SERVER } from "next/constants";
 import { mediaUrls } from "./src/content/media";
-import { parseServerEnv, resolveAppEnv } from "./src/lib/config/env";
+import { enSectionEnabled, parseServerEnv, resolveAppEnv } from "./src/lib/config/env";
+import { assertEnLaunchReady } from "./src/lib/en/release";
 import { mediaOrigins, securityHeaders } from "./src/lib/security/headers";
 
 export default function config(phase: string): NextConfig {
@@ -9,8 +10,12 @@ export default function config(phase: string): NextConfig {
   const appEnv = resolveAppEnv(env);
   // Production refuses to build or start with a missing or invalid launch input (the error names variables, never
   // values), so canonical links, contacts and mail can never go live as placeholders.
-  if (appEnv === "production" && (phase === PHASE_PRODUCTION_BUILD || phase === PHASE_PRODUCTION_SERVER))
+  if (appEnv === "production" && (phase === PHASE_PRODUCTION_BUILD || phase === PHASE_PRODUCTION_SERVER)) {
     parseServerEnv(env);
+    // With the English section switched on, production also needs its signed-off terms and approved notice (L38).
+    assertEnLaunchReady(env);
+  }
+  const enSection = enSectionEnabled(env);
 
   const headers = securityHeaders({
     dev: phase === PHASE_DEVELOPMENT_SERVER,
@@ -50,12 +55,21 @@ export default function config(phase: string): NextConfig {
     },
     // The labelled stock clips stay in the repository for previews, but production never serves them, even by
     // direct URL (decision L22): the request is rewritten to a path that does not exist, so it answers 404.
+    // The English section /en, while switched off (production's default, decision L38), does not exist: every
+    // address under it is rewritten the same way, so it answers the site's 404 and no page of it can be reached.
     async rewrites() {
       return {
-        beforeFiles:
-          appEnv === "production"
+        beforeFiles: [
+          ...(appEnv === "production"
             ? [{ source: "/placeholder-media/:path*", destination: "/__placeholder-media-not-served" }]
-            : [],
+            : []),
+          ...(enSection
+            ? []
+            : [
+                { source: "/en", destination: "/__en-section-off" },
+                { source: "/en/:path*", destination: "/__en-section-off" },
+              ]),
+        ],
         afterFiles: [],
         fallback: [],
       };

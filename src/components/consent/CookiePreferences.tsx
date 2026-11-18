@@ -4,13 +4,36 @@ import { useState } from "react";
 import { COOKIES_PAGE } from "@/content/legal/cookies";
 import { useConsent } from "./ConsentProvider";
 
+type Row = { name: string; purpose: string; duration: string };
+
+/** The page's words: the Bulgarian /biskvitki's by default, or the English /en/cookies's (same shape). */
+export type CookiesCopy = {
+  noOptional: string;
+  categories: {
+    necessary: { title: string; text: string; state: string };
+    analytics: { title: string; text: string; stateOff: string; stateOn: string; notUsed: string };
+  };
+  saved: string;
+  storage: {
+    heading: string;
+    nothingStored: string;
+    columns: readonly string[];
+    consent: Row;
+    analytics: Row;
+  };
+  toggleLabel: string;
+  rejectOptional: string;
+  acceptAll: string;
+  save: string;
+};
+
 /**
  * The preferences on /biskvitki (decision L15): necessary storage shown as always on, analytics as a switch when it
  * exists, an inline confirmation after saving. When no optional service exists, it says so and offers no fake choice.
  */
-export function CookiePreferences() {
+export function CookiePreferences({ copy = COOKIES_PAGE }: { copy?: CookiesCopy }) {
   const { enabled, known, choice, choose } = useConsent();
-  const c = COOKIES_PAGE;
+  const c = copy;
   const [draft, setDraft] = useState<boolean | null>(null);
   const [saved, setSaved] = useState(false);
   const analyticsOn = draft ?? choice?.analytics ?? false;

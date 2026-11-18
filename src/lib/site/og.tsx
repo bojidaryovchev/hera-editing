@@ -68,9 +68,12 @@ const TICKS = [0, 2, 4, 6, 8, 10, 12];
 /** The playhead stands in clip 4, between ruler labels: three clips finished, the fourth in the edit. */
 const HEAD = 7 / 12;
 
+/** The words on the timeline band: the homepage editor's, or another section's (the English pages). */
+export type TimelineLabels = { sequence: string; clip: string };
+
 /** The timeline band along the bottom, as in the homepage hero. */
-function Timeline({ width }: { width: number }) {
-  const e = HOME.hero.editor;
+function Timeline({ width, labels }: { width: number; labels: TimelineLabels }) {
+  const e = labels;
   const lanes = width - 52;
   return (
     <div
@@ -218,8 +221,11 @@ function Timeline({ width }: { width: number }) {
   );
 }
 
-/** Renders one page's share image (a page's key, or a card such as a case study's). */
-export async function renderOgImage(key: PageKey | ShareCard): Promise<ImageResponse> {
+/** Renders one page's share image (a page's key, or a card such as a case study's or an English page's). */
+export async function renderOgImage(
+  key: PageKey | ShareCard,
+  labels: TimelineLabels = HOME.hero.editor,
+): Promise<ImageResponse> {
   const { fonts, display, wordmark } = await load();
   const card = typeof key === "string" ? SHARE[key] : key;
   const words = [
@@ -293,7 +299,7 @@ export async function renderOgImage(key: PageKey | ShareCard): Promise<ImageResp
           ))}
         </div>
       </div>
-      <Timeline width={OG_SIZE.width - 2 * PAD} />
+      <Timeline width={OG_SIZE.width - 2 * PAD} labels={labels} />
     </div>,
     { ...OG_SIZE, fonts },
   );

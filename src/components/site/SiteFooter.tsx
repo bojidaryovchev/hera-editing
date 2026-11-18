@@ -1,8 +1,9 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { publishedProjects } from "@/content/projects";
+import { EN_LINK_FROM_BG } from "@/content/en/site";
 import { FOOTER, GATES, QUOTE_CTA, SHELL, copyrightLine } from "@/content/site";
-import { resolveAppEnv } from "@/lib/config/env";
+import { enSectionEnabled, resolveAppEnv } from "@/lib/config/env";
 import { brandName, publicContacts } from "@/lib/site/brand";
 import { quoteHref, route } from "@/lib/site/nav";
 
@@ -70,6 +71,12 @@ export function SiteFooter() {
       </div>
       <div className="ftr__bottom wrap">
         <span>{copyrightLine(brand, new Date().getFullYear())}</span>
+        {/* The one link into the English section (decision L38), only while it is switched on. */}
+        {enSectionEnabled(process.env) && (
+          <Link className="ftr__lang" href={route("/en")} hrefLang="en" lang="en">
+            {EN_LINK_FROM_BG}
+          </Link>
+        )}
       </div>
     </footer>
   );

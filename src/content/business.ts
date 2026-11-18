@@ -10,6 +10,8 @@ export type Business = {
   vatId: string | null;
   vatRegistered: boolean | null;
   address: string | null;
+  /** The city of the registered office: the English terms name its court (decision L38). */
+  registeredCity: string | null;
   baseCity: string | null;
   serviceArea: string | null;
   socials: { facebook: string | null; instagram: string | null; tiktok: string | null; youtube: string | null };
@@ -23,6 +25,7 @@ export const BUSINESS: Business = {
   vatId: null,
   vatRegistered: null,
   address: null,
+  registeredCity: null,
   baseCity: null,
   serviceArea: null,
   socials: { facebook: null, instagram: null, tiktok: null, youtube: null },

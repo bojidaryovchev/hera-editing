@@ -331,6 +331,15 @@
   border-radius: 6px;
   padding: 6px 8px;
 }
+/* The footer's link to the site in the other language (the Bulgarian pages' one link to /en, decision L38). */
+.ftr__lang {
+  color: var(--tx2);
+  text-decoration: none;
+}
+.ftr__lang:hover {
+  color: var(--tx);
+  text-decoration: underline;
+}
 .ftr__bottom {
   display: flex;
   flex-wrap: wrap;
