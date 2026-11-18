@@ -34,6 +34,25 @@ the texts are in the [sales kit](sales-kit-remote-editing.md).
    - the Bulgarian rights assignment (you to your company).
 
    *Recommended: ok as drafted. A lawyer's review is optional.*
+8. **Raw-footage limits for the wedding full film, teaser and trio.** The plan sets a limit only for the highlight (up
+   to 90 minutes of your selects), so for now the site shows only the finished lengths.
+   *Suggested: full film from up to 4 hours of ceremony, speeches and first-dance footage, from up to 3 cameras;
+   teaser from the same selects as the highlight.*
+9. **Ending the founding offer** (30% off the first order, for the first 10 clients or until 31 March 2027). It ends
+   on its date by itself; after 10 clients, someone has to switch it off.
+   *Recommended: tell Claude when the 10th order arrives, and it is switched off on the site.*
+10. **Sanctioned countries.** Should the English order form refuse countries under EU sanctions, such as Russia,
+    Belarus, Iran and North Korea?
+    *Recommended: yes, refuse them. A lawyer can confirm the exact list.*
+11. **Samples as links or players.** The site links to samples on YouTube or Vimeo instead of embedding their players,
+    so the pages set no third-party cookies.
+    *Recommended: keep the links.*
+12. **The second-wave packages** (podcasts, streams, talking heads, ads, agency hours) are listed on `/en/pricing`,
+    because you asked not to restrict the offer.
+    *Recommended: keep them listed, but take dialogue-heavy jobs only after a test edit on a sample.*
+13. **Test orders on staging.** Until launch, hera-editing.com/en accepts test orders. They are not indexed, and
+    their alerts go only to the log.
+    *Recommended: ok.*
 
 ## B. To launch the Bulgarian site in production
 

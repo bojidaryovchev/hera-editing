@@ -25,6 +25,9 @@ test("desktop: the header links every main page, and its quote button records th
   await expect(quote).toHaveAttribute("href", "/kontakti?from=%2F");
   await page.goto("/paketi");
   await expect(quote).toHaveAttribute("href", "/kontakti?from=%2Fpaketi");
+  // The footer button records the page too, not the homepage (spec review gap 2.3).
+  const footerQuote = page.locator("footer").getByRole("link", { name: "Поискайте оферта" });
+  await expect(footerQuote).toHaveAttribute("href", "/kontakti?from=%2Fpaketi");
 });
 
 /** Opens the phone menu once the page is interactive (a click before hydration does nothing). */

@@ -1,11 +1,12 @@
 import Link from "next/link";
 import { Wordmark } from "@/components/brand/Wordmark";
+import { QuoteLink } from "@/components/site/QuoteLink";
 import { publishedProjects } from "@/content/projects";
 import { EN_LINK_FROM_BG } from "@/content/en/site";
 import { FOOTER, GATES, QUOTE_CTA, SHELL, copyrightLine } from "@/content/site";
 import { enSectionEnabled, resolveAppEnv } from "@/lib/config/env";
 import { brandName, publicContacts } from "@/lib/site/brand";
-import { quoteHref, route } from "@/lib/site/nav";
+import { route } from "@/lib/site/nav";
 
 /** Global footer (IA:79): site map, legal pages, cookie settings, contacts once verified. */
 export function SiteFooter() {
@@ -25,9 +26,7 @@ export function SiteFooter() {
             <Wordmark title={brand} />
           </Link>
           <p>{FOOTER.tagline}</p>
-          <Link className="btn btn--pri btn--sm" href={quoteHref("/")}>
-            {QUOTE_CTA}
-          </Link>
+          <QuoteLink className="btn btn--pri btn--sm">{QUOTE_CTA}</QuoteLink>
         </div>
         <nav className="ftr__cols" aria-label={SHELL.footerNavLabel}>
           {columns.map((c) => (
