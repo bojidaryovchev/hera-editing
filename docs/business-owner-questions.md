@@ -2,7 +2,8 @@
 
 - **Date:** 2026-11-18.
 - **What is left.** Everything that could be researched, written or built without the business owner's answers is
-  done. What remains is below.
+  done, except a few items that the spec review of 2026-11-18 found, mostly work for Claude
+  ([spec-coverage.md](spec-coverage.md)). What remains for the business owner is below.
 - **How to answer.** Each question has a recommendation, so a plain "ok" accepts it. Answers become decisions in
   [decisions.md](decisions.md), and then I update the site and the documents.
 
@@ -52,9 +53,14 @@ From [release-checklist.md](release-checklist.md).
    - travel included within the radius.
 
    *Recommended: ok, and add the notice period to the site's wording.*
-6. **The privacy notice.** Approve the drafts as they are, or have a lawyer review them? The spec asked for a lawyer;
-   decision L37 makes it optional. Also: how long do we keep enquiries that never became clients?
-   *Recommended: approve the drafts, and keep such enquiries 12 months.*
+6. **The privacy notice.** Six of its nine sections are not written yet: the controller, the legal basis, the
+   retention period, the processors, the visitors' rights and the privacy contact
+   ([spec-coverage.md](spec-coverage.md) §1.1). Claude can draft all of it now, except the company details. Then:
+   do you approve it yourself, or does a lawyer review it? The spec asked for a lawyer; decision L37 made a lawyer
+   optional for the contract drafts only, so the notice needs its own answer. Also: how long do we keep enquiries
+   that never became clients?
+   *Recommended: let Claude draft it now, and decide about the lawyer once you have read it; keep such enquiries
+   12 months.*
 7. **Your own footage** for the home page, with releases and music rights: about 12 seconds horizontal and five short
    vertical clips. Until then the site shows designed frames, never stock footage.
 8. **The team:** names, roles and photos for `/za-nas`.
@@ -84,6 +90,12 @@ From [strategy.md](strategy.md) §13.
 5. **The 11 new FAQ answers** in strategy.md §4.3. They need your native proofread before they go on the site.
 6. **When to publish "from" prices** on `/paketi`.
    *Recommended: after the first 3 pilots.*
+7. **Your real costs.** How many hours does a shoot day take you, travel included, and how many does one edited video
+   take? What does an hour of your work cost you, counting pay, social security, equipment and software? The spec
+   sets prices from costs and a margin, not only from the market (spec product/01), and asks for three sample quotes
+   at real costs before selling (handoff/02 §C.3). With your numbers, Claude works out those quotes and checks the
+   margin of the prices in question 2.
+   *Recommended: answer before the first quote, then measure the real hours on the pilots.*
 
 ## D. For the accountant (to bring along)
 

@@ -8,6 +8,10 @@ build for production, or shows nothing, until it is supplied). Commands and suit
 **Verdict (2026-11-17):** ready for a **staging** deployment. Not production-ready until the owner inputs at the end
 of this file are supplied; the production build refuses to run without them, by design.
 
+**Beyond the acceptance criteria:** the spec review of 2026-11-18 found gaps that no criterion covers: the privacy
+notice text, alerting, the footer's quote source, the homepage work section and the manual QA pass. See
+[`spec-coverage.md`](spec-coverage.md).
+
 ## A. Scope fidelity
 
 | Criterion                                                                                       | Status | Proof                                                                                                                                                    |
@@ -87,14 +91,14 @@ of this file are supplied; the production build refuses to run without them, by 
 
 ## H. Deliverables
 
-| Criterion                                                                                                  | Status | Proof                                                                                                              |
-| ---------------------------------------------------------------------------------------------------------- | ------ | ------------------------------------------------------------------------------------------------------------------ |
-| Clean commits, repeatable setup, `.env.example`                                                            | ✅     | `main`, checked by CI on every push; [`.env.example`](../.env.example)                                             |
-| README: architecture, deployment, trade-offs, copy and media, lead export and retry, privacy configuration | ✅     | [`docs/development.md`](development.md) (the frozen specification is in `spec/`)                                   |
-| Migrations, secure endpoint and server action, automated tests, sample config without secrets              | ✅     | `src/db/migrations`, `src/app/api/leads`, `src/app/(site)/kontakti/actions.ts`, `tests/`                           |
-| Screenshots and manual QA record                                                                           | ✅     | `qa/screenshots/full/` (generated); the owner reviewed the design at each gate (design workspace decisions L1–L30) |
-| Release blockers listed separately from completed fixes                                                    | ✅     | This file (below)                                                                                                  |
-| No stock or fake assets or placeholder legal text in production                                            | ✅     | Media, privacy and fixture gates (`media.test.ts`, `release.test.ts`, `projects.test.ts`, `next-config.test.ts`)   |
+| Criterion                                                                                                  | Status | Proof                                                                                                                                                                                                                                                                  |
+| ---------------------------------------------------------------------------------------------------------- | ------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Clean commits, repeatable setup, `.env.example`                                                            | ✅     | `main`, checked by CI on every push; [`.env.example`](../.env.example)                                                                                                                                                                                                 |
+| README: architecture, deployment, trade-offs, copy and media, lead export and retry, privacy configuration | ✅     | [`docs/development.md`](development.md) (the frozen specification is in `spec/`)                                                                                                                                                                                       |
+| Migrations, secure endpoint and server action, automated tests, sample config without secrets              | ✅     | `src/db/migrations`, `src/app/api/leads`, `src/app/(site)/kontakti/actions.ts`, `tests/`                                                                                                                                                                               |
+| Screenshots and manual QA record                                                                           | ⚠️     | Screenshots on demand (`SCREENSHOTS=1 pnpm test:e2e responsive` → `qa/screenshots/full/`, not kept in Git); the owner reviewed the design at each gate (L1–L30). Still to do: a recorded keyboard and screen-reader pass ([`spec-coverage.md`](spec-coverage.md) §1.5) |
+| Release blockers listed separately from completed fixes                                                    | ✅     | This file (below)                                                                                                                                                                                                                                                      |
+| No stock or fake assets or placeholder legal text in production                                            | ✅     | Media, privacy and fixture gates (`media.test.ts`, `release.test.ts`, `projects.test.ts`, `next-config.test.ts`)                                                                                                                                                       |
 
 ## Owner and legal inputs still needed (release blockers)
 
