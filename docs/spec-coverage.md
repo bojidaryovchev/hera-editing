@@ -11,8 +11,9 @@
   - three points missing from the Bulgarian client contract (§3);
   - the launch inputs, which were already tracked (§6).
 - **Progress (2026-11-19).** Since the review:
-  - 1.1: the notice is drafted in Bulgarian and on `/en` (`b39ff93`). It is still a draft, with the controller and
-    the privacy contact gated, and it awaits the owner's approval;
+  - 1.1: the notice is drafted in Bulgarian and on `/en` (`b39ff93`), with the safeguards for transfers outside the EU
+    taken from each provider's terms (`068af58`). It is still a draft, with the controller and the privacy contact
+    gated, and it awaits the owner's approval;
   - 1.2: `/api/health` answers 503 when alerts are stuck (`b39ff93`), and the monitor is owner question B12;
   - 1.3: fixed (`980b38d`);
   - §2 items 2–6, and §3: done (`0bd2db4`). They are the usability check in strategy §14, the templates and checklists
@@ -44,8 +45,8 @@
   drafts as they are" and said that L37 makes a lawyer optional. L37 covers only the contract drafts, and the release
   checklist and `development.md` still name a lawyer for this notice. B6 is now corrected.
 - **Next:** Claude drafts every section except the company details:
-  - the processors already in use: Vercel, Neon (Frankfurt) and Resend (EU), plus Cloudflare if Turnstile is
-    switched on;
+  - the processors already in use: Vercel, Neon (Frankfurt) and Resend, plus Cloudflare if Turnstile is switched on.
+    Resend sends from its EU region but processes account data in the US, so the notice names its transfer safeguards;
   - a proposed legal basis;
   - the proposed 12-month retention for enquiries that never became clients;
   - the rights, and the complaint route to the КЗЛД;
