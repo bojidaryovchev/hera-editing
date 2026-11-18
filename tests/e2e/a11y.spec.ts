@@ -5,6 +5,11 @@ import { ALL_PAGES, EN_ALL_PAGES, fillOrder, presetConsent, stubGoogle } from ".
 const TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
 async function violations(page: Page) {
+  // Entrance animations (the English review panel's notes fade in one by one) leave text part-transparent for a
+  // moment, and axe measures the contrast of whatever it catches. Scan once every finite animation has ended.
+  await page.waitForFunction(() =>
+    document.getAnimations().every((a) => a.effect?.getTiming().iterations === Infinity || a.playState !== "running"),
+  );
   const results = await new AxeBuilder({ page }).withTags(TAGS).analyze();
   return results.violations.map((v) => `${v.id} (${v.impact}): ${v.nodes.map((n) => n.target.join(" ")).join(" | ")}`);
 }

@@ -442,20 +442,25 @@ test.describe("the Bulgarian site changes only by its footer link (decision L38)
     const page = await context.newPage();
     const text = async (base: string, path: string) => {
       await page.goto(`${base}${path}`);
+      // With reduced motion the homepage's script shows the finished edit (HomeMotion's setupStatic: the last stage,
+      // the "published" chip, the full timecode). Read once it has, or the result depends on which build hydrated
+      // first.
+      const chip = page.locator("[data-chip]");
+      if ((await chip.count()) > 0) await expect(chip).toHaveText(/Публикувано/);
       return page.evaluate(() => ({
         header: document.querySelector("header.hdr")?.textContent ?? "",
         main: document.querySelector("main")?.textContent?.replace(/\s+/g, " ") ?? "",
         footer: (document.querySelector("footer")?.textContent ?? "").replace(/\s+/g, " "),
       }));
     };
+    // Request ids differ per render, and timecodes are stripped too in case a counter ever runs; the visible copy
+    // may not differ.
+    const stable = (s: string) => s.replace(/[0-9a-f]{8}-[0-9a-f-]{27}/g, "").replace(/\d{2}:\d{2}:\d{2}:\d{2}/g, "TC");
     for (const path of PAGES) {
       const on = await text(BASE, path);
       const off = await text(EN_OFF, path);
-      expect(on.header, path).toBe(off.header);
-      // Request ids and timecodes differ per render; the visible copy may not.
-      expect(on.main.replace(/[0-9a-f]{8}-[0-9a-f-]{27}/g, ""), path).toBe(
-        off.main.replace(/[0-9a-f]{8}-[0-9a-f-]{27}/g, ""),
-      );
+      expect(stable(on.header), path).toBe(stable(off.header));
+      expect(stable(on.main), path).toBe(stable(off.main));
       expect(on.footer.replace(EN_LINK_FROM_BG, ""), path).toBe(off.footer);
     }
     await context.close();
