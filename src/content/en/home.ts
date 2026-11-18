@@ -28,7 +28,7 @@ export const EN_HOME = {
   },
   niches: {
     heading: "What we edit",
-    lead: "Three kinds of edit, each with its own page, prices and samples. The pricing page lists everything else we edit.",
+    lead: "Three kinds of edit, each with its own page and prices. The pricing page lists everything else we edit.",
     fromLabel: "From",
   },
   how: {

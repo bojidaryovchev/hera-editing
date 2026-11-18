@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EnBadge } from "@/components/admin/EnBadge";
 import { notFound } from "next/navigation";
 import { replyLeadAction, setLeadStatusAction } from "@/app/(admin)/admin/actions";
 import { ReplyForm } from "@/components/admin/ReplyForm";
@@ -47,11 +48,7 @@ export default async function AdminLead({
       </Link>
       <div className="adm-head">
         <h1 className="adm-h1">
-          {lead.locale === "en" && (
-            <abbr className="adm-badge" title={ORDER_LABELS.badgeLabel}>
-              {ORDER_LABELS.badge}
-            </abbr>
-          )}
+          {lead.locale === "en" && <EnBadge />}
           {lead.name}
         </h1>
         <span className="adm-status" data-status={lead.status}>

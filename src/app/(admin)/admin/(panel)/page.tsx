@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EnBadge } from "@/components/admin/EnBadge";
 import { formatWhen } from "@/lib/admin/format";
-import { ORDER_LABELS } from "@/content/admin-orders";
 import { countNewLeads, LEAD_STATUS_LABELS, leadMeta, listLeads } from "@/lib/admin/leads";
 import { getDb } from "@/lib/db/client";
 import { countAwaitingAnswer, listThreads } from "@/lib/mailbox/store";
@@ -45,11 +45,7 @@ export default async function AdminDashboard() {
               <li key={l.id}>
                 <Link className="adm-item" href={`/admin/zapitvaniya/${l.id}`}>
                   <span className="adm-item__title">
-                    {l.locale === "en" && (
-                      <abbr className="adm-badge" title={ORDER_LABELS.badgeLabel}>
-                        {ORDER_LABELS.badge}
-                      </abbr>
-                    )}
+                    {l.locale === "en" && <EnBadge />}
                     {l.name}
                   </span>
                   <span className="adm-item__side">

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { EnBadge } from "@/components/admin/EnBadge";
 import { formatWhen } from "@/lib/admin/format";
-import { ORDER_LABELS } from "@/content/admin-orders";
 import { isLeadStatus, LEAD_STATUS_LABELS, LEAD_STATUSES, leadMeta, listLeads } from "@/lib/admin/leads";
 import { getDb } from "@/lib/db/client";
 import { requireAdmin } from "@/lib/admin/auth";
@@ -39,11 +39,7 @@ export default async function AdminLeads({ searchParams }: { searchParams: Promi
             <li key={l.id}>
               <Link className="adm-item" href={`/admin/zapitvaniya/${l.id}`}>
                 <span className="adm-item__title">
-                  {l.locale === "en" && (
-                    <abbr className="adm-badge" title={ORDER_LABELS.badgeLabel}>
-                      {ORDER_LABELS.badge}
-                    </abbr>
-                  )}
+                  {l.locale === "en" && <EnBadge />}
                   {l.name}
                 </span>
                 <span className="adm-item__side">

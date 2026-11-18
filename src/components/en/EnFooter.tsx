@@ -96,7 +96,7 @@ export function EnFooter() {
       <div className="ftr__bottom wrap">
         <span>{enCopyrightLine(brand, new Date().getFullYear())}</span>
         <Link className="ftr__lang" href="/" hrefLang="bg">
-          {EN_FOOTER.bulgarian.before} (<span lang="bg">{EN_FOOTER.bulgarian.language}</span>)
+          {brand} {EN_FOOTER.bulgarian.suffix} (<span lang="bg">{EN_FOOTER.bulgarian.language}</span>)
         </Link>
       </div>
     </footer>

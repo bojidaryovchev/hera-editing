@@ -72,8 +72,8 @@ export const EN_FOOTER = {
   companyHeading: "Company",
   companyIdLabel: "Company number",
   vatIdLabel: "VAT number",
-  /** The way back to the Bulgarian site: its own language and name. */
-  bulgarian: { before: "Hera Editing in Bulgaria", language: "Български" },
+  /** The way back to the Bulgarian site, after the brand name: "{brand} in Bulgaria (Български)". */
+  bulgarian: { suffix: "in Bulgaria", language: "Български" },
 } as const;
 
 /** The Bulgarian footer's one link into this section (decision L38), shown only while the section is on. */

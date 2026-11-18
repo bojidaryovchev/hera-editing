@@ -557,6 +557,9 @@ export function longDate(iso: string): string {
 }
 
 /** Whether the founding offer may still be shown (it ends on its date, or when switched off after ten clients). */
-export function foundingOfferOpen(now: Date = new Date(), offer: typeof FOUNDING_OFFER = FOUNDING_OFFER): boolean {
+export function foundingOfferOpen(
+  now: Date = new Date(),
+  offer: { active: boolean; until: string } = FOUNDING_OFFER,
+): boolean {
   return offer.active && now.getTime() <= new Date(`${offer.until}T23:59:59Z`).getTime();
 }
