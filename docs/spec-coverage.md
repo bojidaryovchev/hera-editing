@@ -20,9 +20,13 @@
     in `docs/operations/`, the contract clauses, and `docs/contracts/dpa-bg.md`;
   - 1.4: the homepage's work module is built, and stays hidden until a real case is published (`18fe617`, decision
     L41);
-  - the database restore was rehearsed on staging (`0b32bda`), which closes the checklist's last ⚠️ in section G.
+  - the database restore was rehearsed on staging (`0b32bda`), which closes the checklist's last ⚠️ in section G;
+  - 1.5, the keyboard half: the keyboard pass and the accessibility-tree review are recorded in
+    `qa/record-2026-11-19/`, and the three issues they found are fixed (`702234f`, decision L42). The screen-reader
+    listen needs a person (owner question B13), so the checklist's H row stays ⚠️, partly met.
 
-  Still open: 1.5, and §2 item 1 (owner question C7).
+  Still open: the screen-reader half of 1.5, which needs a person (owner question B13), and §2 item 1 (owner question
+  C7).
 
 - **Out of scope.** The remote-editing line and the English section `/en` are owner-approved changes (L35–L38). For
   `/en` only, they lift the spec's exclusions (creators, a global audience, an editing storefront) and three of its
@@ -94,7 +98,7 @@
 - **Next:** a sample-work section that renders only when published projects exist. It is needed before the first case
   is published, not before launch.
 
-### 1.5 No manual QA record
+### 1.5 No manual QA record (the keyboard half done since, in `702234f`)
 
 - **Spec:**
   - website/02 "Accessibility": automated axe _and_ manual keyboard and screen-reader checks;
