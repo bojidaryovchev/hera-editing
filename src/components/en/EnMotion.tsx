@@ -67,6 +67,8 @@ export function EnMotion() {
     if (sections.length === 0) return;
     let cancelled = false;
     let cleanups: Array<() => void> = [];
+    let observer: ResizeObserver | undefined;
+    let timer: number | undefined;
     // After the first frame is painted: the headline never waits for the motion library.
     const frame = requestAnimationFrame(() => {
       void Promise.all([import("gsap"), import("gsap/ScrollTrigger")])
@@ -74,6 +76,21 @@ export function EnMotion() {
           if (cancelled) return;
           gsap.registerPlugin(ScrollTrigger);
           cleanups = sections.map((s) => track(gsap, ScrollTrigger, s));
+          // ScrollTrigger measures the track once. If the page height changes later (a late image, a section
+          // growing above the track), measure again, so the playhead never runs at stale positions. Same fix as the
+          // homepage (HomeMotion).
+          const main = document.querySelector("main");
+          if (main && "ResizeObserver" in window) {
+            let last = main.offsetHeight;
+            observer = new ResizeObserver(() => {
+              const height = main.offsetHeight;
+              if (height === last) return;
+              last = height;
+              window.clearTimeout(timer);
+              timer = window.setTimeout(() => ScrollTrigger.refresh(), 100);
+            });
+            observer.observe(main);
+          }
         })
         .catch(() => {
           // Without GSAP the track stays complete, which is the reduced-motion design.
@@ -82,6 +99,8 @@ export function EnMotion() {
     return () => {
       cancelled = true;
       cancelAnimationFrame(frame);
+      observer?.disconnect();
+      window.clearTimeout(timer);
       cleanups.forEach((c) => c());
     };
   }, []);

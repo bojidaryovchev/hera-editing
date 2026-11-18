@@ -1,18 +1,19 @@
 /**
- * Privacy notice. This is a SKELETON for the owner's lawyer, not a policy: it states
- * only facts about how this website is built (what the form collects, what is stored,
- * what is not). Legal basis, retention, controller and rights wording are owner/legal
- * inputs and stay gated. Production builds refuse a draft (release gate).
+ * Privacy notice. Draft written on 2026-11-18 (decision L40, spec review gap 2.1). It states how this website
+ * actually works: the form, the database, the mail, the mailbox and the abuse protection. It proposes the legal basis
+ * and the retention period. The controller's details stay gated until the company is registered (decision 10), and
+ * the privacy contact waits for owner question B3. The business owner approves the text, or has a lawyer review it
+ * (owner question B6). Production builds refuse a draft (release gate).
  */
 export const PRIVACY_NOTICE = {
-  version: "draft-2026-11-07",
+  version: "draft-2026-11-18",
   status: "draft" as "draft" | "approved",
 } as const;
 
 export const PRIVACY_PAGE = {
   breadcrumb: "Политика за поверителност",
   title: "Политика за поверителност",
-  draftNotice: "Чернова. Текстът предстои да бъде прегледан от юрист.",
+  draftNotice: "Чернова. Текстът предстои да бъде одобрен.",
   pendingLabel: "Предстои",
   sections: [
     {
@@ -36,20 +37,27 @@ export const PRIVACY_PAGE = {
     {
       id: "basis",
       heading: "Правно основание",
-      body: null,
-      pending: "Определя се с юрист.",
+      body: "Обработваме данните от запитването, за да предприемем по Ваше искане действия преди сключването на договор (чл. 6, пар. 1, буква „б“ от Общия регламент относно защитата на данните). Когато пишете от името на бизнес, основанието е и законният ни интерес да отговаряме на делови запитвания (буква „е“). Анонимизирания идентификатор за защита от злоупотреби обработваме на основание законния ни интерес да пазим формуляра от автоматизирани заявки (буква „е“). Ако сключим договор, данните, нужни за фактурите, пазим, защото законът го изисква (буква „в“).",
+      pending: "Основанията са предложение, което предстои да бъде одобрено.",
     },
     {
       id: "retention",
       heading: "Срок на съхранение",
-      body: "Данните не се изтриват автоматично, докато срокът не бъде одобрен.",
-      pending: "Срокът се определя от собственика и юрист.",
+      body: "Запитванията, които не са довели до договор, и кореспонденцията по тях пазим 12 месеца от последния контакт, след което ги изтриваме. Ако сключим договор, пазим данните, докато трае договорът, а след това – толкова, колкото изискват данъчното и счетоводното законодателство.",
+      pending:
+        "Срокът от 12 месеца е предложение, което предстои да бъде одобрено. Дотогава данните не се изтриват автоматично.",
     },
     {
       id: "recipients",
       heading: "Получатели и обработващи",
-      body: "Запитванията се съхраняват в база данни на хостинг доставчик и се изпращат като известие до пощата на агенцията.",
-      pending: "Точните доставчици на хостинг, база данни и имейл и регионите, в които се обработват данните.",
+      body: "Сайтът се хоства от Vercel, а функциите му работят във Франкфурт, Германия. Запитванията се съхраняват в база данни на Neon, също във Франкфурт. Известията за нови запитвания и отговорите ни се изпращат чрез Resend, в региона му в Европейския съюз. Когато формулярът е защитен с Cloudflare Turnstile, Cloudflare обработва технически данни на браузъра Ви, за да различи хора от автоматизирани програми.",
+      pending: "Гаранциите при евентуално предаване на данни извън Европейския съюз.",
+    },
+    {
+      id: "correspondence",
+      heading: "Кореспонденция",
+      body: "Когато ни пишете на contact@hera-editing.com или Ви отговаряме на запитване, писмата се съхраняват в базата данни на сайта (Neon, Франкфурт), за да отговаряме от една пощенска кутия, и се пренасят чрез Resend (Европейски съюз). Пазим ги толкова, колкото и запитването, за което се отнасят.",
+      pending: null,
     },
     {
       id: "abuse",
@@ -60,8 +68,8 @@ export const PRIVACY_PAGE = {
     {
       id: "rights",
       heading: "Вашите права",
-      body: null,
-      pending: "Описание на правата и начина за упражняването им, прегледано от юрист.",
+      body: "Имате право на достъп до данните си, на поправката им, на изтриването им, на ограничаване на обработването, на преносимост и на възражение срещу обработване на основание законен интерес (чл. 15–21 от Общия регламент относно защитата на данните). Можете да подадете жалба до Комисията за защита на личните данни (www.cpdp.bg). За да упражните правата си, пишете ни на адреса за контакт по-долу.",
+      pending: null,
     },
     {
       id: "contact",

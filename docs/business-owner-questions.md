@@ -90,6 +90,10 @@ From [release-checklist.md](release-checklist.md).
 10. **Analytics:** none at launch, or a consent-based tool?
     *Recommended: none at launch.*
 11. **Search Console:** verifying the site needs your Google account. It takes a few minutes, with my help.
+12. **An uptime monitor** for hera-editing.com/api/health, checked every few minutes by an external service such as a
+    free uptime-monitoring account in your name. The endpoint answers 503 when the database is down or when the alerts
+    for new enquiries are stuck, so the monitor tells you when enquiries stop reaching you.
+    *Recommended: yes, at launch; Claude sets it up with you.*
 
 ## C. Business decisions for the Bulgarian line
 

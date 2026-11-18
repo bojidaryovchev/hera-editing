@@ -239,7 +239,7 @@ films and teasers, in your style. You upload footage and notes, and everything s
 teaser $160, highlight from selects $380, full film $390.
 
 If you ever have more weddings than editing time, I would be glad to do a first film at a 30% founding discount.
-Samples: [portfolio link].
+Samples: [portfolio link]. To order: https://hera-editing.com/en/order?package=wedding-highlight&utm_source=outreach&utm_medium=email&utm_campaign=weddings-[us or uk]
 
 [Name], [Company name], [postal address]
 If you would rather not hear from me again, just reply "no" and I won't write again.
@@ -258,16 +258,22 @@ I edit real estate listing videos for photographers: a 60-90 second property vid
 unbranded, delivered within 2 business days. $120 per listing; your first one is 30% off.
 
 Samples: [portfolio link]. Everything is handled in writing: upload, brief, review link, delivery.
+To order: https://hera-editing.com/en/order?package=listing-video&utm_source=outreach&utm_medium=email&utm_campaign=real-estate-us
 
 [Name], [Company name], [postal address]
 If you would rather not hear from me again, just reply "no" and I won't write again.
 ```
 
+**Why the order links carry tags.** The order form records the campaign parameters in its own address with every
+order, and the admin panel shows them. So a tagged link records where the lead came from, with no extra question.
+Use `utm_source` for the channel (outreach, fiverr, ytjobs, reddit, partner), `utm_medium` for the format (email,
+dm, post) and `utm_campaign` for the niche and country.
+
 ## 4. Client message templates
 
 ```
 FIRST REPLY
-Hi [name], thanks for reaching out. Yes, I can help with [project]. To give you an exact price and date, please fill
+Hi [name], thanks for reaching out. Yes, I can help with [project]. May I ask how you found us? To give you an exact price and date, please fill
 in this short brief: [brief link]. Your next free slot starts on [date].
 
 QUESTIONS ABOUT THE BRIEF

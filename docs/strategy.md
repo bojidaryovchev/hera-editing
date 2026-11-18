@@ -600,8 +600,12 @@ Today the site answers the first question only in part: the company's details st
 registered (decision 10). The other three need the proof plan (section 10) and the price decision (5.4).
 
 **Record where every lead came from:** referral (who), outreach channel, Google, Business Profile, partner or event.
-After 10–20 conversations these numbers beat anything published. This needs one optional "Откъде научихте за нас?"
-field in the form, or a note per enquiry in the admin panel (a small v1.1 change).
+After 10–20 conversations these numbers beat anything published.
+- **No new form field is needed.** The form already stores the campaign parameters of its own address
+  (`utm_source`, `utm_medium`, `utm_campaign`), and the admin panel shows them.
+- **So link outreach emails and partner materials straight to the form, with tags**, for example
+  `/kontakti?utm_source=outreach&utm_medium=email&utm_campaign=restaurants-sofia`.
+- **For referrals,** ask in the first reply. The form's fields stay exactly as the spec froze them (decision L40).
 
 ## 9. The website: what to add, and what not to build
 
