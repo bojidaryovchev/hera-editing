@@ -89,6 +89,35 @@ All variables are validated by `src/lib/config/env.ts`; errors name the variable
    `Authorization: Bearer $CRON_SECRET`. It returns counts only, never lead data.
 4. Verify Search Console ownership by DNS, or set `GOOGLE_SITE_VERIFICATION`, and submit `/sitemap.xml`.
 
+### Staging, as running since 2026-11-18
+
+- **Address:** `https://hera-editing.com` (www redirects to it), still in staging mode: noindex everywhere, the
+  staging bar, labelled stock footage. It becomes production at launch by switching `APP_ENV` to `production`
+  once the owner's inputs are in. `hera-editing-staging.vercel.app` and `hera-editing.vercel.app` serve the same
+  build.
+- **Vercel:** project `hera-editing` in the owner's personal team, deployed from every push to `main`. Functions
+  run in Frankfurt (`fra1`, also in `vercel.json`), next to the database. Node comes from `engines`
+  (`^22.12 || ^24`, so 24 on Vercel). Standard deployment protection: the site's addresses are public, preview
+  builds and per-deploy URLs need a Vercel login. The free Hobby plan is for non-commercial use, so the live site
+  needs Pro.
+- **Settings** (names only; values live in Vercel): `APP_ENV=staging`, `NEXT_PUBLIC_SITE_URL`, `DATABASE_URL`,
+  `RATE_LIMIT_SALT`, `CRON_SECRET`, `MAIL_PROVIDER=dev` and `ENABLE_EXPERIMENTAL_COREPACK=1`. While `MAIL_PROVIDER`
+  is `dev`, enquiries are stored and their alert is logged redacted and retried. The corepack setting makes Vercel
+  install with the pnpm version in `package.json`, so the 14-day release-age guard in `pnpm-workspace.yaml`
+  applies there too.
+- **Database:** Neon project `hera-editing-nonprod` (Frankfurt, Postgres 17), branch `staging`, database `hera`.
+  The app connects through Neon's pooler (the `-pooler` host); migrations run with `pnpm db:migrate` over the
+  direct connection string from the Neon console. Neon's proxy ignores the statement timeout the app sends when it
+  connects, so the limit is set on the database: `ALTER DATABASE hera SET statement_timeout = '10s'` (do the same
+  for production).
+- **Mail:** `hera-editing.com` is registered with Resend (EU, sending and receiving; open and click tracking off),
+  and its DNS records live in Vercel DNS: DKIM `resend._domainkey`, return path `send` (MX and SPF), relay
+  `rsend`, receiving MX on the bare domain, and DMARC `p=none`.
+- **Checked on the live site:** every page on desktop and phone (status, one H1, noindex, no sideways scroll, no
+  console errors), headers, robots, sitemap, a test enquiry stored in the database, the retry job (refuses
+  requests without its secret, processes with it) and `/api/health`. Lighthouse, mobile, from this machine
+  (medians): home 93, contact 96, service 96, video 97, packages 94, about 97.
+
 **Backups and recovery:** rely on the database provider's automated daily backups and point-in-time recovery
 (enable them; restore into a new database, then point `DATABASE_URL` at it and redeploy). For an extra copy,
 `pg_dump --format=custom "$DATABASE_URL" > leads.dump` and `pg_restore --clean -d "$DATABASE_URL" leads.dump`.
