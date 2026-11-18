@@ -17,9 +17,12 @@
   - 1.2: `/api/health` answers 503 when alerts are stuck (`b39ff93`), and the monitor is owner question B12;
   - 1.3: fixed (`980b38d`);
   - §2 items 2–6, and §3: done (`0bd2db4`). They are the usability check in strategy §14, the templates and checklists
-    in `docs/operations/`, the contract clauses, and `docs/contracts/dpa-bg.md`.
+    in `docs/operations/`, the contract clauses, and `docs/contracts/dpa-bg.md`;
+  - 1.4: the homepage's work module is built, and stays hidden until a real case is published (`18fe617`, decision
+    L41);
+  - the database restore was rehearsed on staging (`0b32bda`), which closes the checklist's last ⚠️ in section G.
 
-  Still open: 1.4, 1.5, and §2 item 1 (owner question C7).
+  Still open: 1.5, and §2 item 1 (owner question C7).
 
 - **Out of scope.** The remote-editing line and the English section `/en` are owner-approved changes (L35–L38). For
   `/en` only, they lift the spec's exclusions (creators, a global audience, an editing storefront) and three of its
@@ -81,7 +84,7 @@
 - **Fixed** in `980b38d`: the footer button uses `QuoteLink`, and `tests/e2e/navigation.spec.ts` checks that it records
   the page.
 
-### 1.4 Nothing on the homepage for approved work
+### 1.4 Nothing on the homepage for approved work (done since, in `18fe617`)
 
 - **Spec:**
   - website/01, homepage section 4: "Entire module conditional on verified assets";
@@ -220,7 +223,7 @@ Also:
     are dropped.
   - Every environment variable is in `.env.example`.
   - There are commands for export, retry and data requests (DSAR).
-  - Backups are documented; the restore rehearsal is ⚠️ in the checklist.
+  - Backups are documented, and a restore was rehearsed on staging (`0b32bda`).
 - **website/04 (acceptance).** The release checklist; each of the seven suggested journeys has an end-to-end test.
 - **handoff/01 (master prompt).** Milestones M0–M5 are done (L29, L31), with the release checklist and the list of
   owner inputs.
@@ -254,4 +257,4 @@ and in [business-owner-questions.md](business-owner-questions.md) B:
 - Vercel Pro;
 - analytics;
 - Search Console;
-- a rehearsed database restore.
+- a rehearsed database restore (done since, in `0b32bda`).
