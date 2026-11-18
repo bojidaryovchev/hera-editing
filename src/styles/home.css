@@ -1290,6 +1290,29 @@ html:not(.motion) .proc__ph {
   }
 }
 
+/* ---------- Sample work (IA:30, L41): only with published projects; the cards are /rabota's (work.css) ---------- */
+.hwork {
+  padding-top: var(--sec);
+  padding-bottom: var(--sec);
+}
+.hwork__head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: end;
+  gap: 16px 40px;
+}
+.hwork__lead {
+  margin: 14px 0 0;
+  max-width: 52ch;
+  font-size: 18px;
+  line-height: 1.5;
+  color: var(--ink2);
+}
+.hwork .wgrid {
+  margin-top: clamp(32px, 4vw, 56px);
+}
+
 /* ---------- Formats: the media bin ---------- */
 .bin {
   background: var(--ed);

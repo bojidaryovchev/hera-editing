@@ -6,7 +6,9 @@ import { FaqSection } from "@/components/site/FaqSection";
 import { FAQ_SETS } from "@/content/faq";
 import { HOME } from "@/content/home";
 import { Scene, type SceneTone } from "@/components/site/Scene";
+import { WorkCard } from "@/components/work/WorkCard";
 import type { SiteMedia } from "@/content/media";
+import type { Project } from "@/content/projects/types";
 import { FINAL_CTA, FORMATS, PRICE_LABEL, TIERS, TIER_COMMON_INCLUSIONS, VOLUME_NOTE } from "@/content/shared";
 import { QUOTE_CTA } from "@/content/site";
 import { VIDEO_PLAYER } from "@/content/work";
@@ -125,6 +127,38 @@ export function Process() {
           <div className="proc__ph" aria-hidden="true" />
         </div>
       </div>
+    </section>
+  );
+}
+
+/**
+ * Sample work (IA:30, decision L41): the projects from homeWork(). The whole module renders only with published
+ * projects (approved, every right cleared, the client's approval recorded); until then the homepage goes from the
+ * process straight to the formats (L23). The /rabota card, with the client's permission on each card. Static and
+ * server-rendered: no HomeMotion hooks, and every card's media box has its size from the first paint, so the page's
+ * length never changes (L39).
+ */
+export function Work({ projects }: { projects: readonly Project[] }) {
+  if (projects.length === 0) return null;
+  const w = HOME.work;
+  return (
+    <section className="paper hwork wrap" aria-labelledby="work-h">
+      <div className="hwork__head">
+        <div>
+          <h2 className="h2" id="work-h">
+            {w.heading}
+          </h2>
+          <p className="hwork__lead">{w.lead}</p>
+        </div>
+        <Link className="btn btn--sec" href={route("/rabota")}>
+          {w.link}
+        </Link>
+      </div>
+      <ul className="wgrid">
+        {projects.map((p, i) => (
+          <WorkCard key={p.slug} project={p} index={i} heading="h3" permission />
+        ))}
+      </ul>
     </section>
   );
 }

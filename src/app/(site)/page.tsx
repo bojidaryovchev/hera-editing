@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import { Hero } from "@/components/home/Hero";
 import { HomeMotion } from "@/components/home/HomeMotion";
-import { FinalCta, Formats, HomeFaq, Packages, Problem, Process } from "@/components/home/Sections";
+import { FinalCta, Formats, HomeFaq, Packages, Problem, Process, Work } from "@/components/home/Sections";
 import { JsonLd } from "@/components/site/JsonLd";
 import { footage } from "@/content/media";
+import { homeWork } from "@/content/projects";
 import { resolveAppEnv } from "@/lib/config/env";
 import { pageMetadata } from "@/lib/site/metadata";
 import { homeGraph } from "@/lib/site/structured-data";
@@ -20,6 +21,7 @@ export default function HomePage() {
       <Hero media={media} />
       <Problem />
       <Process />
+      <Work projects={homeWork()} />
       <Formats media={media} />
       <Packages />
       <HomeFaq />

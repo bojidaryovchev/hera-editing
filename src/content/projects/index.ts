@@ -35,6 +35,20 @@ export function publishedProjects(
   return [...real.filter((p) => !p.fixture), ...(fixtures ? FIXTURE_PROJECTS : [])].filter(isPublishable);
 }
 
+/** At most one row of work on the homepage; the rest is on /rabota. */
+export const HOME_WORK_LIMIT = 3;
+
+/**
+ * The homepage's sample-work module (IA:30, decision L41): the first published projects, one row at most. Empty
+ * until a project is published, and then the homepage leaves the whole module out.
+ */
+export function homeWork(
+  src: Record<string, string | undefined> = process.env,
+  real: readonly Project[] = PROJECTS,
+): readonly Project[] {
+  return publishedProjects(src, real).slice(0, HOME_WORK_LIMIT);
+}
+
 export function publishedProject(slug: string, src: Record<string, string | undefined> = process.env): Project | null {
   return publishedProjects(src).find((p) => p.slug === slug) ?? null;
 }

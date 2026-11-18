@@ -1,6 +1,13 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import sitemap from "../../src/app/sitemap";
-import { PROJECTS, isPublishable, publishedProject, publishedProjects } from "../../src/content/projects";
+import {
+  HOME_WORK_LIMIT,
+  PROJECTS,
+  homeWork,
+  isPublishable,
+  publishedProject,
+  publishedProjects,
+} from "../../src/content/projects";
 import { FIXTURE_PROJECTS } from "../../src/content/projects/fixtures";
 import type { Project } from "../../src/content/projects/types";
 import { visibleNav } from "../../src/lib/site/nav";
@@ -57,6 +64,18 @@ describe("portfolio publication rules (IA:21, acceptance B, E and F)", () => {
     expect(urls).toContain("https://www.example.bg/rabota");
     expect(urls).toContain("https://www.example.bg/rabota/testova-pekarna");
     expect(urls.some((u) => u.includes("testov-chernova"))).toBe(false);
+  });
+
+  it("gives the homepage's work module published projects only, one row at most (IA:30, decision L41)", () => {
+    for (const env of ["development", "staging", "production"]) expect(homeWork({ APP_ENV: env })).toEqual([]);
+    expect(homeWork({ APP_ENV: "staging", CONTENT_FIXTURES: "1" })).toEqual([]);
+    expect(homeWork({ APP_ENV: "test", CONTENT_FIXTURES: "1" }).map((p) => p.slug)).toEqual(["testova-pekarna"]);
+    const five = ["a", "b", "c", "d", "e"].map((s) => real({ slug: `proekt-${s}` }));
+    const draft = real({ slug: "chernova", status: "draft" });
+    expect(homeWork({ APP_ENV: "production" }, [draft, ...five]).map((p) => p.slug)).toEqual(
+      five.slice(0, HOME_WORK_LIMIT).map((p) => p.slug),
+    );
+    expect(HOME_WORK_LIMIT).toBe(3);
   });
 
   it("shows the menu link only when something is published", () => {
