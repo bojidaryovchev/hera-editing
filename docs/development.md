@@ -16,7 +16,9 @@ inputs (domain, contacts, mail, secrets) and the lawyer-approved privacy notice.
 - **Styling:** Tailwind CSS 4 tokens (`src/app/globals.css` `@theme`) plus plain component stylesheets in
   `src/styles/`. Fonts are self-hosted by `next/font` (Sofia Sans, Sofia Sans Extra Condensed, IBM Plex Mono).
 - **Motion:** the homepage's scroll-driven edit uses GSAP, loaded after the page is interactive. With reduced
-  motion, or if GSAP fails, the page shows the finished edit.
+  motion, or if GSAP fails, the page shows the finished edit. The hero and the process hold still with CSS
+  (`position: sticky` over room that `home.css` reserves), and ScrollTrigger never pins. The page therefore has its
+  final length before GSAP arrives, and links to `#kak-rabotim`, reloads and Back land where they should (L39).
 - **Content:** typed TypeScript modules in `src/content/` (no CMS). Every word on the site is there.
 - **Leads:** Zod validation shared by the browser (React Hook Form) and the server; a server action and
   `POST /api/leads` share one pipeline (validation → anti-spam → durable insert → owner alert after commit).
@@ -248,8 +250,8 @@ Bulgarian ones, so there is no hreflang. The Bulgarian pages change only by one 
 - **End-to-end** (`tests/e2e`, Playwright, Chromium at 1440 px and on a Pixel 7): every page (status, single H1,
   metadata, share image, no console errors, no dead links), the quote journeys including mail and database outages
   and the no-JavaScript form, consent and analytics (refusing means zero tracking requests), keyboard and menu
-  behaviour, the portfolio with fictional fixtures, motion and video controls, overflow at 7 widths, the
-  wide-screen hero, and axe (WCAG 2.2 A/AA) on every page.
+  behaviour, homepage links and Back with motion, the portfolio with fictional fixtures, motion and video controls,
+  overflow at 7 widths, the wide-screen hero, and axe (WCAG 2.2 A/AA) on every page.
 
 ## Performance
 
