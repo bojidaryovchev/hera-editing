@@ -105,8 +105,9 @@ test.describe("homepage links and history with motion", () => {
     await expect(page).toHaveURL(/\/#kak-rabotim$/);
     await motionReady(page);
     await page.waitForTimeout(500);
-    // Wide screens land where the section's hold starts (its top); narrow ones just below the fixed header.
-    expect(await processTop(page)).toBeGreaterThanOrEqual(0);
+    // Wide screens land where the section's hold starts (its top, give or take the scroll's rounding to a pixel);
+    // narrow ones just below the fixed header.
+    expect(await processTop(page)).toBeGreaterThan(-1);
     expect(await processTop(page)).toBeLessThan(120);
   });
 
