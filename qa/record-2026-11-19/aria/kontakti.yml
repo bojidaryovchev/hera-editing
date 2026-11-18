@@ -1,0 +1,138 @@
+- link "Към основното съдържание":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - navigation "Основна навигация":
+    - link "Услуга":
+      - /url: /upravlenie-na-sotsialni-mrezhi
+    - link "Как работим":
+      - /url: /#kak-rabotim
+    - link "Пакети":
+      - /url: /paketi
+    - link "Проекти":
+      - /url: /rabota
+    - link "За нас":
+      - /url: /za-nas
+    - link "Контакти":
+      - /url: /kontakti
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Fkontakti
+- main:
+  - navigation "Навигационна пътека":
+    - list:
+      - listitem:
+        - link "Начало":
+          - /url: /
+      - listitem: Контакти
+  - heading "Разкажете ни за бизнеса си" [level=1]
+  - paragraph: Няма нужда да имате готов план. Посочете с какво се занимавате и в кой град се намирате. Ще обсъдим какво съдържание има смисъл да създаваме и как би изглеждало месечното ни сътрудничество.
+  - form "Формуляр за запитване":
+    - text: Име
+    - textbox "Име"
+    - paragraph
+    - text: Фирма / име на бизнеса
+    - textbox "Фирма / име на бизнеса"
+    - paragraph
+    - text: Град
+    - textbox "Град"
+    - paragraph
+    - text: Сайт или профил в социалните мрежи
+    - textbox "Сайт или профил в социалните мрежи"
+    - paragraph: По желание.
+    - group "Как да се свържем с Вас?":
+      - text: Как да се свържем с Вас? Имейл
+      - textbox "Имейл"
+      - text: Телефон
+      - textbox "Телефон"
+      - paragraph: Достатъчно е едно от двете.
+    - radiogroup "Какво искате да постигнете?":
+      - text: Какво искате да постигнете?
+      - radio "Повече разпознаваемост"
+      - text: Повече разпознаваемост
+      - radio "По-редовно съдържание"
+      - text: По-редовно съдържание
+      - radio "Повече запитвания"
+      - text: Повече запитвания
+      - radio "Друго"
+      - text: Друго
+      - radio "Не знам"
+      - text: Не знам
+      - paragraph
+    - radiogroup "Колко често искате ново съдържание?":
+      - text: Колко често искате ново съдържание?
+      - radio "Не знам"
+      - text: Не знам
+      - radio "4 на месец"
+      - text: 4 на месец
+      - radio "8 на месец"
+      - text: 8 на месец
+      - radio "12+ на месец"
+      - text: 12+ на месец
+      - paragraph: По желание. Брой оригинални видеа месечно.
+    - text: Разкажете ни накратко за бизнеса
+    - textbox "Разкажете ни накратко за бизнеса":
+      - /placeholder: Например с какво се занимавате, какво искате да покажете и има ли сезонни периоди.
+    - paragraph: По желание.
+    - paragraph:
+      - text: Как обработваме данните Ви, е описано в
+      - link "Политиката за поверителност":
+        - /url: /poveritelnost
+      - text: .
+    - button "Изпратете запитването"
+  - region "Предпочитате директен контакт?":
+    - heading "Предпочитате директен контакт?" [level=2]
+    - paragraph: "Предстои: телефон и имейл за контакт"
+- contentinfo:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - paragraph: Съдържание и управление на социални мрежи за бизнеса.
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Fkontakti
+  - navigation "Карта на сайта":
+    - heading "Услуги" [level=2]
+    - list:
+      - listitem:
+        - link "Управление на социални мрежи":
+          - /url: /upravlenie-na-sotsialni-mrezhi
+      - listitem:
+        - link "Видеосъдържание за бизнеса":
+          - /url: /video-sadarzhanie-za-biznes
+      - listitem:
+        - link "Пакети":
+          - /url: /paketi
+    - heading "Агенцията" [level=2]
+    - list:
+      - listitem:
+        - link "Как работим":
+          - /url: /#kak-rabotim
+      - listitem:
+        - link "Проекти":
+          - /url: /rabota
+      - listitem:
+        - link "За нас":
+          - /url: /za-nas
+      - listitem:
+        - link "Контакти":
+          - /url: /kontakti
+    - heading "Правна информация" [level=2]
+    - list:
+      - listitem:
+        - link "Политика за поверителност":
+          - /url: /poveritelnost
+      - listitem:
+        - link "Бисквитки":
+          - /url: /biskvitki
+      - listitem:
+        - link "Настройки за бисквитки":
+          - /url: /biskvitki
+    - heading "Контакт" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "Предстои: телефон и имейл за контакт"
+  - text: © 2026 Hera Editing
+  - 'link "English: video editing for creators and filmmakers"':
+    - /url: /en
+- alert

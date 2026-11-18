@@ -1,0 +1,408 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Forder
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Order
+  - heading "Order an edit" [level=1]
+  - paragraph: Tell us what you need. We reply in writing within 1 business day with the exact price and your start date. You pay only after that, by bank transfer.
+  - region "What happens next":
+    - heading "What happens next" [level=2]
+    - list:
+      - listitem: We reply in writing within 1 business day with the exact price and your start date.
+      - listitem: You pay our invoice by bank transfer, in advance.
+      - listitem: The delivery clock starts on your start date.
+  - form "Order form":
+    - group "Your package":
+      - text: Your package Package
+      - combobox "Package":
+        - option "Choose a package" [selected]
+      - paragraph: Prices exclude VAT.
+    - group "You and your business":
+      - text: You and your business Your name
+      - textbox "Your name"
+      - paragraph
+      - text: Business name
+      - textbox "Business name"
+      - paragraph
+      - text: Email
+      - textbox "Email"
+      - paragraph: We reply here, in writing.
+      - text: VAT or company number
+      - textbox "VAT or company number"
+      - paragraph: Optional, for the invoice.
+      - text: Country
+      - combobox "Country":
+        - option "Choose your country" [selected]
+        - option "Afghanistan"
+        - option "Åland Islands"
+        - option "Albania"
+        - option "Algeria"
+        - option "American Samoa"
+        - option "Andorra"
+        - option "Angola"
+        - option "Anguilla"
+        - option "Antarctica"
+        - option "Antigua & Barbuda"
+        - option "Argentina"
+        - option "Armenia"
+        - option "Aruba"
+        - option "Australia"
+        - option "Austria"
+        - option "Azerbaijan"
+        - option "Bahamas"
+        - option "Bahrain"
+        - option "Bangladesh"
+        - option "Barbados"
+        - option "Belarus"
+        - option "Belgium"
+        - option "Belize"
+        - option "Benin"
+        - option "Bermuda"
+        - option "Bhutan"
+        - option "Bolivia"
+        - option "Bosnia & Herzegovina"
+        - option "Botswana"
+        - option "Bouvet Island"
+        - option "Brazil"
+        - option "British Indian Ocean Territory"
+        - option "British Virgin Islands"
+        - option "Brunei"
+        - option "Bulgaria"
+        - option "Burkina Faso"
+        - option "Burundi"
+        - option "Cambodia"
+        - option "Cameroon"
+        - option "Canada"
+        - option "Cape Verde"
+        - option "Caribbean Netherlands"
+        - option "Cayman Islands"
+        - option "Central African Republic"
+        - option "Chad"
+        - option "Chile"
+        - option "China"
+        - option "Christmas Island"
+        - option "Cocos (Keeling) Islands"
+        - option "Colombia"
+        - option "Comoros"
+        - option "Congo - Brazzaville"
+        - option "Congo - Kinshasa"
+        - option "Cook Islands"
+        - option "Costa Rica"
+        - option "Côte d’Ivoire"
+        - option "Croatia"
+        - option "Cuba"
+        - option "Curaçao"
+        - option "Cyprus"
+        - option "Czechia"
+        - option "Denmark"
+        - option "Djibouti"
+        - option "Dominica"
+        - option "Dominican Republic"
+        - option "Ecuador"
+        - option "Egypt"
+        - option "El Salvador"
+        - option "Equatorial Guinea"
+        - option "Eritrea"
+        - option "Estonia"
+        - option "Eswatini"
+        - option "Ethiopia"
+        - option "Falkland Islands"
+        - option "Faroe Islands"
+        - option "Fiji"
+        - option "Finland"
+        - option "France"
+        - option "French Guiana"
+        - option "French Polynesia"
+        - option "French Southern Territories"
+        - option "Gabon"
+        - option "Gambia"
+        - option "Georgia"
+        - option "Germany"
+        - option "Ghana"
+        - option "Gibraltar"
+        - option "Greece"
+        - option "Greenland"
+        - option "Grenada"
+        - option "Guadeloupe"
+        - option "Guam"
+        - option "Guatemala"
+        - option "Guernsey"
+        - option "Guinea"
+        - option "Guinea-Bissau"
+        - option "Guyana"
+        - option "Haiti"
+        - option "Heard & McDonald Islands"
+        - option "Honduras"
+        - option "Hong Kong SAR China"
+        - option "Hungary"
+        - option "Iceland"
+        - option "India"
+        - option "Indonesia"
+        - option "Iran"
+        - option "Iraq"
+        - option "Ireland"
+        - option "Isle of Man"
+        - option "Israel"
+        - option "Italy"
+        - option "Jamaica"
+        - option "Japan"
+        - option "Jersey"
+        - option "Jordan"
+        - option "Kazakhstan"
+        - option "Kenya"
+        - option "Kiribati"
+        - option "Kuwait"
+        - option "Kyrgyzstan"
+        - option "Laos"
+        - option "Latvia"
+        - option "Lebanon"
+        - option "Lesotho"
+        - option "Liberia"
+        - option "Libya"
+        - option "Liechtenstein"
+        - option "Lithuania"
+        - option "Luxembourg"
+        - option "Macao SAR China"
+        - option "Madagascar"
+        - option "Malawi"
+        - option "Malaysia"
+        - option "Maldives"
+        - option "Mali"
+        - option "Malta"
+        - option "Marshall Islands"
+        - option "Martinique"
+        - option "Mauritania"
+        - option "Mauritius"
+        - option "Mayotte"
+        - option "Mexico"
+        - option "Micronesia"
+        - option "Moldova"
+        - option "Monaco"
+        - option "Mongolia"
+        - option "Montenegro"
+        - option "Montserrat"
+        - option "Morocco"
+        - option "Mozambique"
+        - option "Myanmar (Burma)"
+        - option "Namibia"
+        - option "Nauru"
+        - option "Nepal"
+        - option "Netherlands"
+        - option "New Caledonia"
+        - option "New Zealand"
+        - option "Nicaragua"
+        - option "Niger"
+        - option "Nigeria"
+        - option "Niue"
+        - option "Norfolk Island"
+        - option "North Korea"
+        - option "North Macedonia"
+        - option "Northern Mariana Islands"
+        - option "Norway"
+        - option "Oman"
+        - option "Pakistan"
+        - option "Palau"
+        - option "Palestinian Territories"
+        - option "Panama"
+        - option "Papua New Guinea"
+        - option "Paraguay"
+        - option "Peru"
+        - option "Philippines"
+        - option "Pitcairn Islands"
+        - option "Poland"
+        - option "Portugal"
+        - option "Puerto Rico"
+        - option "Qatar"
+        - option "Réunion"
+        - option "Romania"
+        - option "Russia"
+        - option "Rwanda"
+        - option "Samoa"
+        - option "San Marino"
+        - option "São Tomé & Príncipe"
+        - option "Saudi Arabia"
+        - option "Senegal"
+        - option "Serbia"
+        - option "Seychelles"
+        - option "Sierra Leone"
+        - option "Singapore"
+        - option "Sint Maarten"
+        - option "Slovakia"
+        - option "Slovenia"
+        - option "Solomon Islands"
+        - option "Somalia"
+        - option "South Africa"
+        - option "South Georgia & South Sandwich Islands"
+        - option "South Korea"
+        - option "South Sudan"
+        - option "Spain"
+        - option "Sri Lanka"
+        - option "St. Barthélemy"
+        - option "St. Helena"
+        - option "St. Kitts & Nevis"
+        - option "St. Lucia"
+        - option "St. Martin"
+        - option "St. Pierre & Miquelon"
+        - option "St. Vincent & Grenadines"
+        - option "Sudan"
+        - option "Suriname"
+        - option "Svalbard & Jan Mayen"
+        - option "Sweden"
+        - option "Switzerland"
+        - option "Syria"
+        - option "Taiwan"
+        - option "Tajikistan"
+        - option "Tanzania"
+        - option "Thailand"
+        - option "Timor-Leste"
+        - option "Togo"
+        - option "Tokelau"
+        - option "Tonga"
+        - option "Trinidad & Tobago"
+        - option "Tunisia"
+        - option "Türkiye"
+        - option "Turkmenistan"
+        - option "Turks & Caicos Islands"
+        - option "Tuvalu"
+        - option "U.S. Outlying Islands"
+        - option "U.S. Virgin Islands"
+        - option "Uganda"
+        - option "Ukraine"
+        - option "United Arab Emirates"
+        - option "United Kingdom"
+        - option "United States"
+        - option "Uruguay"
+        - option "Uzbekistan"
+        - option "Vanuatu"
+        - option "Vatican City"
+        - option "Venezuela"
+        - option "Vietnam"
+        - option "Wallis & Futuna"
+        - option "Western Sahara"
+        - option "Yemen"
+        - option "Zambia"
+        - option "Zimbabwe"
+      - paragraph
+      - checkbox "I'm ordering for a business, not as a consumer."
+      - text: I'm ordering for a business, not as a consumer.
+      - paragraph
+    - group "The brief":
+      - text: The brief Link to your footage
+      - textbox "Link to your footage"
+      - paragraph: Optional. Drive, Dropbox or WeTransfer.
+      - text: Deadline
+      - textbox "Deadline"
+      - paragraph: Optional.
+      - radiogroup "AI-generated visuals":
+        - text: AI-generated visuals
+        - radio "Allowed"
+        - text: Allowed
+        - radio "Not allowed"
+        - text: Not allowed
+        - paragraph
+      - radiogroup "Music":
+        - text: Music
+        - radio "I'll send the track and its licence"
+        - text: I'll send the track and its licence
+        - radio "Use royalty-free music whose licence covers my use"
+        - text: Use royalty-free music whose licence covers my use
+        - radio "No music"
+        - text: No music
+        - paragraph
+      - text: Reference videos, with timestamps
+      - textbox "Reference videos, with timestamps":
+        - /placeholder: "For example: youtube.com/watch?v=… at 1:20, the pacing of the intro"
+      - paragraph: Optional. Links with timestamps.
+      - text: What must or must not appear
+      - textbox "What must or must not appear"
+      - paragraph: Optional.
+    - paragraph:
+      - text: How we handle your data is explained in our
+      - link "privacy notice":
+        - /url: /en/privacy
+      - text: . Orders follow our
+      - link "terms of service":
+        - /url: /en/terms
+      - text: .
+    - button "Send my brief"
+  - region "Prefer email?":
+    - heading "Prefer email?" [level=2]
+    - paragraph: "To come: a contact email"
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Forder
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

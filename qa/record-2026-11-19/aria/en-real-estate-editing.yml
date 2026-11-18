@@ -1,0 +1,192 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Freal-estate-editing
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Real-estate editing
+  - paragraph: For real-estate photographers and agents
+  - heading "Real estate video editing for photographers and agents" [level=1]
+  - paragraph: "Send your clips and get back a polished listing video and a vertical reel: stabilised, colour-corrected, cut to music and branded, with an unbranded version for listing sites that need one."
+  - link "Order a listing video":
+    - /url: /en/order?package=listing-video&from=%2Fen%2Freal-estate-editing
+  - link "See every price":
+    - /url: /en/pricing
+  - region "Listing packages":
+    - heading "Listing packages" [level=2]
+    - list:
+      - listitem:
+        - link "Listing video":
+          - /url: "#listing-video"
+        - text: 2 business days $120
+      - listitem:
+        - link "Listing 10-pack":
+          - /url: "#listing-10-pack"
+        - text: 2 business days $1,080
+    - paragraph: Turnaround in business days, from your start date.
+  - region "What you get, for each listing":
+    - heading "What you get, for each listing" [level=2]
+    - list:
+      - listitem: A 60–90 second property video in 16:9
+      - listitem: A vertical reel of up to 30 seconds for Instagram, TikTok and Shorts
+      - listitem: Stabilisation, colour correction, music sync, and agent branding with captions
+      - listitem: Branded and unbranded versions
+    - heading "What we need from you" [level=3]
+    - list:
+      - listitem: "A link to your clips: up to 150 clips or 20 GB per listing"
+      - listitem: The address or listing name, for the titles
+      - listitem: The room order or a floor plan, if you have one
+      - listitem: The agent's logo and contact line
+      - listitem: Your music, if you have it
+  - region "Listing packages":
+    - heading "Listing packages" [level=2]
+    - paragraph: One listing at a time, or ten prepaid. One revision round per listing.
+    - list:
+      - listitem:
+        - heading "Listing video" [level=3]
+        - paragraph: A property video and a vertical reel.
+        - paragraph: $120
+        - term: Footage
+        - definition: Up to 150 clips or 20 GB
+        - term: Length
+        - definition: 60–90 s, plus a reel of up to 30 s
+        - term: Turnaround
+        - definition: 2 business days; next business day as a paid rush, only when a slot is free
+        - term: Revisions
+        - definition: 1 round
+        - paragraph: What's included
+        - list:
+          - listitem: A 60–90 s property video in 16:9
+          - listitem: A vertical reel of up to 30 s, with captions
+          - listitem: Stabilisation, colour and music sync
+          - listitem: Agent branding
+          - listitem: Branded and unbranded versions
+        - 'link "Order : Listing video"':
+          - /url: /en/order?package=listing-video&from=%2Fen%2Freal-estate-editing
+      - listitem:
+        - heading "Listing 10-pack" [level=3]
+        - paragraph: Ten listing videos, paid in advance.
+        - paragraph: $1,080
+        - term: Footage
+        - definition: Each listing as in the Listing video
+        - term: Validity
+        - definition: Valid for 90 days
+        - term: Turnaround
+        - definition: 2 business days per listing
+        - term: Revisions
+        - definition: 1 round per listing
+        - paragraph: What's included
+        - list:
+          - listitem: 10 listing videos, each as in the Listing video package
+        - 'link "Order : Listing 10-pack"':
+          - /url: /en/order?package=listing-10-pack&from=%2Fen%2Freal-estate-editing
+    - heading "Extras" [level=3]
+    - list:
+      - listitem: "An extra version of a reel: $40"
+      - listitem: "A drone-only edit: $60"
+  - region "How we work on listings":
+    - heading "How we work on listings" [level=2]
+    - list:
+      - listitem:
+        - heading "2 business days" [level=3]
+        - paragraph: "Listing videos are delivered 2 business days from your start date. A next-business-day rush is possible only when a slot is free: ask before you order."
+      - listitem:
+        - heading "A natural walk-through" [level=3]
+        - paragraph: Send the room order or a floor plan if you have one; otherwise we follow a natural walk-through.
+      - listitem:
+        - heading "Branded and unbranded" [level=3]
+        - paragraph: "Every listing comes in two versions: with your logo and agent details, and without, for sites that don't allow branding."
+      - listitem:
+        - heading "Music and drone footage" [level=3]
+        - paragraph: Your music, or royalty-free music from a library whose licence covers your use. Drone footage is welcome.
+  - region "Questions and answers":
+    - heading "Questions and answers" [level=2]
+    - group: Can you add our logo and agent details?
+    - group: Do you need a script?
+    - group: Can you deliver the next day?
+    - group: Can we use our own music?
+    - group: Do we need a call?
+    - group: How do I pay?
+  - region "A listing to shoot this week?":
+    - heading "A listing to shoot this week?" [level=2]
+    - paragraph: Send your clips and the listing details. We reply in writing within 1 business day with the exact price and your start date.
+    - link "Order an edit":
+      - /url: /en/order?package=listing-video&from=%2Fen%2Freal-estate-editing
+    - link "How it works":
+      - /url: /en/how-it-works
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Freal-estate-editing
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

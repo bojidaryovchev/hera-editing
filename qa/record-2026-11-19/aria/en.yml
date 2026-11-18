@@ -1,0 +1,217 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen
+- main:
+  - paragraph: Remote video editing for creators and filmmakers
+  - heading "We edit while you sleep. Everything in writing." [level=1]
+  - paragraph: Send your footage and a written brief. We edit wedding films for filmmakers, story and documentary videos for YouTube channels, and listing videos for real-estate photographers, at fixed, published prices. AI-assisted, human-edited.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen
+  - link "See the prices":
+    - /url: /en/pricing
+  - 'figure "Example: a review link with three time-coded comments, then the cut approved"':
+    - paragraph: Review link · Cut 1 Example
+    - list:
+      - listitem: 00:42 Hold the vows shot two beats longer.
+      - listitem: 01:18 Use the licensed version of the song here.
+      - listitem: 02:05 Fade the speech out under the music.
+    - paragraph: Round 1 of 2 · 3 notes Approved
+  - region "What we edit":
+    - heading "What we edit" [level=2]
+    - paragraph: Three kinds of edit, each with its own page and prices. The pricing page lists everything else we edit.
+    - list:
+      - listitem:
+        - paragraph: Wedding filmmakers
+        - heading "Wedding films for filmmakers" [level=3]
+        - paragraph: Highlights from your selects, documentary full films and teasers, cut in your style.
+        - paragraph: From $160
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - paragraph: YouTube channels
+        - heading "YouTube story and documentary edits" [level=3]
+        - paragraph: Story-driven, documentary and faceless videos, built from your script and voice-over.
+        - paragraph: From $520
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - paragraph: Real-estate photographers
+        - heading "Real-estate listing videos" [level=3]
+        - paragraph: A property video and a vertical reel from your clips, branded and unbranded.
+        - paragraph: From $120
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+  - region "How it works":
+    - heading "How it works" [level=2]
+    - paragraph: Four steps, all in writing. No calls to schedule.
+    - list:
+      - listitem:
+        - heading "Brief" [level=3]
+        - term: You
+        - definition: "Fill in the order form: the package, your footage link, references with timestamps and anything that must or must not appear."
+        - term: We
+        - definition: Reply in writing within 1 business day with the exact price and your start date.
+      - listitem:
+        - heading "Upload" [level=3]
+        - term: You
+        - definition: Share your footage by link and pay our invoice by bank transfer.
+        - term: We
+        - definition: Start on the confirmed date. The delivery clock starts then, once your footage, brief and payment are in.
+      - listitem:
+        - heading "Review link" [level=3]
+        - term: You
+        - definition: "Watch the cut and leave time-coded comments on the video: one consolidated list per round."
+        - term: We
+        - definition: Make the changes and send the next cut, with a short list of what changed.
+      - listitem:
+        - heading "Delivery" [level=3]
+        - term: You
+        - definition: Approve the final cut.
+        - term: We
+        - definition: Deliver the final files in the formats your package lists, within its business days.
+  - region "Prices from":
+    - heading "Prices from" [level=2]
+    - paragraph: Fixed prices in US dollars, excluding VAT, for business clients. Every package states its footage limit, its turnaround in business days and its revision rounds.
+    - link "Every package and add-on":
+      - /url: /en/pricing
+    - list:
+      - listitem: Wedding filmmakers Teaser $160
+      - listitem: Wedding filmmakers Highlight from selects $380
+      - listitem: Wedding filmmakers Full film $390
+      - listitem: YouTube channels Story edit $520
+      - listitem: Real-estate photographers Listing video $120
+  - region "No calls needed.":
+    - heading "No calls needed." [level=2]
+    - paragraph: "Everything happens in writing: the brief, the questions, the feedback and the delivery. Every decision stays on record, and nothing waits for a meeting."
+    - list:
+      - listitem:
+        - heading "The brief" [level=3]
+        - paragraph: Through the order form, with your footage link and references.
+      - listitem:
+        - heading "Questions" [level=3]
+        - paragraph: Short and specific, by email.
+      - listitem:
+        - heading "Feedback" [level=3]
+        - paragraph: Time-coded comments, right on the review link.
+      - listitem:
+        - heading "Delivery" [level=3]
+        - paragraph: The final files by link, with a note of what changed.
+  - region "Samples":
+    - heading "Samples" [level=2]
+    - link "All samples":
+      - /url: /en/work
+    - list:
+      - listitem:
+        - paragraph: Demo edit Wedding filmmakers
+        - paragraph: "Test data: a fictional sample"
+        - heading "Test wedding highlight (fictional data)" [level=3]
+        - paragraph: A fictional sample for automated tests. Not a real edit.
+        - term: Footage
+        - definition: Fictional test footage; Test data only
+        - term: Music
+        - definition: Test data only
+        - term: Permissions
+        - definition: Test data only
+        - 'link "Watch on Vimeo : Test wedding highlight (fictional data) (opens in a new tab)"':
+          - /url: https://vimeo.com/000000001
+      - listitem:
+        - paragraph: Client work YouTube channels
+        - paragraph: "Test data: a fictional sample"
+        - heading "Test documentary edit (fictional data)" [level=3]
+        - paragraph: A fictional client sample for automated tests. Not a real client.
+        - term: Footage
+        - definition: Fictional test footage; Test data only
+        - term: Music
+        - definition: Test data only
+        - term: Permissions
+        - definition: Test data only
+        - 'link "Watch on YouTube : Test documentary edit (fictional data) (opens in a new tab)"':
+          - /url: https://www.youtube.com/watch?v=FIXTURE0001
+  - region "Questions and answers":
+    - heading "Questions and answers" [level=2]
+    - link "Every question":
+      - /url: /en/how-it-works#faq-h
+    - group: Do we need a call?
+    - group: How long does an edit take?
+    - group: How do revisions work?
+    - group: How do I pay?
+    - group: Who supplies the music?
+    - group: Do you use AI?
+  - region "Ready when your footage is.":
+    - heading "Ready when your footage is." [level=2]
+    - paragraph: Send your brief. We reply in writing within 1 business day with the exact price and your start date.
+    - link "Order an edit":
+      - /url: /en/order?from=%2Fen
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

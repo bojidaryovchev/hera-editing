@@ -2,8 +2,9 @@
 
 - **Date:** 2026-11-18, updated 2026-11-19.
 - **What is left.** Everything that could be researched, written or built without the business owner's answers is
-  done, except a few items that the spec review of 2026-11-18 found, mostly work for Claude
-  ([spec-coverage.md](spec-coverage.md)). What remains for the business owner is below.
+  done. The items the spec review of 2026-11-18 found for Claude were closed on 2026-11-19
+  ([spec-coverage.md](spec-coverage.md)). What remains is below: the business owner's decisions and inputs, and one
+  check that needs a person (B13).
 - **How to answer.** Each question has a recommendation, so a plain "ok" accepts it. Answers become decisions in
   [decisions.md](decisions.md), and then I update the site and the documents.
 
@@ -97,6 +98,11 @@ From [release-checklist.md](release-checklist.md).
     free uptime-monitoring account in your name. The endpoint answers 503 when the database is down or when the alerts
     for new enquiries are stuck, so the monitor tells you when enquiries stop reaching you.
     *Recommended: yes, at launch; Claude sets it up with you.*
+13. **A screen-reader listen, about 20 minutes, on your phone.** VoiceOver or TalkBack is built in. Claude has
+    checked the whole site with the keyboard and read what screen readers receive
+    ([the QA record](../qa/record-2026-11-19/README.md)). Hearing it in use needs a person, and the spec asks for it.
+    The steps are at the end of the record, and nothing in them sends an enquiry.
+    *Recommended: before launch. Anyone can do it, not only you.*
 
 ## C. Business decisions for the Bulgarian line
 

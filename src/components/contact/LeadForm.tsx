@@ -154,7 +154,7 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
     setError,
     control,
     getValues,
-    formState: { errors, isSubmitting },
+    formState: { errors, isSubmitting, isSubmitted, touchedFields },
   } = useForm<LeadFormValues>({
     resolver,
     defaultValues: initial,
@@ -227,8 +227,15 @@ export function LeadForm({ requestId, sourcePath, utm, defaultVolume, turnstileS
 
   // Errors: from the form once it runs; before that (no script) from the server's answer.
   const serverErrors = state.status === "invalid" ? splitErrors(state.errors).fields : {};
-  const err = (f: LeadFormField): LeadErrorCode | undefined =>
-    codeOf(errors[f]?.message) ?? (hydrated ? undefined : serverErrors[f]);
+  const err = (f: LeadFormField): LeadErrorCode | undefined => {
+    const code = codeOf(errors[f]?.message) ?? (hydrated ? undefined : serverErrors[f]);
+    // Email and phone answer one question ("either is enough"), so "neither given" waits until the visitor has left
+    // both, or sends. Otherwise leaving the email empty marks the phone invalid, and a screen reader announces it so,
+    // before the visitor has reached it (found in the keyboard pass, qa/record-2026-11-19).
+    if (code === "contact_required" && hydrated && !isSubmitted && !(touchedFields.email && touchedFields.phone))
+      return undefined;
+    return code;
+  };
   const contactMissing = err("email") === "contact_required" || err("phone") === "contact_required";
   const message = useWatch({ control, name: "message" }) ?? "";
 

@@ -1,0 +1,115 @@
+- link "Към основното съдържание":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - navigation "Основна навигация":
+    - link "Услуга":
+      - /url: /upravlenie-na-sotsialni-mrezhi
+    - link "Как работим":
+      - /url: /#kak-rabotim
+    - link "Пакети":
+      - /url: /paketi
+    - link "Проекти":
+      - /url: /rabota
+    - link "За нас":
+      - /url: /za-nas
+    - link "Контакти":
+      - /url: /kontakti
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Fbiskvitki
+- main:
+  - navigation "Навигационна пътека":
+    - list:
+      - listitem:
+        - link "Начало":
+          - /url: /
+      - listitem: Бисквитки
+  - heading "Бисквитки и настройки" [level=1]
+  - paragraph: Тук виждате какво съхраняваме в браузъра Ви и можете да промените избора си по всяко време. Формулярът за запитване работи независимо от избора Ви.
+  - paragraph: Чернова. Текстът предстои да бъде прегледан от юрист.
+  - region "Необходими":
+    - heading "Необходими" [level=2]
+    - text: Винаги активни
+    - paragraph: Нужни за работата на сайта, например за да запомним избора Ви за бисквитките. Не могат да бъдат изключени.
+  - region "Аналитични":
+    - heading "Аналитични" [level=2]
+    - switch "Аналитични бисквитки"
+    - emphasis: Изключени
+    - paragraph: Помагат ни да разберем кои страници се посещават, без да събираме данни от формуляра. Включват се само с Вашето съгласие.
+  - button "Само необходимите"
+  - button "Приемете всички"
+  - button "Запазете избора"
+  - status
+  - region "Какво съхраняваме":
+    - heading "Какво съхраняваме" [level=2]
+    - table:
+      - rowgroup:
+        - row "Име За какво е Срок":
+          - columnheader "Име"
+          - columnheader "За какво е"
+          - columnheader "Срок"
+      - rowgroup:
+        - row "hera_consent Запомня избора Ви за бисквитките. 6 месеца":
+          - cell "hera_consent":
+            - code: hera_consent
+          - cell "Запомня избора Ви за бисквитките."
+          - cell "6 месеца"
+        - 'row "_ga, _ga_* Google Analytics: различава посещенията, без данни от формуляра. 13 месеца"':
+          - cell "_ga, _ga_*":
+            - code: _ga, _ga_*
+          - 'cell "Google Analytics: различава посещенията, без данни от формуляра."'
+          - cell "13 месеца"
+- contentinfo:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - paragraph: Съдържание и управление на социални мрежи за бизнеса.
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Fbiskvitki
+  - navigation "Карта на сайта":
+    - heading "Услуги" [level=2]
+    - list:
+      - listitem:
+        - link "Управление на социални мрежи":
+          - /url: /upravlenie-na-sotsialni-mrezhi
+      - listitem:
+        - link "Видеосъдържание за бизнеса":
+          - /url: /video-sadarzhanie-za-biznes
+      - listitem:
+        - link "Пакети":
+          - /url: /paketi
+    - heading "Агенцията" [level=2]
+    - list:
+      - listitem:
+        - link "Как работим":
+          - /url: /#kak-rabotim
+      - listitem:
+        - link "Проекти":
+          - /url: /rabota
+      - listitem:
+        - link "За нас":
+          - /url: /za-nas
+      - listitem:
+        - link "Контакти":
+          - /url: /kontakti
+    - heading "Правна информация" [level=2]
+    - list:
+      - listitem:
+        - link "Политика за поверителност":
+          - /url: /poveritelnost
+      - listitem:
+        - link "Бисквитки":
+          - /url: /biskvitki
+      - listitem:
+        - link "Настройки за бисквитки":
+          - /url: /biskvitki
+    - heading "Контакт" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "Предстои: телефон и имейл за контакт"
+  - text: © 2026 Hera Editing
+  - 'link "English: video editing for creators and filmmakers"':
+    - /url: /en
+- alert

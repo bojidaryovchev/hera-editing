@@ -53,17 +53,18 @@ development default) owner alerts are written to the console or `MAIL_DEV_OUTBOX
 
 ## Commands
 
-| Command                                                                       | What it does                                                                                                      |
-| ----------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| `pnpm lint` / `pnpm typecheck` / `pnpm format:check`                          | ESLint, TypeScript, Prettier                                                                                      |
-| `pnpm test`                                                                   | Unit and integration tests (integration starts a disposable Postgres)                                             |
-| `pnpm test:e2e`                                                               | Builds two test variants, starts a disposable Postgres and four servers, runs Playwright (desktop, phone) and axe |
-| `SCREENSHOTS=1 pnpm test:e2e responsive`                                      | Also saves full-page screenshots of every page at 7 widths to `qa/screenshots/full/`                              |
-| `pnpm build` / `pnpm start`                                                   | Production build and server                                                                                       |
-| `pnpm db:migrate`                                                             | Applies pending migrations to `DATABASE_URL`                                                                      |
-| `pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv\|json]` | Exports leads for follow-up (personal data: store safely, delete when done)                                       |
-| `pnpm leads:retry [--include-failed] [--limit 50]`                            | Delivers owner alerts that are due (or all undelivered); idempotent                                               |
-| `pnpm leads:dsar find\|export\|delete\|status …`                              | Data-subject requests and pipeline status (see below; `--text` also searches English orders' briefs)              |
+| Command                                                                       | What it does                                                                                                                                                                                                  |
+| ----------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `pnpm lint` / `pnpm typecheck` / `pnpm format:check`                          | ESLint, TypeScript, Prettier                                                                                                                                                                                  |
+| `pnpm test`                                                                   | Unit and integration tests (integration starts a disposable Postgres)                                                                                                                                         |
+| `pnpm test:e2e`                                                               | Builds two test variants, starts a disposable Postgres and four servers, runs Playwright (desktop, phone) and axe                                                                                             |
+| `SCREENSHOTS=1 pnpm test:e2e responsive`                                      | Also saves full-page screenshots of every page at 7 widths to `qa/screenshots/full/`                                                                                                                          |
+| `pnpm qa:keyboard`                                                            | The keyboard pass of the manual QA record: Tab and Shift+Tab through every page, both forms sent by keyboard, close-ups and accessibility trees to `qa/record-<date>/` (after `pnpm test:e2e`, on its builds) |
+| `pnpm build` / `pnpm start`                                                   | Production build and server                                                                                                                                                                                   |
+| `pnpm db:migrate`                                                             | Applies pending migrations to `DATABASE_URL`                                                                                                                                                                  |
+| `pnpm leads:export --out leads.csv [--since 2026-11-01] [--format csv\|json]` | Exports leads for follow-up (personal data: store safely, delete when done)                                                                                                                                   |
+| `pnpm leads:retry [--include-failed] [--limit 50]`                            | Delivers owner alerts that are due (or all undelivered); idempotent                                                                                                                                           |
+| `pnpm leads:dsar find\|export\|delete\|status …`                              | Data-subject requests and pipeline status (see below; `--text` also searches English orders' briefs)                                                                                                          |
 
 In CI the integration and e2e suites use `TEST_DATABASE_URL` (a database whose name contains `test`; it is wiped).
 

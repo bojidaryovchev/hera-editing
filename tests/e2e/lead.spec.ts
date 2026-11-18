@@ -111,6 +111,32 @@ test("phone only and email only are both enough; neither is refused (TS:Suggeste
   await expect(page.getByText(SUCCESS)).toHaveCount(0);
 });
 
+test("email or phone: «neither» shows only once both are left empty, or on sending", async ({ page }) => {
+  await page.goto("/kontakti");
+  const name = page.locator("#lf-name");
+  // The form validates in the browser once it runs: leaving the empty name flags it.
+  await expect(async () => {
+    await name.focus();
+    await page.locator("#lf-businessName").focus();
+    await expect(name).toHaveAttribute("aria-invalid", "true", { timeout: 500 });
+  }).toPass();
+  const email = page.locator("#lf-email");
+  const phone = page.locator("#lf-phone");
+  const message = page.locator("#lf-contact-msg");
+  // Leaving the email empty for the phone: nothing is marked yet, and the hint stays.
+  await email.focus();
+  await page.keyboard.press("Tab");
+  await expect(phone).toBeFocused();
+  await expect(phone).not.toHaveAttribute("aria-invalid", "true");
+  await expect(email).not.toHaveAttribute("aria-invalid", "true");
+  await expect(message).toHaveText("Достатъчно е едно от двете.");
+  // Leaving the phone empty too: now the pair is missing.
+  await page.keyboard.press("Tab");
+  await expect(email).toHaveAttribute("aria-invalid", "true");
+  await expect(phone).toHaveAttribute("aria-invalid", "true");
+  await expect(message).toContainText("Посочете имейл или телефон");
+});
+
 test("an unsafe or malformed profile address is refused", async ({ page }) => {
   await page.goto("/kontakti");
   await fillLead(page, {

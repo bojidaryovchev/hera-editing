@@ -1,0 +1,110 @@
+- link "Към основното съдържание":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - navigation "Основна навигация":
+    - link "Услуга":
+      - /url: /upravlenie-na-sotsialni-mrezhi
+    - link "Как работим":
+      - /url: /#kak-rabotim
+    - link "Пакети":
+      - /url: /paketi
+    - link "Проекти":
+      - /url: /rabota
+    - link "За нас":
+      - /url: /za-nas
+    - link "Контакти":
+      - /url: /kontakti
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Frabota%2Ftestova-pekarna
+- main:
+  - navigation "Навигационна пътека":
+    - list:
+      - listitem:
+        - link "Начало":
+          - /url: /
+      - listitem:
+        - link "Проекти":
+          - /url: /rabota
+      - listitem: Тестова пекарна (фиктивни данни)
+  - paragraph: Пекарна
+  - heading "Тестова пекарна (фиктивни данни)" [level=1]
+  - paragraph: "Фиктивен проект за автоматизирани тестове: месечни видеа за витрината и процеса."
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Frabota%2Ftestova-pekarna
+  - link "Всички проекти":
+    - /url: /rabota
+  - paragraph: Тестови данни – фиктивен проект
+  - region "Ситуацията":
+    - heading "Ситуацията" [level=2]
+    - paragraph: Фиктивна ситуация за тестове на шаблона.
+    - paragraph: Публикувано с разрешение на клиента Тестови данни. Не е реален клиент.
+    - heading "Целите" [level=3]
+    - list:
+      - listitem: Фиктивна цел за тестове.
+    - heading "Какво поехме" [level=3]
+    - list:
+      - listitem: Фиктивен обхват за тестове.
+    - heading "Формати" [level=3]
+    - list:
+      - listitem: Как се прави
+      - listitem: Зад кадър
+  - region "Нека създадем план за Вашия бизнес.":
+    - heading "Нека създадем план за Вашия бизнес." [level=2]
+    - paragraph: Разкажете ни къде работите и какво искате да постигнете. Ще предложим обхват и индивидуална цена.
+    - link "Поискайте оферта":
+      - /url: /kontakti?from=%2Frabota%2Ftestova-pekarna
+- contentinfo:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - paragraph: Съдържание и управление на социални мрежи за бизнеса.
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Frabota%2Ftestova-pekarna
+  - navigation "Карта на сайта":
+    - heading "Услуги" [level=2]
+    - list:
+      - listitem:
+        - link "Управление на социални мрежи":
+          - /url: /upravlenie-na-sotsialni-mrezhi
+      - listitem:
+        - link "Видеосъдържание за бизнеса":
+          - /url: /video-sadarzhanie-za-biznes
+      - listitem:
+        - link "Пакети":
+          - /url: /paketi
+    - heading "Агенцията" [level=2]
+    - list:
+      - listitem:
+        - link "Как работим":
+          - /url: /#kak-rabotim
+      - listitem:
+        - link "Проекти":
+          - /url: /rabota
+      - listitem:
+        - link "За нас":
+          - /url: /za-nas
+      - listitem:
+        - link "Контакти":
+          - /url: /kontakti
+    - heading "Правна информация" [level=2]
+    - list:
+      - listitem:
+        - link "Политика за поверителност":
+          - /url: /poveritelnost
+      - listitem:
+        - link "Бисквитки":
+          - /url: /biskvitki
+      - listitem:
+        - link "Настройки за бисквитки":
+          - /url: /biskvitki
+    - heading "Контакт" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "Предстои: телефон и имейл за контакт"
+  - text: © 2026 Hera Editing
+  - 'link "English: video editing for creators and filmmakers"':
+    - /url: /en
+- alert

@@ -1,0 +1,229 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fyoutube-editing
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: YouTube editing
+  - paragraph: For story, documentary and faceless channels
+  - heading "YouTube video editor for story and documentary channels" [level=1]
+  - paragraph: "Send your script, your voice-over and your footage, or tell us which stock to use, and we build the story: pacing, B-roll, motion text, sound design, music and colour, so viewers stay to the end."
+  - link "Order a YouTube edit":
+    - /url: /en/order?package=youtube-story&from=%2Fen%2Fyoutube-editing
+  - link "See every price":
+    - /url: /en/pricing
+  - region "YouTube packages":
+    - heading "YouTube packages" [level=2]
+    - list:
+      - listitem:
+        - link "Story edit":
+          - /url: "#youtube-story"
+        - text: 5 business days $520
+      - listitem:
+        - link "Talk edit":
+          - /url: "#youtube-talk"
+        - text: 3 business days $280
+      - listitem:
+        - link "YouTube monthly":
+          - /url: "#youtube-monthly"
+        - text: 3 business days $1,190 a month
+    - paragraph: Turnaround in business days, from your start date.
+  - region "What you get":
+    - heading "What you get" [level=2]
+    - list:
+      - listitem: An edit built from your script and timed to your voice-over
+      - listitem: B-roll, maps, motion text and sound design where the story needs them
+      - listitem: Licensed music and sound effects, from your library or royalty-free
+      - listitem: An SRT caption file
+      - listitem: Two revision rounds, with time-coded comments on a review link
+    - heading "What we need from you" [level=3]
+    - list:
+      - listitem: Your script and the voice-over file
+      - listitem: A link to your footage, or the stock library to use
+      - listitem: 2–3 videos whose style you like, with timestamps
+      - listitem: Your channel link
+      - listitem: Whether AI-generated visuals are allowed
+  - region "YouTube packages":
+    - heading "YouTube packages" [level=2]
+    - paragraph: The Story edit is for scripted and documentary videos; the Talk edit and the monthly plan are for talking-head channels.
+    - list:
+      - listitem:
+        - heading "Story edit" [level=3]
+        - paragraph: A vlog, documentary or scripted video.
+        - paragraph: $520
+        - term: Footage
+        - definition: Up to 3 h of raw footage
+        - term: Length
+        - definition: Up to 12 min finished
+        - term: Turnaround
+        - definition: 5 business days
+        - term: Revisions
+        - definition: 2 rounds
+        - paragraph: What's included
+        - list:
+          - listitem: Structure from your script or notes
+          - listitem: B-roll, motion text and sound design
+          - listitem: A colour grade
+          - listitem: An SRT caption file
+        - 'link "Order : Story edit"':
+          - /url: /en/order?package=youtube-story&from=%2Fen%2Fyoutube-editing
+      - listitem:
+        - heading "Talk edit" [level=3]
+        - paragraph: A talking-head, commentary or tutorial video.
+        - paragraph: $280
+        - term: Footage
+        - definition: Up to 60 min of raw footage
+        - term: Length
+        - definition: Up to 15 min finished
+        - term: Turnaround
+        - definition: 3 business days
+        - term: Revisions
+        - definition: 2 rounds
+        - paragraph: What's included
+        - list:
+          - listitem: "A transcript-based rough cut: retakes and silences out"
+          - listitem: Pacing and punch-ins
+          - listitem: Simple text and graphics
+          - listitem: Up to 10 B-roll inserts, yours or licensed stock
+          - listitem: Music, sound effects, audio clean-up and basic colour
+          - listitem: An SRT caption file
+        - 'link "Order : Talk edit"':
+          - /url: /en/order?package=youtube-talk&from=%2Fen%2Fyoutube-editing
+      - listitem:
+        - heading "YouTube monthly" [level=3]
+        - paragraph: Four Talk edits and eight Shorts every month.
+        - paragraph: $1,190 a month
+        - term: Footage
+        - definition: Each video as in the Talk edit
+        - term: Turnaround
+        - definition: 3 business days per video
+        - term: Revisions
+        - definition: 2 rounds per video; 1 per batch of Shorts
+        - paragraph: What's included
+        - list:
+          - listitem: 4 Talk edits
+          - listitem: 8 Shorts cut from them, in 9:16 with captions
+        - 'link "Order : YouTube monthly"':
+          - /url: /en/order?package=youtube-monthly&from=%2Fen%2Fyoutube-editing
+  - region "How we work on YouTube videos":
+    - heading "How we work on YouTube videos" [level=2]
+    - list:
+      - listitem:
+        - heading "Your script, our cut" [level=3]
+        - paragraph: You write the script and record the voice-over; we edit. We don't write scripts.
+      - listitem:
+        - heading "Footage and stock" [level=3]
+        - paragraph: B-roll comes from your footage or from licensed stock libraries. Tell us if your channel uses a specific one.
+      - listitem:
+        - heading "Your channel's rules on AI" [level=3]
+        - paragraph: AI tools help with transcripts and rough cuts; every creative choice is the editor's. If your channel doesn't allow AI-generated visuals, we don't use them.
+      - listitem:
+        - heading "Longer videos" [level=3]
+        - paragraph: A Story edit is up to 12 finished minutes from up to 3 hours of footage. Extra finished minutes are $40 each; more footage is a custom quote.
+  - region "YouTube samples":
+    - heading "YouTube samples" [level=2]
+    - list:
+      - listitem:
+        - paragraph: Client work YouTube channels
+        - paragraph: "Test data: a fictional sample"
+        - heading "Test documentary edit (fictional data)" [level=3]
+        - paragraph: A fictional client sample for automated tests. Not a real client.
+        - term: Footage
+        - definition: Fictional test footage; Test data only
+        - term: Music
+        - definition: Test data only
+        - term: Permissions
+        - definition: Test data only
+        - 'link "Watch on YouTube : Test documentary edit (fictional data) (opens in a new tab)"':
+          - /url: https://www.youtube.com/watch?v=FIXTURE0001
+  - region "Questions and answers":
+    - heading "Questions and answers" [level=2]
+    - group: Do you write the script?
+    - group: Can you find the B-roll?
+    - group: Do you make thumbnails?
+    - group: What if my video is longer than 12 minutes?
+    - group: Can you avoid AI-generated visuals?
+    - group: Do we need a call?
+  - region "Have a script ready?":
+    - heading "Have a script ready?" [level=2]
+    - paragraph: Send it with your footage or stock notes. We reply in writing within 1 business day with the exact price and your start date.
+    - link "Order an edit":
+      - /url: /en/order?package=youtube-story&from=%2Fen%2Fyoutube-editing
+    - link "How it works":
+      - /url: /en/how-it-works
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fyoutube-editing
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

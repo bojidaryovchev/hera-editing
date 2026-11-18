@@ -1,0 +1,163 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fhow-it-works
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: How it works
+  - paragraph: How it works
+  - heading "Everything in writing, from the brief to the final files" [level=1]
+  - paragraph: "Briefs come through a form, feedback as time-coded comments on a review link, and every message is short and specific. No calls, no surprises: the price, the start date and the delivery date are in writing before we begin."
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fhow-it-works
+  - region "Four steps":
+    - heading "Four steps" [level=2]
+    - list:
+      - listitem:
+        - heading "Brief" [level=3]
+        - term: You
+        - definition: "Fill in the order form: the package, your footage link, references with timestamps and anything that must or must not appear."
+        - term: We
+        - definition: Reply in writing within 1 business day with the exact price and your start date.
+      - listitem:
+        - heading "Upload" [level=3]
+        - term: You
+        - definition: Share your footage by link and pay our invoice by bank transfer.
+        - term: We
+        - definition: Start on the confirmed date. The delivery clock starts then, once your footage, brief and payment are in.
+      - listitem:
+        - heading "Review link" [level=3]
+        - term: You
+        - definition: "Watch the cut and leave time-coded comments on the video: one consolidated list per round."
+        - term: We
+        - definition: Make the changes and send the next cut, with a short list of what changed.
+      - listitem:
+        - heading "Delivery" [level=3]
+        - term: You
+        - definition: Approve the final cut.
+        - term: We
+        - definition: Deliver the final files in the formats your package lists, within its business days.
+  - region "The delivery clock":
+    - heading "The delivery clock" [level=2]
+    - paragraph: Every package states its turnaround in business days. This is how we count them.
+    - list:
+      - listitem:
+        - heading "Business days" [level=3]
+        - paragraph: Monday to Friday, excluding Bulgarian public holidays.
+      - listitem:
+        - heading "When it starts" [level=3]
+        - paragraph: On the start date we confirm, once your footage, your complete brief and your payment are in.
+      - listitem:
+        - heading "When it pauses" [level=3]
+        - paragraph: While we wait for your answers, files or feedback.
+      - listitem:
+        - heading "Rush" [level=3]
+        - paragraph: Only by written agreement, and only when a slot is free.
+  - region "Time zones":
+    - heading "Time zones" [level=2]
+    - paragraph: "We work from Bulgaria, on Eastern European Time: 2 hours ahead of London and, for most of the year, 7 hours ahead of New York. Our working day starts while it is still night in the US."
+    - img "A day in Bulgaria beside the same hours in London and New York":
+      - text: Bulgaria 09:00 17:00 London 07:00 15:00 New York 02:00 10:00
+      - paragraph: Our working day
+  - region "AI-assisted, human-edited":
+    - heading "AI-assisted, human-edited" [level=2]
+    - paragraph: "AI tools do the first pass: transcripts, rough cuts, caption drafts and candidate moments. The editor makes every choice. Tell us if you don't want AI-generated visuals, voices or music, and we won't use them."
+  - region "Questions and answers":
+    - heading "Questions and answers" [level=2]
+    - group: Do we need a call?
+    - group: How do I send my footage?
+    - group: How long does an edit take?
+    - group: Can you deliver faster?
+    - group: How do revisions work?
+    - group: What do I get back?
+    - group: How do I pay?
+    - group: Do your prices include VAT?
+    - group: Can businesses in the EU order?
+    - group: What if I cancel?
+    - group: Where are you, and when do you work?
+    - group: Who supplies the music?
+    - group: Do you use AI?
+    - group: Who owns the finished edit?
+    - group: What if my job doesn't fit a package?
+    - group: Is there a discount for new clients?
+  - region "Start with the brief.":
+    - heading "Start with the brief." [level=2]
+    - paragraph: Choose a package and tell us about the footage. We reply in writing within 1 business day.
+    - link "Order an edit":
+      - /url: /en/order?from=%2Fen%2Fhow-it-works
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fhow-it-works
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

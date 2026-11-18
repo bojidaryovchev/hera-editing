@@ -1,0 +1,287 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fterms
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Terms
+  - heading "Terms of Service" [level=1]
+  - paragraph: "Version 0.1 · 18 November 2026 Draft: awaiting the business owner's sign-off. To come: the company's details, once it is registered."
+  - paragraph:
+    - text: These terms apply to video editing services ordered from
+    - strong: Hera Editing
+    - text: (company details to follow on registration;
+    - link "contact@hera-editing.com":
+      - /url: mailto:contact@hera-editing.com
+    - text: ) through
+    - link "hera-editing.com/en":
+      - /url: /en
+    - text: or by email. They are part of every order. By placing an order you accept them.
+  - region "1. Business clients only":
+    - heading "1. Business clients only" [level=2]
+    - paragraph: "We work with businesses and professionals: creators, filmmakers, photographers, studios, agencies and companies that order for their business. We do not contract with consumers."
+    - paragraph: When you order, you confirm that you are ordering for business purposes. We may ask for proof, such as your business name, a registration or VAT number, or your channel or company website.
+  - region "2. How an order is made":
+    - heading "2. How an order is made" [level=2]
+    - list:
+      - listitem:
+        - strong: You send the brief
+        - text: through the order form, with links to your footage and materials.
+      - listitem:
+        - strong: We confirm in writing.
+        - text: The confirmation states the deliverables, the footage and length limits, the revision rounds, the price, the start date and the delivery time. A custom quote stays valid for 14 days.
+      - listitem:
+        - strong: The contract starts
+        - text: when you accept the confirmation and we receive the payment, or the deposit for a custom quote.
+  - region "3. Packages, limits and changes":
+    - heading "3. Packages, limits and changes" [level=2]
+    - paragraph:
+      - strong: What a package includes.
+      - text: "Each package is as described on the pricing page on the day you order:"
+    - list:
+      - listitem: the deliverables;
+      - listitem: the maximum raw footage and finished length;
+      - listitem: the included revision rounds;
+      - listitem: the delivery time.
+    - paragraph:
+      - strong: Anything more
+      - text: is charged at the add-on prices on the pricing page, or quoted separately. That covers more footage or length, extra versions, extra rounds, rush delivery, or work outside the package. We tell you before doing any paid extra.
+  - region "4. Delivery times":
+    - heading "4. Delivery times" [level=2]
+    - paragraph:
+      - strong: How they are counted.
+      - text: "Delivery times are in business days: Monday to Friday, excluding Bulgarian public holidays."
+    - paragraph:
+      - strong: When the clock starts.
+      - text: "All three of these must be done, and your job must have reached the front of our queue, which is the start date we confirmed:"
+    - list:
+      - listitem: your footage and materials have arrived;
+      - listitem: the brief is complete;
+      - listitem: the payment has been received.
+    - paragraph:
+      - strong: When the clock pauses.
+      - text: It pauses while we wait for your answers, files or feedback. Rush delivery is available only by written agreement, and only when a slot is free.
+  - region "5. Revisions and acceptance":
+    - heading "5. Revisions and acceptance" [level=2]
+    - paragraph:
+      - strong: What a revision round is.
+      - text: One consolidated list of time-coded notes, sent through the review link. Each package states how many rounds it includes. Extra rounds are charged at the add-on price.
+    - paragraph:
+      - strong: Changes that are new work.
+      - text: "These are not revisions, and we quote them separately:"
+    - list:
+      - listitem: a new direction after you have approved a cut;
+      - listitem: new footage;
+      - listitem: a different structure from the agreed brief.
+    - paragraph:
+      - strong: Acceptance.
+      - text: A delivery counts as accepted when you approve it. If you send no revision notes within 7 days of a delivery, it also counts as accepted.
+  - region "6. Prices and payment":
+    - heading "6. Prices and payment" [level=2]
+    - paragraph:
+      - strong: Prices.
+      - text: In US dollars unless the confirmation says otherwise, and excluding VAT. We add VAT only where the law requires it.
+    - paragraph:
+      - strong: "When you pay:"
+    - list:
+      - listitem:
+        - strong: "Packages:"
+        - text: in full, in advance.
+      - listitem:
+        - strong: "Custom quotes for new clients:"
+        - text: 50% before we start, and the balance before we deliver the final files. You review a watermarked preview first.
+    - paragraph:
+      - strong: How you pay.
+      - text: By bank transfer, against our invoice. You pay your own bank's sending fees.
+    - paragraph:
+      - strong: If a payment is late,
+      - text: we pause the work, and the delivery date moves by the length of the delay.
+  - region "7. The founding offer":
+    - heading "7. The founding offer" [level=2]
+    - paragraph: Our first 10 clients, or all clients until 31 March 2027 (whichever comes first), get 30% off their first order. The discount does not depend on a review, a testimonial or anything else.
+  - region "8. Cancellation and refunds":
+    - heading "8. Cancellation and refunds" [level=2]
+    - table:
+      - rowgroup:
+        - row "When the order is cancelled What happens":
+          - columnheader "When the order is cancelled"
+          - columnheader "What happens"
+      - rowgroup:
+        - row "By you, before the start date A full refund, less bank fees":
+          - rowheader "By you, before the start date"
+          - cell "A full refund, less bank fees"
+        - 'row "By you, after work has started We charge for the work done: 50% of the price until the first cut is delivered, and 100% after it. We refund the rest"':
+          - rowheader "By you, after work has started"
+          - 'cell "We charge for the work done: 50% of the price until the first cut is delivered, and 100% after it. We refund the rest"'
+        - row "By us, because we cannot deliver A full refund":
+          - rowheader "By us, because we cannot deliver"
+          - cell "A full refund"
+  - region "9. Your materials":
+    - heading "9. Your materials" [level=2]
+    - paragraph:
+      - strong: What you confirm.
+      - text: "That you own, or have the right to use, everything you send us:"
+    - list:
+      - listitem: footage, audio and music;
+      - listitem: logos, fonts and graphics;
+      - listitem: the consent of the people who appear in your footage.
+    - paragraph: You are responsible for any claim that arises from those materials.
+    - paragraph:
+      - strong: Music.
+      - text: We use only music you send with its licence, or music from a royalty-free library whose licence covers your use. We do not sell music licences. Copyright claims on platforms over material you supplied are your responsibility.
+  - region "10. Rights in the finished edits":
+    - heading "10. Rights in the finished edits" [level=2]
+    - paragraph:
+      - strong: After you have paid in full,
+      - text: we grant you the exclusive, worldwide right to use the final deliverables for the full term of copyright. That covers reproducing, editing, distributing, publishing and advertising with them, in any media, with the right to pass these rights on.
+    - paragraph:
+      - strong: For clients in the United States,
+      - text: the final deliverables are, as far as the law allows, works made for hire as part of an audiovisual work. Where that does not apply, we assign the rights to you. Where assignment is not possible, the licence above applies.
+    - paragraph:
+      - strong: Before full payment,
+      - text: no rights pass, and previews may carry a watermark.
+    - paragraph:
+      - strong: What we keep.
+      - text: Our own templates, presets and tools stay ours. You receive a non-exclusive right to use them as part of the deliverable.
+    - paragraph:
+      - strong: Credit.
+      - text: Under Bulgarian law, the editor's right to be named as author cannot be given up. We will not ask for credit, and we will not object if you publish without it.
+    - paragraph:
+      - strong: Our portfolio.
+      - text: We show your work only if you allow it in writing, and never work you mark as confidential.
+  - region "11. Raw footage and project files":
+    - heading "11. Raw footage and project files" [level=2]
+    - paragraph: Project files and raw footage are not part of the deliverables unless agreed in writing.
+    - paragraph: We keep the final files for 30 days after delivery. We delete your raw footage and project files 30 days after final delivery, unless you ask for longer or earlier deletion.
+  - region "12. AI-assisted tools":
+    - heading "12. AI-assisted tools" [level=2]
+    - paragraph: We use AI-assisted tools for transcription, rough cuts, captions and finding candidate moments. A human editor makes every editing decision.
+    - paragraph: If you tell us not to use AI-generated visuals, voices or music, we don't. We do not use your footage to train AI models, and we switch off training where a tool allows it.
+  - region "13. Confidentiality":
+    - heading "13. Confidentiality" [level=2]
+    - paragraph: We keep your materials and unpublished work confidential. We use them only to do your work, and share them only with the service providers listed in the Data Processing Agreement. We sign a reasonable NDA on request.
+  - region "14. Personal data":
+    - heading "14. Personal data" [level=2]
+    - paragraph: Where your footage or materials contain personal data, we process it on your behalf under our Data Processing Agreement, which forms part of these terms.
+    - paragraph:
+      - text: "Our privacy notice explains how we handle the data you give us when you order:"
+      - link "hera-editing.com/en/privacy":
+        - /url: /en/privacy
+      - text: .
+    - complementary "Data Processing Agreement":
+      - heading "Data Processing Agreement" [level=3]
+      - paragraph:
+        - text: The Data Processing Agreement these terms refer to is available on request. Write to
+        - link "contact@hera-editing.com":
+          - /url: mailto:contact@hera-editing.com?subject=Data%20Processing%20Agreement
+        - text: .
+  - region "15. Liability":
+    - heading "15. Liability" [level=2]
+    - paragraph:
+      - strong: The limit.
+      - text: Our total liability for an order is limited to the price paid for that order.
+    - paragraph:
+      - strong: "What we are not liable for:"
+    - list:
+      - listitem: indirect or consequential loss, or lost profits or revenue;
+      - listitem: platform decisions, such as removal, demonetisation or claims, about material you supplied;
+      - listitem: delays you cause.
+    - paragraph:
+      - strong: What is never limited.
+      - text: Nothing in these terms limits liability for intent or gross negligence (Bulgarian Obligations and Contracts Act, art. 94).
+  - region "16. Events outside our control":
+    - heading "16. Events outside our control" [level=2]
+    - paragraph: Neither side is responsible for delays caused by events outside its reasonable control, such as outages, illness or disasters. The affected side tells the other promptly. Delivery dates then move by the length of the event.
+  - region "17. Communication":
+    - heading "17. Communication" [level=2]
+    - paragraph: We work in writing, in English, by email and through review links. We do not hold calls. Written confirmations, including email, are binding.
+  - region "18. Changes to these terms":
+    - heading "18. Changes to these terms" [level=2]
+    - paragraph: The version published on the day of your order applies to that order.
+  - region "19. Law and disputes":
+    - heading "19. Law and disputes" [level=2]
+    - paragraph: These terms are governed by Bulgarian law. Disputes go to the competent court in the city of our registered office, Bulgaria, unless the law requires otherwise. We will always try to settle a disagreement in writing first.
+  - region "20. Contact":
+    - heading "20. Contact" [level=2]
+    - paragraph:
+      - link "contact@hera-editing.com":
+        - /url: mailto:contact@hera-editing.com
+  - paragraph:
+    - link "Privacy notice":
+      - /url: /en/privacy
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fterms
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

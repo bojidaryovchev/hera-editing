@@ -1,0 +1,118 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fcookies
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Cookies
+  - heading "Cookies and settings" [level=1]
+  - paragraph: What the site stores in your browser, and your choice, which you can change at any time. The order form works whatever you choose.
+  - paragraph: Draft. A lawyer still has to review this text.
+  - region "Necessary":
+    - heading "Necessary" [level=2]
+    - text: Always on
+    - paragraph: Needed for the site to work, for example to remember your cookie choice. They can't be switched off.
+  - region "Analytics":
+    - heading "Analytics" [level=2]
+    - switch "Analytics cookies"
+    - emphasis: "Off"
+    - paragraph: Help us see which pages are visited, without any data from the order form. Only with your consent.
+  - button "Only necessary"
+  - button "Accept all"
+  - button "Save my choice"
+  - status
+  - region "What we store":
+    - heading "What we store" [level=2]
+    - table:
+      - rowgroup:
+        - row "Name What it is for How long":
+          - columnheader "Name"
+          - columnheader "What it is for"
+          - columnheader "How long"
+      - rowgroup:
+        - row "hera_consent Remembers your cookie choice. 6 months":
+          - cell "hera_consent":
+            - code: hera_consent
+          - cell "Remembers your cookie choice."
+          - cell "6 months"
+        - 'row "_ga, _ga_* Google Analytics: tells visits apart, without data from the order form. 13 months"':
+          - cell "_ga, _ga_*":
+            - code: _ga, _ga_*
+          - 'cell "Google Analytics: tells visits apart, without data from the order form."'
+          - cell "13 months"
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fcookies
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

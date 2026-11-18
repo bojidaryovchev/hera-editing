@@ -110,6 +110,15 @@ a {
 .paper :focus-visible {
   outline-color: var(--color-focus);
 }
+/* A date field's calendar button sits inside the field, which then matches neither :focus nor :focus-visible, only
+   :focus-within. Ring the field itself (found in the keyboard pass, qa/record-2026-11-19). */
+input[type="date"]:focus-within {
+  outline: 2px solid var(--lime);
+  outline-offset: 3px;
+}
+.paper input[type="date"]:focus-within {
+  outline-color: var(--color-focus);
+}
 /* Content column: side gutters, never wider than --max, centred. Percentages, not vw, so a scrollbar never adds width.
    Only on full-width boxes: the percentage is of the containing block, so on a narrower or absolutely positioned box
    the centring term eats its content on wide screens (the hero card, the 404 page). */

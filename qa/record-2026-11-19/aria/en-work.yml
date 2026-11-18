@@ -1,0 +1,128 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fwork
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Work samples
+  - heading "Work samples" [level=1]
+  - paragraph: Edits by niche. Each sample says where its footage and music come from; a demo edit is our own edit of footage we have the right to use, not client work.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fwork
+  - region "Wedding samples":
+    - heading "Wedding samples" [level=2]
+    - link "Order a wedding edit":
+      - /url: /en/order?package=wedding-highlight&from=%2Fen%2Fwork
+    - list:
+      - listitem:
+        - paragraph: Demo edit Wedding filmmakers
+        - paragraph: "Test data: a fictional sample"
+        - heading "Test wedding highlight (fictional data)" [level=3]
+        - paragraph: A fictional sample for automated tests. Not a real edit.
+        - term: Footage
+        - definition: Fictional test footage; Test data only
+        - term: Music
+        - definition: Test data only
+        - term: Permissions
+        - definition: Test data only
+        - 'link "Watch on Vimeo : Test wedding highlight (fictional data) (opens in a new tab)"':
+          - /url: https://vimeo.com/000000001
+  - region "YouTube samples":
+    - heading "YouTube samples" [level=2]
+    - link "Order a YouTube edit":
+      - /url: /en/order?package=youtube-story&from=%2Fen%2Fwork
+    - list:
+      - listitem:
+        - paragraph: Client work YouTube channels
+        - paragraph: "Test data: a fictional sample"
+        - heading "Test documentary edit (fictional data)" [level=3]
+        - paragraph: A fictional client sample for automated tests. Not a real client.
+        - term: Footage
+        - definition: Fictional test footage; Test data only
+        - term: Music
+        - definition: Test data only
+        - term: Permissions
+        - definition: Test data only
+        - 'link "Watch on YouTube : Test documentary edit (fictional data) (opens in a new tab)"':
+          - /url: https://www.youtube.com/watch?v=FIXTURE0001
+  - region "Like what you see?":
+    - heading "Like what you see?" [level=2]
+    - paragraph: Send your brief. We reply in writing within 1 business day with the exact price and your start date.
+    - link "Order an edit":
+      - /url: /en/order?from=%2Fen%2Fwork
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fwork
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

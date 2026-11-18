@@ -110,7 +110,8 @@
 .lf__input:hover {
   border-color: #a3a29a;
 }
-.lf__input:focus-visible {
+.lf__input:focus-visible,
+.lf__input[type="date"]:focus-within {
   border-color: var(--ink);
 }
 .lf__input[aria-invalid="true"] {

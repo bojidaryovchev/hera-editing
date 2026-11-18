@@ -19,6 +19,7 @@
     "test:unit": "vitest run --project unit",
     "test:integration": "vitest run --project integration",
     "test:e2e": "playwright test",
+    "qa:keyboard": "playwright test --config qa/playwright.config.ts",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx scripts/db-migrate.ts",
     "leads:export": "tsx scripts/leads-export.ts",

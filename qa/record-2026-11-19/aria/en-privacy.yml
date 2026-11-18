@@ -1,0 +1,125 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fprivacy
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Privacy
+  - heading "Privacy notice" [level=1]
+  - paragraph: "Version: en-draft-2026-11-18b Draft. This text is awaiting approval."
+  - region "Who is responsible for your data":
+    - heading "Who is responsible for your data" [level=2]
+    - paragraph: "To come: The controller's name, company number, address and contact, once the company is registered."
+  - region "What the order form collects":
+    - heading "What the order form collects" [level=2]
+    - paragraph: "Your name, your business name, your email address, your country, a VAT or company number if you give one, your confirmation that you are ordering for a business, the package you chose, and your brief: links to your footage and files, a deadline, reference videos, your choices on music and AI-generated visuals, and notes on what must or must not appear. Depending on the package, the brief also asks for the couple's names, a listing address or a channel link. We also record the page you ordered from and any campaign parameters in its address. We collect no payment details and no file uploads: your footage stays wherever you shared it from."
+  - region "What we use it for":
+    - heading "What we use it for" [level=2]
+    - paragraph: To reply in writing with the exact price and your start date, to do and deliver the work you order, and to invoice it. We don't use your order for advertising.
+  - region "Your footage":
+    - heading "Your footage" [level=2]
+    - paragraph: When we edit footage that shows people, we process it on your behalf under the Data Processing Agreement that forms part of our terms of service. It is available on request.
+  - region "Legal basis":
+    - heading "Legal basis" [level=2]
+    - paragraph: We use your order details to take the steps you ask for before a contract and to perform it (Article 6(1)(b) of the General Data Protection Regulation). As you order for a business, we also rely on our legitimate interest in answering business enquiries (Article 6(1)(f)). The pseudonymous abuse-protection identifier rests on our legitimate interest in protecting the form from automated requests (Article 6(1)(f)). Invoicing records are kept because the law requires it (Article 6(1)(c)).
+    - paragraph: "To come: This legal basis is a proposal awaiting approval."
+  - region "How long we keep it":
+    - heading "How long we keep it" [level=2]
+    - paragraph: Orders that don't lead to a contract, and the correspondence about them, are kept for 12 months from the last contact and then deleted. If we work together, we keep your details for the length of the contract and afterwards for as long as tax and accounting law requires.
+    - paragraph: "To come: The 12-month period is a proposal awaiting approval. Until then, orders are not deleted automatically."
+  - region "Who processes it for us":
+    - heading "Who processes it for us" [level=2]
+    - paragraph: Vercel hosts the site, and its functions run in Frankfurt, Germany. Neon runs the database where orders are stored, also in Frankfurt. Resend, in its EU region, sends us the email that tells us about a new order, and the replies we send you from our mailbox. When the form is protected by Cloudflare Turnstile, Cloudflare processes technical data from your browser to tell people from automated programs. When any of these providers processes data outside the EU, for example for support or, in Resend's case, account processing in the United States, the transfer relies on the European Commission's standard contractual clauses in their data processing terms. Resend is also certified under the EU-U.S. Data Privacy Framework.
+  - region "Email we exchange":
+    - heading "Email we exchange" [level=2]
+    - paragraph: When you write to contact@hera-editing.com, or we write to you about an order, the messages are stored in the site's database (Neon, Frankfurt) so that we can answer from one inbox. Resend carries them. We keep them as long as the order they belong to.
+  - region "Protection against abuse":
+    - heading "Protection against abuse" [level=2]
+    - paragraph: To limit automated requests, we keep a pseudonymous identifier calculated from your IP address for a short time. The IP address itself is not stored.
+  - region "Your rights":
+    - heading "Your rights" [level=2]
+    - paragraph: You have the right to access your data, to have it corrected or erased, to restrict its processing, to receive it in a portable form, and to object to processing based on legitimate interest (Articles 15–21 of the General Data Protection Regulation). You can complain to the Bulgarian data protection authority, the Commission for Personal Data Protection (www.cpdp.bg), or to the authority where you live or work in the EU. To use your rights, write to the privacy contact below.
+  - region "Privacy questions":
+    - heading "Privacy questions" [level=2]
+    - paragraph: "To come: An email or postal address for privacy requests."
+  - paragraph:
+    - link "Cookies and settings":
+      - /url: /en/cookies
+    - link "Terms of service":
+      - /url: /en/terms
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fprivacy
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

@@ -1,0 +1,635 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fpricing
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Pricing
+  - paragraph: Pricing
+  - heading "Fixed prices for remote video editing" [level=1]
+  - paragraph: Every package states what it includes, how much footage it is cut from, its turnaround in business days and its revision rounds. In US dollars, excluding VAT, for business clients.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fpricing
+  - region "How our prices work":
+    - heading "How our prices work" [level=2]
+    - term: Currency
+    - definition: US dollars, excluding VAT
+    - term: Clients
+    - definition: Businesses only
+    - term: Payment
+    - definition: Bank transfer, in advance
+    - term: Turnaround
+    - definition: Business days from your start date
+  - region "Packages":
+    - heading "Packages" [level=2]
+    - paragraph: Grouped by who they are for. Each package links to the order form with the package chosen.
+    - navigation "Packages":
+      - list:
+        - listitem:
+          - link "Wedding filmmakers":
+            - /url: "#group-wedding"
+        - listitem:
+          - link "YouTube channels":
+            - /url: "#group-youtube"
+        - listitem:
+          - link "Real-estate photographers":
+            - /url: "#group-real-estate"
+        - listitem:
+          - link "Podcasters":
+            - /url: "#group-podcast"
+        - listitem:
+          - link "Streamers":
+            - /url: "#group-streamer"
+        - listitem:
+          - link "Brands and agencies":
+            - /url: "#group-ads"
+        - listitem:
+          - link "Agencies":
+            - /url: "#group-white-label"
+    - region "Wedding filmmakers":
+      - heading "Wedding filmmakers" [level=3]
+      - paragraph: Highlights, full films and teasers from your footage, cut in your style.
+      - link "Wedding editing":
+        - /url: /en/wedding-editing
+      - list:
+        - listitem:
+          - heading "Full film" [level=4]
+          - paragraph: A documentary edit of the wedding day.
+          - paragraph: $390
+          - term: Length
+          - definition: Up to 60 min finished
+          - term: Turnaround
+          - definition: 7 business days
+          - term: Revisions
+          - definition: 2 rounds
+          - paragraph: What's included
+          - list:
+            - listitem: The ceremony, the speeches and the first dance
+            - listitem: Multicam sync and an audio mix
+            - listitem: Light colour and titles
+          - 'link "Order : Full film"':
+            - /url: /en/order?package=wedding-full-film&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Highlight from selects" [level=4]
+          - paragraph: A highlight film cut from the clips you selected.
+          - paragraph: $380
+          - term: Footage
+          - definition: Up to 90 min of your selected clips, plus the vows and speech audio
+          - term: Length
+          - definition: 4–6 min finished
+          - term: Turnaround
+          - definition: 7 business days
+          - term: Revisions
+          - definition: 2 rounds
+          - paragraph: What's included
+          - list:
+            - listitem: A story built around the vows and speeches
+            - listitem: Cut to your licensed music
+            - listitem: "Colour grade: your LUT or ours"
+            - listitem: Sound design
+          - 'link "Order : Highlight from selects"':
+            - /url: /en/order?package=wedding-highlight&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Teaser" [level=4]
+          - paragraph: A short teaser for social media.
+          - paragraph: $160
+          - term: Length
+          - definition: 60–90 s finished
+          - term: Turnaround
+          - definition: 4 business days
+          - term: Revisions
+          - definition: 2 rounds
+          - paragraph: What's included
+          - list:
+            - listitem: The best moments, cut to your music
+            - listitem: 16:9 and 9:16 versions
+          - 'link "Order : Teaser"':
+            - /url: /en/order?package=wedding-teaser&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Trio" [level=4]
+          - paragraph: The highlight from selects, the full film and the teaser.
+          - paragraph: $860
+          - term: Length
+          - definition: Each film as in its own package
+          - term: Turnaround
+          - definition: 10 business days
+          - term: Revisions
+          - definition: 2 rounds per film
+          - paragraph: What's included
+          - list:
+            - listitem: Highlight from selects
+            - listitem: Full film
+            - listitem: Teaser
+          - 'link "Order : Trio"':
+            - /url: /en/order?package=wedding-trio&from=%2Fen%2Fpricing
+      - heading "Extras" [level=4]
+      - list:
+        - listitem: "A highlight from your full, unculled footage: a custom quote, from $550"
+        - listitem: "An extra version of a reel: $40"
+        - listitem: "A drone-only edit: $60"
+    - region "YouTube channels":
+      - heading "YouTube channels" [level=3]
+      - paragraph: Story, documentary and talking-head videos, built from your script or notes.
+      - link "YouTube editing":
+        - /url: /en/youtube-editing
+      - list:
+        - listitem:
+          - heading "Story edit" [level=4]
+          - paragraph: A vlog, documentary or scripted video.
+          - paragraph: $520
+          - term: Footage
+          - definition: Up to 3 h of raw footage
+          - term: Length
+          - definition: Up to 12 min finished
+          - term: Turnaround
+          - definition: 5 business days
+          - term: Revisions
+          - definition: 2 rounds
+          - paragraph: What's included
+          - list:
+            - listitem: Structure from your script or notes
+            - listitem: B-roll, motion text and sound design
+            - listitem: A colour grade
+            - listitem: An SRT caption file
+          - 'link "Order : Story edit"':
+            - /url: /en/order?package=youtube-story&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Talk edit" [level=4]
+          - paragraph: A talking-head, commentary or tutorial video.
+          - paragraph: $280
+          - term: Footage
+          - definition: Up to 60 min of raw footage
+          - term: Length
+          - definition: Up to 15 min finished
+          - term: Turnaround
+          - definition: 3 business days
+          - term: Revisions
+          - definition: 2 rounds
+          - paragraph: What's included
+          - list:
+            - listitem: "A transcript-based rough cut: retakes and silences out"
+            - listitem: Pacing and punch-ins
+            - listitem: Simple text and graphics
+            - listitem: Up to 10 B-roll inserts, yours or licensed stock
+            - listitem: Music, sound effects, audio clean-up and basic colour
+            - listitem: An SRT caption file
+          - 'link "Order : Talk edit"':
+            - /url: /en/order?package=youtube-talk&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "YouTube monthly" [level=4]
+          - paragraph: Four Talk edits and eight Shorts every month.
+          - paragraph: $1,190 a month
+          - term: Footage
+          - definition: Each video as in the Talk edit
+          - term: Turnaround
+          - definition: 3 business days per video
+          - term: Revisions
+          - definition: 2 rounds per video; 1 per batch of Shorts
+          - paragraph: What's included
+          - list:
+            - listitem: 4 Talk edits
+            - listitem: 8 Shorts cut from them, in 9:16 with captions
+          - 'link "Order : YouTube monthly"':
+            - /url: /en/order?package=youtube-monthly&from=%2Fen%2Fpricing
+    - region "Real-estate photographers":
+      - heading "Real-estate photographers" [level=3]
+      - paragraph: Listing videos and vertical reels from your clips, branded and unbranded.
+      - link "Real-estate editing":
+        - /url: /en/real-estate-editing
+      - list:
+        - listitem:
+          - heading "Listing video" [level=4]
+          - paragraph: A property video and a vertical reel.
+          - paragraph: $120
+          - term: Footage
+          - definition: Up to 150 clips or 20 GB
+          - term: Length
+          - definition: 60–90 s, plus a reel of up to 30 s
+          - term: Turnaround
+          - definition: 2 business days; next business day as a paid rush, only when a slot is free
+          - term: Revisions
+          - definition: 1 round
+          - paragraph: What's included
+          - list:
+            - listitem: A 60–90 s property video in 16:9
+            - listitem: A vertical reel of up to 30 s, with captions
+            - listitem: Stabilisation, colour and music sync
+            - listitem: Agent branding
+            - listitem: Branded and unbranded versions
+          - 'link "Order : Listing video"':
+            - /url: /en/order?package=listing-video&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Listing 10-pack" [level=4]
+          - paragraph: Ten listing videos, paid in advance.
+          - paragraph: $1,080
+          - term: Footage
+          - definition: Each listing as in the Listing video
+          - term: Validity
+          - definition: Valid for 90 days
+          - term: Turnaround
+          - definition: 2 business days per listing
+          - term: Revisions
+          - definition: 1 round per listing
+          - paragraph: What's included
+          - list:
+            - listitem: 10 listing videos, each as in the Listing video package
+          - 'link "Order : Listing 10-pack"':
+            - /url: /en/order?package=listing-10-pack&from=%2Fen%2Fpricing
+      - heading "Extras" [level=4]
+      - list:
+        - listitem: "An extra version of a reel: $40"
+        - listitem: "A drone-only edit: $60"
+    - region "Podcasters":
+      - heading "Podcasters" [level=3]
+      - paragraph: Audio and video episodes, with vertical clips for social media.
+      - list:
+        - listitem:
+          - heading "Audio episode" [level=4]
+          - paragraph: An edited and mastered audio episode.
+          - paragraph: $95 per episode
+          - term: Length
+          - definition: Up to 60 min
+          - term: Turnaround
+          - definition: 2 business days
+          - term: Revisions
+          - definition: 1 round
+          - paragraph: What's included
+          - list:
+            - listitem: Noise and echo clean-up, levels and loudness
+            - listitem: A content edit to your written notes
+            - listitem: Light filler and silence trimming, checked by ear
+            - listitem: Intro, outro and music beds
+            - listitem: MP3 and WAV files
+          - 'link "Order : Audio episode"':
+            - /url: /en/order?package=podcast-audio&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Video episode + 3 clips" [level=4]
+          - paragraph: A multicam video episode and three vertical clips.
+          - paragraph: $260 per episode
+          - term: Footage
+          - definition: Up to 3 cameras or remote tracks
+          - term: Length
+          - definition: Up to 60 min
+          - term: Turnaround
+          - definition: 3 business days
+          - term: Revisions
+          - definition: 1 round on the episode; 1 on the clips
+          - paragraph: What's included
+          - list:
+            - listitem: Multicam switching, corrected by hand
+            - listitem: Audio clean-up and a content edit
+            - listitem: Your intro, outro and lower thirds
+            - listitem: Chapters and an audio-only MP3
+            - listitem: 3 vertical clips of up to 60 s, with captions
+          - 'link "Order : Video episode + 3 clips"':
+            - /url: /en/order?package=podcast-video&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Podcast monthly" [level=4]
+          - paragraph: Four video episodes with three clips each, every month.
+          - paragraph: $940 a month
+          - term: Footage
+          - definition: Each episode as in the Video episode + 3 clips
+          - term: Turnaround
+          - definition: 3 business days per episode
+          - term: Revisions
+          - definition: 1 round on each episode; 1 on its clips
+          - paragraph: What's included
+          - list:
+            - listitem: 4 video episodes + 3 clips each
+          - 'link "Order : Podcast monthly"':
+            - /url: /en/order?package=podcast-monthly&from=%2Fen%2Fpricing
+      - heading "Extras" [level=4]
+      - list:
+        - listitem: "Show notes, or a proofread transcript: $25 each"
+    - region "Streamers":
+      - heading "Streamers" [level=3]
+      - paragraph: YouTube highlight videos and clip packs from your VODs.
+      - list:
+        - listitem:
+          - heading "Clip Pack 10" [level=4]
+          - paragraph: Ten vertical clips from one stream.
+          - paragraph: $170
+          - term: Footage
+          - definition: One VOD of up to 4 h, or your own Twitch or Kick clips
+          - term: Turnaround
+          - definition: 2 business days
+          - term: Revisions
+          - definition: 1 round
+          - paragraph: What's included
+          - list:
+            - listitem: 10 vertical clips of up to 60 s
+            - listitem: An AI first pass, then human selection
+            - listitem: Facecam and gameplay layout
+            - listitem: Styled, proofread captions, zooms and sound effects
+            - listitem: A hook title and suggested post titles
+            - listitem: 1080×1920 MP4 files
+          - 'link "Order : Clip Pack 10"':
+            - /url: /en/order?package=stream-clip-pack&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Highlight video" [level=4]
+          - paragraph: A YouTube highlight video from one stream.
+          - paragraph: $270
+          - term: Footage
+          - definition: A VOD of up to 4 h
+          - term: Length
+          - definition: 10–15 min finished
+          - term: Turnaround
+          - definition: 3 business days
+          - term: Revisions
+          - definition: 2 rounds
+          - paragraph: What's included
+          - list:
+            - listitem: One 10–15 min YouTube video in 16:9
+            - listitem: A story cut and zooms
+            - listitem: Memes and sound effects from a licensed library
+            - listitem: On-screen text and a chapter list
+            - listitem: Loudness-normalised audio
+          - 'link "Order : Highlight video"':
+            - /url: /en/order?package=stream-highlight&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Streamer monthly" [level=4]
+          - paragraph: Four highlight videos and 30 clips every month.
+          - paragraph: $1,390 a month
+          - term: Footage
+          - definition: Each video and clip as in its own package
+          - term: Turnaround
+          - definition: 3 business days per highlight video; clips in weekly batches
+          - term: Revisions
+          - definition: 2 rounds per highlight video; 1 per batch of clips
+          - paragraph: What's included
+          - list:
+            - listitem: 4 highlight videos and 30 clips, from the same VODs
+            - listitem: A shared board for VOD links and notes
+            - listitem: Month to month
+          - 'link "Order : Streamer monthly"':
+            - /url: /en/order?package=stream-monthly&from=%2Fen%2Fpricing
+      - heading "Extras" [level=4]
+      - list:
+        - listitem: "A highlight video longer than 15 min: +$15 a minute"
+        - listitem: Copyrighted music in a VOD is muted or replaced, never cleared
+    - region "Brands and agencies":
+      - heading "Brands and agencies" [level=3]
+      - paragraph: "Ad creative from your footage or UGC: a master, hooks and every format."
+      - list:
+        - listitem:
+          - heading "Ad pack" [level=4]
+          - paragraph: One master ad, four hooks, every format.
+          - paragraph: $420
+          - term: Length
+          - definition: A master of 15–45 s
+          - term: Turnaround
+          - definition: 3 business days
+          - term: Revisions
+          - definition: 2 rounds on the master; 1 on the variations
+          - paragraph: What's included
+          - list:
+            - listitem: One master ad of 15–45 s, from your footage or UGC
+            - listitem: 4 hook variations
+            - listitem: "Each of the 5 versions in 9:16, 4:5 and 16:9: 15 files"
+            - listitem: Burned-in captions and platform safe zones
+            - listitem: Music from your licence or a royalty-free library
+          - 'link "Order : Ad pack"':
+            - /url: /en/order?package=ad-pack&from=%2Fen%2Fpricing
+        - listitem:
+          - heading "Ad monthly" [level=4]
+          - paragraph: Three ad packs every month.
+          - paragraph: $1,150 a month
+          - term: Length
+          - definition: Each pack as in the Ad pack
+          - term: Turnaround
+          - definition: 3 business days per pack
+          - term: Revisions
+          - definition: 2 rounds on each master; 1 on its variations
+          - paragraph: What's included
+          - list:
+            - listitem: 3 ad packs
+          - 'link "Order : Ad monthly"':
+            - /url: /en/order?package=ad-monthly&from=%2Fen%2Fpricing
+      - heading "Extras" [level=4]
+      - list:
+        - listitem: Voice-over, actors and music licences are yours to supply
+    - region "Agencies":
+      - heading "Agencies" [level=3]
+      - paragraph: Prepaid white-label editing hours for your overflow work.
+      - list:
+        - listitem:
+          - 'heading "White-label hours: 10 h" [level=4]'
+          - paragraph: 10 hours of prepaid editing time.
+          - paragraph: $450
+          - term: Footage
+          - definition: Jobs of up to 4 h each
+          - term: Validity
+          - definition: Valid for 60 days
+          - term: Turnaround
+          - definition: 2–3 business days per job of up to 4 h
+          - term: Revisions
+          - definition: Revisions come out of the hours
+          - paragraph: What's included
+          - list:
+            - listitem: Unbranded delivery
+            - listitem: An NDA, if you need one
+            - listitem: Written briefs and review links only
+            - listitem: Time logged in 15-minute steps
+          - 'link "Order : White-label hours: 10 h"':
+            - /url: /en/order?package=white-label-10&from=%2Fen%2Fpricing
+        - listitem:
+          - 'heading "White-label hours: 20 h" [level=4]'
+          - paragraph: 20 hours of prepaid editing time.
+          - paragraph: $840
+          - term: Footage
+          - definition: Jobs of up to 4 h each
+          - term: Validity
+          - definition: Valid for 60 days
+          - term: Turnaround
+          - definition: 2–3 business days per job of up to 4 h
+          - term: Revisions
+          - definition: Revisions come out of the hours
+          - paragraph: What's included
+          - list:
+            - listitem: Unbranded delivery
+            - listitem: An NDA, if you need one
+            - listitem: Written briefs and review links only
+            - listitem: Time logged in 15-minute steps
+          - 'link "Order : White-label hours: 20 h"':
+            - /url: /en/order?package=white-label-20&from=%2Fen%2Fpricing
+        - listitem:
+          - 'heading "White-label hours: 40 h" [level=4]'
+          - paragraph: 40 hours of prepaid editing time.
+          - paragraph: $1,560
+          - term: Footage
+          - definition: Jobs of up to 4 h each
+          - term: Validity
+          - definition: Valid for 60 days
+          - term: Turnaround
+          - definition: 2–3 business days per job of up to 4 h
+          - term: Revisions
+          - definition: Revisions come out of the hours
+          - paragraph: What's included
+          - list:
+            - listitem: Unbranded delivery
+            - listitem: An NDA, if you need one
+            - listitem: Written briefs and review links only
+            - listitem: Time logged in 15-minute steps
+          - 'link "Order : White-label hours: 40 h"':
+            - /url: /en/order?package=white-label-40&from=%2Fen%2Fpricing
+  - region "Add-ons":
+    - heading "Add-ons" [level=2]
+    - paragraph: For anything a package does not cover. We agree every paid extra in writing before we do it.
+    - table "Add-ons":
+      - caption: Add-ons
+      - rowgroup:
+        - row "Add-on Price":
+          - columnheader "Add-on"
+          - columnheader "Price"
+      - rowgroup:
+        - row "Extra revision round Beyond the rounds your package includes. 15% of the package price, at least $25":
+          - rowheader "Extra revision round Beyond the rounds your package includes."
+          - cell "15% of the package price, at least $25"
+        - 'row "Extra raw footage Streams: $25 per extra hour. Talk edits and podcasts: $20 per extra 30 min. Weddings and events: $30 per extra hour."':
+          - rowheader "Extra raw footage"
+          - 'cell "Streams: $25 per extra hour. Talk edits and podcasts: $20 per extra 30 min. Weddings and events: $30 per extra hour."'
+        - 'row "Extra finished length Talk edit: $15 a minute. Story edit: $40 a minute. Podcasts: $30 (audio) or $50 (video) per 30 min."':
+          - rowheader "Extra finished length"
+          - 'cell "Talk edit: $15 a minute. Story edit: $40 a minute. Podcasts: $30 (audio) or $50 (video) per 30 min."'
+        - row "Extra vertical clip from the same source $18":
+          - rowheader "Extra vertical clip from the same source"
+          - cell "$18"
+        - row "Extra hook, new body variation, extra aspect ratio $35, $90 and $15":
+          - rowheader "Extra hook, new body variation, extra aspect ratio"
+          - cell "$35, $90 and $15"
+        - row "Thumbnail $45":
+          - rowheader "Thumbnail"
+          - cell "$45"
+        - row "Burned-in captions on long-form video SRT caption files are included in the YouTube and podcast packages. $2 per finished minute":
+          - rowheader "Burned-in captions on long-form video SRT caption files are included in the YouTube and podcast packages."
+          - cell "$2 per finished minute"
+        - row "Translated subtitles Custom quote":
+          - rowheader "Translated subtitles"
+          - cell "Custom quote"
+        - row "Rush delivery Only when a slot is free, and agreed in writing before you order. +40%":
+          - rowheader "Rush delivery Only when a slot is free, and agreed in writing before you order."
+          - cell "+40%"
+        - row "Weekend delivery +25%":
+          - rowheader "Weekend delivery"
+          - cell "+25%"
+  - region "Custom quotes":
+    - heading "Custom quotes" [level=2]
+    - paragraph: For work no package fits. The quote is in writing and fixed before we start.
+    - heading "When we quote" [level=3]
+    - list:
+      - listitem: Corporate and event work
+      - listitem: Motion graphics and animation
+      - listitem: Documentaries, and finished videos longer than 20 minutes
+      - listitem: Footage or a finished length over a package's limits
+      - listitem: Rush jobs
+      - listitem: Re-edits of someone else's project, subtitles in several languages or complex music licensing
+    - heading "How a quote is built" [level=3]
+    - list:
+      - listitem: "You describe the job on the order form: the footage, the finished length, the versions and who approves."
+      - listitem: We estimate the hours from the footage and the finished minutes, and add 15% for revisions and 10% for admin.
+      - listitem: The rate is $45 an hour, or $55 for brands, ads, corporate and motion work. The smallest order is $120.
+      - listitem: You get the quote within 1 business day. It is valid for 14 days.
+    - link "Ask for a custom quote":
+      - /url: /en/order?package=custom&from=%2Fen%2Fpricing
+  - region "30% off your first order.":
+    - paragraph: Founding offer
+    - heading "30% off your first order." [level=2]
+    - paragraph: For our first 10 clients, or until 31 March 2027, whichever comes first. On your first order only, and it doesn't depend on a review or anything else.
+  - region "Payment":
+    - heading "Payment" [level=2]
+    - link "Read the terms of service":
+      - /url: /en/terms
+    - list:
+      - listitem:
+        - heading "Packages" [level=3]
+        - paragraph: Paid in full, in advance, by bank transfer against our invoice.
+      - listitem:
+        - heading "Custom quotes" [level=3]
+        - paragraph: New clients pay 50% before we start and the balance before we deliver the final files, after reviewing a watermarked preview.
+      - listitem:
+        - heading "Bank fees" [level=3]
+        - paragraph: You pay your own bank's sending fees. No card payments yet.
+      - listitem:
+        - heading "Acceptance" [level=3]
+        - paragraph: A delivery counts as accepted when you approve it, or after 7 days without revision notes.
+  - region "Found your package?":
+    - heading "Found your package?" [level=2]
+    - paragraph: Send your brief. We reply in writing within 1 business day with the exact price, including the founding discount if it applies, and your start date.
+    - link "Order an edit":
+      - /url: /en/order?from=%2Fen%2Fpricing
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fpricing
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

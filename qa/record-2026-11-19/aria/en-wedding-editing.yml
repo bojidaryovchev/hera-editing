@@ -1,0 +1,249 @@
+- link "Skip to the content":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - navigation "Main navigation":
+    - link "Weddings":
+      - /url: /en/wedding-editing
+    - link "YouTube":
+      - /url: /en/youtube-editing
+    - link "Real estate":
+      - /url: /en/real-estate-editing
+    - link "Pricing":
+      - /url: /en/pricing
+    - link "How it works":
+      - /url: /en/how-it-works
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fwedding-editing
+- main:
+  - navigation "Breadcrumb":
+    - list:
+      - listitem:
+        - link "Home":
+          - /url: /en
+      - listitem: Wedding editing
+  - paragraph: For wedding filmmakers and studios
+  - heading "Wedding video editing for filmmakers" [level=1]
+  - paragraph: "Send your footage and get back a finished film in your style. We edit highlights, documentary full films and teasers for filmmakers who want to shoot more and edit less: share your LUT, a past film you love and your music licence, and we match them."
+  - link "Order a wedding edit":
+    - /url: /en/order?package=wedding-highlight&from=%2Fen%2Fwedding-editing
+  - link "See every price":
+    - /url: /en/pricing
+  - region "Wedding packages":
+    - heading "Wedding packages" [level=2]
+    - list:
+      - listitem:
+        - link "Full film":
+          - /url: "#wedding-full-film"
+        - text: 7 business days $390
+      - listitem:
+        - link "Highlight from selects":
+          - /url: "#wedding-highlight"
+        - text: 7 business days $380
+      - listitem:
+        - link "Teaser":
+          - /url: "#wedding-teaser"
+        - text: 4 business days $160
+      - listitem:
+        - link "Trio":
+          - /url: "#wedding-trio"
+        - text: 10 business days $860
+    - paragraph: Turnaround in business days, from your start date.
+  - region "What you get":
+    - heading "What you get" [level=2]
+    - list:
+      - listitem: A story built around the vows and speeches, cut to your licensed music
+      - listitem: Colour matched to your look, a clean audio mix and titles
+      - listitem: 16:9 masters, plus 9:16 versions of teasers for social media
+      - listitem: Two revision rounds, with time-coded comments on a review link
+    - heading "What we need from you" [level=3]
+    - list:
+      - listitem: "A link to your footage: your selects for a highlight"
+      - listitem: The music track and its licence
+      - listitem: A past film, your LUT or grade notes
+      - listitem: The couple's names for the titles, and the key moments
+      - listitem: Your deadline
+  - region "Wedding packages":
+    - heading "Wedding packages" [level=2]
+    - paragraph: For filmmakers and studios. Each film comes with two revision rounds.
+    - list:
+      - listitem:
+        - heading "Full film" [level=3]
+        - paragraph: A documentary edit of the wedding day.
+        - paragraph: $390
+        - term: Length
+        - definition: Up to 60 min finished
+        - term: Turnaround
+        - definition: 7 business days
+        - term: Revisions
+        - definition: 2 rounds
+        - paragraph: What's included
+        - list:
+          - listitem: The ceremony, the speeches and the first dance
+          - listitem: Multicam sync and an audio mix
+          - listitem: Light colour and titles
+        - 'link "Order : Full film"':
+          - /url: /en/order?package=wedding-full-film&from=%2Fen%2Fwedding-editing
+      - listitem:
+        - heading "Highlight from selects" [level=3]
+        - paragraph: A highlight film cut from the clips you selected.
+        - paragraph: $380
+        - term: Footage
+        - definition: Up to 90 min of your selected clips, plus the vows and speech audio
+        - term: Length
+        - definition: 4–6 min finished
+        - term: Turnaround
+        - definition: 7 business days
+        - term: Revisions
+        - definition: 2 rounds
+        - paragraph: What's included
+        - list:
+          - listitem: A story built around the vows and speeches
+          - listitem: Cut to your licensed music
+          - listitem: "Colour grade: your LUT or ours"
+          - listitem: Sound design
+        - 'link "Order : Highlight from selects"':
+          - /url: /en/order?package=wedding-highlight&from=%2Fen%2Fwedding-editing
+      - listitem:
+        - heading "Teaser" [level=3]
+        - paragraph: A short teaser for social media.
+        - paragraph: $160
+        - term: Length
+        - definition: 60–90 s finished
+        - term: Turnaround
+        - definition: 4 business days
+        - term: Revisions
+        - definition: 2 rounds
+        - paragraph: What's included
+        - list:
+          - listitem: The best moments, cut to your music
+          - listitem: 16:9 and 9:16 versions
+        - 'link "Order : Teaser"':
+          - /url: /en/order?package=wedding-teaser&from=%2Fen%2Fwedding-editing
+      - listitem:
+        - heading "Trio" [level=3]
+        - paragraph: The highlight from selects, the full film and the teaser.
+        - paragraph: $860
+        - term: Length
+        - definition: Each film as in its own package
+        - term: Turnaround
+        - definition: 10 business days
+        - term: Revisions
+        - definition: 2 rounds per film
+        - paragraph: What's included
+        - list:
+          - listitem: Highlight from selects
+          - listitem: Full film
+          - listitem: Teaser
+        - 'link "Order : Trio"':
+          - /url: /en/order?package=wedding-trio&from=%2Fen%2Fwedding-editing
+    - heading "Extras" [level=3]
+    - list:
+      - listitem: "A highlight from your full, unculled footage: a custom quote, from $550"
+      - listitem: "An extra version of a reel: $40"
+      - listitem: "A drone-only edit: $60"
+  - region "How we work on weddings":
+    - heading "How we work on weddings" [level=2]
+    - list:
+      - listitem:
+        - heading "Selects or full footage" [level=3]
+        - paragraph: "The highlight is cut from your selects: up to 90 minutes of clips, plus the vows and speech audio. Culling the full footage is a custom quote, from $550."
+      - listitem:
+        - heading "Your style, kept" [level=3]
+        - paragraph: "Send a past film, your LUT or grade notes, and the titles and fonts you use. We match them: the film stays yours."
+      - listitem:
+        - heading "Music you have licensed" [level=3]
+        - paragraph: Send the track and its licence. We don't supply or resell music licences.
+      - listitem:
+        - heading "Notes on the review link" [level=3]
+        - paragraph: "You leave time-coded comments on the cut: one list per round, two rounds per film."
+  - region "Wedding samples":
+    - heading "Wedding samples" [level=2]
+    - list:
+      - listitem:
+        - paragraph: Demo edit Wedding filmmakers
+        - paragraph: "Test data: a fictional sample"
+        - heading "Test wedding highlight (fictional data)" [level=3]
+        - paragraph: A fictional sample for automated tests. Not a real edit.
+        - term: Footage
+        - definition: Fictional test footage; Test data only
+        - term: Music
+        - definition: Test data only
+        - term: Permissions
+        - definition: Test data only
+        - 'link "Watch on Vimeo : Test wedding highlight (fictional data) (opens in a new tab)"':
+          - /url: https://vimeo.com/000000001
+  - region "Questions and answers":
+    - heading "Questions and answers" [level=2]
+    - group: Do you cut from all my footage or from selects?
+    - group: Who provides the music?
+    - group: Can you match my style?
+    - group: How do revisions work?
+    - group: Do you work with couples directly?
+    - group: Do we need a call?
+  - region "More weddings than editing time?":
+    - heading "More weddings than editing time?" [level=2]
+    - paragraph: Send your footage and a short brief. We reply in writing within 1 business day with the exact price and your start date.
+    - link "Order an edit":
+      - /url: /en/order?package=wedding-highlight&from=%2Fen%2Fwedding-editing
+    - link "How it works":
+      - /url: /en/how-it-works
+- contentinfo:
+  - link "Hera Editing, home page":
+    - /url: /en
+    - img "Hera Editing"
+  - paragraph: Remote video editing for creators and filmmakers. Everything in writing.
+  - link "Order an edit":
+    - /url: /en/order?from=%2Fen%2Fwedding-editing
+  - navigation "Site map":
+    - heading "Editing" [level=2]
+    - list:
+      - listitem:
+        - link "Wedding editing":
+          - /url: /en/wedding-editing
+      - listitem:
+        - link "YouTube editing":
+          - /url: /en/youtube-editing
+      - listitem:
+        - link "Real-estate editing":
+          - /url: /en/real-estate-editing
+      - listitem:
+        - link "Work samples":
+          - /url: /en/work
+    - heading "Working with us" [level=2]
+    - list:
+      - listitem:
+        - link "Pricing":
+          - /url: /en/pricing
+      - listitem:
+        - link "How it works":
+          - /url: /en/how-it-works
+      - listitem:
+        - link "Order an edit":
+          - /url: /en/order
+    - heading "Legal" [level=2]
+    - list:
+      - listitem:
+        - link "Terms of service":
+          - /url: /en/terms
+      - listitem:
+        - link "Privacy notice":
+          - /url: /en/privacy
+      - listitem:
+        - link "Cookies":
+          - /url: /en/cookies
+      - listitem:
+        - link "Cookie settings":
+          - /url: /en/cookies
+    - heading "Contact" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "To come: a contact email"
+      - listitem:
+        - paragraph: "To come: company details"
+  - text: © 2026 Hera Editing
+  - link "Hera Editing in Bulgaria (Български)":
+    - /url: /
+- alert

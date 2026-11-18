@@ -161,6 +161,13 @@ test("breadcrumbs lead back up, and the case study back to the portfolio", async
   await page.goto("/rabota/testova-pekarna");
   const crumbs = page.getByRole("navigation", { name: "Навигационна пътека" });
   await expect(crumbs.getByRole("link")).toHaveText(["Начало", "Проекти"]);
+  // The separators are drawn, not read: no "/" before an item (QA record, qa/record-2026-11-19).
+  await expect(crumbs.getByRole("listitem").last()).toMatchAriaSnapshot(`- listitem: /^Тестова пекарна/`);
+  await expect(crumbs.getByRole("listitem").nth(1)).toMatchAriaSnapshot(`
+    - listitem:
+      - /children: equal
+      - link "Проекти"
+  `);
   await crumbs.getByRole("link", { name: "Проекти" }).click();
   await expect(page).toHaveURL(/\/rabota$/);
 });

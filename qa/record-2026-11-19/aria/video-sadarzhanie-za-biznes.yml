@@ -1,0 +1,136 @@
+- link "Към основното съдържание":
+  - /url: "#main"
+- banner:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - navigation "Основна навигация":
+    - link "Услуга":
+      - /url: /upravlenie-na-sotsialni-mrezhi
+    - link "Как работим":
+      - /url: /#kak-rabotim
+    - link "Пакети":
+      - /url: /paketi
+    - link "Проекти":
+      - /url: /rabota
+    - link "За нас":
+      - /url: /za-nas
+    - link "Контакти":
+      - /url: /kontakti
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Fvideo-sadarzhanie-za-biznes
+- main:
+  - navigation "Навигационна пътека":
+    - list:
+      - listitem:
+        - link "Начало":
+          - /url: /
+      - listitem: Видеосъдържание за бизнеса
+  - paragraph: Заснемане
+  - heading "Оригинално видео съдържание, заснето във Вашия бизнес" [level=1]
+  - paragraph: Посещаваме обекта Ви, подготвяме кадрите и превръщаме един снимачен ден в поредица от кратки видеа за социалните Ви профили. Заснемането е част от услугата ни за цялостно управление.
+  - link "Поискайте план за съдържание":
+    - /url: /kontakti?from=%2Fvideo-sadarzhanie-za-biznes
+  - link "Вижте цялата услуга":
+    - /url: /upravlenie-na-sotsialni-mrezhi
+  - region "От идеята до готовото видео":
+    - heading "От идеята до готовото видео" [level=2]
+    - list:
+      - listitem:
+        - heading "Подготовка" [level=3]
+        - paragraph: Избираме темите, пишем кратки сценарии и уточняваме кой и какво ще участва в кадър.
+      - listitem:
+        - heading "Снимачен ден" [level=3]
+        - paragraph: Идваме в уговореното време със своя техника и заснемаме материал за няколко видеа наведнъж.
+      - listitem:
+        - heading "Монтаж" [level=3]
+        - paragraph: Монтираме, добавяме субтитри и подготвяме версии за избраните платформи.
+  - region "Какво снимаме":
+    - heading "Какво снимаме" [level=2]
+    - paragraph: Докато публикуваме първите си проекти, показваме видовете видеа, а не чужди кадри.
+    - list:
+      - listitem:
+        - heading "Как се прави" [level=3]
+        - paragraph: Процесът зад продукта или услугата, показан стъпка по стъпка.
+      - listitem:
+        - heading "Зад кадър" [level=3]
+        - paragraph: Мястото, хората и ежедневието, които клиентите рядко виждат.
+      - listitem:
+        - heading "Продуктът отблизо" [level=3]
+        - paragraph: Детайли, материали и употреба – това, което помага на клиента да избере.
+      - listitem:
+        - heading "Съвет от специалист" [level=3]
+        - paragraph: Кратък и полезен съвет от човек от Вашия екип.
+      - listitem:
+        - heading "Запознайте се с екипа" [level=3]
+        - paragraph: Хората, които стоят зад името на бизнеса.
+      - listitem:
+        - heading "Вашата идея" [level=3]
+        - paragraph: Имате идея за видео? Обсъждаме я при планирането на месеца.
+  - region "Едно посещение, няколко видеа":
+    - heading "Едно посещение, няколко видеа" [level=2]
+    - paragraph: Планираме снимачния ден така, че от едно посещение да излязат няколко кратки видеа. Списъкът с кадри е готов предварително, за да отнемем минимално време на екипа Ви.
+  - region "Оригинално видео или адаптация":
+    - heading "Оригинално видео или адаптация" [level=2]
+    - paragraph: Оригиналното видео е отделна идея със собствен монтаж. Адаптацията е същото видео, преработено за друга платформа, и не се брои за ново видео.
+    - paragraph: В офертата посочваме колко оригинални видеа и колко снимачни посещения включва месецът, както и пътните разходи извън договорения район.
+    - paragraph: Използваме оригинален звук или музика с права за търговска употреба. Популярните песни не могат да се използват в бизнес профили без лиценз.
+  - region "Заснемането е част от цялостната услуга":
+    - heading "Заснемането е част от цялостната услуга" [level=2]
+    - paragraph: Не предлагаме отделен монтаж. Видеата влизат в месечния план, публикуват се след Вашето одобрение и са част от месечния отчет.
+    - link "Поискайте план за съдържание":
+      - /url: /kontakti?from=%2Fvideo-sadarzhanie-za-biznes
+    - link "Вижте цялата услуга":
+      - /url: /upravlenie-na-sotsialni-mrezhi
+- contentinfo:
+  - link "Hera Editing, начална страница":
+    - /url: /
+    - img "Hera Editing"
+  - paragraph: Съдържание и управление на социални мрежи за бизнеса.
+  - link "Поискайте оферта":
+    - /url: /kontakti?from=%2Fvideo-sadarzhanie-za-biznes
+  - navigation "Карта на сайта":
+    - heading "Услуги" [level=2]
+    - list:
+      - listitem:
+        - link "Управление на социални мрежи":
+          - /url: /upravlenie-na-sotsialni-mrezhi
+      - listitem:
+        - link "Видеосъдържание за бизнеса":
+          - /url: /video-sadarzhanie-za-biznes
+      - listitem:
+        - link "Пакети":
+          - /url: /paketi
+    - heading "Агенцията" [level=2]
+    - list:
+      - listitem:
+        - link "Как работим":
+          - /url: /#kak-rabotim
+      - listitem:
+        - link "Проекти":
+          - /url: /rabota
+      - listitem:
+        - link "За нас":
+          - /url: /za-nas
+      - listitem:
+        - link "Контакти":
+          - /url: /kontakti
+    - heading "Правна информация" [level=2]
+    - list:
+      - listitem:
+        - link "Политика за поверителност":
+          - /url: /poveritelnost
+      - listitem:
+        - link "Бисквитки":
+          - /url: /biskvitki
+      - listitem:
+        - link "Настройки за бисквитки":
+          - /url: /biskvitki
+    - heading "Контакт" [level=2]
+    - list:
+      - listitem:
+        - paragraph: "Предстои: телефон и имейл за контакт"
+  - text: © 2026 Hera Editing
+  - 'link "English: video editing for creators and filmmakers"':
+    - /url: /en
+- alert

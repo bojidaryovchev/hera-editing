@@ -14,8 +14,11 @@
   font: 500 12px/1.4 var(--fm);
   color: var(--tx3);
 }
+/* The separator is drawn, not read: the second declaration gives it empty alternative text, so screen readers stop
+   announcing "/Контакти" (found in the QA record, qa/record-2026-11-19). A browser without that syntax keeps the first. */
 .crumbs li + li::before {
   content: "/";
+  content: "/" / "";
   margin-right: 6px;
   color: var(--tx3);
 }
