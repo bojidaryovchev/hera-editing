@@ -108,7 +108,7 @@ describe("operator CLI", () => {
 
     const out = path.join(work, "person.json");
     await cli("leads-dsar.ts", ["export", "--email", "DSAR@example.com", "--out", out]);
-    expect(JSON.parse(readFileSync(out, "utf8"))[0].id).toBe(id);
+    expect(JSON.parse(readFileSync(out, "utf8")).leads[0].id).toBe(id);
 
     await expect(cli("leads-dsar.ts", ["delete", "--id", id])).rejects.toMatchObject({ code: 2 });
     await cli("leads-dsar.ts", ["delete", "--id", id, "--confirm"]);
@@ -116,6 +116,33 @@ describe("operator CLI", () => {
 
     const actions = (await handle.db.select().from(leadAuditLog)).map((a) => a.action);
     expect(actions).toEqual(["dsar_find", "dsar_export", "dsar_delete"]);
+  }, 180_000);
+
+  it("leads:dsar finds, exports and deletes a person's mailbox conversations (decision L32)", async () => {
+    await handle.db.execute(sql`insert into mail_threads (id, subject, subject_key, correspondent)
+      values ('0A1B2C3D', 'Въпрос', 'въпрос', 'person@example.com'), ('0A1B2C3E', 'Друг', 'друг', 'other@example.com')`);
+    await handle.db
+      .execute(sql`insert into mail_messages (id, thread_id, created_at, direction, from_address, to_addresses, subject, body_text)
+      values ('em_dsar_1', '0A1B2C3D', now(), 'in', 'person@example.com', 'contact@hera.test', 'Въпрос', 'Здравейте')`);
+
+    const found = await cli("leads-dsar.ts", ["find", "--email", "Person@Example.com"]);
+    expect(found.stdout).toContain("1 conversation(s) in the mailbox.");
+    const out = path.join(work, "person-mail.json");
+    await cli("leads-dsar.ts", ["export", "--email", "person@example.com", "--out", out]);
+    const exported = JSON.parse(readFileSync(out, "utf8"));
+    expect(exported.conversations).toHaveLength(1);
+    expect(exported.conversations[0].messages[0].bodyText).toBe("Здравейте");
+
+    await expect(cli("leads-dsar.ts", ["delete-mail", "--email", "person@example.com"])).rejects.toMatchObject({
+      code: 2,
+    });
+    await cli("leads-dsar.ts", ["delete-mail", "--email", "person@example.com", "--confirm"]);
+    const left = await handle.db.execute<{ id: string }>(sql`select id from mail_threads order by id`);
+    expect(left.rows.map((r) => r.id)).toEqual(["0A1B2C3E"]);
+    const messagesLeft = await handle.db.execute<{ n: string }>(sql`select count(*) as n from mail_messages`);
+    expect(Number(messagesLeft.rows[0]!.n)).toBe(0);
+    const actions = (await handle.db.select().from(leadAuditLog)).map((a) => a.action);
+    expect(actions).toEqual(["dsar_find", "dsar_export_mail", "dsar_delete_mail"]);
   }, 180_000);
 
   it("leads:dsar status moves a lead through the pipeline", async () => {

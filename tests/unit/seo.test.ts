@@ -115,7 +115,7 @@ describe("sitemap and robots", () => {
     vi.stubEnv("APP_ENV", "production");
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.example.bg");
     expect(robots()).toEqual({
-      rules: { userAgent: "*", allow: "/", disallow: "/api/" },
+      rules: { userAgent: "*", allow: "/", disallow: ["/api/", "/admin"] },
       sitemap: "https://www.example.bg/sitemap.xml",
     });
   });

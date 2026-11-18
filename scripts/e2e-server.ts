@@ -17,6 +17,7 @@ import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
 import { createServer } from "node:http";
 import path from "node:path";
+import { E2E_ADMIN_ENV } from "../tests/e2e/admin-env";
 import { E2E_PORTS } from "../tests/e2e/ports";
 import { migrateTestDatabase, startTestDatabase } from "../tests/helpers/test-db";
 
@@ -103,7 +104,8 @@ async function main() {
   writeFileSync(path.join(STATE, "env.json"), JSON.stringify({ databaseUrl: database.url, outbox: OUTBOX }, null, 2));
 
   const common = { DATABASE_URL: database.url, NOTIFICATION_EMAIL_TO: "owner@example.com" };
-  serve(E2E_PORTS.main, { ...common, MAIL_PROVIDER: "dev", MAIL_DEV_OUTBOX_DIR: OUTBOX });
+  // The admin panel and the contact@ mailbox run on the main server only (decision L32).
+  serve(E2E_PORTS.main, { ...common, MAIL_PROVIDER: "dev", MAIL_DEV_OUTBOX_DIR: OUTBOX, ...E2E_ADMIN_ENV });
   serve(E2E_PORTS.mailDown, {
     ...common,
     MAIL_PROVIDER: "smtp",

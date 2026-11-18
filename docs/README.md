@@ -135,6 +135,32 @@ Leads are never deleted automatically: the retention period is an owner and lega
 4. **DSAR procedure:** find a person's leads (`leads:dsar find --email …`), export them (`export … --out person.json`)
    or delete one (`delete --id … --confirm`). Every action is recorded in `lead_audit_log` without personal data.
 
+## Admin panel and the contact@ mailbox
+
+Added on the owner's decision (design log L32), modelled on the owner's other sites (buy-a-vend, rent-a-vend).
+Bulgarian, phone-first, never indexed (meta, `X-Robots-Tag`, robots.txt), with none of the public site's chrome.
+
+- **Sign in** at `/admin/vhod` with `ADMIN_PASSWORD`. The session is a signed expiry in an http-only cookie scoped
+  to `/admin` (12 hours, `ADMIN_SESSION_SECRET`); five attempts per quarter hour and twenty a day per client.
+  Without the password every admin address answers 404. Every page and every server action checks the session
+  itself.
+- **Enquiries** (`/admin/zapitvaniya`): the stored quote requests with their pipeline status (new, in contact,
+  qualified, proposal sent, won, lost; each change goes to `lead_audit_log`), and an answer by email from contact@,
+  which opens a conversation tied to the enquiry.
+- **Mailbox** (`/admin/poshta`): mail to `MAILBOX_ADDRESS` arrives through Resend's `email.received` webhook at
+  `/api/inbound` and is recorded first (`mail_threads`, `mail_messages`), then copied to `NOTIFICATION_EMAIL_TO`
+  when that is set (Reply-To the sender). The signature is checked over the exact bytes with a five-minute replay
+  window; only mail to the mailbox's domain is recorded, never mail from it. The Resend account is shared with the
+  owner's other sites, and Resend sends every inbound event to every webhook on it: each site keeps only its own. A thread is one sender: a reply joins by its References, or by subject on that sender's open thread.
+  Answers go to the thread's parsed address only, with In-Reply-To and References, and are recorded after they are
+  sent. Bodies are shown as text, never as the sender's HTML.
+- **Setup:** verify the domain in Resend (sending and receiving; DNS in Vercel), add a webhook for `email.received`
+  to `https://<site>/api/inbound`, then set `MAILBOX_ADDRESS`, `RESEND_WEBHOOK_SECRET`, `RESEND_API_KEY`,
+  `MAIL_PROVIDER=resend` and `MAIL_FROM` (on the verified domain). While `MAIL_PROVIDER` is `dev` on staging or
+  production, the panel records mail but refuses to send answers rather than pretend they left.
+- **Data requests:** `pnpm leads:dsar find|export --email …` include the person's conversations;
+  `pnpm leads:dsar delete-mail --email … --confirm` deletes them (deleting a lead leaves its conversations to this).
+
 ## Privacy, cookies and analytics
 
 - The site sets one first-party cookie, `hera_consent`, and only once a visitor chooses (and only when an optional
@@ -156,7 +182,7 @@ Leads are never deleted automatically: the retention period is an owner and lega
   `Cross-Origin-Opener-Policy` and a restrictive `Permissions-Policy` (`src/lib/security/headers.ts`).
 - The CSP allows inline scripts because the pages are static: per-request nonces would force every page to render
   on each request. Nothing user-supplied is ever rendered as HTML, and everything else is locked down.
-- No admin interface, no public lead listing (`GET /api/leads` is 405), secrets only in server environment
+- One admin panel at `/admin` (below), behind a password; no public lead listing (`GET /api/leads` is 405), secrets only in server environment
   variables, parameterised queries, logs without personal data.
 
 ## Updating content and media

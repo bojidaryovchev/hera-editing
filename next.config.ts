@@ -29,14 +29,24 @@ export default function config(phase: string): NextConfig {
     // configured production builds side by side.
     distDir: env.NEXT_DIST_DIR || ".next",
     experimental: {
-      // The quote request is the only server action; like POST /api/leads it stays small (the longest valid one is ~6 KB).
-      serverActions: { bodySizeLimit: "16kb" },
+      // Server actions: the quote request (~6 KB at most, validated again inside) and the admin panel's answers
+      // (10,000 characters, which in Cyrillic is about 20 KB).
+      serverActions: { bodySizeLimit: "64kb" },
       // Two root layouts (the site and the admin panel) leave no layout for a 404 at an unknown address;
       // app/global-not-found.tsx is the documented answer for exactly that case.
       globalNotFound: true,
     },
     async headers() {
-      return [{ source: "/:path*", headers }];
+      // The admin panel is never indexed or cached, in any environment (decision L32).
+      const admin = [
+        { key: "X-Robots-Tag", value: "noindex, nofollow" },
+        { key: "Cache-Control", value: "no-store" },
+      ];
+      return [
+        { source: "/:path*", headers },
+        { source: "/admin", headers: admin },
+        { source: "/admin/:path*", headers: admin },
+      ];
     },
     // The labelled stock clips stay in the repository for previews, but production never serves them, even by
     // direct URL (decision L22): the request is rewritten to a path that does not exist, so it answers 404.
