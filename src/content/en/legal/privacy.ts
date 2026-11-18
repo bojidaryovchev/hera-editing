@@ -61,8 +61,8 @@ export const EN_PRIVACY_PAGE = {
     {
       id: "recipients",
       heading: "Who processes it for us",
-      body: "Vercel hosts the site, and its functions run in Frankfurt, Germany. Neon runs the database where orders are stored, also in Frankfurt. Resend, in its EU region, sends us the email that tells us about a new order, and the replies we send you from our mailbox. When the form is protected by Cloudflare Turnstile, Cloudflare processes technical data from your browser to tell people from automated programs.",
-      pending: "The safeguards for any transfer of data outside the EU.",
+      body: "Vercel hosts the site, and its functions run in Frankfurt, Germany. Neon runs the database where orders are stored, also in Frankfurt. Resend, in its EU region, sends us the email that tells us about a new order, and the replies we send you from our mailbox. When the form is protected by Cloudflare Turnstile, Cloudflare processes technical data from your browser to tell people from automated programs. When any of these providers processes data outside the EU, for example for support or, in Resend's case, account processing in the United States, the transfer relies on the European Commission's standard contractual clauses in their data processing terms. Resend is also certified under the EU-U.S. Data Privacy Framework.",
+      pending: null,
     },
     {
       id: "correspondence",
