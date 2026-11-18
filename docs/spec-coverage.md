@@ -6,10 +6,20 @@
   document was read in full and compared with the code, the tests and `docs/`.
 - **Verdict.** The website contract (`spec/website/01–04`) is covered. The [release checklist](release-checklist.md)
   maps all 48 acceptance criteria, and spot checks of the code agree with it. What is open:
-  - five gaps that no document tracked (§1), one of which (the footer button, §1.3) is now fixed;
+  - five gaps that no document tracked (§1);
   - business work the spec asks for that is not planned yet (§2);
   - three points missing from the Bulgarian client contract (§3);
   - the launch inputs, which were already tracked (§6).
+- **Progress (2026-11-19).** Since the review:
+  - 1.1: the notice is drafted in Bulgarian and on `/en` (`b39ff93`). It is still a draft, with the controller and
+    the privacy contact gated, and it awaits the owner's approval;
+  - 1.2: `/api/health` answers 503 when alerts are stuck (`b39ff93`), and the monitor is owner question B12;
+  - 1.3: fixed (`980b38d`);
+  - §2 items 2–6, and §3: done (`0bd2db4`). They are the usability check in strategy §14, the templates and checklists
+    in `docs/operations/`, the contract clauses, and `docs/contracts/dpa-bg.md`.
+
+  Still open: 1.4, 1.5, and §2 item 1 (owner question C7).
+
 - **Out of scope.** The remote-editing line and the English section `/en` are owner-approved changes (L35–L38). For
   `/en` only, they lift the spec's exclusions (creators, a global audience, an editing storefront) and three of its
   v1.0 rules (no public prices, Bulgarian copy with euro prices, no ecommerce). The Bulgarian pages still follow the
@@ -17,7 +27,7 @@
 
 ## 1. Gaps that no document tracked
 
-### 1.1 The privacy notice is a skeleton, not a draft
+### 1.1 The privacy notice was a skeleton, not a draft (drafted since, in `b39ff93`)
 
 - **Spec:** research/03 §1 and §8; website/04 F; handoff/02 §A.
 - **Found:** six of the nine sections in `src/content/legal/privacy.ts` are still pending:
@@ -44,7 +54,7 @@
   The owner then decides, as a separate decision, whether a lawyer reviews it. Keep it consistent with the privacy
   page that `/en` now has (`src/app/(en)/en/privacy/`): the same controller, processors and retention.
 
-### 1.2 Nobody is told when enquiries stop arriving
+### 1.2 Nobody was told when enquiries stop arriving (health check added since, in `b39ff93`)
 
 - **Spec:** website/03 "Observability and backups": "deployment alerts for failed form submissions, pending email
   outbox, DB connectivity".
@@ -96,7 +106,7 @@
   - write it down with the date, devices, browsers and results;
   - keep the screenshots from that run.
 
-## 2. Business work the spec asks for, not planned yet
+## 2. Business work the spec asks for, not planned yet (items 2–6 done since, in `0bd2db4`)
 
 Most of it is planned:
 
@@ -139,7 +149,7 @@ These are not planned anywhere:
 6. **Prospect scoring** (research/04): six criteria, each scored 0–2, with 9 or more contacted first. They can become
    columns of the outreach list.
 
-## 3. The Bulgarian client contract against research/03 §7
+## 3. The Bulgarian client contract against research/03 §7 (done since, in `0bd2db4`)
 
 [client-contract-bg.md](contracts/client-contract-bg.md) covers 15 of the 18 points. Two are covered in part, and one is
 missing:

@@ -8,9 +8,14 @@ build for production, or shows nothing, until it is supplied). Commands and suit
 **Verdict (2026-11-17):** ready for a **staging** deployment. Not production-ready until the owner inputs at the end
 of this file are supplied; the production build refuses to run without them, by design.
 
-**Beyond the acceptance criteria:** the spec review of 2026-11-18 found gaps that no criterion covers: the privacy
-notice text, alerting, the homepage work section and the manual QA pass. A fifth, the footer's quote source, is fixed
-(`980b38d`). See [`spec-coverage.md`](spec-coverage.md).
+**Beyond the acceptance criteria:** the spec review of 2026-11-18 found five gaps that no criterion covers.
+
+- Still open: the homepage section for approved work, and the manual QA pass.
+- The privacy notice text is drafted and awaits the owner's approval.
+- For alerting, the health check is done, and the monitor is owner question B12.
+- The footer's quote source is fixed.
+
+See [`spec-coverage.md`](spec-coverage.md).
 
 ## A. Scope fidelity
 
