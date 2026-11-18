@@ -45,7 +45,9 @@ afterAll(async () => {
   await handle.pool.end();
 });
 beforeEach(async () => {
-  await handle.db.execute(sql`truncate leads, rate_limit_buckets, lead_audit_log restart identity`);
+  await handle.db.execute(
+    sql`truncate mail_messages, mail_threads, leads, rate_limit_buckets, lead_audit_log restart identity`,
+  );
   stub = createStubMailer();
   scheduled = [];
 });
@@ -55,7 +57,13 @@ describe("schema", () => {
     const tables = await handle.db.execute<{ table_name: string }>(
       sql`select table_name from information_schema.tables where table_schema = 'public' order by 1`,
     );
-    expect(tables.rows.map((r) => r.table_name)).toEqual(["lead_audit_log", "leads", "rate_limit_buckets"]);
+    expect(tables.rows.map((r) => r.table_name)).toEqual([
+      "lead_audit_log",
+      "leads",
+      "mail_messages",
+      "mail_threads",
+      "rate_limit_buckets",
+    ]);
   });
 
   it("refuses a lead without any contact at the database level too", async () => {

@@ -21,15 +21,19 @@ export function createSmtpMailer(options: {
         socketTimeout: 15_000,
       });
       try {
-        await transport.sendMail({
+        const info = await transport.sendMail({
           from: message.from,
           to: message.to,
           subject: message.subject,
           text: message.text,
           html: message.html,
           replyTo: message.replyTo ?? undefined,
-          headers: message.idempotencyKey ? { "X-Entity-Ref-ID": message.idempotencyKey } : undefined,
+          headers: {
+            ...message.headers,
+            ...(message.idempotencyKey ? { "X-Entity-Ref-ID": message.idempotencyKey } : {}),
+          },
         });
+        return { id: typeof info.messageId === "string" ? info.messageId : null };
       } catch (error) {
         const code = (error as { code?: unknown })?.code;
         throw new MailDeliveryError(

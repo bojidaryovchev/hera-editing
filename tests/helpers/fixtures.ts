@@ -46,6 +46,7 @@ export function createStubMailer(): StubMailer {
         if (delay) await new Promise((r) => setTimeout(r, delay));
         if (failure) throw new MailDeliveryError(failure);
         sent.push(message);
+        return { id: `stub_${sent.length}` };
       },
     },
   };

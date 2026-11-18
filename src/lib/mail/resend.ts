@@ -23,6 +23,7 @@ export function createResendMailer(options: { apiKey: string; fetchImpl?: typeof
             text: message.text,
             html: message.html,
             ...(message.replyTo ? { reply_to: message.replyTo } : {}),
+            ...(message.headers && Object.keys(message.headers).length > 0 ? { headers: message.headers } : {}),
           }),
           signal: AbortSignal.timeout(timeoutMs),
         });
@@ -31,6 +32,8 @@ export function createResendMailer(options: { apiKey: string; fetchImpl?: typeof
         throw new MailDeliveryError(name === "TimeoutError" || name === "AbortError" ? "mail_timeout" : "mail_network");
       }
       if (!response.ok) throw new MailDeliveryError(`mail_http_${response.status}`);
+      const body = (await response.json().catch(() => null)) as { id?: unknown } | null;
+      return { id: typeof body?.id === "string" ? body.id : null };
     },
   };
 }

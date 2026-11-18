@@ -26,6 +26,7 @@ export function createDevMailer(options: { outboxDir: string | null; revealConte
           `[mail:dev] notification prepared (${message.idempotencyKey ?? "no key"}); content hidden outside local development`,
         );
       }
+      return { id: `dev_${randomUUID()}` };
     },
   };
 }

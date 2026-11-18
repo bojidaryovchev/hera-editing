@@ -72,7 +72,7 @@ afterAll(async () => {
   await handle.pool.end();
 });
 beforeEach(async () => {
-  await handle.db.execute(sql`truncate leads, rate_limit_buckets, lead_audit_log restart identity`);
+  await handle.db.execute(sql`truncate mail_messages, mail_threads, leads, rate_limit_buckets, lead_audit_log restart identity`);
   afterQueue.length = 0;
   await useEnv(baseEnv());
 });

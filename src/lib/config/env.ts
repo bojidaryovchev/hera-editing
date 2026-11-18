@@ -65,6 +65,14 @@ export type ServerEnv = {
   cronSecret: string | null;
   analytics: { measurementId: string; approved: true } | null;
   turnstile: { siteKey: string; secretKey: string } | null;
+  /** The admin panel (decision L32): off unless a password and a session secret are both set. */
+  admin: { password: string; sessionSecret: string } | null;
+  /**
+   * The contact@ mailbox: Resend's inbound webhook records mail to `address`. Off unless the address, the webhook's
+   * signing secret and an API key (to fetch each message's body) are all set; `domain` is the address's domain, the
+   * only one whose mail this site records.
+   */
+  mailbox: { address: string; domain: string; webhookSecret: string; apiKey: string } | null;
   contentFixtures: boolean;
 };
 
@@ -168,6 +176,34 @@ export function parseServerEnv(src: Source): ServerEnv {
   const cronSecret = val(src, "CRON_SECRET") ?? null;
   if (cronSecret && cronSecret.length < 32) problems.push("CRON_SECRET must be at least 32 characters");
 
+  // --- Admin panel and mailbox (decision L32) ----------------------------------------
+  const adminPassword = val(src, "ADMIN_PASSWORD");
+  const adminSessionSecret = val(src, "ADMIN_SESSION_SECRET");
+  if (adminPassword && adminPassword.length < 12) problems.push("ADMIN_PASSWORD must be at least 12 characters");
+  if (adminPassword && (!adminSessionSecret || adminSessionSecret.length < 32))
+    problems.push("ADMIN_SESSION_SECRET (random, 32+ characters) is required when ADMIN_PASSWORD is set");
+  const admin =
+    adminPassword && adminSessionSecret ? { password: adminPassword, sessionSecret: adminSessionSecret } : null;
+
+  const mailboxAddress = val(src, "MAILBOX_ADDRESS")?.toLowerCase();
+  const webhookSecret = val(src, "RESEND_WEBHOOK_SECRET");
+  const resendKey = val(src, "RESEND_API_KEY");
+  let mailbox: ServerEnv["mailbox"] = null;
+  if (mailboxAddress || webhookSecret) {
+    if (!mailboxAddress || !emailSchema.safeParse(mailboxAddress).success)
+      problems.push("MAILBOX_ADDRESS (e.g. contact@your-domain) is required for the mailbox");
+    if (!webhookSecret?.startsWith("whsec_"))
+      problems.push("RESEND_WEBHOOK_SECRET (the webhook's whsec_ signing secret) is required for the mailbox");
+    if (!resendKey) problems.push("RESEND_API_KEY is required for the mailbox (it fetches each message's body)");
+    if (mailboxAddress && webhookSecret && resendKey)
+      mailbox = {
+        address: mailboxAddress,
+        domain: mailboxAddress.slice(mailboxAddress.lastIndexOf("@") + 1),
+        webhookSecret,
+        apiKey: resendKey,
+      };
+  }
+
   const turnstileSite = val(src, "TURNSTILE_SITE_KEY");
   const turnstileSecret = val(src, "TURNSTILE_SECRET_KEY");
   if (Boolean(turnstileSite) !== Boolean(turnstileSecret))
@@ -202,6 +238,8 @@ export function parseServerEnv(src: Source): ServerEnv {
     cronSecret,
     analytics: measurementId && analyticsApproved ? { measurementId, approved: true } : null,
     turnstile: turnstileSite && turnstileSecret ? { siteKey: turnstileSite, secretKey: turnstileSecret } : null,
+    admin,
+    mailbox,
     contentFixtures,
   };
 }

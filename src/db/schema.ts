@@ -1,7 +1,7 @@
 import { sql } from "drizzle-orm";
 import { bigserial, check, index, integer, jsonb, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
 
-/** Sales pipeline stage, updated by the operator CLI (no admin UI in v1). */
+/** Sales pipeline stage, set from the admin panel (decision L32) or the operator CLI. */
 export const leadStatus = pgEnum("lead_status", ["new", "contacted", "qualified", "proposal", "won", "lost"]);
 
 /**
@@ -104,3 +104,74 @@ export const leadAuditLog = pgTable(
 
 export type Lead = typeof leads.$inferSelect;
 export type NewLead = typeof leads.$inferInsert;
+
+/*
+ * The contact@ mailbox (decision L32). Every message to the mailbox address arrives through Resend's webhook and is
+ * recorded here first, so it can be answered from the admin panel and the answer leaves as contact@; replies are
+ * recorded after they are sent. A thread is one correspondent: a message from anyone else starts its own thread.
+ */
+export const mailDirection = pgEnum("mail_direction", ["in", "out"]);
+export const mailThreadStatus = pgEnum("mail_thread_status", ["open", "done"]);
+
+export type MailAttachmentInfo = { filename: string; size: number; contentType: string };
+
+export const mailThreads = pgTable(
+  "mail_threads",
+  {
+    /** Eight uppercase hex characters: short enough to read out from a URL. */
+    id: text("id").primaryKey(),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull().defaultNow(),
+    lastMessageAt: timestamp("last_message_at", { withTimezone: true }).notNull().defaultNow(),
+    subject: text("subject").notNull(),
+    /** The subject without reply and forward prefixes, lowercased: how a fresh message about the same thing joins. */
+    subjectKey: text("subject_key").notNull(),
+    /**
+     * The ONE mailbox the first message's From named, parsed and lowercased (src/lib/mailbox/address.ts), never the
+     * raw header. A From that did not parse is kept flattened for display and can never be answered from the panel.
+     */
+    correspondent: text("correspondent").notNull(),
+    correspondentName: text("correspondent_name"),
+    status: mailThreadStatus("status").notNull().default("open"),
+    /** The enquiry this conversation is about, when it started from the enquiries screen. */
+    leadId: uuid("lead_id").references(() => leads.id, { onDelete: "set null" }),
+  },
+  (t) => [
+    index("mail_threads_last_idx").on(t.lastMessageAt),
+    index("mail_threads_match_idx").on(t.correspondent, t.status, t.subjectKey),
+    index("mail_threads_lead_idx").on(t.leadId),
+    check("mail_threads_id_shape", sql`${t.id} ~ '^[0-9A-F]{8}$'`),
+  ],
+);
+
+export const mailMessages = pgTable(
+  "mail_messages",
+  {
+    /** Resend's id for the message (received or sent): a retried webhook can never store it twice. */
+    id: text("id").primaryKey(),
+    threadId: text("thread_id")
+      .notNull()
+      .references(() => mailThreads.id, { onDelete: "cascade" }),
+    createdAt: timestamp("created_at", { withTimezone: true }).notNull(),
+    direction: mailDirection("direction").notNull(),
+    fromAddress: text("from_address").notNull(),
+    /** Stored as one header-shaped string, because that is what it is. */
+    toAddresses: text("to_addresses").notNull(),
+    subject: text("subject").notNull(),
+    bodyText: text("body_text"),
+    /** Kept as received; the panel never renders it, only its flattened text (stored-XSS rule). */
+    bodyHtml: text("body_html"),
+    /** The RFC 5322 Message-ID, and the In-Reply-To it carried: how replies find their thread. */
+    messageId: text("message_id"),
+    inReplyTo: text("in_reply_to"),
+    attachments: jsonb("attachments").$type<MailAttachmentInfo[]>(),
+  },
+  (t) => [
+    index("mail_messages_thread_idx").on(t.threadId, t.createdAt),
+    index("mail_messages_message_id_idx").on(t.messageId),
+    check("mail_messages_text_len", sql`${t.bodyText} is null or char_length(${t.bodyText}) <= 200000`),
+    check("mail_messages_html_len", sql`${t.bodyHtml} is null or char_length(${t.bodyHtml}) <= 500000`),
+  ],
+);
+
+export type MailThread = typeof mailThreads.$inferSelect;
+export type MailMessageRow = typeof mailMessages.$inferSelect;
