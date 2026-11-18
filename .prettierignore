@@ -9,6 +9,9 @@ docs/sales-kit*.md
 docs/contracts/
 docs/business-owner-questions.md
 docs/research/
+# Contract drafts copied verbatim from the lead's source (docs/contracts/terms-of-service.md is checked against
+# the rendered /en/terms by tests/unit/en-terms.test.ts, so it must stay byte for byte as written).
+docs/contracts/
 
 # Generated or third-party
 pnpm-lock.yaml

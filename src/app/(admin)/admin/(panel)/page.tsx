@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { formatWhen } from "@/lib/admin/format";
-import { countNewLeads, LEAD_STATUS_LABELS, listLeads } from "@/lib/admin/leads";
+import { ORDER_LABELS } from "@/content/admin-orders";
+import { countNewLeads, LEAD_STATUS_LABELS, leadMeta, listLeads } from "@/lib/admin/leads";
 import { getDb } from "@/lib/db/client";
 import { countAwaitingAnswer, listThreads } from "@/lib/mailbox/store";
 import { requireAdmin } from "@/lib/admin/auth";
@@ -43,14 +44,21 @@ export default async function AdminDashboard() {
             {leads.map((l) => (
               <li key={l.id}>
                 <Link className="adm-item" href={`/admin/zapitvaniya/${l.id}`}>
-                  <span className="adm-item__title">{l.name}</span>
+                  <span className="adm-item__title">
+                    {l.locale === "en" && (
+                      <abbr className="adm-badge" title={ORDER_LABELS.badgeLabel}>
+                        {ORDER_LABELS.badge}
+                      </abbr>
+                    )}
+                    {l.name}
+                  </span>
                   <span className="adm-item__side">
                     <span className="adm-status" data-status={l.status}>
                       {LEAD_STATUS_LABELS[l.status]}
                     </span>
                   </span>
                   <span className="adm-item__meta">
-                    {l.businessName} · {l.city} · {formatWhen(l.createdAt)}
+                    {leadMeta(l)} · {formatWhen(l.createdAt)}
                   </span>
                 </Link>
               </li>

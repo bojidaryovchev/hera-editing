@@ -504,3 +504,22 @@
   flex-direction: column;
   gap: 20px;
 }
+
+/* An English order (decision L38): a small badge before the name, in the lists and on the enquiry. */
+.adm-badge {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+  padding: 2px 7px;
+  border-radius: 6px;
+  background: var(--lime);
+  color: var(--ink);
+  font: 700 11px/1.4 var(--fm);
+  text-decoration: none;
+  vertical-align: middle;
+}
+/* The client's own answers keep their line breaks. */
+.adm-pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}

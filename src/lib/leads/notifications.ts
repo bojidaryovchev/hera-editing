@@ -3,7 +3,7 @@ import { leads, type Lead } from "@/db/schema";
 import type { Db } from "@/lib/db/client";
 import { errorCode, logEvent } from "@/lib/log";
 import { MailDeliveryError, type Mailer } from "@/lib/mail";
-import { buildLeadAlert } from "./email";
+import { buildAlert } from "./email";
 
 /** Attempts before a notification is marked failed (an operator can still retry it). */
 export const MAX_NOTIFICATION_ATTEMPTS = 6;
@@ -56,7 +56,7 @@ export async function deliverLeadNotification(
 
   try {
     if (!deps.to) throw new MailDeliveryError("no_recipient_configured");
-    const alert = buildLeadAlert(lead, { brandName: deps.brandName });
+    const alert = buildAlert(lead, { brandName: deps.brandName });
     await deps.mailer.send({
       to: deps.to,
       from: deps.from,

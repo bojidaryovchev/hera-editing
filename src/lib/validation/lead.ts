@@ -1,4 +1,12 @@
 import { GOALS, LEAD_LIMITS, VOLUMES } from "@/lib/validation/lead-fields";
+import {
+  isValidEmail,
+  isValidPhone,
+  isValidProfile,
+  normalizeLine,
+  normalizeMultiline,
+  normalizeUtmValue,
+} from "@/lib/validation/text";
 import { z, type ZodOutput, type ZodType } from "@/lib/validation/zod";
 
 /**
@@ -8,6 +16,7 @@ import { z, type ZodOutput, type ZodType } from "@/lib/validation/zod";
  */
 
 export { GOALS, LEAD_LIMITS, VOLUMES };
+export { isValidEmail, isValidPhone, isValidProfile, normalizeLine, normalizeMultiline };
 export type { LeadGoal, LeadVolume } from "@/lib/validation/lead-fields";
 
 /** Internal pages a quote request may say it came from (`from` / sourcePath). */
@@ -50,77 +59,6 @@ export type LeadField =
 
 export type LeadFieldErrors = Partial<Record<LeadField, LeadErrorCode>>;
 
-// Control characters, zero-width and bidirectional-override characters are never
-// legitimate in a quote request and can be used to disguise text in the owner's inbox.
-const INVISIBLE_RANGES: ReadonlyArray<readonly [number, number]> = [
-  [0x00, 0x08],
-  [0x0b, 0x0c],
-  [0x0e, 0x1f],
-  [0x7f, 0x9f],
-  [0x200b, 0x200f],
-  [0x2028, 0x202e],
-  [0x2060, 0x2064],
-  [0x2066, 0x2069],
-  [0xfeff, 0xfeff],
-];
-const hex = (n: number) => String.fromCharCode(92) + "u" + n.toString(16).padStart(4, "0");
-const STRIP = new RegExp(
-  `[${INVISIBLE_RANGES.map(([a, b]) => (a === b ? hex(a) : `${hex(a)}-${hex(b)}`)).join("")}]`,
-  "g",
-);
-
-/** One line of text: NFC, stripped of invisible characters, whitespace collapsed. */
-export function normalizeLine(value: string): string {
-  return value.normalize("NFC").replace(STRIP, "").replace(/\s+/g, " ").trim();
-}
-
-/** Free text: keeps line breaks (max two in a row), strips invisible characters. */
-export function normalizeMultiline(value: string): string {
-  return value
-    .normalize("NFC")
-    .replace(/\r\n?/g, "\n")
-    .replace(STRIP, "")
-    .replace(/[^\S\n]+/g, " ")
-    .replace(/ *\n */g, "\n")
-    .replace(/\n{3,}/g, "\n\n")
-    .trim();
-}
-
-/** Bulgarian and international numbers, leniently: separators allowed, 7–15 digits, "+" or "00" prefix. */
-export function isValidPhone(value: string): boolean {
-  if (!/^\+?[0-9\s().\-/]+$/.test(value)) return false;
-  const digits = value.replace(/\D/g, "");
-  return digits.length >= 7 && digits.length <= 15;
-}
-
-const EMAIL = z.email();
-export function isValidEmail(value: string): boolean {
-  return value.length <= LEAD_LIMITS.email.max && EMAIL.safeParse(value).success;
-}
-
-const DANGEROUS_SCHEME = /^\s*(javascript|data|vbscript|file|blob|about|chrome|ms-[a-z-]+)\s*:/i;
-const ANY_URL_SCHEME = /^[a-z][a-z0-9+.-]*:\/\//i;
-
-/**
- * "Website or social profile": a URL, a domain or a handle. Free text is allowed,
- * but never a script/data URL, markup characters, or a non-web URL scheme.
- */
-export function isValidProfile(value: string): boolean {
-  if (DANGEROUS_SCHEME.test(value)) return false;
-  if (/[<>"`\\{}^|]/.test(value)) return false;
-  if (ANY_URL_SCHEME.test(value)) {
-    try {
-      const url = new URL(value);
-      if (url.protocol !== "http:" && url.protocol !== "https:") return false;
-      if (!url.hostname.includes(".")) return false;
-      if (url.username || url.password) return false;
-    } catch {
-      return false;
-    }
-  }
-  return true;
-}
-
 export function normalizeSourcePath(value: unknown): string | null {
   if (typeof value !== "string") return null;
   const path = value.trim();
@@ -129,13 +67,6 @@ export function normalizeSourcePath(value: unknown): string | null {
   if (path.includes("//")) return null;
   const ok = SOURCE_PATH_PREFIXES.some((p) => (p === "/" ? path === "/" : path === p || path.startsWith(`${p}/`)));
   return ok ? path : null;
-}
-
-function normalizeUtmValue(value: unknown): string | null {
-  if (typeof value !== "string") return null;
-  const v = value.trim();
-  if (v.length === 0 || v.length > LEAD_LIMITS.utm.max) return null;
-  return /^[A-Za-z0-9_.+\-~%]+$/.test(v) ? v : null;
 }
 
 const toLine = (v: unknown) => (typeof v === "string" ? normalizeLine(v) : v);

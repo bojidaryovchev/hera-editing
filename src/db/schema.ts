@@ -1,5 +1,6 @@
 import { sql } from "drizzle-orm";
 import { bigserial, check, index, integer, jsonb, pgEnum, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import type { OrderDetails } from "../lib/en/order-fields";
 
 /** Sales pipeline stage, set from the admin panel (decision L32) or the operator CLI. */
 export const leadStatus = pgEnum("lead_status", ["new", "contacted", "qualified", "proposal", "won", "lost"]);
@@ -16,6 +17,12 @@ export const leadGoal = pgEnum("lead_goal", ["awareness", "consistency", "enquir
 
 export const leadVolume = pgEnum("lead_volume", ["unsure", "4", "8", "12plus"]);
 
+/**
+ * Which form a request came from: the Bulgarian quote form, or the English order and brief at /en (decision L38).
+ * Both land in the same table, alert pipeline and admin inbox.
+ */
+export const leadLocale = pgEnum("lead_locale", ["bg", "en"]);
+
 export const leads = pgTable(
   "leads",
   {
@@ -27,11 +34,13 @@ export const leads = pgTable(
 
     name: text("name").notNull(),
     businessName: text("business_name").notNull(),
-    city: text("city").notNull(),
+    /** Always set on a Bulgarian quote request (leads_bg_fields); English orders give a country instead. */
+    city: text("city"),
     email: text("email"),
     phone: text("phone"),
     profileUrl: text("profile_url"),
-    goal: leadGoal("goal").notNull(),
+    /** Always set on a Bulgarian quote request (leads_bg_fields). */
+    goal: leadGoal("goal"),
     volume: leadVolume("volume"),
     message: text("message"),
     sourcePath: text("source_path"),
@@ -39,6 +48,9 @@ export const leads = pgTable(
     utmMedium: text("utm_medium"),
     utmCampaign: text("utm_campaign"),
     privacyNoticeVersion: text("privacy_notice_version").notNull(),
+    locale: leadLocale("locale").notNull().default("bg"),
+    /** An English order's brief (package, country, footage link, niche fields); null on Bulgarian requests. */
+    details: jsonb("details").$type<OrderDetails>(),
 
     status: leadStatus("status").notNull().default("new"),
     /** Why the lead is treated as likely spam (e.g. "honeypot"); null for normal leads. */
@@ -67,6 +79,9 @@ export const leads = pgTable(
     check("leads_profile_len", sql`${t.profileUrl} is null or char_length(${t.profileUrl}) <= 250`),
     check("leads_message_len", sql`${t.message} is null or char_length(${t.message}) <= 2000`),
     check("leads_attempts_nonneg", sql`${t.notificationAttempts} >= 0`),
+    check("leads_bg_fields", sql`${t.locale} <> 'bg' or (${t.city} is not null and ${t.goal} is not null)`),
+    check("leads_en_fields", sql`${t.locale} <> 'en' or (${t.details} is not null and ${t.email} is not null)`),
+    check("leads_details_size", sql`${t.details} is null or octet_length(${t.details}::text) <= 32768`),
   ],
 );
 

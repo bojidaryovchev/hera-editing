@@ -111,7 +111,7 @@ export async function replyToLead(
   db: Db,
   mailer: Mailer,
   config: ReplyConfig,
-  lead: { id: string; name: string; email: string | null },
+  lead: { id: string; name: string; email: string | null; locale?: "bg" | "en" },
   rawBody: string,
 ): Promise<ReplyResult> {
   const checked = checkBody(rawBody);
@@ -125,7 +125,8 @@ export async function replyToLead(
     await createThread(db, {
       id: threadId,
       createdAt: new Date(),
-      subject: `Вашето запитване към ${config.brandName}`,
+      // An English order is answered in English (decision L38); the subject is the only words we add.
+      subject: lead.locale === "en" ? `Your brief for ${config.brandName}` : `Вашето запитване към ${config.brandName}`,
       correspondent: mailbox.address,
       correspondentName: lead.name,
       leadId: lead.id,

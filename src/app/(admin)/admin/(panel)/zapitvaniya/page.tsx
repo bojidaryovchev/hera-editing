@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { formatWhen } from "@/lib/admin/format";
-import { isLeadStatus, LEAD_STATUS_LABELS, LEAD_STATUSES, listLeads } from "@/lib/admin/leads";
+import { ORDER_LABELS } from "@/content/admin-orders";
+import { isLeadStatus, LEAD_STATUS_LABELS, LEAD_STATUSES, leadMeta, listLeads } from "@/lib/admin/leads";
 import { getDb } from "@/lib/db/client";
 import { requireAdmin } from "@/lib/admin/auth";
 
@@ -37,7 +38,14 @@ export default async function AdminLeads({ searchParams }: { searchParams: Promi
           {leads.map((l) => (
             <li key={l.id}>
               <Link className="adm-item" href={`/admin/zapitvaniya/${l.id}`}>
-                <span className="adm-item__title">{l.name}</span>
+                <span className="adm-item__title">
+                  {l.locale === "en" && (
+                    <abbr className="adm-badge" title={ORDER_LABELS.badgeLabel}>
+                      {ORDER_LABELS.badge}
+                    </abbr>
+                  )}
+                  {l.name}
+                </span>
                 <span className="adm-item__side">
                   <span className="adm-status" data-status={l.status}>
                     {LEAD_STATUS_LABELS[l.status]}
@@ -45,7 +53,7 @@ export default async function AdminLeads({ searchParams }: { searchParams: Promi
                   {formatWhen(l.createdAt)}
                 </span>
                 <span className="adm-item__meta">
-                  {l.businessName} · {l.city}
+                  {leadMeta(l)}
                   {l.email ? ` · ${l.email}` : ""}
                   {l.phone ? ` · ${l.phone}` : ""}
                 </span>

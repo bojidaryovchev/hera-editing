@@ -35,6 +35,8 @@ export type LeadListItem = Pick<
   | "volume"
   | "status"
   | "spamReason"
+  | "locale"
+  | "details"
 >;
 
 export async function listLeads(db: Db, status?: LeadStatus, limit = 200): Promise<LeadListItem[]> {
@@ -51,6 +53,8 @@ export async function listLeads(db: Db, status?: LeadStatus, limit = 200): Promi
       volume: leads.volume,
       status: leads.status,
       spamReason: leads.spamReason,
+      locale: leads.locale,
+      details: leads.details,
     })
     .from(leads)
     .where(status ? eq(leads.status, status) : undefined)
@@ -91,4 +95,13 @@ export async function setLeadStatus(db: Db, id: string, status: LeadStatus, acto
 /** Record that the panel sent an answer (the thread id only; the text stays in the mailbox). */
 export async function auditReply(db: Db, leadId: string | null, threadId: string, actor = "admin-panel") {
   await db.insert(leadAuditLog).values({ action: "mail_reply", leadId, actor, details: { threadId } });
+}
+
+/**
+ * The second line of an enquiry in the lists: the business and city of a Bulgarian request, or the business, the
+ * package and the country of an English order (decision L38).
+ */
+export function leadMeta(l: Pick<Lead, "businessName" | "city" | "locale" | "details">): string {
+  if (l.locale === "en" && l.details) return `${l.businessName} · ${l.details.packageName} · ${l.details.country}`;
+  return `${l.businessName} · ${l.city ?? "—"}`;
 }

@@ -1,11 +1,12 @@
 import { createHash, randomUUID } from "node:crypto";
 import { and, eq, gt, sql } from "drizzle-orm";
-import { leads } from "@/db/schema";
+import { leads, type NewLead } from "@/db/schema";
 import type { Db } from "@/lib/db/client";
 import { errorCode, logEvent } from "@/lib/log";
 import { LEAD_RULES, SHARED_RULES, consumeRateLimit, purgeExpiredRateLimits } from "@/lib/rate-limit";
 import { rateLimitSubject } from "@/lib/security/request";
 import { validateLead, type LeadFieldErrors, type LeadInput } from "@/lib/validation/lead";
+import { validateOrder, type OrderFieldErrors, type OrderInput } from "@/lib/validation/order";
 
 /** Identical submissions (same contact and message) inside this window count as one lead. */
 export const DEDUPE_WINDOW_MINUTES = 10;
@@ -17,6 +18,10 @@ export type SubmitLeadResult =
   | { status: "rate_limited"; retryAfterSeconds: number }
   | { status: "verification_failed" }
   | { status: "unavailable" };
+
+/** The English order's result: the same pipeline, with the order form's error codes. */
+export type SubmitOrderResult =
+  Exclude<SubmitLeadResult, { status: "invalid" }> | { status: "invalid"; errors: OrderFieldErrors };
 
 export type SubmitLeadContext = {
   db: Db;
@@ -32,6 +37,9 @@ export type SubmitLeadContext = {
   now?: Date;
 };
 
+/** The English order form's context: the same, plus whether businesses in other EU states may order. */
+export type SubmitOrderContext = SubmitLeadContext & { euOrders: boolean };
+
 export function dedupeKeyFor(lead: LeadInput): string {
   const parts = [
     lead.email?.toLowerCase() ?? "",
@@ -44,24 +52,35 @@ export function dedupeKeyFor(lead: LeadInput): string {
   return createHash("sha256").update(parts.join("\u0000")).digest("hex");
 }
 
+/** An English order is a duplicate when the same person sends the same brief for the same package. */
+export function orderDedupeKey(order: OrderInput): string {
+  const parts = [
+    "en",
+    order.email.toLowerCase(),
+    order.name.toLowerCase(),
+    order.businessName.toLowerCase(),
+    JSON.stringify(order.details),
+  ];
+  return createHash("sha256").update(parts.join("\u0000")).digest("hex");
+}
+
 export function isHoneypotTripped(value: unknown): boolean {
   if (value === undefined || value === null || value === false) return false;
   return typeof value === "string" ? value.trim().length > 0 : true;
 }
 
+type Stored = Extract<SubmitLeadResult, { status: "created" | "duplicate" | "rate_limited" | "unavailable" }>;
+
 /**
- * The quote-request pipeline: validate → (verify) → rate limit → idempotent, durable
- * insert → schedule the owner alert after commit. Success is only ever returned for
- * a lead that is committed in the database.
+ * The durable half of every submission, after validation and verification: rate limit → idempotent insert → owner
+ * alert scheduled after commit. Success is only ever returned for a row that is committed in the database.
  */
-export async function submitLead(raw: unknown, ctx: SubmitLeadContext): Promise<SubmitLeadResult> {
-  const validation = validateLead(raw);
-  if (!validation.ok) return { status: "invalid", errors: validation.errors };
-  const lead = validation.data;
+async function store(
+  row: Omit<NewLead, "requestId" | "dedupeKey" | "spamReason" | "notificationStatus" | "privacyNoticeVersion">,
+  keys: { requestId: string | null; dedupeKey: string },
+  ctx: SubmitLeadContext,
+): Promise<Stored> {
   const now = ctx.now ?? new Date();
-
-  if (ctx.verifyHuman && !(await ctx.verifyHuman())) return { status: "verification_failed" };
-
   const spamReason = isHoneypotTripped(ctx.honeypot) ? "honeypot" : null;
 
   try {
@@ -72,8 +91,8 @@ export async function submitLead(raw: unknown, ctx: SubmitLeadContext): Promise<
       return { status: "rate_limited", retryAfterSeconds: decision.retryAfterSeconds };
     }
 
-    const requestId = lead.requestId ?? randomUUID();
-    const dedupeKey = dedupeKeyFor(lead);
+    const requestId = keys.requestId ?? randomUUID();
+    const { dedupeKey } = keys;
 
     const outcome = await ctx.db.transaction(async (tx) => {
       // Serialise identical submissions so two concurrent double-clicks cannot both insert.
@@ -97,20 +116,8 @@ export async function submitLead(raw: unknown, ctx: SubmitLeadContext): Promise<
       const inserted = await tx
         .insert(leads)
         .values({
+          ...row,
           requestId,
-          name: lead.name,
-          businessName: lead.businessName,
-          city: lead.city,
-          email: lead.email,
-          phone: lead.phone,
-          profileUrl: lead.profileUrl,
-          goal: lead.goal,
-          volume: lead.volume,
-          message: lead.message,
-          sourcePath: lead.sourcePath,
-          utmSource: lead.utm.source,
-          utmMedium: lead.utm.medium,
-          utmCampaign: lead.utm.campaign,
           privacyNoticeVersion: ctx.privacyNoticeVersion,
           spamReason,
           dedupeKey,
@@ -139,4 +146,66 @@ export async function submitLead(raw: unknown, ctx: SubmitLeadContext): Promise<
     logEvent("error", "lead_submission_unavailable", { code: errorCode(error) });
     return { status: "unavailable" };
   }
+}
+
+/**
+ * The quote-request pipeline: validate → (verify) → rate limit → idempotent, durable
+ * insert → schedule the owner alert after commit. Success is only ever returned for
+ * a lead that is committed in the database.
+ */
+export async function submitLead(raw: unknown, ctx: SubmitLeadContext): Promise<SubmitLeadResult> {
+  const validation = validateLead(raw);
+  if (!validation.ok) return { status: "invalid", errors: validation.errors };
+  const lead = validation.data;
+
+  if (ctx.verifyHuman && !(await ctx.verifyHuman())) return { status: "verification_failed" };
+
+  return store(
+    {
+      locale: "bg",
+      name: lead.name,
+      businessName: lead.businessName,
+      city: lead.city,
+      email: lead.email,
+      phone: lead.phone,
+      profileUrl: lead.profileUrl,
+      goal: lead.goal,
+      volume: lead.volume,
+      message: lead.message,
+      sourcePath: lead.sourcePath,
+      utmSource: lead.utm.source,
+      utmMedium: lead.utm.medium,
+      utmCampaign: lead.utm.campaign,
+    },
+    { requestId: lead.requestId, dedupeKey: dedupeKeyFor(lead) },
+    ctx,
+  );
+}
+
+/**
+ * The English order and brief (/en/order, decision L38), through the same pipeline into the same table: the brief in
+ * `details`, `locale` "en", no city or goal. Orders from businesses in other EU states are refused unless allowed.
+ */
+export async function submitOrder(raw: unknown, ctx: SubmitOrderContext): Promise<SubmitOrderResult> {
+  const validation = validateOrder(raw, { euOrders: ctx.euOrders, now: ctx.now ? () => ctx.now! : undefined });
+  if (!validation.ok) return { status: "invalid", errors: validation.errors };
+  const order = validation.data;
+
+  if (ctx.verifyHuman && !(await ctx.verifyHuman())) return { status: "verification_failed" };
+
+  return store(
+    {
+      locale: "en",
+      name: order.name,
+      businessName: order.businessName,
+      email: order.email,
+      details: order.details,
+      sourcePath: order.sourcePath,
+      utmSource: order.utm.source,
+      utmMedium: order.utm.medium,
+      utmCampaign: order.utm.campaign,
+    },
+    { requestId: order.requestId, dedupeKey: orderDedupeKey(order) },
+    ctx,
+  );
 }

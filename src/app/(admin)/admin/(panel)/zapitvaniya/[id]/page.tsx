@@ -3,6 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { replyLeadAction, setLeadStatusAction } from "@/app/(admin)/admin/actions";
 import { ReplyForm } from "@/components/admin/ReplyForm";
+import { ORDER_LABELS } from "@/content/admin-orders";
 import { GOAL_LABELS, VOLUME_LABELS } from "@/content/forms";
 import { formatWhen, NOTIFICATION_LABELS } from "@/lib/admin/format";
 import { getLead, LEAD_STATUS_LABELS, LEAD_STATUSES } from "@/lib/admin/leads";
@@ -11,6 +12,7 @@ import { getDb } from "@/lib/db/client";
 import { singleMailbox } from "@/lib/mailbox/address";
 import { findThreadByLead, getThread } from "@/lib/mailbox/store";
 import { readableBody } from "@/lib/mailbox/threading";
+import { linkHref, orderRows } from "@/lib/leads/order-summary";
 import { requireAdmin } from "@/lib/admin/auth";
 
 export const metadata: Metadata = { title: "Запитване" };
@@ -44,7 +46,14 @@ export default async function AdminLead({
         ← Всички запитвания
       </Link>
       <div className="adm-head">
-        <h1 className="adm-h1">{lead.name}</h1>
+        <h1 className="adm-h1">
+          {lead.locale === "en" && (
+            <abbr className="adm-badge" title={ORDER_LABELS.badgeLabel}>
+              {ORDER_LABELS.badge}
+            </abbr>
+          )}
+          {lead.name}
+        </h1>
         <span className="adm-status" data-status={lead.status}>
           {LEAD_STATUS_LABELS[lead.status]}
         </span>
@@ -52,16 +61,18 @@ export default async function AdminLead({
       {saved && <p className="adm-note adm-note--ok">Статусът е запазен.</p>}
       {lead.spamReason && <p className="adm-note adm-note--warn">Отбелязано като вероятен спам ({lead.spamReason}).</p>}
 
-      <section className="adm-sheet" aria-label="Данни от формата">
+      <section className="adm-sheet" aria-label={lead.locale === "en" ? ORDER_LABELS.section : "Данни от формата"}>
         <dl className="adm-dl">
           <div>
             <dt>Фирма</dt>
             <dd>{lead.businessName}</dd>
           </div>
-          <div>
-            <dt>Град</dt>
-            <dd>{lead.city}</dd>
-          </div>
+          {lead.locale === "bg" && (
+            <div>
+              <dt>Град</dt>
+              <dd>{lead.city}</dd>
+            </div>
+          )}
           <div>
             <dt>Имейл</dt>
             <dd>{lead.email ? <a href={`mailto:${lead.email}`}>{lead.email}</a> : "—"}</dd>
@@ -70,30 +81,53 @@ export default async function AdminLead({
             <dt>Телефон</dt>
             <dd>{lead.phone ? <a href={`tel:${lead.phone.replace(/[^\d+]/g, "")}`}>{lead.phone}</a> : "—"}</dd>
           </div>
-          <div>
-            <dt>Цел</dt>
-            <dd>{GOAL_LABELS[lead.goal]}</dd>
-          </div>
-          <div>
-            <dt>Обем</dt>
-            <dd>{lead.volume ? VOLUME_LABELS[lead.volume] : "—"}</dd>
-          </div>
-          <div className="adm-wide">
-            <dt>Профил</dt>
-            <dd>
-              {profile ? (
-                <a href={profile} target="_blank" rel="noopener noreferrer">
-                  {lead.profileUrl}
-                </a>
-              ) : (
-                (lead.profileUrl ?? "—")
-              )}
-            </dd>
-          </div>
-          <div className="adm-wide">
-            <dt>Съобщение</dt>
-            <dd>{lead.message ?? "—"}</dd>
-          </div>
+          {lead.locale === "bg" && (
+            <>
+              <div>
+                <dt>Цел</dt>
+                <dd>{lead.goal ? GOAL_LABELS[lead.goal] : "—"}</dd>
+              </div>
+              <div>
+                <dt>Обем</dt>
+                <dd>{lead.volume ? VOLUME_LABELS[lead.volume] : "—"}</dd>
+              </div>
+              <div className="adm-wide">
+                <dt>Профил</dt>
+                <dd>
+                  {profile ? (
+                    <a href={profile} target="_blank" rel="noopener noreferrer">
+                      {lead.profileUrl}
+                    </a>
+                  ) : (
+                    (lead.profileUrl ?? "—")
+                  )}
+                </dd>
+              </div>
+              <div className="adm-wide">
+                <dt>Съобщение</dt>
+                <dd>{lead.message ?? "—"}</dd>
+              </div>
+            </>
+          )}
+          {lead.locale === "en" &&
+            lead.details &&
+            orderRows(lead.details).map((r) => {
+              const href = r.link ? linkHref(r.value) : null;
+              return (
+                <div key={r.label} className={r.wide ? "adm-wide" : undefined}>
+                  <dt>{r.label}</dt>
+                  <dd className="adm-pre">
+                    {href ? (
+                      <a href={href} target="_blank" rel="noopener noreferrer">
+                        {r.value}
+                      </a>
+                    ) : (
+                      r.value
+                    )}
+                  </dd>
+                </div>
+              );
+            })}
           <div>
             <dt>Получено</dt>
             <dd>{formatWhen(lead.createdAt)}</dd>

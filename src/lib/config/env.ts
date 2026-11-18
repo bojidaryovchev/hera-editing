@@ -39,6 +39,32 @@ export function resolveAppEnv(src: Source): AppEnv {
   return "development";
 }
 
+/**
+ * The English section at /en (decision L38). Production keeps it off unless EN_SECTION_ENABLED=true; every other
+ * environment shows it unless EN_SECTION_ENABLED=false, so the owner can review it on staging and previews. Read at
+ * build time by the static pages, the sitemap and next.config.ts (rebuild after changing it).
+ */
+export function enSectionEnabled(src: Source): boolean {
+  const v = val(src, "EN_SECTION_ENABLED");
+  if (v === "true") return true;
+  if (v === "false") return false;
+  return resolveAppEnv(src) !== "production";
+}
+
+/**
+ * Orders from businesses in other EU states (not Bulgaria) need the art. 97а VAT registration first (decision L38),
+ * so they are refused unless EN_EU_ORDERS=true. Read per request by the order page and the order API.
+ */
+export function euOrdersEnabled(src: Source): boolean {
+  return val(src, "EN_EU_ORDERS") === "true";
+}
+
+/** A true/false switch: unset means its default; anything but "true" or "false" is a typo worth stopping for. */
+function checkSwitch(src: Source, key: string, problems: string[]) {
+  const v = val(src, key);
+  if (v !== undefined && v !== "true" && v !== "false") problems.push(`${key} must be true or false`);
+}
+
 const emailSchema = z.email().max(254);
 
 export type ServerEnv = {
@@ -74,6 +100,10 @@ export type ServerEnv = {
    */
   mailbox: { address: string; domain: string; webhookSecret: string; apiKey: string } | null;
   contentFixtures: boolean;
+  /** The English section /en and its order form (decision L38). */
+  enSection: boolean;
+  /** Whether businesses in other EU states may order through /en (off until the VAT registration). */
+  euOrders: boolean;
 };
 
 const DEV_SALT = "development-only-rate-limit-salt-not-secret";
@@ -222,6 +252,10 @@ export function parseServerEnv(src: Source): ServerEnv {
   const contentFixtures = val(src, "CONTENT_FIXTURES") === "1";
   if (contentFixtures && appEnv !== "test") problems.push("CONTENT_FIXTURES is only allowed when APP_ENV=test");
 
+  // --- The English section (decision L38) ---------------------------------------------
+  checkSwitch(src, "EN_SECTION_ENABLED", problems);
+  checkSwitch(src, "EN_EU_ORDERS", problems);
+
   if (problems.length > 0) throw new ConfigError(problems);
 
   return {
@@ -241,6 +275,8 @@ export function parseServerEnv(src: Source): ServerEnv {
     admin,
     mailbox,
     contentFixtures,
+    enSection: enSectionEnabled(src),
+    euOrders: euOrdersEnabled(src),
   };
 }
 

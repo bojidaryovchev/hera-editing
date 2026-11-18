@@ -15,6 +15,13 @@
       "when": 1794963229406,
       "tag": "0001_mailbox",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1795033949235,
+      "tag": "0002_en_orders",
+      "breakpoints": true
     }
   ]
 }

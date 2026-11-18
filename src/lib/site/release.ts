@@ -1,14 +1,11 @@
 import { PRIVACY_NOTICE } from "@/content/legal/privacy";
 import { SERVICE_TERMS } from "@/content/terms";
 import type { AppEnv } from "@/lib/config/env";
+import { ReleaseGateError } from "@/lib/site/release-error";
 
-/** Release gates that fail the production build instead of publishing something unfinished (spec/handoff/02 §A). */
-export class ReleaseGateError extends Error {
-  constructor(message: string) {
-    super(message);
-    this.name = "ReleaseGateError";
-  }
-}
+export { ReleaseGateError };
+
+/* Release gates that fail the production build instead of publishing something unfinished (spec/handoff/02 §A). */
 
 /** The privacy notice must be lawyer-approved before production collects enquiries (acceptance F). */
 export function assertPrivacyReady(appEnv: AppEnv, notice: { status: string } = PRIVACY_NOTICE): void {
