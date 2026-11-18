@@ -12,7 +12,7 @@ the owner's launch inputs: [docs/release-checklist.md](docs/release-checklist.md
 | Path                                                   | What it holds                                                                                                                          |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------- |
 | [docs/strategy.md](docs/strategy.md)                   | The product as a whole: offer, customers, positioning, how clients find us, which pages to build                                       |
-| [docs/decisions.md](docs/decisions.md)                 | Every decision since the specification: the owner's choices, then the build (decision 1–12, L1–L34)                                    |
+| [docs/decisions.md](docs/decisions.md)                 | Every decision since the specification: the owner's choices, then the build (decision 1–12, L1–L35)                                    |
 | [docs/development.md](docs/development.md)             | Running, configuring, deploying and operating the site                                                                                 |
 | [docs/release-checklist.md](docs/release-checklist.md) | Each acceptance criterion with its proof, and what the owner still has to supply                                                       |
 | [docs/research/](docs/research/)                       | Research after the freeze: measured keywords (05), competitors' service terms (06), and the business research behind the strategy (07) |
