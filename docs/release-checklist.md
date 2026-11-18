@@ -9,8 +9,8 @@ build for production, or shows nothing, until it is supplied). Commands and suit
 of this file are supplied; the production build refuses to run without them, by design.
 
 **Beyond the acceptance criteria:** the spec review of 2026-11-18 found gaps that no criterion covers: the privacy
-notice text, alerting, the footer's quote source, the homepage work section and the manual QA pass. See
-[`spec-coverage.md`](spec-coverage.md).
+notice text, alerting, the homepage work section and the manual QA pass. A fifth, the footer's quote source, is fixed
+(`980b38d`). See [`spec-coverage.md`](spec-coverage.md).
 
 ## A. Scope fidelity
 

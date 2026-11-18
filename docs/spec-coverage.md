@@ -6,11 +6,14 @@
   document was read in full and compared with the code, the tests and `docs/`.
 - **Verdict.** The website contract (`spec/website/01–04`) is covered. The [release checklist](release-checklist.md)
   maps all 48 acceptance criteria, and spot checks of the code agree with it. What is open:
-  - five gaps that no document tracked (§1);
+  - five gaps that no document tracked (§1), one of which (the footer button, §1.3) is now fixed;
   - business work the spec asks for that is not planned yet (§2);
   - three points missing from the Bulgarian client contract (§3);
   - the launch inputs, which were already tracked (§6).
-- **Out of scope.** The remote-editing line (L35) and the English section `/en` (L38) lie outside the frozen spec.
+- **Out of scope.** The remote-editing line and the English section `/en` are owner-approved changes (L35–L38). For
+  `/en` only, they lift the spec's exclusions (creators, a global audience, an editing storefront) and three of its
+  v1.0 rules (no public prices, Bulgarian copy with euro prices, no ecommerce). The Bulgarian pages still follow the
+  spec.
 
 ## 1. Gaps that no document tracked
 
@@ -38,7 +41,8 @@
   - the rights, and the complaint route to the КЗЛД;
   - the mailbox paragraph.
 
-  The owner then decides, as a separate decision, whether a lawyer reviews it.
+  The owner then decides, as a separate decision, whether a lawyer reviews it. Keep it consistent with the privacy
+  page that `/en` now has (`src/app/(en)/en/privacy/`): the same controller, processors and retention.
 
 ### 1.2 Nobody is told when enquiries stop arriving
 
@@ -57,14 +61,14 @@
   - point a free uptime monitor at it, alerting the owner's address (question B4);
   - run the retry job every 15 minutes once the site is on Vercel Pro (question B9).
 
-### 1.3 The footer's quote button credits every lead to the homepage
+### 1.3 The footer's quote button credited every lead to the homepage (fixed)
 
 - **Spec:** website/01 "Global navigation" (the `from` source) and website/03 (`sourcePath`).
-- **Found:** `src/components/site/SiteFooter.tsx:27` links to `quoteHref("/")` on every page. A lead sent from the
-  footer is stored with `source_path` set to `/`, and the contact page tells the visitor „Идвате от страницата:
-  Начало“. The `cta_quote_click` event is right, because it reads the current page. L31 (2) fixed the same bug in the
-  header and the menu.
-- **Next:** use `QuoteLink` in the footer, and extend the navigation test to cover it.
+- **Found:** `src/components/site/SiteFooter.tsx` linked to `quoteHref("/")` on every page. A lead sent from the footer
+  was stored with `source_path` set to `/`, and the contact page told the visitor „Идвате от страницата: Начало“. L31
+  (2) had fixed the same bug in the header and the menu.
+- **Fixed** in `980b38d`: the footer button uses `QuoteLink`, and `tests/e2e/navigation.spec.ts` checks that it records
+  the page.
 
 ### 1.4 Nothing on the homepage for approved work
 
@@ -156,8 +160,9 @@ Also:
 
 ## 4. Covered
 
-- **README (scope and exclusions).** Content tests guard against prices, creator positioning and promises about ads.
-  The exceptions (L32, L35, L38) were approved by the owner and recorded, as handoff/02 §E requires.
+- **README (scope and exclusions).** On the Bulgarian pages, content tests guard against prices, creator positioning
+  and promises about ads. The exceptions (L32, L35, L38) were approved by the owner and recorded, as handoff/02 §E
+  requires, and L35–L38 lift the exclusions for `/en` only.
 - **research/01 (market).**
   - Competitors re-checked in research/07 Part 2.
   - Positioning in strategy §2.
