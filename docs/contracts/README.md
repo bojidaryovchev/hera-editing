@@ -14,5 +14,7 @@ Drafted on 2026-11-18 from the sourced research in
 | [client-contract-bg.md](client-contract-bg.md) | Bulgarian | Bulgarian clients of the monthly filming and social media service. It covers scope, the first period then monthly with 1 month's notice, approvals and revisions, filming people, rights in the videos, account access, sector rules, liability | Signed with every Bulgarian client |
 | [filming-consent-bg.md](filming-consent-bg.md) | Bulgarian | Every person featured in a shoot: specific uses, the right to withdraw, children with their parents | One per person per shoot |
 
-The Data Processing Agreement is in English for remote-editing clients. The Bulgarian client contract refers to a
-Bulgarian version of the same agreement (Annex 2), translated from the English draft once it is signed off.
+| [dpa-bg.md](dpa-bg.md) | Bulgarian | Annex 2 of the Bulgarian client contract. It covers GDPR Art. 28 for this service's own processing: people filmed on the client's premises, delegated account access, and followers' comments and messages if replies are sold | Signed with the client contract |
+
+The English data processing agreement is for remote-editing clients. The Bulgarian one is written separately, because
+the filming service processes different data.

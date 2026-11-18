@@ -723,8 +723,8 @@ them off (decision 6).
 | When | What |
 |---|---|
 | **Weeks 1–2** | Decide the base city, sectors and prices (13). Start the company registration; book the lawyer and accountant. Open Hera's own Instagram, TikTok and Facebook and post the first videos. List warm contacts and partners. Build the first outreach list: 2–3 sectors × 20–30 businesses, with one observation each. |
-| **Weeks 2–4** | Warm introductions first. 2–3 test shoots with friendly businesses. December is a natural hook for restaurants: holiday menus and events. First discovery calls, using the spec's discovery guide. Prepare the release form, the client phone kit and the first sector checklists for the lawyer. |
-| **Weeks 4–8** | The production launch once the inputs exist. The first wave of researched outreach, under the rules in 8.3. Up to 3 pilot clients. Record every lead's origin. After 10 conversations, adjust the FAQ and the price drivers. |
+| **Weeks 2–4** | Warm introductions first. 2–3 test shoots with friendly businesses. December is a natural hook for restaurants: holiday menus and events. First discovery calls, using the spec's discovery guide. Use the release form, the shoot and account-access checklists and the quote template in [operations/](operations/) and [contracts/](contracts/). |
+| **Weeks 4–8** | Before the launch, a usability check (spec handoff/02 §C.4, research/04): five prospects walk through the site and say, in their own words, what they think is included and what it costs; fix whatever they misread. Then the production launch, once the inputs exist. The first wave of researched outreach, under the rules in 8.3. Up to 3 pilot clients. Record every lead's origin. After 10 conversations, adjust the FAQ and the price drivers. |
 | **Weeks 8–12** | The first case study and the named team on the site. The Business Profile after registration; ask the first clients for reviews. Decide on public "from" prices and on any sector page with real work behind it. Approach coastal hotels for pre-season content. |
 
 ## 15. Sources
