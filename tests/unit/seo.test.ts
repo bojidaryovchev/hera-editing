@@ -8,11 +8,15 @@ import { SEO } from "../../src/content/seo";
 import { fitSize, fontMeasure, lineCount } from "../../src/lib/site/font-metrics";
 import { INDEXABLE_PAGES, pageMetadata, pagePath } from "../../src/lib/site/metadata";
 import { SHARE, shareAlt } from "../../src/lib/site/share";
+import { EN_SEO } from "../../src/content/en/seo";
+import { EN_INDEXABLE_PAGES, EN_SHARE, enPageMetadata, enPagePath } from "../../src/lib/en/metadata";
 import { breadcrumbLd, homeGraph, jsonLdString, organizationLd } from "../../src/lib/site/structured-data";
 import { absoluteUrl, isIndexable, siteOrigin } from "../../src/lib/site/url";
 
 /** The public site's routes; the admin panel is its own route group (src/app/(admin)) and never public. */
 const APP = path.resolve(import.meta.dirname, "../../src/app/(site)");
+/** The English section's routes (decision L38): a third root layout. */
+const EN_APP = path.resolve(import.meta.dirname, "../../src/app/(en)");
 
 /** Every page route of the public site (folders with a page.tsx), as URL paths; a (group) adds no segment. */
 function pageRoutes(dir = APP, prefix = ""): string[] {
@@ -99,6 +103,8 @@ describe("page metadata (acceptance E)", () => {
 describe("sitemap and robots", () => {
   it("lists exactly the indexable pages, as absolute URLs", () => {
     vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.example.bg");
+    // The Bulgarian site alone: the English section (on by default outside production) is covered below.
+    vi.stubEnv("EN_SECTION_ENABLED", "false");
     const urls = sitemap().map((e) => e.url);
     expect(urls).toEqual(
       INDEXABLE_PAGES.map((p) => (p.path === "/" ? "https://www.example.bg/" : `https://www.example.bg${p.path}`)),
@@ -218,6 +224,93 @@ describe("share image headlines fit (font metrics)", () => {
       const size = fitSize(display, words, box, [136, 128, 120, 112, 104, 96, 88, 80, 72]);
       expect(lineCount(display, words, size, box.width)).toBeLessThanOrEqual(3);
       expect(size).toBeGreaterThanOrEqual(80);
+    }
+  });
+});
+
+describe("the English section (src/app/(en), decision L38)", () => {
+  it("lists every page route once; only the samples page and the 404 catch-all are conditional", () => {
+    const listed = EN_INDEXABLE_PAGES.map((p) => p.path);
+    expect(new Set(listed).size).toBe(listed.length);
+    expect(pageRoutes(EN_APP).sort()).toEqual([...listed, "/en/work", "/en/[...missing]"].sort());
+    expect(enPagePath("work")).toBe("/en/work");
+  });
+
+  it("gives each page its own title, description, canonical, en_US Open Graph and a large card, and no hreflang", () => {
+    for (const { key, path: p } of EN_INDEXABLE_PAGES) {
+      const m = enPageMetadata(key);
+      expect(m.alternates?.canonical).toBe(p);
+      expect(m.alternates).not.toHaveProperty("languages");
+      expect(m.openGraph).toMatchObject({
+        url: p,
+        locale: "en_US",
+        type: "website",
+        title: EN_SEO[key].title,
+        description: EN_SEO[key].description,
+      });
+      expect(m.twitter).toMatchObject({ card: "summary_large_image" });
+    }
+    expect(enPageMetadata("home").title).toEqual({ absolute: `${EN_SEO.home.title} | Hera Editing` });
+    expect(enPageMetadata("pricing").title).toBe(EN_SEO.pricing.title);
+  });
+
+  it("keeps every title and description unique across both sections, descriptions 120–165 characters", () => {
+    const all = [...Object.values(SEO), ...Object.values(EN_SEO)];
+    expect(new Set(all.map((e) => e.title)).size).toBe(all.length);
+    expect(new Set(all.map((e) => e.description)).size).toBe(all.length);
+    for (const { title, description } of Object.values(EN_SEO)) {
+      expect(description.length, title).toBeGreaterThanOrEqual(120);
+      expect(description.length, title).toBeLessThanOrEqual(165);
+    }
+  });
+
+  it("targets the niche queries in the titles (research 08, Part 3 §7.2)", () => {
+    expect(EN_SEO.wedding.title).toBe("Wedding video editing for filmmakers");
+    expect(EN_SEO.youtube.title.toLowerCase()).toContain("youtube video editor for hire");
+    expect(EN_SEO.realEstate.title.toLowerCase()).toContain("real estate video editing");
+  });
+
+  it("has a share image route with alt text for every page, including the samples page", () => {
+    for (const key of [...EN_INDEXABLE_PAGES.map((p) => p.key), "work" as const]) {
+      const p = enPagePath(key);
+      const file = path.join(EN_APP, p, "opengraph-image.tsx");
+      expect(existsSync(file), file).toBe(true);
+      expect(readFileSync(file, "utf8")).toContain(`enShareAlt("${key}")`);
+      expect(EN_SHARE[key].title.length).toBeGreaterThan(0);
+    }
+  });
+
+  it("renders in its own root layout with lang=en, never through the Bulgarian one", () => {
+    const layout = readFileSync(path.join(EN_APP, "layout.tsx"), "utf8");
+    expect(layout).toContain('<SiteDocument locale="en">');
+    expect(layout).toContain('locale: "en_US"');
+    expect(layout).not.toMatch(/alternates\s*:|languages\s*:/);
+  });
+
+  it("joins the sitemap only while switched on, and the samples page only with published samples", () => {
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://www.example.bg");
+    vi.stubEnv("EN_SECTION_ENABLED", "true");
+    const urls = sitemap().map((e) => e.url);
+    const en = EN_INDEXABLE_PAGES.map((p) => `https://www.example.bg${p.path}`);
+    expect(urls).toEqual([
+      ...INDEXABLE_PAGES.map((p) => (p.path === "/" ? "https://www.example.bg/" : `https://www.example.bg${p.path}`)),
+      ...en,
+    ]);
+    expect(urls).not.toContain("https://www.example.bg/en/work");
+    vi.stubEnv("EN_SECTION_ENABLED", "false");
+    expect(sitemap().filter((e) => e.url.includes("/en"))).toEqual([]);
+  });
+
+  it("fits every English share headline within three lines", () => {
+    const display = fontMeasure(
+      readFileSync(path.resolve(import.meta.dirname, "../../src/assets/fonts/SofiaSansExtraCondensed-ExtraBold.ttf")),
+    );
+    const box = { width: 1072, height: 262, lineHeight: 0.92, maxLines: 3 };
+    for (const card of Object.values(EN_SHARE)) {
+      const words = `${card.title} ${card.accent ?? ""}`.trim().split(/\s+/);
+      const size = fitSize(display, words, box, [136, 128, 120, 112, 104, 96, 88, 80, 72]);
+      expect(lineCount(display, words, size, box.width), card.title).toBeLessThanOrEqual(3);
+      expect(size, card.title).toBeGreaterThanOrEqual(80);
     }
   });
 });

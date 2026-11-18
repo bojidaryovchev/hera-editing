@@ -88,3 +88,38 @@ export async function fillLead(page: Page, fields: LeadFields) {
 
 /** A unique, clearly fictional address per test. */
 export const testEmail = (tag: string) => `e2e.${tag}.${Date.now()}@example.com`;
+
+/** The English section's pages (decision L38), all served by the e2e build; /en/work shows the fictional samples. */
+export const EN_PAGES = [
+  "/en",
+  "/en/wedding-editing",
+  "/en/youtube-editing",
+  "/en/real-estate-editing",
+  "/en/pricing",
+  "/en/how-it-works",
+  "/en/order",
+  "/en/terms",
+  "/en/privacy",
+  "/en/cookies",
+] as const;
+export const EN_ALL_PAGES = [...EN_PAGES, "/en/work"] as const;
+
+export type OrderFields = Partial<
+  Record<"name" | "businessName" | "email" | "vatNumber" | "footageUrl" | "couple" | "scope" | "listing", string>
+> & { package?: string; country?: string; confirm?: boolean; music?: string; ai?: string };
+
+/** Fills the English order form like a visitor: selects by value, choices by their visible labels. */
+export async function fillOrder(page: Page, f: OrderFields) {
+  if (f.package) await page.locator("#of-package").selectOption(f.package);
+  for (const key of ["name", "businessName", "email", "vatNumber", "footageUrl", "couple", "scope", "listing"] as const)
+    if (f[key] !== undefined) await page.locator(`#of-${key}`).fill(f[key]!);
+  if (f.country) await page.locator("#of-country").selectOption(f.country);
+  if (f.confirm) await page.locator("#of-businessConfirmed").check();
+  if (f.music)
+    await page.getByRole("radiogroup", { name: "Music" }).getByRole("radio", { name: f.music, exact: true }).check();
+  if (f.ai)
+    await page
+      .getByRole("radiogroup", { name: "AI-generated visuals" })
+      .getByRole("radio", { name: f.ai, exact: true })
+      .check();
+}

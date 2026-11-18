@@ -8,7 +8,7 @@ import { afterAll, beforeAll, beforeEach, describe, expect, inject, it } from "v
 import { leadAuditLog, leads } from "../../src/db/schema";
 import { createDb, type DbHandle } from "../../src/lib/db/client";
 import { deliverLeadNotification } from "../../src/lib/leads/notifications";
-import { submitLead } from "../../src/lib/leads/service";
+import { submitLead, submitOrder } from "../../src/lib/leads/service";
 import { createStubMailer, validLead } from "../helpers/fixtures";
 
 const run = promisify(execFile);
@@ -151,5 +151,71 @@ describe("operator CLI", () => {
     const [row] = await handle.db.select().from(leads).where(eq(leads.id, id));
     expect(row!.status).toBe("contacted");
     await expect(cli("leads-dsar.ts", ["status", "--id", id, "--set", "bogus"])).rejects.toMatchObject({ code: 2 });
+  }, 120_000);
+
+  /** An English order (decision L38) whose brief names a couple: the people a DSAR may come from. */
+  async function createOrder() {
+    const r = await submitOrder(
+      {
+        package: "wedding-teaser",
+        name: "Order Person",
+        businessName: "Fictional Studio Ltd",
+        email: "order.dsar@example.com",
+        country: "GB",
+        businessConfirmed: "true",
+        music: "library",
+        aiVisuals: "allowed",
+        couple: "Zelda Quill and Max Fen",
+        privacyNoticeAcknowledged: true,
+        locale: "en",
+      },
+      {
+        db: handle.db,
+        clientAddress: null,
+        rateLimitSalt: "cli-test-salt-cli-test-salt-cli-test-salt",
+        privacyNoticeVersion: "en-test-v1",
+        euOrders: false,
+      },
+    );
+    if (r.status !== "created") throw new Error(`expected created, got ${r.status}`);
+    return r.id;
+  }
+
+  it("leads:dsar finds English orders by a name inside the brief, shows their locale and exports the brief", async () => {
+    const id = await createOrder();
+    const byCouple = await cli("leads-dsar.ts", ["find", "--text", "zelda quill"]);
+    expect(byCouple.stdout).toContain(`${id}`);
+    expect(byCouple.stdout).toMatch(new RegExp(`${id}.*\\sen$`, "m"));
+    const byEmail = await cli("leads-dsar.ts", ["find", "--email", "order.dsar@example.com"]);
+    expect(byEmail.stdout).toContain("1 lead(s) found.");
+    // A literal search: LIKE wildcards typed by the operator match nothing extra.
+    const wild = await cli("leads-dsar.ts", ["find", "--text", "%%%"]);
+    expect(wild.stdout).toContain("0 lead(s) found.");
+    await expect(cli("leads-dsar.ts", ["find", "--text", "ab"])).rejects.toMatchObject({ code: 2 });
+
+    const out = path.join(work, "order.json");
+    await cli("leads-dsar.ts", ["export", "--text", "Max Fen", "--out", out]);
+    const exported = JSON.parse(readFileSync(out, "utf8"));
+    expect(exported.leads[0]).toMatchObject({
+      id,
+      locale: "en",
+      details: { wedding: { couple: "Zelda Quill and Max Fen" } },
+    });
+    await cli("leads-dsar.ts", ["delete", "--id", id, "--confirm"]);
+    expect(await handle.db.select().from(leads).where(eq(leads.id, id))).toEqual([]);
+  }, 180_000);
+
+  it("leads:export includes the locale and an order's brief as JSON text", async () => {
+    await createLead();
+    await createOrder();
+    const out = path.join(work, "export-en.csv");
+    await cli("leads-export.ts", ["--out", out]);
+    const csv = readFileSync(out, "utf8");
+    expect(csv.split("\r\n")[0]).toMatch(/,locale,details$/);
+    // The brief as JSON text (jsonb orders its keys its own way).
+    expect(csv).toContain(`"en","{""`);
+    expect(csv).toContain(`""package"":""wedding-teaser""`);
+    expect(csv).toContain(`""couple"":""Zelda Quill and Max Fen""`);
+    expect(csv).toMatch(/"bg",(\r\n|$)/);
   }, 120_000);
 });

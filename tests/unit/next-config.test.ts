@@ -44,8 +44,9 @@ describe("next.config: production gates", () => {
 
   it("never serves the stock clips in production, even by direct URL", async () => {
     stub(PRODUCTION);
-    const rewrites = await config(PHASE_PRODUCTION_BUILD).rewrites?.();
-    expect(rewrites).toMatchObject({ beforeFiles: [{ source: "/placeholder-media/:path*" }] });
+    const rewrites = (await config(PHASE_PRODUCTION_BUILD).rewrites?.()) as { beforeFiles: { source: string }[] };
+    // The English section's own rewrites while it is off follow (tests/unit/en-release.test.ts).
+    expect(rewrites.beforeFiles[0]).toMatchObject({ source: "/placeholder-media/:path*" });
   });
 
   it("keeps previews noindex and serves their labelled stock", async () => {

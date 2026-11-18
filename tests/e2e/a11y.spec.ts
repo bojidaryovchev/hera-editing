@@ -1,6 +1,6 @@
 import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
-import { ALL_PAGES, presetConsent, stubGoogle } from "./helpers";
+import { ALL_PAGES, EN_ALL_PAGES, fillOrder, presetConsent, stubGoogle } from "./helpers";
 
 const TAGS = ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa", "wcag22aa"];
 
@@ -19,6 +19,34 @@ test.describe("axe: WCAG 2.2 A and AA (acceptance D, G)", () => {
       expect(await violations(page)).toEqual([]);
     });
   }
+
+  for (const path of EN_ALL_PAGES) {
+    test(`${path} @phone`, async ({ page, context }) => {
+      await stubGoogle(context);
+      await presetConsent(context, false);
+      await page.goto(path);
+      await page.waitForTimeout(400);
+      expect(await violations(page)).toEqual([]);
+    });
+  }
+
+  test("the English order form showing its errors and the EU notice @phone", async ({ page, context }) => {
+    await stubGoogle(context);
+    await presetConsent(context, false);
+    await page.goto("/en/order?package=wedding-highlight");
+    await page.getByRole("button", { name: "Send my brief" }).click();
+    await expect(page.locator("#of-name")).toHaveAttribute("aria-invalid", "true");
+    await fillOrder(page, { country: "DE" });
+    await expect(page.locator(".of__eu")).toContainText("We can't take orders from businesses in the EU yet.");
+    expect(await violations(page)).toEqual([]);
+  });
+
+  test("the English home with the cookie banner open @phone", async ({ page, context }) => {
+    await stubGoogle(context);
+    await page.goto("/en");
+    await expect(page.locator(".cb")).toBeVisible();
+    expect(await violations(page)).toEqual([]);
+  });
 
   test("home with the cookie banner open @phone", async ({ page, context }) => {
     await stubGoogle(context);

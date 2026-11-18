@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 import { expect, test, type Page } from "@playwright/test";
 import { signWebhook } from "../../src/lib/mailbox/webhook";
 import { E2E_ADMIN } from "./admin-env";
-import { e2eState, fillLead, presetConsent, query, stubGoogle, testEmail, watchConsole } from "./helpers";
+import { e2eState, fillLead, fillOrder, presetConsent, query, stubGoogle, testEmail, watchConsole } from "./helpers";
 import { MAIL_DOWN } from "./ports";
 
 /*
@@ -126,6 +126,51 @@ test.describe("admin panel", () => {
 
     await nav.getByRole("link", { name: /^Поща/ }).click();
     await expect(page.getByRole("link", { name: /Мария Тестова/ }).first()).toBeVisible();
+  });
+
+  test("an English order lands in the same enquiries, badged EN, with its brief, and is answered in English", async ({
+    page,
+    context,
+  }) => {
+    await stubGoogle(context);
+    await presetConsent(context, false);
+    const email = testEmail("admin-en");
+    const business = `Fictional Films ${Date.now()}`;
+    await page.goto("/en/order?package=wedding-teaser");
+    await fillOrder(page, {
+      name: "Jane Tester",
+      businessName: business,
+      email,
+      country: "US",
+      confirm: true,
+      music: "I'll send the track and its licence",
+      ai: "Not allowed",
+      couple: "Ann and Bob (fictional)",
+    });
+    await page.getByRole("button", { name: "Send my brief" }).click();
+    await expect(page.getByRole("heading", { name: "Thank you. Your brief is in." })).toBeVisible();
+
+    await signIn(page);
+    await page.goto("/admin/zapitvaniya");
+    const item = page.getByRole("link", { name: new RegExp(business) });
+    await expect(item.locator(".adm-badge")).toHaveText("EN");
+    await expect(item).toContainText(`${business} · Teaser · US`);
+    await item.click();
+    await expect(page.getByRole("heading", { name: /Jane Tester/ })).toBeVisible();
+    const brief = page.getByRole("region", { name: "Поръчка и бриф" });
+    await expect(brief).toContainText("Teaser · $160");
+    await expect(brief).toContainText("Съединени щати (US)");
+    await expect(brief).toContainText("Ann and Bob (fictional)");
+    await expect(brief).not.toContainText("Град");
+
+    await page.getByLabel(`Отговор до ${email}`).fill("Hello Jane,\n\nThe price is $160 and we can start on Monday.");
+    await page.getByRole("button", { name: "Изпратете отговора" }).click();
+    await expect(page.getByText("Отговорът е изпратен.")).toBeVisible();
+    const outbox = e2eState().outbox;
+    const sent = readdirSync(outbox)
+      .map((f) => JSON.parse(readFileSync(path.join(outbox, f), "utf8")) as { to: string; subject: string })
+      .filter((m) => m.to === email);
+    expect(sent).toEqual([expect.objectContaining({ subject: "Your brief for Hera Editing" })]);
   });
 
   test("shows a message's text, never the sender's HTML, and closes and reopens a conversation", async ({ page }) => {

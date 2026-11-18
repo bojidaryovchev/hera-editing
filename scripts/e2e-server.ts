@@ -9,9 +9,12 @@
  *        :3200  normal: mail to a local outbox folder
  *        :3201  mail provider down (SMTP to a closed port): leads must still be stored, alerts retried later
  *        :3202  database down: the form must say so and never show success
- *   4. answers on :3299 once all three are ready, and writes the database URL to .data/e2e/env.json for the tests.
+ *   4. builds a second variant into .next-e2e-off with the English section switched off (EN_SECTION_ENABLED=false,
+ *      decision L38) and serves it on :3203, so the gating is tested on real builds: /en must not exist there, the
+ *      sitemap must leave it out and the Bulgarian footer must not link to it;
+ *   5. answers on :3299 once all four are ready, and writes the database URL to .data/e2e/env.json for the tests.
  *
- * Set E2E_SKIP_BUILD=1 to reuse an existing .next-e2e build.
+ * Set E2E_SKIP_BUILD=1 to reuse existing .next-e2e and .next-e2e-off builds.
  */
 import { spawn, spawnSync, type ChildProcess } from "node:child_process";
 import { existsSync, mkdirSync, rmSync, writeFileSync } from "node:fs";
@@ -23,6 +26,7 @@ import { migrateTestDatabase, startTestDatabase } from "../tests/helpers/test-db
 
 const ROOT = path.resolve(import.meta.dirname, "..");
 const DIST = ".next-e2e";
+const DIST_OFF = ".next-e2e-off";
 const STATE = path.join(ROOT, ".data", "e2e");
 const OUTBOX = path.join(STATE, "outbox");
 
@@ -36,6 +40,9 @@ const BUILD_ENV = {
   NEXT_TELEMETRY_DISABLED: "1",
 };
 
+/** The same site with the English section switched off, as production has it by default. */
+const OFF_ENV = { ...BUILD_ENV, NEXT_DIST_DIR: DIST_OFF, EN_SECTION_ENABLED: "false" };
+
 const children: ChildProcess[] = [];
 let stopDatabase: (() => Promise<void>) | null = null;
 
@@ -48,19 +55,19 @@ function run(cmd: string, args: string[], env: Record<string, string>) {
   });
 }
 
-function build() {
-  if (process.env.E2E_SKIP_BUILD === "1" && existsSync(path.join(ROOT, DIST, "BUILD_ID"))) return;
+function build(env: Record<string, string> = BUILD_ENV) {
+  if (process.env.E2E_SKIP_BUILD === "1" && existsSync(path.join(ROOT, env.NEXT_DIST_DIR!, "BUILD_ID"))) return;
   // One retry: the Next.js CLI may stop a first build to show a notice, and continues on the next run.
   for (let attempt = 1; attempt <= 2; attempt++) {
-    if (run("pnpm", ["exec", "next", "build"], BUILD_ENV).status === 0) return;
+    if (run("pnpm", ["exec", "next", "build"], env).status === 0) return;
   }
-  throw new Error("The e2e build failed.");
+  throw new Error(`The e2e build into ${env.NEXT_DIST_DIR} failed.`);
 }
 
-function serve(port: number, env: Record<string, string>) {
+function serve(port: number, env: Record<string, string>, base: Record<string, string> = BUILD_ENV) {
   const child = spawn("pnpm", ["exec", "next", "start", "-p", String(port), "-H", "127.0.0.1"], {
     cwd: ROOT,
-    env: { ...process.env, ...BUILD_ENV, ...env },
+    env: { ...process.env, ...base, ...env },
     stdio: ["ignore", "inherit", "inherit"],
     shell: process.platform === "win32",
   });
@@ -95,6 +102,7 @@ async function shutdown(code = 0) {
 
 async function main() {
   build();
+  build(OFF_ENV);
   rmSync(STATE, { recursive: true, force: true });
   mkdirSync(OUTBOX, { recursive: true });
 
@@ -119,10 +127,18 @@ async function main() {
     MAIL_PROVIDER: "dev",
     MAIL_DEV_OUTBOX_DIR: OUTBOX,
   });
-  await Promise.all([waitFor(E2E_PORTS.main), waitFor(E2E_PORTS.mailDown), waitFor(E2E_PORTS.dbDown)]);
+  serve(E2E_PORTS.enOff, { ...common, MAIL_PROVIDER: "dev", MAIL_DEV_OUTBOX_DIR: OUTBOX }, OFF_ENV);
+  await Promise.all([
+    waitFor(E2E_PORTS.main),
+    waitFor(E2E_PORTS.mailDown),
+    waitFor(E2E_PORTS.dbDown),
+    waitFor(E2E_PORTS.enOff),
+  ]);
 
   createServer((_req, res) => res.end("ready")).listen(E2E_PORTS.ready, "127.0.0.1");
-  console.log(`e2e servers ready on ${E2E_PORTS.main}, ${E2E_PORTS.mailDown}, ${E2E_PORTS.dbDown}`);
+  console.log(
+    `e2e servers ready on ${E2E_PORTS.main}, ${E2E_PORTS.mailDown}, ${E2E_PORTS.dbDown}, ${E2E_PORTS.enOff} (English section off)`,
+  );
 }
 
 process.on("SIGINT", () => void shutdown());

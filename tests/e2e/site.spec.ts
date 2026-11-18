@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { ALL_PAGES, FIXTURE_CASE, PAGES, presetConsent, stubGoogle, watchConsole } from "./helpers";
+import { ALL_PAGES, EN_ALL_PAGES, FIXTURE_CASE, PAGES, presetConsent, stubGoogle, watchConsole } from "./helpers";
 import { BASE } from "./ports";
 
 const strip = (u: string) => u.replace(/\/$/, "");
@@ -106,7 +106,10 @@ test.describe("crawling and structured data (acceptance E)", () => {
   test("the sitemap lists exactly the published pages", async ({ request }) => {
     const xml = await (await request.get("/sitemap.xml")).text();
     const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => strip(new URL(m[1]!).pathname) || "/");
-    expect(locs.sort()).toEqual([...PAGES.map((p) => strip(p) || "/"), "/rabota", FIXTURE_CASE].sort());
+    // The English section is on in this build, with its fictional samples (decision L38; en.spec.ts has the rest).
+    expect(locs.sort()).toEqual(
+      [...PAGES.map((p) => strip(p) || "/"), "/rabota", FIXTURE_CASE, ...EN_ALL_PAGES].sort(),
+    );
   });
 
   test("home describes the site and the brand; internal pages their breadcrumbs", async ({ page }) => {

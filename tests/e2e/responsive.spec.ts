@@ -1,7 +1,10 @@
 import { mkdirSync } from "node:fs";
 import path from "node:path";
 import { expect, test } from "@playwright/test";
-import { ALL_PAGES, presetConsent, stubGoogle } from "./helpers";
+import { ALL_PAGES, EN_ALL_PAGES, presetConsent, stubGoogle } from "./helpers";
+
+/** Both sections: the Bulgarian site and the English one (decision L38). */
+const EVERY_PAGE = [...ALL_PAGES, ...EN_ALL_PAGES] as const;
 
 /** Acceptance D's widths (plus a landscape tablet). SCREENSHOTS=1 also saves full-page screenshots to qa/screenshots/full. */
 const SIZES = [
@@ -19,13 +22,13 @@ if (SHOTS) mkdirSync(SHOTS, { recursive: true });
 test.describe("no horizontal overflow at any width or scroll position (acceptance D, decision 8b)", () => {
   for (const [w, h] of SIZES) {
     test(`${w}×${h}`, async ({ browser }) => {
-      test.setTimeout(180_000);
+      test.setTimeout(360_000);
       const context = await browser.newContext({ viewport: { width: w, height: h } });
       await stubGoogle(context);
       await presetConsent(context, false);
       const page = await context.newPage();
       const failures: string[] = [];
-      for (const p of ALL_PAGES) {
+      for (const p of EVERY_PAGE) {
         await page.goto(p);
         const total = await page.evaluate(() => document.documentElement.scrollHeight);
         for (let y = 0; y <= total; y += Math.round(h * 0.8)) {
@@ -85,13 +88,13 @@ if (SHOTS) {
   test.describe("screenshots for the QA record", () => {
     for (const [w, h] of SIZES) {
       test(`${w}px`, async ({ browser }) => {
-        test.setTimeout(240_000);
+        test.setTimeout(480_000);
         // Reduced motion: the finished edit, so a full-page capture shows every section as laid out.
         const context = await browser.newContext({ viewport: { width: w, height: h }, reducedMotion: "reduce" });
         await stubGoogle(context);
         await presetConsent(context, false);
         const page = await context.newPage();
-        for (const p of ALL_PAGES) {
+        for (const p of EVERY_PAGE) {
           await page.goto(p);
           await page.waitForTimeout(400);
           const name = p === "/" ? "home" : p.slice(1).replace(/\//g, "-");
