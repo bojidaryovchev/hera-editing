@@ -27,6 +27,16 @@ function analyticsId(): string | null {
 const MOTION_FLAG = `try{if(!matchMedia("(prefers-reduced-motion: reduce)").matches)document.documentElement.classList.add("motion")}catch(e){}`;
 
 /**
+ * A refresh of an address with a #section lands on that section, as opening the address does. On a refresh the browser
+ * would instead put back the position it kept (the top, after a scroll back up) and ignore the #section. So for such a
+ * refresh its restoration is off, the page goes to the section once the document is parsed, and restoration is back
+ * on after the page has loaded (any earlier and Chrome still puts the kept position back at load). Back and Forward
+ * restore as usual. Motion that uses ScrollTrigger must give it "auto" after load (as HomeMotion does, L44): it puts
+ * back the setting it found when it started, after every refresh, and could keep restoration off.
+ */
+const HASH_ON_REFRESH = `try{var n=performance.getEntriesByType("navigation")[0];if(n&&n.type==="reload"&&location.hash.length>1&&"scrollRestoration"in history){history.scrollRestoration="manual";document.addEventListener("DOMContentLoaded",function(){try{var t=document.getElementById(decodeURIComponent(location.hash.slice(1)));if(t)t.scrollIntoView()}catch(e){}});addEventListener("load",function(){setTimeout(function(){history.scrollRestoration="auto"},0)})}}catch(e){}`;
+
+/**
  * The public site's document: fonts, the motion flag, consent, the staging bar, header and footer around the page.
  * Used by the site's root layout and by the global 404, which Next.js renders without any layout (app/(site) and
  * app/(admin) are two root layouts, so there is no single layout a 404 for an unknown address could inherit).
@@ -39,7 +49,7 @@ export function SiteDocument({ children, locale = "bg" }: { children: ReactNode;
     <html lang={locale} className={`${fontVariables}${showStagingBar() ? " has-bar" : ""}`} suppressHydrationWarning>
       {/* eslint-disable-next-line @next/next/no-head-element -- the root document of the site layout and the global 404 */}
       <head>
-        <script dangerouslySetInnerHTML={{ __html: MOTION_FLAG }} />
+        <script dangerouslySetInnerHTML={{ __html: MOTION_FLAG + HASH_ON_REFRESH }} />
       </head>
       <body>
         <ConsentProvider analyticsId={analyticsId()}>

@@ -216,6 +216,13 @@ function setupMotion(gsap: Gsap, ScrollTrigger: ScrollTriggerT, main: HTMLElemen
     offs.push(() => el.removeEventListener(ev, fn));
   };
 
+  // ScrollTrigger keeps the browser's scroll restoration as it found it on starting and puts that back after every
+  // refresh. A refresh to #kak-rabotim turns restoration off until the page has loaded (SiteDocument); if motion
+  // started in that window, ScrollTrigger would keep it off and Back would stop restoring. After load it is "auto".
+  const restorationOn = () => window.setTimeout(() => ScrollTrigger.clearScrollMemory("auto"), 0);
+  if (document.readyState === "complete") restorationOn();
+  else on(window, "load", restorationOn);
+
   // The scrub needs the whole clip; fetch it now that motion runs.
   if (video) video.preload = "auto";
 

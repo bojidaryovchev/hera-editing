@@ -18,7 +18,9 @@ inputs (domain, contacts, mail, secrets) and the lawyer-approved privacy notice.
 - **Motion:** the homepage's scroll-driven edit uses GSAP, loaded after the page is interactive. With reduced
   motion, or if GSAP fails, the page shows the finished edit. The hero and the process hold still with CSS
   (`position: sticky` over room that `home.css` reserves), and ScrollTrigger never pins. The page therefore has its
-  final length before GSAP arrives, and links to `#kak-rabotim`, reloads and Back land where they should (L39).
+  final length before GSAP arrives, and links to `#kak-rabotim`, reloads and Back land where they should (L39). A
+  refresh of an address with a #section goes to that section even after the visitor has scrolled away, which the
+  browser alone does not do (`SiteDocument`, L44).
 - **Content:** typed TypeScript modules in `src/content/` (no CMS). Every word on the site is there.
 - **Leads:** Zod validation shared by the browser (React Hook Form) and the server; a server action and
   `POST /api/leads` share one pipeline (validation → anti-spam → durable insert → owner alert after commit).

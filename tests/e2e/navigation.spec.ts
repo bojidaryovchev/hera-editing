@@ -111,7 +111,9 @@ test.describe("homepage links and history with motion", () => {
     expect(await processTop(page)).toBeLessThan(120);
   });
 
-  test("opening /#kak-rabotim lands on the process, and so does a refresh of it @phone", async ({ page }) => {
+  test("opening /#kak-rabotim lands on the process, and so does every refresh of it, wherever the page was @phone", async ({
+    page,
+  }) => {
     const onProcess = async () => {
       await motionReady(page);
       await page.waitForTimeout(500);
@@ -120,9 +122,60 @@ test.describe("homepage links and history with motion", () => {
     };
     await page.goto("/#kak-rabotim");
     await onProcess();
-    // A refresh restores the position the browser kept for the page (as on any site); the page must not move after.
     await page.reload();
     await onProcess();
+    // The owner's case: scrolled back up without clicking anything, then refreshed. The browser would put back the
+    // top; the #section in the address wins. Further down, too.
+    for (const y of [0, 9000]) {
+      await page.evaluate((top) => window.scrollTo(0, top), y);
+      await page.waitForTimeout(300);
+      await page.reload();
+      await onProcess();
+    }
+    await page.waitForLoadState("load");
+    await expect.poll(() => page.evaluate(() => history.scrollRestoration)).toBe("auto");
+  });
+
+  test("after a refresh to #kak-rabotim, Back still returns to where the visitor left @phone", async ({ page }) => {
+    // Hold the page's load back, so motion starts while the refresh has the browser's restoration off: ScrollTrigger
+    // must not keep it off once the page has loaded (it puts back the setting it found, on every refresh).
+    const png = Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+      "base64",
+    );
+    await page.route("**/__late.png", async (route) => {
+      await new Promise((done) => setTimeout(done, 2500));
+      await route.fulfill({ contentType: "image/png", body: png });
+    });
+    await page.addInitScript(() =>
+      document.addEventListener("DOMContentLoaded", () => {
+        const img = document.createElement("img");
+        img.src = "/__late.png";
+        img.alt = "";
+        img.hidden = true;
+        document.body.append(img);
+      }),
+    );
+    await page.goto("/#kak-rabotim");
+    await motionReady(page);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.reload({ waitUntil: "commit" });
+    await motionReady(page);
+    await page.waitForLoadState("load");
+    await expect.poll(() => page.evaluate(() => history.scrollRestoration)).toBe("auto");
+    // An answer opened in the FAQ makes ScrollTrigger measure again.
+    await page.locator(".faq summary").first().click();
+    await page.waitForTimeout(400);
+    expect(await page.evaluate(() => history.scrollRestoration)).toBe("auto");
+    await page.locator("#paketi").evaluate((el) => el.scrollIntoView());
+    await page.waitForTimeout(300);
+    const left = await page.evaluate(() => window.scrollY);
+    await page.locator("#paketi .pk__head").getByRole("link").click();
+    await expect(page).toHaveURL(/\/paketi$/);
+    await page.goBack();
+    await motionReady(page);
+    await page.waitForTimeout(500);
+    expect(Math.abs((await page.evaluate(() => window.scrollY)) - left)).toBeLessThanOrEqual(2);
   });
 
   test("from further down, «Как работим» lands at the start of the process, not at its end", async ({ page }) => {
