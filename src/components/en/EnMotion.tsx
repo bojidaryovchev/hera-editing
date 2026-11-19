@@ -69,12 +69,26 @@ export function EnMotion() {
     let cleanups: Array<() => void> = [];
     let observer: ResizeObserver | undefined;
     let timer: number | undefined;
+    let restoreTimer: number | undefined;
+    let onLoad: (() => void) | undefined;
     // After the first frame is painted: the headline never waits for the motion library.
     const frame = requestAnimationFrame(() => {
       void Promise.all([import("gsap"), import("gsap/ScrollTrigger")])
         .then(([{ gsap }, { ScrollTrigger }]) => {
           if (cancelled) return;
           gsap.registerPlugin(ScrollTrigger);
+          // ScrollTrigger keeps the browser's scroll restoration as it found it on starting, and puts that back after
+          // every refresh. A refresh to an address with a #section turns restoration off until the page has loaded
+          // (SiteDocument, L44). Started in that window, ScrollTrigger would keep it off and Back would stop
+          // restoring. After load it is "auto" (L45), as on the homepage (HomeMotion).
+          const restorationOn = () => {
+            restoreTimer = window.setTimeout(() => ScrollTrigger.clearScrollMemory("auto"), 0);
+          };
+          if (document.readyState === "complete") restorationOn();
+          else {
+            onLoad = restorationOn;
+            window.addEventListener("load", restorationOn, { once: true });
+          }
           cleanups = sections.map((s) => track(gsap, ScrollTrigger, s));
           // ScrollTrigger measures the track once. If the page height changes later (a late image, a section
           // growing above the track), measure again, so the playhead never runs at stale positions. Same fix as the
@@ -101,6 +115,8 @@ export function EnMotion() {
       cancelAnimationFrame(frame);
       observer?.disconnect();
       window.clearTimeout(timer);
+      window.clearTimeout(restoreTimer);
+      if (onLoad) window.removeEventListener("load", onLoad);
       cleanups.forEach((c) => c());
     };
   }, []);

@@ -403,6 +403,51 @@ test.describe("motion (decision 7)", () => {
     await expect(calm.locator(".en-track__ph")).toBeHidden();
     await still.close();
   });
+
+  test("after a refresh to a #section, Back still returns to where the visitor left (decisions L44, L45)", async ({
+    page,
+  }) => {
+    // As on the homepage: hold the page's load back, so motion starts while the refresh has the browser's restoration
+    // off (SiteDocument). ScrollTrigger puts back the setting it found on every refresh; it must not keep it off.
+    const png = Buffer.from(
+      "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=",
+      "base64",
+    );
+    await page.route("**/__late.png", async (route) => {
+      await new Promise((done) => setTimeout(done, 2500));
+      await route.fulfill({ contentType: "image/png", body: png });
+    });
+    await page.addInitScript(() =>
+      document.addEventListener("DOMContentLoaded", () => {
+        const img = document.createElement("img");
+        img.src = "/__late.png";
+        img.alt = "";
+        img.hidden = true;
+        document.body.append(img);
+      }),
+    );
+    const live = page.locator(".en-steps.is-live");
+    await page.goto("/en#prices-h");
+    await expect(live).toHaveCount(1);
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.reload({ waitUntil: "commit" });
+    await expect(live).toHaveCount(1);
+    await page.waitForLoadState("load");
+    await expect.poll(() => page.evaluate(() => history.scrollRestoration)).toBe("auto");
+    // A resize makes ScrollTrigger measure again.
+    await page.setViewportSize({ width: 1400, height: 900 });
+    await page.waitForTimeout(700);
+    expect(await page.evaluate(() => history.scrollRestoration)).toBe("auto");
+    await page.locator("#prices-h").evaluate((el) => el.scrollIntoView());
+    await page.waitForTimeout(300);
+    const left = await page.evaluate(() => window.scrollY);
+    await page.locator("header").getByRole("link", { name: "Pricing" }).click();
+    await expect(page).toHaveURL(/\/en\/pricing$/);
+    await page.goBack();
+    await expect(live).toHaveCount(1);
+    await page.waitForTimeout(500);
+    expect(Math.abs((await page.evaluate(() => window.scrollY)) - left)).toBeLessThanOrEqual(2);
+  });
 });
 
 test.describe("samples (strategy §8)", () => {
