@@ -111,6 +111,20 @@ test.describe("homepage links and history with motion", () => {
     expect(await processTop(page)).toBeLessThan(120);
   });
 
+  test("opening /#kak-rabotim lands on the process, and so does a refresh of it @phone", async ({ page }) => {
+    const onProcess = async () => {
+      await motionReady(page);
+      await page.waitForTimeout(500);
+      expect(await processTop(page)).toBeGreaterThan(-1);
+      expect(await processTop(page)).toBeLessThan(120);
+    };
+    await page.goto("/#kak-rabotim");
+    await onProcess();
+    // A refresh restores the position the browser kept for the page (as on any site); the page must not move after.
+    await page.reload();
+    await onProcess();
+  });
+
   test("from further down, «Как работим» lands at the start of the process, not at its end", async ({ page }) => {
     await page.goto("/");
     await motionReady(page);

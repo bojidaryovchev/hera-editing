@@ -275,8 +275,8 @@ Bulgarian ones, so there is no hreflang. The Bulgarian pages change only by one 
 - **End-to-end** (`tests/e2e`, Playwright, Chromium at 1440 px and on a Pixel 7): every page (status, single H1,
   metadata, share image, no console errors, no dead links), the quote journeys including mail and database outages
   and the no-JavaScript form, consent and analytics (refusing means zero tracking requests), keyboard and menu
-  behaviour, homepage links and Back with motion, the portfolio with fictional fixtures, motion and video controls,
-  overflow at 7 widths, the wide-screen hero, and axe (WCAG 2.2 A/AA) on every page.
+  behaviour, homepage links, a refresh and Back with motion, the portfolio with fictional fixtures, motion and video
+  controls, overflow at 7 widths, the wide-screen hero, and axe (WCAG 2.2 A/AA) on every page.
 
 ## Performance
 
