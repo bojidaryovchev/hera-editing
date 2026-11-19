@@ -147,3 +147,18 @@ test.describe("crawling and structured data (acceptance E)", () => {
     expect((await request.get("/api/leads")).status()).toBe(405);
   });
 });
+
+test.describe("performance budget (website/02, decision L43)", () => {
+  test("the homepage preloads its two typefaces and the hero poster, and no other font or image", async ({ page }) => {
+    await page.goto("/");
+    const preloads = await page
+      .locator('head link[rel="preload"]')
+      .evaluateAll((links) => links.map((l) => ({ as: l.getAttribute("as"), href: l.getAttribute("href") ?? "" })));
+    // Sofia Sans (body) and Sofia Sans Extra Condensed (headlines), each in Cyrillic and Latin; never the mono face.
+    expect(preloads.filter((p) => p.as === "font")).toHaveLength(4);
+    // This build has the labelled stock footage, so the monitor's poster is the hero image.
+    expect(preloads.filter((p) => p.as === "image").map((p) => p.href)).toEqual([
+      expect.stringMatching(/reel-16x9\.jpg$/),
+    ]);
+  });
+});

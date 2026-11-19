@@ -262,9 +262,38 @@ Bulgarian ones, so there is no hreflang. The Bulgarian pages change only by one 
   `kind: "owner"` and `label`/`note` to `null`.
 - **Portfolio:** add a project to `PROJECTS` in `src/content/projects/index.ts`. It is published only when
   `status: "approved"`, every rights flag is true and the client's approval (`approvedBy`, `approvedAt`) is recorded.
-  Then `/rabota`, its case page, the menu link and the sitemap entries appear; results show only with a reporting
-  window, a baseline and the method. Posters are site files under `public/` (or add the CDN to `images.remotePatterns`).
+  Then `/rabota`, its case page, the menu link, the sitemap entries and the homepage's work section (the first three,
+  L41) appear; results show only with a reporting window, a baseline and the method. Posters are site files under
+  `public/` (or add the CDN to `images.remotePatterns`).
 - **Share images** are generated at build time from each page's headline (`src/lib/site/og.tsx`).
+
+## Design tokens
+
+The tokens live in `src/app/globals.css` (`@theme`). `tests/unit/tokens.test.ts` checks the contrast of every pair
+of text and background the design uses, and keeps the red identical to the logo's.
+
+website/02 gives a baseline to "change only with a documented design rationale", and this section is that rationale.
+The choices were made with direction A at the design gates (decisions 1, 7 and 12); this table gathers them in one
+place (spec review §5).
+
+| website/02 baseline       | This site                                                        | Why                                                                                                                                                                                       |
+| ------------------------- | ---------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--color-accent` #D9F568  | `--color-lime` #d9f568, hover #e6fb86                            | The spec's lime, unchanged: calls to action and highlights. The hover step is lighter, so it still reads as lime                                                                          |
+| `--color-focus` #2055D6   | `--color-focus` #2055d6                                          | The spec's blue, unchanged, for focus on paper. On the dark sections focus is lime, which is visible there                                                                                |
+| `--color-paper` #F7F6F2   | `--color-paper` #f2f1ec                                          | A shade warmer and darker, so paper sections sit calmly between the near-black editor ones                                                                                                |
+| `--color-surface` #ECECE6 | `--color-paper-2` #e6e5de                                        | The same role, one step below the new paper                                                                                                                                               |
+| `--color-ink` #13191C     | `--color-ink` #101315                                            | A shade deeper, to match the editor's black                                                                                                                                               |
+| `--color-muted` #5B6265   | `--color-ink-3` #5c6366, plus `--color-ink-2` #41484c            | The spec's muted grey, kept, with a darker step for secondary text                                                                                                                        |
+| `--color-line` #D7DAD5    | `--color-rule` #d3d2ca                                           | Warmer, to match the paper                                                                                                                                                                |
+| `--color-white` #FFFFFF   | `#ffffff`                                                        | Unchanged (the package cards)                                                                                                                                                             |
+| none                      | `--color-ed` to `--color-ed-4`, `--color-ed-line`                | New: the dark grounds of an editing app. Direction A makes the page an editor (decision 1), because the site must feel like video production itself (decision 7)                          |
+| none                      | `--color-tx` to `--color-tx-3`                                   | New: text on those grounds, every step at 4.5:1 or more                                                                                                                                   |
+| none                      | `--color-rec` #ff5a47                                            | New: the record light, the site's one red: the dot in the logo, the REC dot and the cut marks (decision 12)                                                                               |
+| none                      | `--color-teal` #5cc8be                                           | New: the editor's second track colour, for the audio waveform, the second clip on a track and the "approved" status                                                                       |
+| none                      | `--color-warn` #f2c14e, `--color-error` #b3261e                  | New: the staging and launch-gate labels, and the forms' errors                                                                                                                            |
+| `--radius-button` 999px   | 999px                                                            | Unchanged: every button is a pill                                                                                                                                                         |
+| `--radius-card` 18px      | 16px for the package cards; 14px for media frames and work cards | A little tighter, like the panels of an editing app (decision 1)                                                                                                                          |
+| `--container-max` 1440px  | `--max` 1840px                                                   | website/02's layout rule: on large monitors the hero and media use the width ("don't leave a 600px-column island on a 4K display"), with no block left beside an empty half (decision 8a) |
 
 ## Testing
 

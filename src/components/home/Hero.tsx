@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { preload } from "react-dom";
 import { HOME } from "@/content/home";
 import { Scene } from "@/components/site/Scene";
 import type { SiteMedia } from "@/content/media";
@@ -24,6 +25,9 @@ const pad2 = (n: number) => String(n).padStart(2, "0");
  * scroll plays the edit (home.css reserves the track's room).
  */
 export function Hero({ media }: { media: SiteMedia | null }) {
+  // website/02: "Preload one critical font and hero poster only" (decision L43). With footage the monitor's poster is
+  // the first large image; the designed frame has none to fetch.
+  if (media) preload(media.hero.wide.poster, { as: "image", fetchPriority: "high" });
   const h = HOME.hero;
   const e = h.editor;
   const s = h.stages;
