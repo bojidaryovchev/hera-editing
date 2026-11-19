@@ -23,7 +23,9 @@
   - the database restore was rehearsed on staging (`0b32bda`), which closes the checklist's last ⚠️ in section G;
   - 1.5, the keyboard half: the keyboard pass and the accessibility-tree review are recorded in
     `qa/record-2026-11-19/`, and the three issues they found are fixed (`702234f`, decision L42). The screen-reader
-    listen needs a person (owner question B13), so the checklist's H row stays ⚠️, partly met.
+    listen needs a person (owner question B13), so the checklist's H row stays ⚠️, partly met;
+  - §5, the small deviations: resolved (`ed84d79`). L43 gives the reason for the two preloaded typefaces and adds
+    the hero poster's preload. `development.md` has the token table, and L32 carries a correction.
 
   Still open: the screen-reader half of 1.5, which needs a person (owner question B13), and §2 item 1 (owner question
   C7).
@@ -237,14 +239,18 @@ Also:
   - §C: see §2 above.
   - §E: change control was followed.
 
-## 5. Small deviations
+## 5. Small deviations (resolved since, in `ed84d79`)
 
-- Two font families are preloaded (body and headline), where website/02 says "one critical font". The Lighthouse
-  targets are met.
-- The colour tokens differ from website/02's suggested baseline, which allows changes "with a documented design
-  rationale". That rationale is spread across decisions 1, 7 and 12 rather than given per token. The lime and the
-  focus blue are the spec's own.
-- L32 lists five lead statuses, while the code, the admin panel and `development.md` use the spec's six.
+- **Fonts.** Two font families are preloaded (body and headline), where website/02 says "one critical font".
+  - Kept on purpose, and decision L43 gives the reason. Both faces are above the fold on every page, and both are
+    small. Preloading both keeps the text from re-wrapping after load, which CLS and L39 rely on.
+  - The spec's hero-poster preload is now in place for when footage exists.
+  - An end-to-end test holds the budget.
+- **Tokens.** The colour tokens differ from website/02's suggested baseline, which allows changes "with a documented
+  design rationale". The rationale is now one table, per token, in `development.md` ("Design tokens"). The lime and
+  the focus blue are the spec's own.
+- **Lead statuses.** L32 listed five lead statuses, while the code, the admin panel and `development.md` use the
+  spec's six. L32 now carries a correction.
 
 ## 6. Already tracked
 
