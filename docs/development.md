@@ -133,7 +133,7 @@ created. Any moment inside the window can be restored into a new branch, without
      (same id, same time), with 2 migrations instead of 3 and no `leads.locale` column, because migration 0002 was
      applied at about 21:30 UTC. `staging` was unchanged.
 
-  The `restore-rehearsal` branch can be deleted in the console.
+  The `restore-rehearsal` branch was deleted afterwards, on 2026-11-19.
 
 - **In an incident:**
   1. Find the last good moment, from the logs, `/api/health` and the leads' times.
